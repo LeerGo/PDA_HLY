@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navi_home"
+        android:icon="@drawable/ic_navigation_home"
+        android:title="首页" />
+    <item
+        android:id="@+id/navi_task"
+        android:icon="@drawable/ic_navigation_task"
+        android:title="任务中心" />
+    <item
+        android:id="@+id/navi_mine"
+        android:icon="@drawable/ic_navigation_mine"
+        android:title="我的" />
+</menu>

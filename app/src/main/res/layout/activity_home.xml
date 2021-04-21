@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".logic.home.HomeActivity">
+    
+    <TextView
+        style="@style/TitleTextStyle"
+        android:text="首页" />
+    
+    <RelativeLayout
+        android:id="@+id/rl_mine"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="16dp">
+        
+        <ImageView
+            android:id="@+id/iv_account"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@mipmap/ic_home_account" />
+        
+        <TextView
+            android:id="@+id/tv_account"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="1dp"
+            android:layout_toEndOf="@id/iv_account"
+            android:text="账号：12345678912"
+            android:textColor="@color/color_434c67"
+            android:textSize="14sp"
+            tools:text="账号：12345678912" />
+        
+        <ImageView
+            android:id="@+id/iv_warehouse"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/iv_account"
+            android:layout_marginTop="10dp"
+            android:src="@mipmap/ic_home_warehouse" />
+        
+        <TextView
+            android:id="@+id/tv_warehouse"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_account"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="10dp"
+            android:layout_toEndOf="@id/iv_warehouse"
+            android:text="仓库：测试仓库1"
+            android:textColor="@color/color_434c67"
+            android:textSize="14sp"
+            tools:text="仓库：测试仓库1" />
+    </RelativeLayout>
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="2"
+        tools:itemCount="5"
+        tools:listitem="@layout/item_home_menu"
+        tools:padding="10dp" />
+</androidx.appcompat.widget.LinearLayoutCompat>
