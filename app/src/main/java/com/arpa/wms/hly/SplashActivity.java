@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 
-import com.arpa.wms.hly.logic.home.HomeActivity;
+import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.utils.WeakHandler;
 
 import androidx.annotation.Nullable;
@@ -48,8 +48,10 @@ public class SplashActivity extends AppCompatActivity implements WeakHandler.Mes
 
     @Override
     public void handleMessage(Message msg) {
+        // TODO: 这里要根据有无 token，跳转登录或首页 @lyf 2021-04-22 08:33:30
         if (msg.what == msgJump) {
-            startActivity(new Intent(this, HomeActivity.class));
+            //            startActivity(new Intent(this, HomeActivity.class));
+            startActivity(new Intent(this, LoginActivity.class));
             finish();
         }
     }
