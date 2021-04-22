@@ -20,9 +20,6 @@ import butterknife.ButterKnife;
  * </p>
  */
 public abstract class BaseFragment extends Fragment {
-    //    @BindView(R.id.tv_title)
-    //    protected TextView tvTitle;
-
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -35,11 +32,11 @@ public abstract class BaseFragment extends Fragment {
         return view;
     }
 
-    protected abstract void setViews();
-
-    protected abstract void initViews();
+    protected abstract int getLayoutID();
 
     protected abstract void initData();
 
-    protected abstract int getLayoutID();
+    protected abstract void initViews();
+
+    protected abstract void setViews();
 }

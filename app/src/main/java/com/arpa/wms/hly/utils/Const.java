@@ -15,6 +15,7 @@ public interface Const {
      * Intent 常量
      */
     interface IntentKey {
+        String INDEX = "index";
         String CODE = "CODE";
         String CONTAINER_CODE = "containerCode";
         String WAREHOUSE_CODE = "warehouseCode";

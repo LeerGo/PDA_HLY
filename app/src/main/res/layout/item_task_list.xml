@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="12dp"
+    app:cardBackgroundColor="@color/white"
+    tools:layout_marginTop="10dp">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="20dp">
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_header"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:gravity="center_vertical">
+            
+            <ImageButton
+                android:id="@+id/iv_select"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:background="@null"
+                android:src="@drawable/selector_circle" />
+            
+            <TextView
+                android:id="@+id/tv_car_number"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/color_434c67"
+                android:textSize="16sp"
+                tools:text="车牌号：豫HM8983" />
+            
+            <ImageView
+                android:id="@+id/iv_task_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="12dp"
+                android:src="@mipmap/ic_task_goods_pick" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <View
+            android:id="@+id/line"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@id/ll_header"
+            android:layout_marginHorizontal="12dp"
+            android:background="@color/grey" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:id="@+id/wpi_queue"
+            style="@style/TaskPropsRightStyle"
+            android:layout_below="@id/line"
+            app:wpi_name="排队号："
+            tools:wpi_desc="10" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:id="@+id/wpi_count"
+            style="@style/TaskPropsStyle"
+            android:layout_below="@id/line"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="12dp"
+            app:wpi_name="件数："
+            tools:wpi_desc="1000" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:id="@+id/wpi_driver"
+            style="@style/TaskPropsRightStyle"
+            android:layout_below="@id/wpi_queue"
+            app:wpi_name="司    机："
+            tools:wpi_desc="张三    13200000000" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:id="@+id/wpi_stevedore"
+            style="@style/TaskPropsRightStyle"
+            android:layout_below="@id/wpi_driver"
+            app:wpi_name="装卸工："
+            tools:wpi_desc="装卸工一，装卸工一" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:id="@+id/wpi_forklift"
+            style="@style/TaskPropsRightStyle"
+            android:layout_below="@id/wpi_stevedore"
+            app:wpi_name="叉车工："
+            tools:wpi_desc="叉车工一，叉车工一" />
+    </RelativeLayout>
+</com.google.android.material.card.MaterialCardView>

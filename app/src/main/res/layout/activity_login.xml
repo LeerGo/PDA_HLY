@@ -51,7 +51,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="账号"
-                        android:textColor="@color/grey" />
+                        android:textColor="@color/grey_96a0b9" />
                     123132131
                     <EditText
                         android:id="@+id/et_phone"
@@ -63,7 +63,7 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textColor="@color/black"
-                        android:textColorHint="@color/grey"
+                        android:textColorHint="@color/grey_96a0b9"
                         android:textSize="14dp"
                         tools:text="admin" />
                     
@@ -112,7 +112,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="密码"
-                        android:textColor="@color/grey" />
+                        android:textColor="@color/grey_96a0b9" />
                     
                     <EditText
                         android:id="@+id/et_pwd"
@@ -125,7 +125,7 @@
                         android:maxLines="1"
                         android:singleLine="true"
                         android:textColor="@color/black"
-                        android:textColorHint="@color/grey"
+                        android:textColorHint="@color/grey_96a0b9"
                         android:textSize="14dp"
                         tools:text="abcd1234" />
                     

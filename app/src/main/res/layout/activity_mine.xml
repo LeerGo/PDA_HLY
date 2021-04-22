@@ -34,7 +34,7 @@
         android:background="@color/white"
         android:orientation="vertical"
         android:paddingHorizontal="12dp"
-        app:divider="@drawable/divider_line_grey"
+        app:divider="@drawable/divider_line_horizontal"
         app:showDividers="middle">
         
         <com.arpa.wms.hly.ui.widget.WidgetMineMenu

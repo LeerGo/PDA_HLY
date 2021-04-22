@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/srl_refresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        app:srlEnableAutoLoadMore="true"
+        app:srlEnableFooterFollowWhenNoMoreData="true"
+        app:srlEnableLoadMoreWhenContentNotFull="false"
+        app:srlEnablePreviewInEditMode="true">
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_task_list" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:id="@+id/ll_assign"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="@color/white"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingEnd="10dp"
+        tools:ignore="RtlSymmetry">
+        
+        <ImageButton
+            android:id="@+id/ib_all"
+            android:layout_width="45dp"
+            android:layout_height="match_parent"
+            android:background="@null"
+            android:src="@drawable/selector_circle" />
+        
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="全选"
+            android:textColor="@color/grey_666666"
+            android:textSize="14sp"
+            tools:ignore="HardcodedText" />
+        
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_assign_keeper"
+            style="@style/TaskButtonStyle"
+            android:text="分配保管员"
+            tools:ignore="HardcodedText" />
+        
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_assign_stevedore"
+            style="@style/TaskButtonStyle"
+            android:layout_marginStart="6dp"
+            android:text="分配装卸工"
+            tools:ignore="HardcodedText" />
+        
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_assign_forklift"
+            style="@style/TaskButtonStyle"
+            android:layout_marginStart="6dp"
+            android:text="分配叉车工"
+            tools:ignore="HardcodedText" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.appcompat.widget.LinearLayoutCompat>

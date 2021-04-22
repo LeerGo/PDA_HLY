@@ -15,4 +15,11 @@
         <attr name="wtb_isShowBack"
               format="boolean" />
     </declare-styleable>
+    
+    <declare-styleable name="WidgetPropsItem">
+        <attr name="wpi_name"
+              format="string|reference" />
+        <attr name="wpi_desc"
+              format="string|reference" />
+    </declare-styleable>
 </resources>
