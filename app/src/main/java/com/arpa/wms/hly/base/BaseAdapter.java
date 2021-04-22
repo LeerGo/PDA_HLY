@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.arpa.wms.hly.utils.OnItemClickListener;
+import com.arpa.wms.hly.ui.listener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -24,7 +24,6 @@ public abstract class BaseAdapter <T> extends RecyclerView.Adapter<BaseViewHolde
     protected Context mContext;
     protected List<T> mDataList = new ArrayList<>();
     private OnItemClickListener<T> onItemClickListener;
-
 
     @SuppressLint("WrongConstant")
     public BaseAdapter(Context context) {

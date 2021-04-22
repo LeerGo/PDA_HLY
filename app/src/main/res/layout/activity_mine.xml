@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -28,36 +29,53 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
+        android:layout_marginBottom="50dp"
         android:background="@color/white"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingHorizontal="12dp"
+        app:divider="@drawable/divider_line_grey"
+        app:showDividers="middle">
         
-        
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+            android:id="@+id/wmm_account"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center_vertical"
-            android:paddingHorizontal="16dp">
-            
-            <ImageView
-                android:layout_width="15dp"
-                android:layout_height="15dp"
-                android:src="@mipmap/ic_home_account" />
-            
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_weight="1"
-                android:text="账号"
-                android:textColor="#ff434c67"
-                android:textSize="14sp" />
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="测试账号"
-                android:textColor="#ffb6bed2"
-                android:textSize="14sp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:layout_height="wrap_content"
+            app:icon="@mipmap/ic_mine_account"
+            app:title="账号"
+            tools:desc="测试账号" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+            android:id="@+id/wmm_warehouse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@mipmap/ic_mine_warehouse"
+            app:title="仓库"
+            tools:desc="测试账号" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+            android:id="@+id/wmm_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:icon="@mipmap/ic_mine_version"
+            app:title="版本号"
+            tools:desc="测试账号" />
     </androidx.appcompat.widget.LinearLayoutCompat>
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_warehouse"
+        style="@style/MineButtonBaseStyle"
+        android:background="@drawable/shape_rrect_blue_gradient"
+        android:text="切换仓库" />
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_modify_pass"
+        style="@style/MineButtonStyle"
+        android:background="@drawable/btn_biankuang_grey"
+        android:text="修改密码" />
+    
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_quit"
+        style="@style/MineButtonStyle"
+        android:background="@drawable/btn_biankuang_grey"
+        android:text="退出登录" />
 </androidx.appcompat.widget.LinearLayoutCompat>
