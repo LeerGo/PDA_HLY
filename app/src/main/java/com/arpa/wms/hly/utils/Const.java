@@ -10,6 +10,10 @@ package com.arpa.wms.hly.utils;
  * </p>
  */
 public interface Const {
+    /**
+     * Handler 延迟发送消息的默认延迟时长
+     */
+    int HANDLER_DELAY_TIME = 500;
 
     /**
      * Intent 常量

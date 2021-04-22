@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
  * 闪屏页
  * </p>
  */
+// TODO: 改造简化代码 @lyf 2021-04-22 03:52:16
 public class SplashActivity extends AppCompatActivity implements WeakHandler.MessageListener {
     private static final int msgJump = 0x1;
     //设置成静态成员，否则会出现内存泄漏

@@ -1,6 +1,9 @@
 package com.arpa.wms.hly.base;
 
 import android.os.Bundle;
+import android.os.Message;
+
+import com.arpa.wms.hly.utils.WeakHandler;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,7 +18,9 @@ import butterknife.ButterKnife;
  * 内容描述区域
  * </p>
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity implements WeakHandler.MessageListener {
+    protected static WeakHandler<BaseActivity> sHandler;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,11 +32,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         setViews();
     }
 
-    protected abstract void setViews();
-
-    protected abstract void initViews();
+    protected abstract int getLayoutID();
 
     protected abstract void initData();
 
-    protected abstract int getLayoutID();
+    protected abstract void initViews();
+
+    protected abstract void setViews();
+
+    @Override
+    protected void onDestroy() {
+        if (null != sHandler) {
+            sHandler.clear();
+        }
+        super.onDestroy();
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+    }
 }

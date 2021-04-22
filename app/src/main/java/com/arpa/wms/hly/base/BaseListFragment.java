@@ -49,10 +49,11 @@ public abstract class BaseListFragment <T> extends BaseFragment {
             pageNumber++;
             requestData(false);
         });
-        rvList.setAdapter(adapter);
+
         DividerItemDecoration divider = new DividerItemDecoration(Objects.requireNonNull(getContext()), DividerItemDecoration.VERTICAL);
         divider.setDrawable(Objects.requireNonNull(ContextCompat.getDrawable(getContext(), R.drawable.divider_line_vertical_10dp)));
         rvList.addItemDecoration(divider);
+        rvList.setAdapter(adapter);
     }
 
     protected void requestData(boolean isRefresh) {

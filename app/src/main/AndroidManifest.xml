@@ -29,6 +29,13 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".logic.home.inventory.move.ScanLocationActivity">
+            <intent-filter>
+                <action android:name="arpa.wms.INVENTORY_MOVE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
     </application>
 
 </manifest>
