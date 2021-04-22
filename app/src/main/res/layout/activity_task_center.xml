@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".logic.task.TaskCenterActivity">
     
-    <TextView
-        style="@style/TitleTextStyle"
-        android:text="任务列表" />
+    <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:wtb_title="任务列表" />
 </androidx.appcompat.widget.LinearLayoutCompat>

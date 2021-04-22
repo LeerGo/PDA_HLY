@@ -34,11 +34,11 @@ public class WidgetMineMenu extends LinearLayoutCompat {
 
     public WidgetMineMenu(@NonNull Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
-        init(context);
+        initViews(context);
         initAttrs(context, attrs);
     }
 
-    private void init(Context context) {
+    private void initViews(Context context) {
         LayoutInflater.from(context).inflate(R.layout.widget_mine_menu, this, true);
         ivIcon = findViewById(R.id.iv_icon);
         tvTitle = findViewById(R.id.tv_title);
@@ -47,9 +47,9 @@ public class WidgetMineMenu extends LinearLayoutCompat {
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetMineMenu);
-        setTitle(typedArray.getString(R.styleable.WidgetMineMenu_title));
-        setDesc(typedArray.getString(R.styleable.WidgetMineMenu_desc));
-        setIcon(typedArray.getDrawable(R.styleable.WidgetMineMenu_icon));
+        setTitle(typedArray.getString(R.styleable.WidgetMineMenu_wmm_title));
+        setDesc(typedArray.getString(R.styleable.WidgetMineMenu_wmm_desc));
+        setIcon(typedArray.getDrawable(R.styleable.WidgetMineMenu_wmm_icon));
         typedArray.recycle();
     }
 

@@ -8,9 +8,10 @@
     android:orientation="vertical"
     tools:context=".logic.mine.MineActivity">
     
-    <TextView
-        style="@style/TitleTextStyle"
-        android:text="我的" />
+    <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:wtb_title="我的" />
     
     <FrameLayout
         android:layout_width="match_parent"
@@ -40,25 +41,25 @@
             android:id="@+id/wmm_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:icon="@mipmap/ic_mine_account"
-            app:title="账号"
-            tools:desc="测试账号" />
+            app:wmm_icon="@mipmap/ic_mine_account"
+            app:wmm_title="账号"
+            tools:wmm_desc="测试账号" />
         
         <com.arpa.wms.hly.ui.widget.WidgetMineMenu
             android:id="@+id/wmm_warehouse"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:icon="@mipmap/ic_mine_warehouse"
-            app:title="仓库"
-            tools:desc="测试账号" />
+            app:wmm_icon="@mipmap/ic_mine_warehouse"
+            app:wmm_title="仓库"
+            tools:wmm_desc="测试账号" />
         
         <com.arpa.wms.hly.ui.widget.WidgetMineMenu
             android:id="@+id/wmm_version"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:icon="@mipmap/ic_mine_version"
-            app:title="版本号"
-            tools:desc="测试账号" />
+            app:wmm_icon="@mipmap/ic_mine_version"
+            app:wmm_title="版本号"
+            tools:wmm_desc="测试账号" />
     </androidx.appcompat.widget.LinearLayoutCompat>
     
     <androidx.appcompat.widget.AppCompatButton
