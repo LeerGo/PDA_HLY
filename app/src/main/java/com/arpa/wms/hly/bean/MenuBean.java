@@ -5,16 +5,16 @@ package com.arpa.wms.hly.bean;
  */
 public class MenuBean {
     private int imageRes;
-    private int count;
     private String text;
+    private String path;
 
     public MenuBean(int imageRes, String text) {
-        this(imageRes, text, 0);
+        this(imageRes, text, null);
     }
 
-    public MenuBean(int imageRes, String text, int count) {
+    public MenuBean(int imageRes, String text, String path) {
         this.imageRes = imageRes;
-        this.count = count;
+        this.path = path;
         this.text = text;
     }
 
@@ -34,11 +34,11 @@ public class MenuBean {
         this.text = text;
     }
 
-    public int getCount() {
-        return count;
+    public String getPath() {
+        return path;
     }
 
-    public void setCount(int count) {
-        this.count = count;
+    public void setPath(String path) {
+        this.path = path;
     }
 }

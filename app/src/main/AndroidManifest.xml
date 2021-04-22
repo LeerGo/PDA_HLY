@@ -22,7 +22,12 @@
         <activity android:name=".logic.LoginActivity" />
         <activity android:name=".logic.home.HomeActivity" />
         <activity android:name=".logic.mine.MineActivity" />
-        <activity android:name=".logic.task.TaskCenterActivity" />
+        <activity android:name=".logic.task.TaskCenterActivity">
+            <intent-filter>
+                <action android:name="arpa.wms.TASK_CENTER" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

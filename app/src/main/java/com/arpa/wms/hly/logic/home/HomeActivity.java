@@ -1,6 +1,7 @@
 package com.arpa.wms.hly.logic.home;
 
 import android.content.Intent;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,7 +9,9 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseActivity;
 import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.logic.mine.MineActivity;
+import com.arpa.wms.hly.ui.adapter.HomeMenuAdapter;
 import com.arpa.wms.hly.ui.decoration.GridItemDecoration;
+import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.DensityUtils;
 
 import java.util.ArrayList;
@@ -32,17 +35,10 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void setViews() {
         adapter.setOnItemClickListener((view, position, data) -> {
-            switch (position) {
-                case 0:// 收货
-                    break;
-                case 1:// 复核
-                    break;
-                case 2:// 装车
-                    break;
-                case 3:// 移位
-                    break;
-                case 4://库存查询
-                    break;
+            if (!TextUtils.isEmpty(data.getPath())) {
+                Intent intent = new Intent();
+                intent.setAction(data.getPath());
+                startActivity(intent);
             }
         });
     }
@@ -51,6 +47,7 @@ public class HomeActivity extends BaseActivity {
     protected void initViews() {
         adapter = new HomeMenuAdapter(this);
         adapter.addAll(menuList);
+
         rvMenu.addItemDecoration(new GridItemDecoration(DensityUtils.dip2px(this, 10)));
         rvMenu.setAdapter(adapter);
     }
@@ -58,7 +55,8 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void initData() {
         menuList = new ArrayList<>();
-        menuList.add(new MenuBean(R.mipmap.ic_goods_take, "任务中心"));
+        // TODO: 首页的菜单是写死根据前端根据权限判断，还是直接后端下发，待定 与 @阎庆玉 后期沟通 @lyf 2021-04-22 10:27:14
+        menuList.add(new MenuBean(R.mipmap.ic_goods_take, "任务中心", Const.HOME_MENU.TASK_CENTER));
         menuList.add(new MenuBean(R.mipmap.ic_goods_take, "收货"));
         menuList.add(new MenuBean(R.mipmap.ic_goods_recheck, "复核"));
         menuList.add(new MenuBean(R.mipmap.ic_truck_load, "装车"));

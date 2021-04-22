@@ -45,11 +45,8 @@ public abstract class BaseAdapter <T> extends RecyclerView.Adapter<BaseViewHolde
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         if (onItemClickListener != null) {
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    onItemClickListener.onItemClick(v, position, mDataList.get(position));
-                }
+            holder.itemView.setOnClickListener(v -> {
+                onItemClickListener.onItemClick(v, position, mDataList.get(position));
             });
         }
         onBindItemHolder(holder, position);
