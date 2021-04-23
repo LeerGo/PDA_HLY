@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.View;
 
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.aop.SingleClick;
 import com.arpa.wms.hly.base.BaseActivity;
 import com.arpa.wms.hly.logic.home.HomeActivity;
 
@@ -40,6 +41,7 @@ public class LoginActivity extends BaseActivity {
         return R.layout.activity_login;
     }
 
+    @SingleClick
     @OnClick({R.id.btn_login})
     public void onClick(View view) {
         if (view.getId() == R.id.btn_login) {

@@ -2,10 +2,12 @@ package com.arpa.wms.hly.logic.home;
 
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.aop.SingleClick;
 import com.arpa.wms.hly.base.BaseActivity;
 import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.logic.mine.MineActivity;
@@ -61,6 +63,7 @@ public class HomeActivity extends BaseActivity {
     @Override
     protected void setViews() {
         adapter.setOnItemClickListener((view, position, data) -> {
+            Log.e("@@@@ L65", "HomeActivity:setViews() -> ------------");
             if (!TextUtils.isEmpty(data.getPath())) {
                 Intent intent = new Intent();
                 intent.setAction(data.getPath());
@@ -69,6 +72,7 @@ public class HomeActivity extends BaseActivity {
         });
     }
 
+    @SingleClick(1500)
     @OnClick({R.id.rl_mine})
     public void onClick(View view) {
         if (view.getId() == R.id.rl_mine) {

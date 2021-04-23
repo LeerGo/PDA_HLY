@@ -1,5 +1,6 @@
 plugins {
     id 'com.android.application'
+    id 'android-aspectjx'
 }
 
 android {
@@ -55,6 +56,16 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    aspectjx {
+        exclude 'androidx'
+        exclude 'com.google'
+        exclude 'com.squareup'
+        exclude 'com.scwang'
+        exclude 'me.jessyan'
+        include 'com.arpa.wms.hly'
+        enabled true
+    }
 }
 
 dependencies {
@@ -63,21 +74,23 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-
     // official
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.3.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
 
     // aop
+    implementation 'org.aspectj:aspectjrt:1.9.6'
     implementation 'com.jakewharton:butterknife:10.2.3'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
     // ui
     // 列表刷新
-    implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3' //核心必须依赖
-    implementation  'com.scwang.smart:refresh-header-classics:2.0.3' //经典刷新头
-
-    // 自动尺寸适配
+    implementation 'com.scwang.smart:refresh-layout-kernel:2.0.3'
+    implementation 'com.scwang.smart:refresh-header-classics:2.0.3'
+    // UI 适配
     implementation 'me.jessyan:autosize:1.2.1'
+
+    // 性能
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.7'
 }

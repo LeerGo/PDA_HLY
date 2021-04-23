@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.arpa.wms.hly.aop.SingleClick;
 import com.arpa.wms.hly.ui.listener.OnItemClickListener;
 
 import java.util.ArrayList;
@@ -45,8 +46,13 @@ public abstract class BaseAdapter <T> extends RecyclerView.Adapter<BaseViewHolde
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         if (onItemClickListener != null) {
-            holder.itemView.setOnClickListener(v -> {
-                onItemClickListener.onItemClick(v, position, mDataList.get(position));
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @SingleClick
+                @Override
+                public void onClick(View v) {
+                    onItemClickListener.onItemClick(v, position, mDataList.get(position));
+                }
             });
         }
         onBindItemHolder(holder, position);
