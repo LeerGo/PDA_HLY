@@ -74,7 +74,10 @@ dependencies {
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.2.3'
 
     // ui
+    // 列表刷新
     implementation  'com.scwang.smart:refresh-layout-kernel:2.0.3' //核心必须依赖
     implementation  'com.scwang.smart:refresh-header-classics:2.0.3' //经典刷新头
-    implementation  'com.scwang.smart:refresh-header-material:2.0.3' //谷歌刷新头
+
+    // 自动尺寸适配
+    implementation 'me.jessyan:autosize:1.2.1'
 }

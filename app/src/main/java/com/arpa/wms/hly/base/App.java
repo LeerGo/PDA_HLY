@@ -2,10 +2,13 @@ package com.arpa.wms.hly.base;
 
 import android.app.Application;
 
+import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.R;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+
+import me.jessyan.autosize.AutoSizeConfig;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -29,5 +32,18 @@ public class App extends Application {
             layout.setPrimaryColorsId(android.R.color.transparent, R.color.grey);//全局设置主题颜色
             return new ClassicsFooter(context).setDrawableSize(20);
         });
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+
+        setAutoSize();
+    }
+
+    private void setAutoSize() {
+        AutoSizeConfig.getInstance()
+                .setLog(BuildConfig.DEBUG)
+                .setBaseOnWidth(true);
     }
 }
