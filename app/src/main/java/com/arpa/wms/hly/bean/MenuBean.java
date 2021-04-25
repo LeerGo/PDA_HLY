@@ -1,8 +1,5 @@
 package com.arpa.wms.hly.bean;
 
-/**
- * Created by TYY on 2019/1/21.
- */
 public class MenuBean {
     private int imageRes;
     private String text;

@@ -1,37 +1,25 @@
 package com.arpa.wms.hly.logic.mine;
 
-import com.arpa.wms.hly.BuildConfig;
+import android.os.Bundle;
+
+import com.arpa.and.wms.arch.base.BaseActivity;
+import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.BaseActivity;
-import com.arpa.wms.hly.ui.widget.WidgetMineMenu;
+import com.arpa.wms.hly.databinding.ActivityMineBinding;
 
-import butterknife.BindView;
+import androidx.annotation.Nullable;
+import dagger.hilt.android.AndroidEntryPoint;
 
-public class MineActivity extends BaseActivity {
-    @BindView(R.id.wmm_account)
-    WidgetMineMenu wmmAccount;
-    @BindView(R.id.wmm_warehouse)
-    WidgetMineMenu wmmWarehouse;
-    @BindView(R.id.wmm_version)
-    WidgetMineMenu wmmVersion;
+@AndroidEntryPoint
+public class MineActivity extends BaseActivity<VMMine, ActivityMineBinding> {
 
     @Override
-    protected void setViews() {
-        wmmVersion.setDesc("v" + BuildConfig.VERSION_NAME);
-    }
-
-    @Override
-    protected void initViews() {
-
-    }
-
-    @Override
-    protected void initData() {
-
-    }
-
-    @Override
-    protected int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.activity_mine;
+    }
+
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        viewBind.setVariable(BR.vmMine, viewModel);
     }
 }

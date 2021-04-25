@@ -11,6 +11,11 @@ package com.arpa.wms.hly.utils;
  */
 public interface Const {
     /**
+     * 日志 TAG
+     */
+    String LOG_TAG = "Arpa-Logger";
+
+    /**
      * Handler 延迟发送消息的默认延迟时长
      */
     int HANDLER_DELAY_TIME = 500;
@@ -110,5 +115,21 @@ public interface Const {
          * 库存查询
          */
         String INVENTORY_QUERY = "arpa.wms.INVENTORY_QUERY";
+    }
+
+    /**
+     * API 请求地址
+     */
+    interface API {
+        String URL_KEY = "API-AUTH";
+
+        /**
+         * 仓储服务 API 服务地址
+         */
+        String URL_WMS = "http://114.116.246.31:9999/";
+        /**
+         * 用户认证 API 服务地址
+         */
+        String URL_AUTH = "http://114.116.246.31:9002/arpa-basic-api/";
     }
 }

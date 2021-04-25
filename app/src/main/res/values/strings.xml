@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">恒利源</string>
+    <string name="result_failure">获取失败</string>
 </resources>

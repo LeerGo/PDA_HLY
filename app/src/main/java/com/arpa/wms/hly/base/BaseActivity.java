@@ -7,7 +7,7 @@ import com.arpa.wms.hly.utils.WeakHandler;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import butterknife.ButterKnife;
+//import butterknife.ButterKnife;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
  * 内容描述区域
  * </p>
  */
+@Deprecated
 public abstract class BaseActivity extends AppCompatActivity implements WeakHandler.MessageListener {
     protected static WeakHandler<BaseActivity> sHandler;
 
@@ -25,7 +26,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeakHand
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutID());
-        ButterKnife.bind(this);
+        //        ButterKnife.bind(this);
 
         initData();
         initViews();

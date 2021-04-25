@@ -47,21 +47,21 @@ public class WidgetMineMenu extends LinearLayoutCompat {
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetMineMenu);
-        setTitle(typedArray.getString(R.styleable.WidgetMineMenu_wmm_title));
-        setDesc(typedArray.getString(R.styleable.WidgetMineMenu_wmm_desc));
-        setIcon(typedArray.getDrawable(R.styleable.WidgetMineMenu_wmm_icon));
+        setWmmTitle(typedArray.getString(R.styleable.WidgetMineMenu_wmmTitle));
+        setWmmDesc(typedArray.getString(R.styleable.WidgetMineMenu_wmmDesc));
+        setWmmIcon(typedArray.getDrawable(R.styleable.WidgetMineMenu_wmmIcon));
         typedArray.recycle();
     }
 
-    public void setIcon(Drawable drawable) {
+    public void setWmmIcon(Drawable drawable) {
         ivIcon.setImageDrawable(drawable);
     }
 
-    public void setDesc(String string) {
+    public void setWmmDesc(String string) {
         tvContent.setText(string);
     }
 
-    public void setTitle(String string) {
+    public void setWmmTitle(String string) {
         tvTitle.setText(string);
     }
 }

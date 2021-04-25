@@ -8,10 +8,8 @@ import com.arpa.wms.hly.base.BaseListFragment;
 import com.arpa.wms.hly.bean.TaskAssignBean;
 import com.arpa.wms.hly.ui.adapter.TaskAssignAdapter;
 import com.arpa.wms.hly.utils.Const.IntentKey;
-
-import androidx.appcompat.widget.AppCompatButton;
-import butterknife.BindView;
-import butterknife.OnClick;
+//import butterknifeR.BindView;
+//import butterknife.OnClick;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -23,12 +21,12 @@ import butterknife.OnClick;
  * </p>
  */
 public class TaskAssignFragment <T> extends BaseListFragment<T> {
-    @BindView(R.id.btn_assign_keeper)
-    AppCompatButton btnAssignKeeper;
-    @BindView(R.id.btn_assign_stevedore)
-    AppCompatButton btnAssignStevedore;
-    @BindView(R.id.btn_assign_forklift)
-    AppCompatButton btnAssignForklift;
+//    @BindView(R.id.btn_assign_keeper)
+//    AppCompatButton btnAssignKeeper;
+//    @BindView(R.id.btn_assign_stevedore)
+//    AppCompatButton btnAssignStevedore;
+//    @BindView(R.id.btn_assign_forklift)
+//    AppCompatButton btnAssignForklift;
 
     private int type;
 
@@ -60,19 +58,19 @@ public class TaskAssignFragment <T> extends BaseListFragment<T> {
     @Override
     protected void setViews() {
         // TODO: 这里的 type 魔法数抽取到 const 里 @lyf 2021-04-22 01:30:26
-        if (type == 0) {
-            btnAssignKeeper.setText("分配保管员");
-            btnAssignStevedore.setText("分配装卸工");
-            btnAssignForklift.setText("分配叉车工");
-        } else {
-            btnAssignKeeper.setText("取消保管员");
-            btnAssignStevedore.setText("取消装卸工");
-            btnAssignForklift.setText("取消叉车工");
-        }
+//        if (type == 0) {
+//            btnAssignKeeper.setText("分配保管员");
+//            btnAssignStevedore.setText("分配装卸工");
+//            btnAssignForklift.setText("分配叉车工");
+//        } else {
+//            btnAssignKeeper.setText("取消保管员");
+//            btnAssignStevedore.setText("取消装卸工");
+//            btnAssignForklift.setText("取消叉车工");
+//        }
         super.setViews();
     }
 
-    @OnClick({R.id.ib_all})
+//    @OnClick({R.id.ib_all})
     public void onClick(View view) {
         if (view.getId() == R.id.ib_all) {
             view.setSelected(!view.isSelected());

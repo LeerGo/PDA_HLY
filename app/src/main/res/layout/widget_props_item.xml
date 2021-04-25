@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
     
     <TextView
-        android:id="@+id/tv_name"
+        android:id="@+id/tv_key"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/line"
@@ -15,7 +15,7 @@
         tools:text="种数：" />
     
     <TextView
-        android:id="@+id/tv_desc"
+        android:id="@+id/tv_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/color_434c67"

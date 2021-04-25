@@ -1,82 +1,91 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".logic.mine.MineActivity">
+<layout>
     
-    <com.arpa.wms.hly.ui.widget.WidgetTitleBar
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:wtb_title="我的" />
-    
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="-1dp"
-        android:background="@mipmap/header_mine">
+    <data>
         
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:layout_gravity="center"
-            android:src="@mipmap/ic_avatar" />
-    </FrameLayout>
+        <variable
+            name="vmMine"
+            type="com.arpa.wms.hly.logic.mine.VMMine" />
+    </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="50dp"
-        android:background="@color/white"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingHorizontal="12dp"
-        app:divider="@drawable/divider_line_horizontal"
-        app:showDividers="middle">
+        tools:context=".logic.mine.MineActivity">
         
-        <com.arpa.wms.hly.ui.widget.WidgetMineMenu
-            android:id="@+id/wmm_account"
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:wmm_icon="@mipmap/ic_mine_account"
-            app:wmm_title="账号"
-            tools:wmm_desc="测试账号" />
+            app:wtbTitle="我的" />
         
-        <com.arpa.wms.hly.ui.widget.WidgetMineMenu
-            android:id="@+id/wmm_warehouse"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:wmm_icon="@mipmap/ic_mine_warehouse"
-            app:wmm_title="仓库"
-            tools:wmm_desc="测试账号" />
+            android:layout_marginTop="-1dp"
+            android:background="@mipmap/header_mine">
+            
+            <ImageView
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center"
+                android:src="@mipmap/ic_avatar" />
+        </FrameLayout>
         
-        <com.arpa.wms.hly.ui.widget.WidgetMineMenu
-            android:id="@+id/wmm_version"
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:wmm_icon="@mipmap/ic_mine_version"
-            app:wmm_title="版本号"
-            tools:wmm_desc="测试账号" />
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="50dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp"
+            app:divider="@drawable/divider_line_horizontal"
+            app:showDividers="middle">
+            
+            <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+                android:id="@+id/wmm_account"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:wmmIcon="@mipmap/ic_mine_account"
+                app:wmmTitle="账号"
+                tools:wmmDesc="测试账号" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+                android:id="@+id/wmm_warehouse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:wmmIcon="@mipmap/ic_mine_warehouse"
+                app:wmmTitle="仓库"
+                tools:wmmDesc="测试账号" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:wmmDesc="@{vmMine.version}"
+                app:wmmIcon="@mipmap/ic_mine_version"
+                app:wmmTitle="版本号" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_warehouse"
+            style="@style/MineButtonBaseStyle"
+            android:background="@drawable/shape_rrect_blue_gradient"
+            android:text="切换仓库" />
+        
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_modify_pass"
+            style="@style/MineButtonStyle"
+            android:background="@drawable/btn_biankuang_grey"
+            android:text="修改密码" />
+        
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btn_quit"
+            style="@style/MineButtonStyle"
+            android:background="@drawable/btn_biankuang_grey"
+            android:text="退出登录" />
     </androidx.appcompat.widget.LinearLayoutCompat>
-    
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_warehouse"
-        style="@style/MineButtonBaseStyle"
-        android:background="@drawable/shape_rrect_blue_gradient"
-        android:text="切换仓库" />
-    
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_modify_pass"
-        style="@style/MineButtonStyle"
-        android:background="@drawable/btn_biankuang_grey"
-        android:text="修改密码" />
-    
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_quit"
-        style="@style/MineButtonStyle"
-        android:background="@drawable/btn_biankuang_grey"
-        android:text="退出登录" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

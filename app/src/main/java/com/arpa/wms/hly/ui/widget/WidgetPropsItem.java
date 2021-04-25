@@ -22,8 +22,8 @@ import androidx.appcompat.widget.LinearLayoutCompat;
  * </p>
  */
 public class WidgetPropsItem extends LinearLayoutCompat {
-    private TextView tvName;
-    private TextView tvDesc;
+    private TextView tvKey;
+    private TextView tvValue;
 
     public WidgetPropsItem(@NonNull Context context) {
         super(context);
@@ -37,18 +37,22 @@ public class WidgetPropsItem extends LinearLayoutCompat {
 
     private void initViews(Context context) {
         LayoutInflater.from(context).inflate(R.layout.widget_props_item, this, true);
-        tvName = findViewById(R.id.tv_name);
-        tvDesc = findViewById(R.id.tv_desc);
+        tvKey = findViewById(R.id.tv_key);
+        tvValue = findViewById(R.id.tv_value);
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetPropsItem);
-        tvName.setText(typedArray.getText(R.styleable.WidgetPropsItem_wpi_name));
-        setDesc(typedArray.getString(R.styleable.WidgetPropsItem_wpi_desc));
+        setPropsKey(typedArray.getString(R.styleable.WidgetPropsItem_propsKey));
+        setPropsValue(typedArray.getString(R.styleable.WidgetPropsItem_propsValue));
         typedArray.recycle();
     }
 
-    public void setDesc(String desc) {
-        tvDesc.setText(desc);
+    public void setPropsKey(String key) {
+        tvKey.setText(key);
+    }
+
+    public void setPropsValue(String desc) {
+        tvValue.setText(desc);
     }
 }

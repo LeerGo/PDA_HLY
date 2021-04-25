@@ -1,37 +1,19 @@
 package com.arpa.wms.hly.base;
 
-import android.os.Bundle;
+import com.arpa.and.wms.arch.base.BaseActivity;
+import com.arpa.and.wms.arch.base.BaseViewModel;
 
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import butterknife.ButterKnife;
+import androidx.databinding.ViewDataBinding;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
- * since: 2021-04-21 3:50 PM
+ * since: 2021-04-25 1:24 PM
  *
  * <p>
- * 内容描述区域
+ * 基础：上下拉刷刷新页面
  * </p>
  */
-public abstract class BaseListActivity extends AppCompatActivity {
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(getLayoutID());
-        ButterKnife.bind(this);
+public abstract class BaseListActivity<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseActivity<VM, VDB> {
 
-        initData();
-        initViews();
-        setViews();
-    }
-
-    protected abstract void setViews();
-
-    protected abstract void initViews();
-
-    protected abstract void initData();
-
-    protected abstract int getLayoutID();
 }

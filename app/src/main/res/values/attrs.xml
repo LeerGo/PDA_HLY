@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="WidgetMineMenu">
-        <attr name="wmm_title"
+        <attr name="wmmTitle"
               format="string|reference" />
-        <attr name="wmm_desc"
+        <attr name="wmmDesc"
               format="string|reference" />
-        <attr name="wmm_icon"
+        <attr name="wmmIcon"
               format="reference" />
     </declare-styleable>
     
     <declare-styleable name="WidgetTitleBar">
-        <attr name="wtb_title"
+        <attr name="wtbTitle"
               format="string|reference" />
-        <attr name="wtb_isShowBack"
+        <attr name="wtbShowBack"
               format="boolean" />
     </declare-styleable>
     
     <declare-styleable name="WidgetPropsItem">
-        <attr name="wpi_name"
+        <attr name="propsKey"
               format="string|reference" />
-        <attr name="wpi_desc"
+        <attr name="propsValue"
               format="string|reference" />
     </declare-styleable>
 </resources>
