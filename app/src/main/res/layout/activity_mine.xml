@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     
     <data>
         
@@ -9,9 +12,6 @@
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -47,7 +47,6 @@
             app:showDividers="middle">
             
             <com.arpa.wms.hly.ui.widget.WidgetMineMenu
-                android:id="@+id/wmm_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:wmmIcon="@mipmap/ic_mine_account"
@@ -55,7 +54,6 @@
                 tools:wmmDesc="测试账号" />
             
             <com.arpa.wms.hly.ui.widget.WidgetMineMenu
-                android:id="@+id/wmm_warehouse"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:wmmIcon="@mipmap/ic_mine_warehouse"
@@ -71,19 +69,16 @@
         </androidx.appcompat.widget.LinearLayoutCompat>
         
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_warehouse"
             style="@style/MineButtonBaseStyle"
             android:background="@drawable/shape_rrect_blue_gradient"
             android:text="切换仓库" />
         
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_modify_pass"
             style="@style/MineButtonStyle"
             android:background="@drawable/btn_biankuang_grey"
             android:text="修改密码" />
         
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btn_quit"
             style="@style/MineButtonStyle"
             android:background="@drawable/btn_biankuang_grey"
             android:text="退出登录" />

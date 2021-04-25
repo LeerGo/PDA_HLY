@@ -1,7 +1,6 @@
 package com.arpa.wms.hly.logic.home.inventory.move;
 
 import android.content.Intent;
-import android.util.Log;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -21,7 +20,7 @@ public class ScanLocationActivity extends InventoryScanActivity {
 
     @Override
     protected void requestData(String scanCode) {
-        Log.e("@@@@ L18", "ScanLocationActivity:requestData() -> scanCode = " + scanCode);
+//        Log.e("@@@@ L18", "ScanLocationActivity:requestData() -> scanCode = " + scanCode);
         startActivity(new Intent(this, ScanGoodsActivity.class));
         finish();
     }

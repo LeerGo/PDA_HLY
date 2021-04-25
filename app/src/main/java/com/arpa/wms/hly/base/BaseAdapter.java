@@ -23,7 +23,7 @@ public abstract class BaseAdapter <T> extends RecyclerView.Adapter<BaseViewHolde
     private final LayoutInflater mInflater;
     protected Context mContext;
     protected List<T> mDataList = new ArrayList<>();
-    private OnItemClickListener<T> onItemClickListener;
+    protected OnItemClickListener<T> onItemClickListener;
 
     @SuppressLint("WrongConstant")
     public BaseAdapter(Context context) {
@@ -45,7 +45,6 @@ public abstract class BaseAdapter <T> extends RecyclerView.Adapter<BaseViewHolde
     @Override
     public void onBindViewHolder(@NonNull BaseViewHolder holder, int position) {
         if (onItemClickListener != null) {
-
             holder.itemView.setOnClickListener(v -> onItemClickListener.onItemClick(v, position, mDataList.get(position)));
         }
         onBindItemHolder(holder, position);

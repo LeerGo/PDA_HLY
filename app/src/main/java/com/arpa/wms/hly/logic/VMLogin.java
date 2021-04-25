@@ -2,8 +2,6 @@ package com.arpa.wms.hly.logic;
 
 import android.app.Application;
 import android.text.TextUtils;
-import android.util.Log;
-import android.widget.Toast;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.DataViewModel;
@@ -14,6 +12,7 @@ import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.bean.Result;
 import com.arpa.wms.hly.logic.home.HomeActivity;
 import com.arpa.wms.hly.net.ApiService;
+import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,15 +47,19 @@ public class VMLogin extends DataViewModel {
         super.onCreate();
     }
 
-    public void login() {
-        Log.e("@@@@ L51", "VMLogin:login() -> --------------------");
-        //        getWarehouseWithoutAuth(userName.get());
+    public void login(ResWarehouse warehouseSelect) {
         startActivity(HomeActivity.class);
     }
 
-    public void getWarehouseWithoutAuth(String loginID) {
+    public void getWarehouseWithoutAuth() {
+        String loginID = userName.get();
+        String password = userPass.get();
         if (TextUtils.isEmpty(loginID)) {
-            Toast.makeText(getApplication(), "请填写账号信息", Toast.LENGTH_SHORT).show();
+            ToastUtils.showShort("请填写账号信息");
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            ToastUtils.showShort("请填写密码");
             return;
         }
 

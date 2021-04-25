@@ -2,10 +2,9 @@ package com.arpa.wms.hly;
 
 import android.app.Application;
 
-import com.arpa.wms.hly.BuildConfig;
-import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.API;
+import com.arpa.wms.hly.utils.Utils;
 import com.king.retrofit.retrofithelper.RetrofitHelper;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.FormatStrategy;
@@ -48,6 +47,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
+        Utils.init(this);
         setApiURL();
         initLogger();
         setAutoSize();
