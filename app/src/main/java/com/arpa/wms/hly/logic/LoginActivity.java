@@ -10,10 +10,10 @@ import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityLoginBinding;
 import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
 import com.arpa.wms.hly.ui.listener.DialogDismissListener;
+import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
-import timber.log.Timber;
 
 
 /**
@@ -29,8 +29,6 @@ import timber.log.Timber;
 // TODO: 框架的条状 activity 可已参照 MVVMHabit 修改一下，这样就不用写 onLoginClick 方法 @lyf 2021-04-23 04:24:28
 @AndroidEntryPoint
 public class LoginActivity extends BaseActivity<VMLogin, ActivityLoginBinding> implements DialogDismissListener<ResWarehouse> {
-    private DialogWarehouseSelect dialogWarehouseSelect;
-
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
@@ -39,10 +37,10 @@ public class LoginActivity extends BaseActivity<VMLogin, ActivityLoginBinding> i
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setVariable(BR.vmLogin, viewModel);
-        registerMessageEvent(message -> {
-            Timber.e("message:%s", message);
-            //            ToastUtils.showToast(getContext(), message);
-        });
+        //        registerMessageEvent(message -> {
+        //            Timber.e("message:%s", message);
+        //            //            ToastUtils.showToast(getContext(), message);
+        //        });
         registerStatusEvent(status -> {
             switch (status) {
                 case StatusEvent.Status.LOADING:
@@ -65,8 +63,17 @@ public class LoginActivity extends BaseActivity<VMLogin, ActivityLoginBinding> i
                 } else {
                     showDialogFragment(new DialogWarehouseSelect(list, this));
                 }
+            } else {
+                ToastUtils.showShort(R.string.failure_warehouse_list);
             }
         });
+//        viewModel.isShowPass.observe(this, isShowPass -> {
+//            if (isShowPass) {
+//                viewBind.etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
+//            } else {
+//                viewBind.etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+//            }
+//        });
     }
 
     @Override

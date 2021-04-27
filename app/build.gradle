@@ -1,7 +1,6 @@
 plugins {
     id 'com.android.application'
     id 'dagger.hilt.android.plugin'
-//    id 'android-aspectjx'
 }
 
 android {
@@ -74,6 +73,9 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+
     // test
     testImplementation deps.test.junit
     androidTestImplementation deps.test.android_junit
@@ -89,22 +91,10 @@ dependencies {
     implementation deps.constraintlayout
 
     // aop
-//    implementation deps.thirdPart.aspectjrt
     implementation deps.hilt.hilt_android
     annotationProcessor deps.hilt.hilt_android_compiler
     implementation deps.hilt.hilt_viewmodel
     annotationProcessor deps.hilt.hilt_compiler
-
-    // UI
-    // 列表刷新
-    implementation deps.thirdPart.refresh_layout_kernel
-    implementation deps.thirdPart.refresh_header_classics
-    // 列表绑定（MVVM）
-    implementation 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:4.0.0'
-    implementation 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:4.0.0'
-    implementation 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-viewpager2:4.0.0'
-    // UI 适配
-    implementation deps.thirdPart.autosize
 
     // 功能
     implementation deps.logger

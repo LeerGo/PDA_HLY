@@ -94,9 +94,9 @@
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:onClick="@{()->vmLogin.clearInput(true)}"
                         android:paddingHorizontal="6dp"
                         android:src="@mipmap/ic_clear"
-                        android:visibility="gone"
                         tools:visibility="visible" />
                 </LinearLayout>
                 
@@ -131,13 +131,14 @@
                             android:layout_marginTop="5dp"
                             android:background="@null"
                             android:hint="请输入密码"
-                            android:inputType="textPassword"
                             android:maxLines="1"
                             android:singleLine="true"
                             android:text="@={vmLogin.userPass}"
                             android:textColor="@color/black"
                             android:textColorHint="@color/grey_96a0b9"
                             android:textSize="14dp"
+                            app:isShowPass="@{vmLogin.isShowPass}"
+                            tools:inputType="textPassword"
                             tools:text="abcd1234" />
                         
                         <TextView
@@ -156,27 +157,29 @@
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:onClick="@{()->vmLogin.showPass(true)}"
                         android:paddingHorizontal="6dp"
-                        android:src="@mipmap/ic_eye_hide" />
+                        android:src="@mipmap/ic_eye_hide"
+                        app:visible="@{!vmLogin.isShowPass}" />
                     
                     <ImageView
                         android:id="@+id/img_visit"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:onClick="@{()->vmLogin.showPass(false)}"
                         android:paddingHorizontal="6dp"
                         android:src="@mipmap/ic_eye_show"
-                        android:visibility="gone"
-                        tools:visibility="gone" />
+                        app:visible="@{vmLogin.isShowPass}" />
                     
                     <ImageView
                         android:id="@+id/img_del_pwd"
                         android:layout_width="40dp"
                         android:layout_height="match_parent"
                         android:layout_gravity="center"
+                        android:onClick="@{()->vmLogin.clearInput(false)}"
                         android:paddingHorizontal="6dp"
                         android:src="@mipmap/ic_clear"
-                        android:visibility="gone"
                         tools:visibility="visible" />
                 </LinearLayout>
             </LinearLayout>

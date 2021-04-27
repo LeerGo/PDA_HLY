@@ -3,8 +3,8 @@ package com.arpa.wms.hly.logic.home;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.DataViewModel;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.logic.mine.MineActivity;
 import com.arpa.wms.hly.utils.Const;
@@ -26,7 +26,7 @@ import androidx.lifecycle.MutableLiveData;
  * </p>
  */
 // TODO: 参照 MVVMHabit 的写法，使用 ViewAdapter+BindingCollectionAdapter 实现自动绑定 @lyf 2021-04-23 04:25:21
-public class VMHome extends DataViewModel {
+public class VMHome extends WrapDataViewModel {
     protected final MutableLiveData<List<MenuBean>> menuLiveData = new MutableLiveData<>();
 
     @ViewModelInject

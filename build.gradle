@@ -5,7 +5,6 @@ buildscript {
 
     dependencies {
         classpath "com.android.tools.build:gradle:$versions.gralde"
-//        classpath "com.hujiang.aspectjx:gradle-android-plugin-aspectjx:$versions.aspectjx"
         classpath "com.google.dagger:hilt-android-gradle-plugin:$versions.hiltAndroid"
     }
 }

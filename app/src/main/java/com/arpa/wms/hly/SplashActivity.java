@@ -5,6 +5,10 @@ import android.os.Bundle;
 import android.os.Message;
 
 import com.arpa.wms.hly.logic.LoginActivity;
+import com.arpa.wms.hly.logic.home.HomeActivity;
+import com.arpa.wms.hly.utils.Const.SPKEY;
+import com.arpa.wms.hly.utils.MacUtils;
+import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.WeakHandler;
 
 import androidx.annotation.Nullable;
@@ -30,8 +34,19 @@ public class SplashActivity extends AppCompatActivity implements WeakHandler.Mes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
+        initDeviceID();
         sHandler = new WeakHandler<>(this);
         postEmptyMsgDelayed(msgJump, 1000);
+    }
+
+    /**
+     * 设置设备 ID（MAC 地址加密而来）
+     */
+    private void initDeviceID() {
+        if (SPUtils.getInstance().getString(SPKEY.DEVICE_ID).isEmpty()) {
+            String mac = MacUtils.getMacOnly(this);
+            SPUtils.getInstance().put(SPKEY.DEVICE_ID, mac);
+        }
     }
 
     private void postEmptyMsgDelayed(int msgType, long delay) {
@@ -49,10 +64,14 @@ public class SplashActivity extends AppCompatActivity implements WeakHandler.Mes
 
     @Override
     public void handleMessage(Message msg) {
-        // TODO: 这里要根据有无 token，跳转登录或首页 @lyf 2021-04-22 08:33:30
+
         if (msg.what == msgJump) {
-            //            startActivity(new Intent(this, HomeActivity.class));
-            startActivity(new Intent(this, LoginActivity.class));
+            // TODO: 这里还需要根据有无 token，跳转登录或首页 @lyf 2021-04-22 08:33:30
+            if (SPUtils.getInstance().getBoolean(SPKEY.IS_NEW_USER, true)) {
+                startActivity(new Intent(this, LoginActivity.class));
+            } else {
+                startActivity(new Intent(this, HomeActivity.class));
+            }
             finish();
         }
     }

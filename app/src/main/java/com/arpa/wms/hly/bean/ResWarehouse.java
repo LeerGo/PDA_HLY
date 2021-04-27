@@ -262,4 +262,19 @@ public class ResWarehouse {
     public void setGmtModified(String gmtModified) {
         this.gmtModified = gmtModified;
     }
+
+    @Override
+    public int hashCode() {
+        return code.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof ResWarehouse)) return false;
+
+        ResWarehouse that = (ResWarehouse) o;
+
+        return code.equals(that.code);
+    }
 }

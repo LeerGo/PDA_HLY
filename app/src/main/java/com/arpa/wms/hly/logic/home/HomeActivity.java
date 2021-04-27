@@ -46,7 +46,7 @@ public class HomeActivity extends BaseActivity<VMHome, ActivityHomeBinding> {
                     startActivity(intent);
                 }
             });
-            viewBind.rvMenu.addItemDecoration(new GridItemDecoration(DensityUtils.dip2px(this, 10)));
+            viewBind.rvMenu.addItemDecoration(new GridItemDecoration(DensityUtils.dip2px(10)));
             viewBind.rvMenu.setAdapter(adapter);
         });
     }

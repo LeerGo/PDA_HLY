@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="requestFocus"
+          format="boolean" />
+    <attr name="isShowPass"
+          format="boolean" />
+    <attr name="onFocusChangeCommand"
+          format="reference" />
+    
+    <declare-styleable name="View">
+        <attr name="onFocusChangeCommand" />
+    </declare-styleable>
+</resources>
