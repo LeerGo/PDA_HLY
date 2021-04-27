@@ -37,43 +37,22 @@ public class LoginActivity extends BaseActivity<VMLogin, ActivityLoginBinding> i
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setVariable(BR.vmLogin, viewModel);
-        //        registerMessageEvent(message -> {
-        //            Timber.e("message:%s", message);
-        //            //            ToastUtils.showToast(getContext(), message);
-        //        });
+        registerMessageEvent(ToastUtils::showShort);
+        registerFinishEvent();
         registerStatusEvent(status -> {
-            switch (status) {
-                case StatusEvent.Status.LOADING:
-                    //                    if (!getViewDataBinding().srl.isRefreshing()) {
-                    showLoading();
-                    //                    }
-                    break;
-                case StatusEvent.Status.SUCCESS:
-                case StatusEvent.Status.FAILURE:
-                case StatusEvent.Status.ERROR:
-                    hideLoading();
-                    //                    getViewDataBinding().srl.setRefreshing(false);
-                    break;
-            }
-        });
-        viewModel.warehouseLiveData.observe(this, list -> {
-            if (null != list) {
-                if (list.size() == 1) {
-                    viewModel.login(list.get(0));
-                } else {
-                    showDialogFragment(new DialogWarehouseSelect(list, this));
-                }
+            if (status == StatusEvent.Status.LOADING) {
+                showLoading();
             } else {
-                ToastUtils.showShort(R.string.failure_warehouse_list);
+                hideLoading();
             }
         });
-//        viewModel.isShowPass.observe(this, isShowPass -> {
-//            if (isShowPass) {
-//                viewBind.etPwd.setTransformationMethod(PasswordTransformationMethod.getInstance());
-//            } else {
-//                viewBind.etPwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
-//            }
-//        });
+        viewModel.getWarehouseLiveData().observe(this, list -> {
+            if (list.size() == 1) {
+                viewModel.login(list.get(0));
+            } else {
+                showDialogFragment(new DialogWarehouseSelect(list, this));
+            }
+        });
     }
 
     @Override

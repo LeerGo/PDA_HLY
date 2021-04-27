@@ -56,7 +56,7 @@
             android:id="@+id/wpi_queue"
             style="@style/TaskPropsRightStyle"
             android:layout_below="@id/line"
-            app:propsKey="排队号："
+            app:propsKey="@string/line_take_no"
             tools:propsValue="10" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -65,28 +65,28 @@
             android:layout_below="@id/line"
             android:layout_alignParentEnd="true"
             android:layout_marginEnd="12dp"
-            app:propsKey="件数："
+            app:propsKey="@string/number_of_units"
             tools:propsValue="1000" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             android:id="@+id/wpi_driver"
             style="@style/TaskPropsRightStyle"
             android:layout_below="@id/wpi_queue"
-            app:propsKey="司    机："
+            app:propsKey="@string/driver"
             tools:propsValue="张三    13200000000" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             android:id="@+id/wpi_stevedore"
             style="@style/TaskPropsRightStyle"
             android:layout_below="@id/wpi_driver"
-            app:propsKey="装卸工："
+            app:propsKey="@string/stevedore"
             tools:propsValue="装卸工一，装卸工一" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             android:id="@+id/wpi_forklift"
             style="@style/TaskPropsRightStyle"
             android:layout_below="@id/wpi_stevedore"
-            app:propsKey="叉车工："
+            app:propsKey="@string/forklift"
             tools:propsValue="叉车工一，叉车工一" />
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

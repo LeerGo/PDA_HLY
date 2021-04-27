@@ -24,9 +24,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:text="请选择登录仓库"
+                android:text="@string/title_choose_warehouse"
                 android:textColor="@color/black"
-                android:textSize="18dp" />
+                android:textSize="18sp" />
             
             <ImageView
                 android:id="@+id/iv_close"
@@ -54,7 +54,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/shape_rrect_blue_gradient"
             android:gravity="center"
-            android:text="确定"
+            android:text="@string/sure"
             android:textColor="@color/white"
             android:textSize="14sp" />
     </androidx.appcompat.widget.LinearLayoutCompat>

@@ -13,6 +13,7 @@ public interface Const {
     interface ParameterField {
         String CLASS = "CLASS";
         String BUNDLE = "BUNDLE";
+        String FLAGS = "FLAGS";
         String CANONICAL_NAME = "CANONICAL_NAME";
     }
 }

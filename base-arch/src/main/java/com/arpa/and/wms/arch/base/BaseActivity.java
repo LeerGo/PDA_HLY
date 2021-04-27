@@ -157,6 +157,7 @@ public abstract class BaseActivity <VM extends BaseViewModel, VDB extends ViewDa
             getLifecycle().addObserver(viewModel);
             registerLoadingEvent();
             registerStartActivityEvent();
+            registerFinishEvent();
         }
     }
 
@@ -180,7 +181,17 @@ public abstract class BaseActivity <VM extends BaseViewModel, VDB extends ViewDa
         viewModel.getStartActivityEvent().observe(this, (Observer<Map<String, Object>>) params -> {
             Class<?> clz = (Class<?>) params.get(ParameterField.CLASS);
             Bundle bundle = (Bundle) params.get(ParameterField.BUNDLE);
-            startActivity(clz, bundle);
+            Integer flags = (Integer) params.get(ParameterField.FLAGS);
+            startActivity(clz, bundle, flags);
+        });
+    }
+
+    /**
+     * 注册界面跳转事件
+     */
+    protected void registerFinishEvent() {
+        viewModel.getFinishEvent().observe(this, o -> {
+            finish();
         });
     }
 
@@ -255,46 +266,27 @@ public abstract class BaseActivity <VM extends BaseViewModel, VDB extends ViewDa
      * @param bundle
      *         跳转所携带的信息
      */
-    public void startActivityFinish(Class<?> clz, Bundle bundle) {
-        startActivity(clz, bundle);
-        finish();
-    }
-
-    /**
-     * 跳转页面
-     *
-     * @param clz
-     *         所跳转的目的Activity类
-     * @param bundle
-     *         跳转所携带的信息
-     */
     public void startActivity(Class<?> clz, Bundle bundle) {
         startActivity(newIntent(clz, bundle));
     }
 
     protected Intent newIntent(Class<?> cls, Bundle bundle) {
-        Intent intent = newIntent(cls);
-        if (null != bundle) intent.putExtras(bundle);
-        return intent;
+        return newIntent(cls, bundle, -1);
     }
 
-    protected Intent newIntent(Class<?> cls) {
-        return new Intent(getContext(), cls);
+    protected Intent newIntent(Class<?> clz, Bundle bundle, Integer flags) {
+        Intent intent = new Intent(getContext(), clz);
+        if (null != bundle) intent.putExtras(bundle);
+        if (null != flags && -1 != flags) intent.addFlags(flags);
+        return intent;
     }
 
     public Context getContext() {
         return this;
     }
 
-    /**
-     * 跳转页面
-     *
-     * @param clz
-     *         所跳转的目的Activity类
-     */
-    public void startActivityFinish(Class<?> clz) {
-        startActivity(clz);
-        finish();
+    public void startActivity(Class<?> clz, Bundle bundle, Integer flags) {
+        startActivity(newIntent(clz, bundle, flags));
     }
 
     /**
@@ -307,10 +299,12 @@ public abstract class BaseActivity <VM extends BaseViewModel, VDB extends ViewDa
         startActivity(newIntent(clz));
     }
 
-    protected Intent newIntent(Class<?> cls, int flags) {
-        Intent intent = newIntent(cls);
-        intent.addFlags(flags);
-        return intent;
+    protected Intent newIntent(Class<?> cls) {
+        return newIntent(cls, null, -1);
+    }
+
+    protected Intent newIntent(Class<?> cls, Integer flags) {
+        return newIntent(cls, null, flags);
     }
 
     //---------------------------------------

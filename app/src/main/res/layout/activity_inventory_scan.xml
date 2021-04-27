@@ -43,12 +43,11 @@
             android:layout_height="40dp"
             android:background="@null"
             android:gravity="center"
-            android:hint="请扫描/输入移出库位"
+            android:hint="@string/hint_please_scan_move"
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="@color/black"
             android:textColorHint="@color/color_b6bed2"
             android:textSize="14sp" />
-    
     </com.google.android.material.card.MaterialCardView>
 </androidx.appcompat.widget.LinearLayoutCompat>

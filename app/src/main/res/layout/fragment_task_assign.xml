@@ -48,7 +48,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="全选"
+            android:text="@string/select_all"
             android:textColor="@color/grey_666666"
             android:textSize="14sp"
             tools:ignore="HardcodedText" />
@@ -56,21 +56,21 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_assign_keeper"
             style="@style/TaskButtonStyle"
-            android:text="分配保管员"
+            android:text="@string/btn_assign_keeper"
             tools:ignore="HardcodedText" />
         
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_assign_stevedore"
             style="@style/TaskButtonStyle"
             android:layout_marginStart="6dp"
-            android:text="分配装卸工"
+            android:text="@string/btn_assign_stevedore"
             tools:ignore="HardcodedText" />
         
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_assign_forklift"
             style="@style/TaskButtonStyle"
             android:layout_marginStart="6dp"
-            android:text="分配叉车工"
+            android:text="@string/btn_assign_forklift"
             tools:ignore="HardcodedText" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -20,7 +20,7 @@
         <com.arpa.wms.hly.ui.widget.WidgetTitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:wtbTitle="我的" />
+            app:wtbTitle="@string/title_mine" />
         
         <FrameLayout
             android:layout_width="match_parent"
@@ -49,15 +49,17 @@
             <com.arpa.wms.hly.ui.widget.WidgetMineMenu
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:wmmDesc="@{vmMine.account}"
                 app:wmmIcon="@mipmap/ic_mine_account"
-                app:wmmTitle="账号"
+                app:wmmTitle="@string/name_account"
                 tools:wmmDesc="测试账号" />
             
             <com.arpa.wms.hly.ui.widget.WidgetMineMenu
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:wmmDesc="@{vmMine.warehouse}"
                 app:wmmIcon="@mipmap/ic_mine_warehouse"
-                app:wmmTitle="仓库"
+                app:wmmTitle="@string/name_warehouse"
                 tools:wmmDesc="测试账号" />
             
             <com.arpa.wms.hly.ui.widget.WidgetMineMenu
@@ -65,22 +67,25 @@
                 android:layout_height="wrap_content"
                 app:wmmDesc="@{vmMine.version}"
                 app:wmmIcon="@mipmap/ic_mine_version"
-                app:wmmTitle="版本号" />
+                app:wmmTitle="@string/name_version" />
         </androidx.appcompat.widget.LinearLayoutCompat>
         
         <androidx.appcompat.widget.AppCompatButton
             style="@style/MineButtonBaseStyle"
             android:background="@drawable/shape_rrect_blue_gradient"
-            android:text="切换仓库" />
+            android:onClick="@{()->vmMine.warehouseChange()}"
+            android:text="@string/warehouse_change" />
         
         <androidx.appcompat.widget.AppCompatButton
             style="@style/MineButtonStyle"
             android:background="@drawable/btn_biankuang_grey"
-            android:text="修改密码" />
+            android:onClick="@{()->vmMine.modifyPassword()}"
+            android:text="@string/account_modify_password" />
         
         <androidx.appcompat.widget.AppCompatButton
             style="@style/MineButtonStyle"
             android:background="@drawable/btn_biankuang_grey"
-            android:text="退出登录" />
+            android:onClick="@{()->vmMine.logout()}"
+            android:text="@string/account_logout" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

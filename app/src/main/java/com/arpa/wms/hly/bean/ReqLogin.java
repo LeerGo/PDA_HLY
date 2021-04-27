@@ -2,8 +2,15 @@ package com.arpa.wms.hly.bean;
 
 import com.google.gson.annotations.SerializedName;
 
+import android.annotation.SuppressLint;
+
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.Const.AppConfig;
+import com.arpa.wms.hly.utils.Md5Utils;
 import com.arpa.wms.hly.utils.SPUtils;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -11,20 +18,9 @@ import com.arpa.wms.hly.utils.SPUtils;
  * since: 2021-04-23 2:40 PM
  *
  * <p>
- * 内容描述区域
+ * 请求：登录
  * </p>
  */
-/*
-params.put("client_id", "1e069e240a163e9d2a18f4111ewecpda");
-params.put("client_secret", "e7957728041b11ea97dffa163e9d2pda");
-params.put("grant_type", "password");
-params.put("response_type", "token");
-params.put("device_id", MyPreferenceManager.getString("deviceid", ""));
-params.put("username", userName);
-params.put("password", Md5Utils.getBase64(passWord + "_arpa_" + time));
-params.put("time", time);
-params.put("authorizeDataCode", MyPreferenceManager.getString("CANGKU", ""));
-*/
 public class ReqLogin {
     @SerializedName("client_id")
     public String clientID;
@@ -34,28 +30,22 @@ public class ReqLogin {
     public String grantType;
     @SerializedName("response_type")
     public String responseType;
-    public String authorizeDataCode;
-
+    public String time;
     @SerializedName("device_id")
-    private String deviceID;
+    public String deviceID;
+
     private String username;
     private String password;
-    private String time;
+    private String authorizeDataCode;
 
+    @SuppressLint("SimpleDateFormat")
     public ReqLogin() {
-        clientID = Const.AppConfig.clientID;
-        clientSecret = Const.AppConfig.clientSecret;
-        grantType = "password";
-        responseType = "token";
-        authorizeDataCode = SPUtils.getInstance().getString(Const.SPKEY.WAREHOUSE_CODE);
-    }
-
-    public String getDeviceID() {
-        return deviceID;
-    }
-
-    public void setDeviceID(String deviceID) {
-        this.deviceID = deviceID;
+        clientID = AppConfig.clientID;
+        clientSecret = AppConfig.clientSecret;
+        grantType = AppConfig.grantType;
+        responseType = AppConfig.responseType;
+        time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
+        deviceID = SPUtils.getInstance().getString(Const.SPKEY.DEVICE_ID);
     }
 
     public String getUsername() {
@@ -71,14 +61,14 @@ public class ReqLogin {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        this.password = Md5Utils.getBase64(password + "_arpa_" + time);
     }
 
-    public String getTime() {
-        return time;
+    public String getAuthorizeDataCode() {
+        return authorizeDataCode;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setAuthorizeDataCode(String authorizeDataCode) {
+        this.authorizeDataCode = authorizeDataCode;
     }
 }

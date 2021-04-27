@@ -27,34 +27,30 @@ import androidx.lifecycle.Observer;
  */
 public class BaseViewModel <M extends BaseModel> extends AndroidViewModel implements IViewModel {
     /**
-     * 请通过 {@link #getModel()} 获取，后续版本 {@link #model}可能会私有化
-     */
-    private M model;
-
-    /**
      * 消息事件
      */
-    private MessageEvent mMessageEvent = new MessageEvent();
-
+    private final MessageEvent mMessageEvent = new MessageEvent();
     /**
      * 状态事件
      */
-    private StatusEvent mStatusEvent = new StatusEvent();
-
+    private final StatusEvent mStatusEvent = new StatusEvent();
     /**
      * 加载状态
      */
-    private SingleLiveEvent<Boolean> mLoadingEvent = new SingleLiveEvent<>();
-
+    private final SingleLiveEvent<Boolean> mLoadingEvent = new SingleLiveEvent<>();
     /**
      * 提供自定义单一消息事件
      */
-    private SingleLiveEvent<Message> mSingleLiveEvent = new SingleLiveEvent<>();
-
+    private final SingleLiveEvent<Message> mSingleLiveEvent = new SingleLiveEvent<>();
     /**
      * 界面跳转事件
      */
-    private SingleLiveEvent<Map<String, Object>> startActivityEvent = new SingleLiveEvent<>();
+    private final SingleLiveEvent<Map<String, Object>> startActivityEvent = new SingleLiveEvent<>();
+    private final SingleLiveEvent<Void> finishEvent = new SingleLiveEvent<>();
+    /**
+     * 请通过 {@link #getModel()} 获取，后续版本 {@link #model}可能会私有化
+     */
+    private M model;
 
     /**
      * 继承者都将使用此构造
@@ -108,7 +104,6 @@ public class BaseViewModel <M extends BaseModel> extends AndroidViewModel implem
 
     @Override
     public void onAny(LifecycleOwner owner, Lifecycle.Event event) {
-
     }
 
     /**
@@ -147,10 +142,21 @@ public class BaseViewModel <M extends BaseModel> extends AndroidViewModel implem
      * {@link BaseFragment#registerStartActivityEvent()} 或
      * {@link BaseDialogFragment#registerStartActivityEvent()}接收消息事件
      *
-     * @return {@link #mMessageEvent}
+     * @return {@link #startActivityEvent}
      */
     public SingleLiveEvent<Map<String, Object>> getStartActivityEvent() {
         return startActivityEvent;
+    }
+
+    /**
+     * 暴露给观察者提供消息事件，通过注册{@link BaseActivity#registerFinishEvent()}或
+     * {@link BaseFragment#registerStartActivityEvent()} 或
+     * {@link BaseDialogFragment#registerStartActivityEvent()}接收消息事件
+     *
+     * @return {@link #startActivityEvent}
+     */
+    public SingleLiveEvent<Void> getFinishEvent() {
+        return finishEvent;
     }
 
     /**
@@ -358,7 +364,6 @@ public class BaseViewModel <M extends BaseModel> extends AndroidViewModel implem
         hideLoading(false);
     }
 
-
     /**
      * 调用此类会同步通知执行{@link BaseActivity#hideLoading()}或{@link BaseFragment#hideLoading()}或
      * {@link BaseDialogFragment#hideLoading()}
@@ -382,7 +387,19 @@ public class BaseViewModel <M extends BaseModel> extends AndroidViewModel implem
      *         所跳转的目的Activity类
      */
     public void startActivity(Class<?> clz) {
-        startActivity(clz, null);
+        startActivity(clz, null, -1);
+    }
+
+    public void startActivity(Class<?> clz, Bundle bundle, Integer flags) {
+        Map<String, Object> params = new HashMap<>();
+        params.put(ParameterField.CLASS, clz);
+        if (null != flags && flags != -1) {
+            params.put(ParameterField.FLAGS, flags);
+        }
+        if (bundle != null) {
+            params.put(ParameterField.BUNDLE, bundle);
+        }
+        startActivityEvent.postValue(params);
     }
 
     /**
@@ -394,11 +411,25 @@ public class BaseViewModel <M extends BaseModel> extends AndroidViewModel implem
      *         跳转所携带的信息
      */
     public void startActivity(Class<?> clz, Bundle bundle) {
-        Map<String, Object> params = new HashMap<>();
-        params.put(ParameterField.CLASS, clz);
-        if (bundle != null) {
-            params.put(ParameterField.BUNDLE, bundle);
-        }
-        startActivityEvent.postValue(params);
+        startActivity(clz, bundle, -1);
+    }
+
+    /**
+     * 跳转页面
+     *
+     * @param clz
+     *         所跳转的目的Activity类
+     * @param flags
+     *         intent flags
+     */
+    public void startActivity(Class<?> clz, int flags) {
+        startActivity(clz, null, flags);
+    }
+
+    /**
+     * 关闭界面
+     */
+    public void finish() {
+        finishEvent.call();
     }
 }

@@ -126,11 +126,12 @@ public interface Const {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://114.116.246.31:9999/";
+        String URL_WMS = "http://192.168.31.24/";
+        //        String URL_WMS = "http://192.168.31.144/";
         /**
          * 用户认证 API 服务地址
          */
-        String URL_AUTH = "http://114.116.246.31:9002/arpa-basic-api/";
+        String URL_AUTH = URL_WMS + "arpa-basic-api/";
     }
 
     /**
@@ -153,6 +154,8 @@ public interface Const {
         String OPERATOR_NAME = "operatorName";
         // 操作人权限类型
         String PARTY_TYPE = "partyType";
+        // 登录账号
+        String USER_NAME = "userName";
     }
 
     /**

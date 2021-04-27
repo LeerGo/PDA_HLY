@@ -8,11 +8,13 @@ import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.logic.mine.MineActivity;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.Const.SPKEY;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
 import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.MutableLiveData;
 
@@ -27,7 +29,9 @@ import androidx.lifecycle.MutableLiveData;
  */
 // TODO: 参照 MVVMHabit 的写法，使用 ViewAdapter+BindingCollectionAdapter 实现自动绑定 @lyf 2021-04-23 04:25:21
 public class VMHome extends WrapDataViewModel {
-    protected final MutableLiveData<List<MenuBean>> menuLiveData = new MutableLiveData<>();
+    private final MutableLiveData<List<MenuBean>> menuLiveData = new MutableLiveData<>();
+    private final ObservableField<String> account = new ObservableField<>();
+    private final ObservableField<String> warehouse = new ObservableField<>();
 
     @ViewModelInject
     public VMHome(@NonNull Application application, BaseModel model) {
@@ -38,10 +42,21 @@ public class VMHome extends WrapDataViewModel {
     public void onCreate() {
         super.onCreate();
 
-        // TODO: 可能需要先获取权限 @lyf 2021-04-23 03:18:15
+        initHeader();
         createMenu();
     }
 
+    /**
+     * 顶部信息
+     */
+    private void initHeader() {
+        account.set("账号：" + spGetString(SPKEY.USER_NAME));
+        warehouse.set("仓库：" + spGetString(SPKEY.WAREHOUSE_NAME));
+    }
+
+    /**
+     * 创建菜单
+     */
     private void createMenu() {
         // TODO: 首页的菜单是写死根据前端根据权限判断，还是直接后端下发，待定 与 @阎庆玉 后期沟通 @lyf 2021-04-22 10:27:14
         List<MenuBean> menuList = new ArrayList<>();
@@ -56,5 +71,17 @@ public class VMHome extends WrapDataViewModel {
 
     public void jumpMine() {
         startActivity(MineActivity.class);
+    }
+
+    public MutableLiveData<List<MenuBean>> getMenuLiveData() {
+        return menuLiveData;
+    }
+
+    public ObservableField<String> getAccount() {
+        return account;
+    }
+
+    public ObservableField<String> getWarehouse() {
+        return warehouse;
     }
 }

@@ -36,7 +36,9 @@ public class HomeActivity extends BaseActivity<VMHome, ActivityHomeBinding> {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setVariable(BR.vmHome, viewModel);
-        viewModel.menuLiveData.observe(this, menuBeans -> {
+
+        viewModel.getMenuLiveData().observe(this, menuBeans -> {
+            // TODO: 这里的 adapter 可以考虑为 mvvm 方式，这里可以用先不动了就 @lyf 2021-04-27 03:21:44
             adapter = new HomeMenuAdapter(this);
             adapter.addAll(menuBeans);
             adapter.setOnItemClickListener((view, position, data) -> {

@@ -21,7 +21,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:wtbShowBack="false"
-            app:wtbTitle="首页" />
+            app:wtbTitle="@string/title_home" />
         
         <RelativeLayout
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="1dp"
                 android:layout_toEndOf="@id/iv_account"
-                android:text="账号：12345678912"
+                android:text="@{vmHome.account}"
                 android:textColor="@color/color_434c67"
                 android:textSize="14sp"
                 tools:text="账号：12345678912" />
@@ -65,7 +65,7 @@
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="10dp"
                 android:layout_toEndOf="@id/iv_warehouse"
-                android:text="仓库：测试仓库1"
+                android:text="@{vmHome.warehouse}"
                 android:textColor="@color/color_434c67"
                 android:textSize="14sp"
                 tools:text="仓库：测试仓库1" />

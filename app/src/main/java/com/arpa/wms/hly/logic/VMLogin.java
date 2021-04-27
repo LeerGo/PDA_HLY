@@ -1,27 +1,21 @@
 package com.arpa.wms.hly.logic;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.text.TextUtils;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.and.wms.arch.http.callback.ApiCallback;
-import com.arpa.wms.hly.R;
+import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
+import com.arpa.wms.hly.bean.ReqLogin;
 import com.arpa.wms.hly.bean.ResLogin;
 import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.bean.Result;
 import com.arpa.wms.hly.logic.home.HomeActivity;
-import com.arpa.wms.hly.utils.Const.AppConfig;
 import com.arpa.wms.hly.utils.Const.SPKEY;
-import com.arpa.wms.hly.utils.Md5Utils;
 import com.arpa.wms.hly.utils.ToastUtils;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -40,10 +34,11 @@ import retrofit2.Call;
  * </p>
  */
 public class VMLogin extends WrapDataViewModel {
-    public final ObservableField<String> userName = new ObservableField<>();
-    public final ObservableField<String> userPass = new ObservableField<>();
-    public final ObservableField<Boolean> isShowPass = new ObservableField<>();
-    protected final MutableLiveData<List<ResWarehouse>> warehouseLiveData = new MutableLiveData<>();
+    // TODO: 这里的默认值记得干掉 @lyf 2021-04-27 03:41:59
+    private final ObservableField<String> userName = new ObservableField<>("admin");
+    private final ObservableField<String> userPass = new ObservableField<>("abcd1234");
+    private final ObservableField<Boolean> isShowPass = new ObservableField<>();
+    private final MutableLiveData<List<ResWarehouse>> warehouseLiveData = new MutableLiveData<>();
 
     @ViewModelInject
     public VMLogin(@NonNull Application application, BaseModel model) {
@@ -75,39 +70,40 @@ public class VMLogin extends WrapDataViewModel {
      *         选择的仓库
      */
     public void login(ResWarehouse warehouseSelect) {
-        @SuppressLint("SimpleDateFormat")
-        SimpleDateFormat df = new SimpleDateFormat("yyyyMMddHHmmss");
-        String time = df.format(new Date());
+        updateStatus(StatusEvent.Status.LOADING);
+        ReqLogin reqLogin = new ReqLogin();
+        reqLogin.setPassword(userPass.get());
+        reqLogin.setUsername(userName.get());
+        reqLogin.setAuthorizeDataCode(warehouseSelect.getCode());
 
-        HashMap<String, String> params = new HashMap<>();
-        params.put("client_id", AppConfig.clientID);
-        params.put("client_secret", AppConfig.clientSecret);
-        params.put("grant_type", AppConfig.grantType);
-        params.put("response_type", AppConfig.responseType);
-        params.put("device_id", spGetString(SPKEY.DEVICE_ID));
-        params.put("username", userName.get());
-        params.put("password", Md5Utils.getBase64(userPass.get() + "_arpa_" + time));
-        params.put("time", time);
-        params.put("authorizeDataCode", warehouseSelect.getCode());
-        apiService.authorize(params)
+        apiService.authorize(GsonUtils.getInstance().pojo2Map(reqLogin))
                 .enqueue(new ApiCallback<Result<ResLogin>>() {
                     @Override
                     public void onResponse(Call<Result<ResLogin>> call, Result<ResLogin> result) {
-                        // TODO: 记得下面这行注释放开 @lyf 2021-04-27 02:29:55
-                        // spPut(SPKEY.IS_NEW_USER, false);
-                        spPut(SPKEY.WAREHOUSE_CODE, warehouseSelect.getCode());
-                        spPut(SPKEY.WAREHOUSE_NAME, warehouseSelect.getName());
-                        ResLogin data = result.getData();
-                        spPut(SPKEY.USER_TOKEN, data.getAccessToken());
-                        spPut(SPKEY.PARTY_TYPE, data.getParty().getPartyType());
-                        spPut(SPKEY.OPERATOR_NAME, data.getParty().getName());
-                        spPut(SPKEY.OPERATOR_CODE, data.getParty().getCode());
-                        startActivity(HomeActivity.class);
+                        if (result.isSuccess()) {
+                            spPut(SPKEY.IS_NEW_USER, false);
+                            spPut(SPKEY.USER_NAME, userName.get());
+                            spPut(SPKEY.WAREHOUSE_CODE, warehouseSelect.getCode());
+                            spPut(SPKEY.WAREHOUSE_NAME, warehouseSelect.getName());
+
+                            ResLogin data = result.getData();
+                            spPut(SPKEY.USER_TOKEN, data.getAccessToken());
+                            spPut(SPKEY.PARTY_TYPE, data.getParty().getPartyType());
+                            spPut(SPKEY.OPERATOR_NAME, data.getParty().getName());
+                            spPut(SPKEY.OPERATOR_CODE, data.getParty().getCode());
+                            updateStatus(StatusEvent.Status.SUCCESS, true);
+                            startActivity(HomeActivity.class);
+                            finish();
+                        } else {
+                            updateStatus(StatusEvent.Status.FAILURE, true);
+                            sendMessage(result.getMsg());
+                        }
                     }
 
                     @Override
                     public void onError(Call<Result<ResLogin>> call, Throwable t) {
-
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                        sendMessage(t.getMessage(), true);
                     }
                 });
     }
@@ -132,18 +128,12 @@ public class VMLogin extends WrapDataViewModel {
                 .enqueue(new ApiCallback<Result<List<ResWarehouse>>>() {
                     @Override
                     public void onResponse(Call<Result<List<ResWarehouse>>> call, Result<List<ResWarehouse>> result) {
-                        if (result != null) {
-                            if (result.isSuccess()) { //成功
-                                updateStatus(StatusEvent.Status.SUCCESS, true);
-                                warehouseLiveData.postValue(result.getData());
-                                return;
-                            }
-                            warehouseLiveData.postValue(new ArrayList<>());
-                            updateStatus(StatusEvent.Status.FAILURE, true);
-                            sendMessage(result.getMsg(), true);
+                        if (result.isSuccess()) { //成功
+                            updateStatus(StatusEvent.Status.SUCCESS, true);
+                            warehouseLiveData.postValue(result.getData());
                         } else {
                             updateStatus(StatusEvent.Status.FAILURE, true);
-                            sendMessage(R.string.failure_result_common, true);
+                            sendMessage(result.getMsg(), true);
                         }
                     }
 
@@ -153,5 +143,21 @@ public class VMLogin extends WrapDataViewModel {
                         sendMessage(t.getMessage(), true);
                     }
                 });
+    }
+
+    public ObservableField<String> getUserName() {
+        return userName;
+    }
+
+    public ObservableField<String> getUserPass() {
+        return userPass;
+    }
+
+    public ObservableField<Boolean> getIsShowPass() {
+        return isShowPass;
+    }
+
+    public MutableLiveData<List<ResWarehouse>> getWarehouseLiveData() {
+        return warehouseLiveData;
     }
 }
