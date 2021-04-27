@@ -14,7 +14,7 @@ public abstract class ApiCallback <T> implements Callback<T> {
     public void onResponse(Call<T> call, Response<T> response) {
         if (response.isSuccessful()) {
             T result = response.body();
-            Timber.d("Response:" + result);
+            // Timber.d("Response:" + result);
             onResponse(call, result);
         } else {
             onError(call, new HttpException(response));

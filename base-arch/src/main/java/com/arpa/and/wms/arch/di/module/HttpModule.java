@@ -4,9 +4,11 @@ package com.arpa.and.wms.arch.di.module;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import com.arpa.and.wms.arch.BuildConfig;
 import com.arpa.and.wms.arch.config.AppliesOptions;
 import com.arpa.and.wms.arch.http.InterceptorConfig;
-import com.arpa.and.wms.arch.http.interceptor.LogInterceptor;
+import com.arpa.and.wms.arch.http.interceptor.logging.Level;
+import com.arpa.and.wms.arch.http.interceptor.logging.LoggingInterceptor;
 import com.king.retrofit.retrofithelper.RetrofitHelper;
 
 import javax.inject.Singleton;
@@ -18,6 +20,7 @@ import dagger.hilt.InstallIn;
 import dagger.hilt.components.SingletonComponent;
 import okhttp3.HttpUrl;
 import okhttp3.OkHttpClient;
+import okhttp3.internal.platform.Platform;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -65,7 +68,7 @@ public class HttpModule {
         if (config.isAddGsonConverterFactory()) {
             builder.addConverterFactory(GsonConverterFactory.create(gson));
         }
-
+        // TODO: 增加 LivedataCallAdapterFactory @lyf 2021-04-26 03:20:31
         return builder;
     }
 
@@ -75,7 +78,15 @@ public class HttpModule {
         OkHttpClient.Builder builder = RetrofitHelper.getInstance().createClientBuilder();
 
         if (config.isAddLog()) {
-            builder.addInterceptor(new LogInterceptor());
+            builder.addInterceptor(new LoggingInterceptor
+                    .Builder()//构建者模式
+                    .loggable(BuildConfig.DEBUG) //是否开启日志打印
+                    .setLevel(Level.BASIC) //打印的等级
+                    .log(Platform.INFO) // 打印类型
+                    .request("Net-Request") // request的Tag
+                    .response("Net-Response")// Response的Tag
+                    .build()
+            );
         }
 
         return builder;
