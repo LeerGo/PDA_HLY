@@ -7,7 +7,7 @@ import com.arpa.and.wms.arch.base.DataViewModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.and.wms.arch.http.callback.ApiCallback;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.Result;
+import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.net.ApiService;
 import com.arpa.wms.hly.utils.ToastUtils;
 
@@ -117,7 +117,7 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
         return items;
     }
 
-    // FIXME: 应该用 PageVO @lyf 2021-04-27 09:46:08
+    // FIXME: 应该用 ResultPage @lyf 2021-04-27 09:46:08
     public abstract Call<Result<List<T>>> getCall();
 
     public A getAdapter() {

@@ -1,6 +1,9 @@
 package com.arpa.wms.hly.logic.home.inventory.move;
 
-import android.content.Intent;
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -8,20 +11,16 @@ import android.content.Intent;
  * since: 2021-04-22 3:30 PM
  *
  * <p>
- * 内容描述区域
+ * 页面：扫描移位库位
  * </p>
  */
+@AndroidEntryPoint
 public class ScanLocationActivity extends InventoryScanActivity {
 
     @Override
-    protected String getTitleBar() {
-        return "扫描移出库位";
-    }
+    public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
 
-    @Override
-    protected void requestData(String scanCode) {
-//        Log.e("@@@@ L18", "ScanLocationActivity:requestData() -> scanCode = " + scanCode);
-        startActivity(new Intent(this, ScanGoodsActivity.class));
-        finish();
+        viewModel.getTitle().set("扫描移出库位");
     }
 }

@@ -8,7 +8,7 @@ import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.ResWarehouse;
-import com.arpa.wms.hly.bean.Result;
+import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.demo.DemoListAdapter;
 import com.arpa.wms.hly.ui.listener.OnItemClickListener;
@@ -55,7 +55,7 @@ public class VMDemoListRefresh extends VMBaseRefreshList<ResWarehouse, DemoListA
 
     @Override
     public ItemBinding<ResWarehouse> getItemBinding() {
-        return ItemBinding.of(BR.data, R.layout.item_warehouse2);
+        return ItemBinding.of(BR.data, R.layout.item_demo_list2);
     }
 
     @Override

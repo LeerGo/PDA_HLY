@@ -7,10 +7,10 @@ import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.and.wms.arch.http.callback.ApiCallback;
 import com.arpa.and.wms.arch.util.GsonUtils;
-import com.arpa.wms.hly.bean.ReqLogin;
-import com.arpa.wms.hly.bean.ResLogin;
+import com.arpa.wms.hly.bean.req.ReqLogin;
+import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.ResWarehouse;
-import com.arpa.wms.hly.bean.Result;
+import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.logic.common.VMWarehouse;
 import com.arpa.wms.hly.logic.home.HomeActivity;
 import com.arpa.wms.hly.utils.Const.SPKEY;
@@ -27,7 +27,7 @@ import retrofit2.Call;
  * since: 2021-04-23 2:20 PM
  *
  * <p>
- * 内容描述区域
+ * ViewModel：登录
  * </p>
  */
 public class VMLogin extends VMWarehouse {

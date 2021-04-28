@@ -1,31 +1,33 @@
-package com.arpa.wms.hly.logic.home.inventory.move;
+package com.arpa.wms.hly.logic.home.truckload;
 
 import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.databinding.ActivityInventoryScanBinding;
+import com.arpa.wms.hly.databinding.ActivityTruckLoadBinding;
 
 import androidx.annotation.Nullable;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
- * since: 2021-04-22 3:30 PM
+ * since: 2021-04-25 2:01 PM
  *
  * <p>
- * 界面：扫描移除库位
+ * 界面：装车出厂（列表）
  * </p>
  */
-public abstract class InventoryScanActivity extends BaseActivity<VMInventoryScan, ActivityInventoryScanBinding> {
+@AndroidEntryPoint
+public class TruckLoadActivity extends BaseActivity<VMTruckLoad, ActivityTruckLoadBinding> {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_inventory_scan;
+        return R.layout.activity_truck_load;
     }
 
     @Override
     public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-        viewBind.setVmInventory(viewModel);
+
     }
 }

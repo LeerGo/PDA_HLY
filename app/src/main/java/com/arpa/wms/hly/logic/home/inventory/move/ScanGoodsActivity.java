@@ -1,23 +1,26 @@
 package com.arpa.wms.hly.logic.home.inventory.move;
 
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+import dagger.hilt.android.AndroidEntryPoint;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
  * since: 2021-04-22 3:30 PM
  *
  * <p>
- * 内容描述区域
+ * 页面：扫描移位商品
  * </p>
  */
+@AndroidEntryPoint
 public class ScanGoodsActivity extends InventoryScanActivity {
 
     @Override
-    protected void requestData(String scanCode) {
+    public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
 
-    }
-
-    @Override
-    protected String getTitleBar() {
-        return "扫描移位商品";
+        viewModel.getTitle().set("扫描移位商品");
     }
 }

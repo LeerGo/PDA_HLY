@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.DataViewModel;
-import com.arpa.wms.hly.bean.Result;
+import com.arpa.wms.hly.bean.base.Result;
 
 import java.util.List;
 

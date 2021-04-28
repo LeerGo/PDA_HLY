@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.bean;
+package com.arpa.wms.hly.bean.base;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  * 基础列表响应
  * </p>
  */
-public class ResultList <T> {
+public class ResultPage <T> {
     private int status;
     private String msg;
     private DataBean<T> data;

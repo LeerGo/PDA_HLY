@@ -1,6 +1,13 @@
 package com.arpa.wms.hly.logic.home.goods.take;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.os.Bundle;
+
+import com.arpa.and.wms.arch.base.BaseActivity;
+import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.databinding.ActivityGoodsTakeBinding;
+
+import androidx.annotation.Nullable;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -11,5 +18,15 @@ import androidx.appcompat.app.AppCompatActivity;
  * 页面：商品待收货列表
  * </p>
  */
-public class GoodsTakeActivity extends AppCompatActivity {
+@AndroidEntryPoint
+public class GoodsTakeActivity extends BaseActivity<VMGoodsTake, ActivityGoodsTakeBinding> {
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_goods_take;
+    }
+
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+
+    }
 }

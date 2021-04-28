@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.bean;
+package com.arpa.wms.hly.bean.res;
 
 import com.google.gson.annotations.SerializedName;
 

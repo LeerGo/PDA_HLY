@@ -21,7 +21,7 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * since: 2021-04-25 3:13 PM
  *
  * <p>
- * 内容描述区域
+ * ViewModel：我的
  * </p>
  */
 public class VMMine extends VMWarehouse {
@@ -68,7 +68,6 @@ public class VMMine extends VMWarehouse {
      */
     public void warehouseChange() {
         // TODO: 待实现 @lyf 2021-04-27 03:49:32
-        Log.e("@@@@ L58", "VMMine:modifyPassword() -> 切换仓库");
         getWarehouseWithoutAuth(spGetString(Const.SPKEY.USER_NAME));
     }
 

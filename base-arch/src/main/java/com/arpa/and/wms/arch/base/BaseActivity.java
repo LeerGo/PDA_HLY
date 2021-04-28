@@ -38,7 +38,6 @@ import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelStoreOwner;
 
-
 /**
  * 继承使用了BaseActivity或其子类，你需要参照如下方式添加@AndroidEntryPoint注解
  */

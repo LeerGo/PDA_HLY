@@ -11,7 +11,7 @@ import com.arpa.and.wms.arch.http.callback.ApiCallback;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.ResWarehouse;
-import com.arpa.wms.hly.bean.Result;
+import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.net.ApiService;
 import com.arpa.wms.hly.ui.listener.OnItemClickListener;
 
@@ -37,7 +37,7 @@ import retrofit2.Call;
 public class VMDemoList extends DataViewModel implements OnItemClickListener<ResWarehouse> {
     public final DemoListAdapter adapter = new DemoListAdapter();
     public final ObservableList<ResWarehouse> items = new ObservableArrayList<>();
-    public final ItemBinding<ResWarehouse> itemBinding = ItemBinding.of(BR.data, R.layout.item_warehouse2);
+    public final ItemBinding<ResWarehouse> itemBinding = ItemBinding.of(BR.data, R.layout.item_demo_list2);
     protected final ApiService apiService = getRetrofitService(ApiService.class);
 
     @ViewModelInject

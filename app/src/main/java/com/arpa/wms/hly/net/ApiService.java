@@ -1,8 +1,8 @@
 package com.arpa.wms.hly.net;
 
-import com.arpa.wms.hly.bean.ResLogin;
+import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.ResWarehouse;
-import com.arpa.wms.hly.bean.Result;
+import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.utils.Const.API;
 import com.arpa.wms.hly.utils.Const.AppConfig;
 import com.king.retrofit.retrofithelper.DomainName;

@@ -11,34 +11,28 @@
             type="com.arpa.wms.hly.demo.refresh.VMDemoListRefresh" />
     </data>
     
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:id="@+id/refreshLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        app:autoRefresh="@{vm.isAutoRefresh}"
+        app:hasMore="@{vm.hasMore}"
+        app:moreLoading="@{vm.moreLoading}"
+        app:onLoadMoreListener="@{()->vm.loadMore()}"
+        app:onRefreshListener="@{()->vm.refresh()}"
+        app:refreshing="@{vm.refreshing}"
+        app:srlEnableFooterFollowWhenNoMoreData="true"
+        app:srlEnableLoadMore="true">
         
-        
-        <com.scwang.smart.refresh.layout.SmartRefreshLayout
-            android:id="@+id/refreshLayout"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:autoRefresh="@{vm.isAutoRefresh}"
-            app:hasMore="@{vm.hasMore}"
-            app:moreLoading="@{vm.moreLoading}"
-            app:onLoadMoreListener="@{()->vm.loadMore()}"
-            app:onRefreshListener="@{()->vm.refresh()}"
-            app:refreshing="@{vm.refreshing}"
-            app:srlEnableFooterFollowWhenNoMoreData="true"
-            app:srlEnableLoadMore="true">
-            
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recyclerView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never"
-                app:adapter="@{vm.adapter}"
-                app:itemBinding="@{vm.itemBinding}"
-                app:items="@{vm.items}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_warehouse" />
-        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:overScrollMode="never"
+            app:adapter="@{vm.adapter}"
+            app:itemBinding="@{vm.itemBinding}"
+            app:items="@{vm.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:listitem="@layout/item_warehouse" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>

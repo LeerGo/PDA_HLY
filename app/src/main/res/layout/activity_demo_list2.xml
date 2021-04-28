@@ -11,19 +11,14 @@
             type="com.arpa.wms.hly.demo.VMDemoList" />
     </data>
     
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:overScrollMode="never"
-            app:adapter="@{vm.adapter}"
-            app:itemBinding="@{vm.itemBinding}"
-            app:items="@{vm.items}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_warehouse" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+        android:layout_height="match_parent"
+        android:overScrollMode="never"
+        app:adapter="@{vm.adapter}"
+        app:itemBinding="@{vm.itemBinding}"
+        app:items="@{vm.items}"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/item_warehouse" />
 </layout>

@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.bean;
+package com.arpa.wms.hly.bean.base;
 
 /**
  * author: 李一方(<a href="mailto:a94118@gmail.com">a94118@gmail.com</a>)<br/>

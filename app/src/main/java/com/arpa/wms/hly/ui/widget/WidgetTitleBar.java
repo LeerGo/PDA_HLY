@@ -43,7 +43,7 @@ public class WidgetTitleBar extends RelativeLayout {
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetTitleBar);
-        setTitle(typedArray.getString(R.styleable.WidgetTitleBar_wtbTitle));
+        setWtbTitle(typedArray.getString(R.styleable.WidgetTitleBar_wtbTitle));
         if (typedArray.getBoolean(R.styleable.WidgetTitleBar_wtbShowBack, true)) {
             ivBack.setVisibility(VISIBLE);
         } else {
@@ -52,7 +52,7 @@ public class WidgetTitleBar extends RelativeLayout {
         typedArray.recycle();
     }
 
-    public void setTitle(String title) {
+    public void setWtbTitle(String title) {
         tvTitle.setText(title);
     }
 

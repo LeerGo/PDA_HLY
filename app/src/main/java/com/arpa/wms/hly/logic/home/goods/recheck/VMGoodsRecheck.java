@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.logic.home.goods;
+package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.app.Application;
 
@@ -14,12 +14,12 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * since: 2021-04-25 2:03 PM
  *
  * <p>
- * ViewModel: 商品待收货类别
+ * ViewModel: 商品待复核列表
  * </p>
  */
-public class VMGoodsTake extends DataViewModel {
+public class VMGoodsRecheck extends DataViewModel {
     @ViewModelInject
-    public VMGoodsTake(@NonNull Application application, BaseModel model) {
+    public VMGoodsRecheck(@NonNull Application application, BaseModel model) {
         super(application, model);
     }
 }
