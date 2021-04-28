@@ -7,21 +7,18 @@ import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.and.wms.arch.http.callback.ApiCallback;
 import com.arpa.and.wms.arch.util.GsonUtils;
-import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.ReqLogin;
 import com.arpa.wms.hly.bean.ResLogin;
 import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.bean.Result;
+import com.arpa.wms.hly.logic.common.VMWarehouse;
 import com.arpa.wms.hly.logic.home.HomeActivity;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 import com.arpa.wms.hly.utils.ToastUtils;
 
-import java.util.List;
-
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.hilt.lifecycle.ViewModelInject;
-import androidx.lifecycle.MutableLiveData;
 import retrofit2.Call;
 
 /**
@@ -33,12 +30,12 @@ import retrofit2.Call;
  * 内容描述区域
  * </p>
  */
-public class VMLogin extends WrapDataViewModel {
+public class VMLogin extends VMWarehouse {
     // TODO: 这里的默认值记得干掉 @lyf 2021-04-27 03:41:59
     private final ObservableField<String> userName = new ObservableField<>("admin");
     private final ObservableField<String> userPass = new ObservableField<>("abcd1234");
     private final ObservableField<Boolean> isShowPass = new ObservableField<>();
-    private final MutableLiveData<List<ResWarehouse>> warehouseLiveData = new MutableLiveData<>();
+
 
     @ViewModelInject
     public VMLogin(@NonNull Application application, BaseModel model) {
@@ -57,6 +54,20 @@ public class VMLogin extends WrapDataViewModel {
         } else {
             userPass.set("");
         }
+    }
+
+    public void getWarehouseWithoutAuth() {
+        String loginID = userName.get();
+        String password = userPass.get();
+        if (TextUtils.isEmpty(loginID)) {
+            ToastUtils.showShort("请填写账号信息");
+            return;
+        }
+        if (TextUtils.isEmpty(password)) {
+            ToastUtils.showShort("请填写密码");
+            return;
+        }
+        super.getWarehouseWithoutAuth(loginID);
     }
 
     public void showPass(boolean isShowPass) {
@@ -108,43 +119,6 @@ public class VMLogin extends WrapDataViewModel {
                 });
     }
 
-    /**
-     * 获取仓库列表
-     */
-    public void getWarehouseWithoutAuth() {
-        String loginID = userName.get();
-        String password = userPass.get();
-        if (TextUtils.isEmpty(loginID)) {
-            ToastUtils.showShort("请填写账号信息");
-            return;
-        }
-        if (TextUtils.isEmpty(password)) {
-            ToastUtils.showShort("请填写密码");
-            return;
-        }
-
-        updateStatus(StatusEvent.Status.LOADING);
-        apiService.getWarehouseWithoutAuth(loginID)
-                .enqueue(new ApiCallback<Result<List<ResWarehouse>>>() {
-                    @Override
-                    public void onResponse(Call<Result<List<ResWarehouse>>> call, Result<List<ResWarehouse>> result) {
-                        if (result.isSuccess()) { //成功
-                            updateStatus(StatusEvent.Status.SUCCESS, true);
-                            warehouseLiveData.postValue(result.getData());
-                        } else {
-                            updateStatus(StatusEvent.Status.FAILURE, true);
-                            sendMessage(result.getMsg(), true);
-                        }
-                    }
-
-                    @Override
-                    public void onError(Call<Result<List<ResWarehouse>>> call, Throwable t) {
-                        updateStatus(StatusEvent.Status.ERROR, true);
-                        sendMessage(t.getMessage(), true);
-                    }
-                });
-    }
-
     public ObservableField<String> getUserName() {
         return userName;
     }
@@ -155,9 +129,5 @@ public class VMLogin extends WrapDataViewModel {
 
     public ObservableField<Boolean> getIsShowPass() {
         return isShowPass;
-    }
-
-    public MutableLiveData<List<ResWarehouse>> getWarehouseLiveData() {
-        return warehouseLiveData;
     }
 }

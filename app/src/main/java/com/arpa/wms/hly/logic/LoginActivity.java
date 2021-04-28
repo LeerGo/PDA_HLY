@@ -38,7 +38,6 @@ public class LoginActivity extends BaseActivity<VMLogin, ActivityLoginBinding> i
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setVariable(BR.vmLogin, viewModel);
         registerMessageEvent(ToastUtils::showShort);
-        registerFinishEvent();
         registerStatusEvent(status -> {
             if (status == StatusEvent.Status.LOADING) {
                 showLoading();

@@ -60,16 +60,6 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
-//    aspectjx {
-//        exclude 'androidx'
-//        exclude 'com.google'
-//        exclude 'com.squareup'
-//        exclude 'com.scwang'
-//        exclude 'me.jessyan'
-//        include 'com.arpa.wms.hly'
-//        enabled true
-//    }
 }
 
 dependencies {

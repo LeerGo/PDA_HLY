@@ -6,8 +6,8 @@ import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BuildConfig;
-import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.logic.LoginActivity;
+import com.arpa.wms.hly.logic.common.VMWarehouse;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
 
@@ -24,7 +24,7 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * 内容描述区域
  * </p>
  */
-public class VMMine extends WrapDataViewModel {
+public class VMMine extends VMWarehouse {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
     private final ObservableField<String> version = new ObservableField<>("v0.0.0");
@@ -69,6 +69,7 @@ public class VMMine extends WrapDataViewModel {
     public void warehouseChange() {
         // TODO: 待实现 @lyf 2021-04-27 03:49:32
         Log.e("@@@@ L58", "VMMine:modifyPassword() -> 切换仓库");
+        getWarehouseWithoutAuth(spGetString(Const.SPKEY.USER_NAME));
     }
 
     public ObservableField<String> getAccount() {
