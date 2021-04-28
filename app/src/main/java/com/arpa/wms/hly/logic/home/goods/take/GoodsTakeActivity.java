@@ -27,6 +27,7 @@ public class GoodsTakeActivity extends BaseActivity<VMGoodsTake, ActivityGoodsTa
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        viewBind.setViewModel(viewModel);
+        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
     }
 }

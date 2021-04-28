@@ -22,4 +22,9 @@
         <attr name="propsValue"
               format="string|reference" />
     </declare-styleable>
+    
+    <declare-styleable name="WidgetSearchBar">
+        <attr name="wsbHint"
+              format="string|reference" />
+    </declare-styleable>
 </resources>

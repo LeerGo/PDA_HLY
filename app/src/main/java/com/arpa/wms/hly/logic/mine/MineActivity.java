@@ -9,8 +9,8 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityMineBinding;
 import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
-import com.arpa.wms.hly.ui.listener.DialogDismissListener;
-import com.arpa.wms.hly.utils.Const.SPKEY;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
+import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.Nullable;
@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class MineActivity extends BaseActivity<VMMine, ActivityMineBinding> implements DialogDismissListener<ResWarehouse> {
+public class MineActivity extends BaseActivity<VMMine, ActivityMineBinding> implements DataClickListener<ResWarehouse> {
 
     @Override
     public int getLayoutId() {
@@ -56,9 +56,9 @@ public class MineActivity extends BaseActivity<VMMine, ActivityMineBinding> impl
     }
 
     @Override
-    public void onDialogSure(ResWarehouse data) {
-        viewModel.spPut(SPKEY.WAREHOUSE_CODE, data.getCode());
-        viewModel.spPut(SPKEY.WAREHOUSE_NAME, data.getName());
+    public void transfer(ResWarehouse data) {
+        viewModel.spPut(Const.SPKEY.WAREHOUSE_CODE, data.getCode());
+        viewModel.spPut(Const.SPKEY.WAREHOUSE_NAME, data.getName());
         viewModel.getWarehouse().set(data.getName());
     }
 }

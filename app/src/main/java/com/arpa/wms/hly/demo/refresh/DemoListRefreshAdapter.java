@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.arpa.wms.hly.bean.ResWarehouse;
-import com.arpa.wms.hly.ui.listener.OnItemClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;

@@ -7,11 +7,11 @@ import android.view.View;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.bean.base.Result;
-import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.demo.DemoListAdapter;
-import com.arpa.wms.hly.ui.listener.OnItemClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener;
 
 import java.util.List;
 

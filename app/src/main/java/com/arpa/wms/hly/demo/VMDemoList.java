@@ -13,7 +13,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.net.ApiService;
-import com.arpa.wms.hly.ui.listener.OnItemClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener;
 
 import java.util.ArrayList;
 import java.util.List;

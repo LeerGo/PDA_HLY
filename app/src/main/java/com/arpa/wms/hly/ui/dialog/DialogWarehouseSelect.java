@@ -7,7 +7,7 @@ import com.arpa.and.wms.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.ui.adapter.DialogWarehouseSelectAdapter;
-import com.arpa.wms.hly.ui.listener.DialogDismissListener;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.List;
@@ -27,18 +27,13 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class DialogWarehouseSelect extends BaseDialogFragment {
     private final List<ResWarehouse> warehouses;
-    private final DialogDismissListener<ResWarehouse> listener;
+    private final DataClickListener<ResWarehouse> listener;
 
     private ResWarehouse result;
 
-    public DialogWarehouseSelect(List<ResWarehouse> warehouses, DialogDismissListener<ResWarehouse> listener) {
+    public DialogWarehouseSelect(List<ResWarehouse> warehouses, DataClickListener<ResWarehouse> listener) {
         this.warehouses = warehouses;
         this.listener = listener;
-    }
-
-    @Override
-    public boolean isBinding() {
-        return false;
     }
 
     @Override
@@ -62,7 +57,7 @@ public class DialogWarehouseSelect extends BaseDialogFragment {
             if (null == result) {
                 ToastUtils.showShort("请选择一个仓库");
             } else {
-                listener.onDialogSure(result);
+                listener.transfer(result);
                 dismiss();
             }
         });
@@ -71,5 +66,10 @@ public class DialogWarehouseSelect extends BaseDialogFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+    }
+
+    @Override
+    public boolean isBinding() {
+        return false;
     }
 }

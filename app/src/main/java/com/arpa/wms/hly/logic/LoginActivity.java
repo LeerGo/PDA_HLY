@@ -9,7 +9,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityLoginBinding;
 import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
-import com.arpa.wms.hly.ui.listener.DialogDismissListener;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.Nullable;
@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 // TODO: 框架的日志打印还需要重新做一下 参考 MVVMHabit @lyf 2021-04-23 03:31:14
 // TODO: 框架的条状 activity 可已参照 MVVMHabit 修改一下，这样就不用写 onLoginClick 方法 @lyf 2021-04-23 04:24:28
 @AndroidEntryPoint
-public class LoginActivity extends BaseActivity<VMLogin, ActivityLoginBinding> implements DialogDismissListener<ResWarehouse> {
+public class LoginActivity extends BaseActivity<VMLogin, ActivityLoginBinding> implements ViewListener.DataClickListener<ResWarehouse> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_login;
@@ -55,7 +55,7 @@ public class LoginActivity extends BaseActivity<VMLogin, ActivityLoginBinding> i
     }
 
     @Override
-    public void onDialogSure(ResWarehouse data) {
+    public void transfer(ResWarehouse data) {
         viewModel.login(data);
     }
 }

@@ -9,5 +9,5 @@ package com.arpa.wms.hly.logic.home.goods.take;
  * 页面：商品收货确认
  * </p>
  */
-class GoodsTakeConfirmActivity {
+public class GoodsTakeConfirmActivity {
 }
