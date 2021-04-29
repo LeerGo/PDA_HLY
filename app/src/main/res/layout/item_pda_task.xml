@@ -8,7 +8,7 @@
         
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.res.ResTaskList" />
+            type="com.arpa.wms.hly.bean.res.ResPdaTask" />
     </data>
     
     <com.google.android.material.card.MaterialCardView

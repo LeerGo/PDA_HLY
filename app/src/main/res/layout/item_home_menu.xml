@@ -1,37 +1,54 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.google.android.material.card.MaterialCardView
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="15dp"
-    app:cardBackgroundColor="@color/white"
-    app:cardElevation="2dp"
-    tools:layout_marginLeft="10dp"
-    tools:layout_marginTop="10dp">
+    xmlns:tools="http://schemas.android.com/tools">
     
-    <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
+    <data>
         
-        <ImageView
-            android:id="@+id/iv_icon"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
-            android:layout_marginVertical="22dp"
-            android:layout_marginStart="14dp"
-            tools:src="@mipmap/ic_goods_take" />
+        <import type="com.arpa.wms.hly.bean.MenuBean" />
         
-        <TextView
-            android:id="@+id/tv_title"
+        <variable
+            name="listener"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;MenuBean&gt;" />
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.MenuBean" />
+    </data>
+    
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{()->listener.transfer(data)}"
+        android:padding="15dp"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="2dp"
+        tools:layout_marginLeft="10dp"
+        tools:layout_marginTop="10dp">
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:layout_toEndOf="@+id/iv_icon"
-            android:textColor="@color/black"
-            android:textSize="16sp"
-            tools:text="收货" />
-    </RelativeLayout>
-</com.google.android.material.card.MaterialCardView>
+            android:gravity="center_vertical">
+            
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginVertical="22dp"
+                android:layout_marginStart="14dp"
+                app:imageId="@{data.imageRes}"
+                tools:src="@mipmap/ic_goods_take" />
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:text="@{data.text}"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                tools:text="收货" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

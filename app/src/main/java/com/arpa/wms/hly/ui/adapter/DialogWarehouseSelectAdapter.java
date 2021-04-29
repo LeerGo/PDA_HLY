@@ -1,5 +1,6 @@
 package com.arpa.wms.hly.ui.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,7 +16,7 @@ import com.arpa.wms.hly.bean.res.ResWarehouse;
  * since: 2021-04-25 4:18 PM
  *
  * <p>
- * 内容描述区域
+ * Adapter：选择仓库弹窗
  * </p>
  */
 public class DialogWarehouseSelectAdapter extends BaseAdapter<ResWarehouse> {
@@ -25,6 +26,7 @@ public class DialogWarehouseSelectAdapter extends BaseAdapter<ResWarehouse> {
         super(context);
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     @Override
     public void onBindItemHolder(BaseViewHolder holder, int position) {
         ImageView ivSelect = holder.getView(R.id.iv_select);
@@ -34,11 +36,10 @@ public class DialogWarehouseSelectAdapter extends BaseAdapter<ResWarehouse> {
         ivSelect.setSelected(curSelect == position);
         tvWarehouse.setText(data.getName());
         // TODO: 存下来 warehouseCode @lyf 2021-04-25 04:56:34
-        // MyPreferenceManager.commitString("CANGKU", List.get(position).getCode());
         holder.itemView.setOnClickListener(v -> {
             curSelect = position;
-            notifyDataSetChanged();
             onItemClickListener.onItemClick(v, position, data);
+            notifyDataSetChanged();
         });
     }
 

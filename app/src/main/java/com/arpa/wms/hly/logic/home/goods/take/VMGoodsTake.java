@@ -9,7 +9,7 @@ import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
-import com.arpa.wms.hly.bean.res.ResTaskList;
+import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.utils.Const.JOB_STATUS;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 import com.arpa.wms.hly.utils.Const.TASK_TYPE;
@@ -32,7 +32,7 @@ import retrofit2.Call;
  * ViewModel: 商品待收货类别
  * </p>
  */
-public class VMGoodsTake extends VMBaseRefreshList<ResTaskList, BindingRecyclerViewAdapter<ResTaskList>> {
+public class VMGoodsTake extends VMBaseRefreshList<ResPdaTask, BindingRecyclerViewAdapter<ResPdaTask>> {
     private final ObservableField<String> searHint = new ObservableField<>();
     private ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
 
@@ -49,7 +49,7 @@ public class VMGoodsTake extends VMBaseRefreshList<ResTaskList, BindingRecyclerV
     }
 
     @Override
-    public Call<ResultPage<ResTaskList>> getCall(Map params) {
+    public Call<ResultPage<ResPdaTask>> getCall(Map params) {
         return apiService.pdaTasks(params);
     }
 
@@ -62,8 +62,8 @@ public class VMGoodsTake extends VMBaseRefreshList<ResTaskList, BindingRecyclerV
     }
 
     @Override
-    public ItemBinding<ResTaskList> getItemBinding() {
-        return ItemBinding.of(BR.data, R.layout.item_task_type);
+    public ItemBinding<ResPdaTask> getItemBinding() {
+        return ItemBinding.of(BR.data, R.layout.item_pda_task);
     }
 
     /**

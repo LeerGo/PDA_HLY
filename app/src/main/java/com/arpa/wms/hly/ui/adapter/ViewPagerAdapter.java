@@ -11,7 +11,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
  * since: 2021-04-22 11:14 AM
  *
  * <p>
- * 内容描述区域
+ * Adapter-Viewpager：任务中心
  * </p>
  */
 public class ViewPagerAdapter extends FragmentStateAdapter {

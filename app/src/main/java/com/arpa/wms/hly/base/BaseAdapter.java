@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * 适配器基类
  * Created by jingang on 2018/6/6.
  */
+@Deprecated
 public abstract class BaseAdapter <T> extends RecyclerView.Adapter<BaseViewHolder> {
     private final LayoutInflater mInflater;
     protected Context mContext;

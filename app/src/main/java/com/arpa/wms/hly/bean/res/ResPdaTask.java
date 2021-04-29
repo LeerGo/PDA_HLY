@@ -9,7 +9,7 @@ package com.arpa.wms.hly.bean.res;
  * Res：收货、复核任务列表
  * </p>
  */
-public class ResTaskList {
+public class ResPdaTask {
     private String assignBy;
     private String assignName;
     private String billTypeName;

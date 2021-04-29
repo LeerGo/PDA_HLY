@@ -71,13 +71,17 @@
                 tools:text="仓库：测试仓库1" />
         </RelativeLayout>
         
+        
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rv_menu"
+            android:id="@+id/rvMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            app:adapter="@{vmHome.adapter}"
+            app:itemBinding="@{vmHome.itemBinding}"
+            app:items="@{vmHome.items}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             app:spanCount="2"
-            tools:itemCount="5"
+            tools:itemCount="6"
             tools:listitem="@layout/item_home_menu"
             tools:padding="10dp" />
     </androidx.appcompat.widget.LinearLayoutCompat>

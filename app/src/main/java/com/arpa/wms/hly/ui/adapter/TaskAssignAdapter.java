@@ -12,7 +12,7 @@ import com.arpa.wms.hly.base.BaseViewHolder;
  * since: 2021-04-22 11:14 AM
  *
  * <p>
- * 内容描述区域
+ * Adapter：任务中心列表
  * </p>
  */
 public class TaskAssignAdapter <TaskAssignBean> extends BaseAdapter<TaskAssignBean> {

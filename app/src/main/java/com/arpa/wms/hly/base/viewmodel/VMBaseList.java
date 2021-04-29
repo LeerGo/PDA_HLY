@@ -3,7 +3,6 @@ package com.arpa.wms.hly.base.viewmodel;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.DataViewModel;
 import com.arpa.wms.hly.bean.base.Result;
 
 import java.util.List;
@@ -22,13 +21,12 @@ import retrofit2.Call;
  * 基础架构-ViewModel：普通列表数据加载
  * </p>
  */
-public abstract class VMBaseList <T> extends DataViewModel {
+public abstract class VMBaseList <T> extends WrapDataViewModel {
     public final ObservableList<T> data = new ObservableArrayList<>();
 
     public VMBaseList(@NonNull Application application, BaseModel model) {
         super(application, model);
     }
-
 
     public abstract Call<Result<List<T>>> getCall();
 }
