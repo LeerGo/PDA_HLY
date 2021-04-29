@@ -6,9 +6,6 @@ import retrofit2.HttpException;
 import retrofit2.Response;
 import timber.log.Timber;
 
-/**
- *
- */
 public abstract class ApiCallback <T> implements Callback<T> {
     @Override
     public void onResponse(Call<T> call, Response<T> response) {

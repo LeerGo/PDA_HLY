@@ -18,6 +18,12 @@ import com.arpa.wms.hly.net.HeaderInterceptor;
 public class AppConfigModule extends FrameConfigModule {
     @Override
     public void applyOptions(Context context, ConfigModule.Builder builder) {
-        builder.okHttpClientOptions(okHttpBuilder -> okHttpBuilder.addInterceptor(new HeaderInterceptor()));
+        builder.okHttpClientOptions(okHttpBuilder ->
+                okHttpBuilder.addInterceptor(new HeaderInterceptor())
+        )./*gsonOptions(gsonBuilder ->
+                gsonBuilder.registerTypeAdapterFactory(ObjectDeserializerDoubleAsIntFix.FACTORY)
+        ).*/interceptorConfigOptions(interceptorBuilder ->
+                interceptorBuilder.addGsonConverterFactory(true)
+        );
     }
 }

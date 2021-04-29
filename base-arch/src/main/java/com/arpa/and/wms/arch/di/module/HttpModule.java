@@ -31,7 +31,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 @Module
 public class HttpModule {
 
-
     @Singleton
     @Provides
     Retrofit provideRetrofit(Retrofit.Builder builder, @Nullable AppliesOptions.RetrofitOptions options) {
@@ -63,8 +62,7 @@ public class HttpModule {
     @Provides
     Retrofit.Builder provideRetrofitBuilder(HttpUrl httpUrl, OkHttpClient client, Gson gson, InterceptorConfig config) {
         Retrofit.Builder builder = new Retrofit.Builder();
-        builder.baseUrl(httpUrl)
-                .client(client);
+        builder.baseUrl(httpUrl).client(client);
         if (config.isAddGsonConverterFactory()) {
             builder.addConverterFactory(GsonConverterFactory.create(gson));
         }

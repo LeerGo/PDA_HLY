@@ -10,27 +10,20 @@ package com.arpa.wms.hly.bean.base;
  * </p>
  */
 public class ReqPage {
-    private Integer pageNum;
-    private Integer pageSize;
+    public Integer pageNum;
+    public Integer pageSize;
 
-    public ReqPage(Integer pageNum, Integer pageSize) {
-        this.pageNum = pageNum;
+    public ReqPage(Integer pageSize) {
+        this.pageNum = 1;
         this.pageSize = pageSize;
     }
 
-    public Integer getPageNum() {
-        return pageNum;
+
+    public void pageIncrease() {
+        pageNum++;
     }
 
-    public void setPageNum(Integer pageNum) {
-        this.pageNum = pageNum;
-    }
-
-    public Integer getPageSize() {
-        return pageSize;
-    }
-
-    public void setPageSize(Integer pageSize) {
-        this.pageSize = pageSize;
+    public void pageReset() {
+        pageNum = 1;
     }
 }

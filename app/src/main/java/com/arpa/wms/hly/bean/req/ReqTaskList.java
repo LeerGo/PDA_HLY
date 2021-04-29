@@ -20,8 +20,8 @@ public class ReqTaskList extends ReqPage {
     private String warehouseCode;
     private String code;
 
-    public ReqTaskList(int pageNum, int pageSize) {
-        super(pageNum, pageSize);
+    public ReqTaskList(int pageSize) {
+        super(pageSize);
         warehouseCode = SPUtils.getInstance().getString(WAREHOUSE_CODE);
     }
 

@@ -31,4 +31,5 @@
     <string name="driver">司 机：</string>
     <string name="stevedore">装卸工：</string>
     <string name="warehouse_change">切换仓库</string>
+    <string name="task_number_goods_take">收货任务号：%s</string>
 </resources>

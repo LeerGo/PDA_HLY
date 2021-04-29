@@ -36,8 +36,7 @@ public class GsonUtils {
     }
 
     public Map<String, Object> pojo2Map(Object obj) {
-        return gson.fromJson(gson.toJsonTree(obj), new TypeToken<Map<String, Object>>() {
-        }.getType());
+        return gson.fromJson(gson.toJsonTree(obj), new TypeToken<Map<String, Object>>() {}.getType());
     }
 
     private static class SingleHolder {

@@ -3,10 +3,10 @@ package com.arpa.wms.hly.logic.home.goods.take;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
+import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
 import com.arpa.wms.hly.bean.res.ResTaskList;
@@ -34,7 +34,7 @@ import retrofit2.Call;
  */
 public class VMGoodsTake extends VMBaseRefreshList<ResTaskList, BindingRecyclerViewAdapter<ResTaskList>> {
     private final ObservableField<String> searHint = new ObservableField<>();
-    private ReqTaskList reqTaskList = new ReqTaskList(page, PAGE_SIZE);
+    private ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
 
     @ViewModelInject
     public VMGoodsTake(@NonNull Application application, BaseModel model) {
@@ -54,11 +54,11 @@ public class VMGoodsTake extends VMBaseRefreshList<ResTaskList, BindingRecyclerV
     }
 
     @Override
-    protected Map getParams() {
+    public ReqPage getParams() {
         reqTaskList.setJobStatus(JOB_STATUS.UNFINISHED);
         reqTaskList.setTaskType(TASK_TYPE.RECEIVE);
         reqTaskList.setWarehouseCode(spGetString(SPKEY.WAREHOUSE_CODE));
-        return GsonUtils.getInstance().pojo2Map(reqTaskList);
+        return reqTaskList;
     }
 
     @Override

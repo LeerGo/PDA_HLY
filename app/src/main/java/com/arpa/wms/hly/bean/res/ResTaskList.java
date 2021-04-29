@@ -18,10 +18,10 @@ public class ResTaskList {
     private String createdName;
     private String gmtCreated;
     private String gmtModified;
-    private String goodsQuantity;
-    private String goodsTypeQuantity;
+    private Integer goodsQuantity;
+    private Integer goodsTypeQuantity;
     private String groupCode;
-    private String jobQuantity;
+    private Integer jobQuantity;
     private String jobStatus;
     private String modifiedBy;
     private String modifiedName;
@@ -87,27 +87,27 @@ public class ResTaskList {
         this.container = container;
     }
 
-    public String getGoodsQuantity() {
+    public Integer getGoodsQuantity() {
         return goodsQuantity;
     }
 
-    public void setGoodsQuantity(String goodsQuantity) {
+    public void setGoodsQuantity(Integer goodsQuantity) {
         this.goodsQuantity = goodsQuantity;
     }
 
-    public String getGoodsTypeQuantity() {
+    public Integer getGoodsTypeQuantity() {
         return goodsTypeQuantity;
     }
 
-    public void setGoodsTypeQuantity(String goodsTypeQuantity) {
+    public void setGoodsTypeQuantity(Integer goodsTypeQuantity) {
         this.goodsTypeQuantity = goodsTypeQuantity;
     }
 
-    public String getJobQuantity() {
+    public Integer getJobQuantity() {
         return jobQuantity;
     }
 
-    public void setJobQuantity(String jobQuantity) {
+    public void setJobQuantity(Integer jobQuantity) {
         this.jobQuantity = jobQuantity;
     }
 

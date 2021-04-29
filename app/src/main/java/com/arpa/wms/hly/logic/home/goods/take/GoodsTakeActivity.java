@@ -7,6 +7,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.databinding.ActivityGoodsTakeBinding;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -29,5 +30,8 @@ public class GoodsTakeActivity extends BaseActivity<VMGoodsTake, ActivityGoodsTa
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
         viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider_line_vertical_10dp));
+        viewBind.rvList.addItemDecoration(itemDecoration);
     }
 }

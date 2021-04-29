@@ -1,13 +1,7 @@
 package com.arpa.and.wms.arch.http;
 
-
-/**
- *
- */
 public class InterceptorConfig {
-
     private boolean isAddLog;
-
     private boolean isAddGsonConverterFactory;
 
     private InterceptorConfig(Builder builder) {

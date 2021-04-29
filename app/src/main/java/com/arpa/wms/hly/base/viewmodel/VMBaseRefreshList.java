@@ -5,9 +5,10 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.and.wms.arch.http.callback.ApiCallback;
+import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
-import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.Map;
 
@@ -32,9 +33,6 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
     // 分页相关
     public final static int PAGE_SIZE = 10;
 
-    // 数据相关
-    public int page = 1;
-
     // SmartRefreshLayout 属性标记
     public ObservableBoolean refreshing = new ObservableBoolean();
     public ObservableBoolean moreLoading = new ObservableBoolean();
@@ -44,7 +42,6 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
     // adapter 相关
     private ObservableList<T> items;
     private A adapter;
-
 
     public VMBaseRefreshList(@NonNull Application application, BaseModel model) {
         super(application, model);
@@ -70,40 +67,41 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
     }
 
     public void refresh() {
-        page = 1;
+        getParams().pageReset();
         refreshing.set(true);
         requestData(true);
     }
 
     private void requestData(boolean isRefresh) {
         updateStatus(StatusEvent.Status.LOADING);
-        getCall(getParams()).enqueue(new ApiCallback<ResultPage<T>>() {
-            @Override
-            public void onResponse(Call<ResultPage<T>> call, ResultPage<T> result) {
-                if (result != null) {
-                    if (result.isSuccess()) { //成功
-                        if (isRefresh) getItems().clear();
-                        getItems().addAll(result.getData().getRecords());
-                        updateStatus(StatusEvent.Status.SUCCESS, true);
-                        hasMore.set(result.getData().getRecords().size() == PAGE_SIZE);
-                    } else {
-                        sendMessage(result.getMsg(), true);
-                        updateStatus(StatusEvent.Status.FAILURE, true);
+        getCall(GsonUtils.getInstance().pojo2Map(getParams()))
+                .enqueue(new ApiCallback<ResultPage<T>>() {
+                    @Override
+                    public void onResponse(Call<ResultPage<T>> call, ResultPage<T> result) {
+                        if (result != null) {
+                            if (result.isSuccess()) { //成功
+                                if (isRefresh) getItems().clear();
+                                getItems().addAll(result.getData().getRecords());
+                                updateStatus(StatusEvent.Status.SUCCESS, true);
+                                hasMore.set(result.getData().getRecords().size() == PAGE_SIZE);
+                            } else {
+                                sendMessage(result.getMsg(), true);
+                                updateStatus(StatusEvent.Status.FAILURE, true);
+                            }
+                        } else {
+                            sendMessage(R.string.failure_result_common, true);
+                            updateStatus(StatusEvent.Status.FAILURE, true);
+                        }
+                        if (isRefresh) refreshing.set(false);
+                        else moreLoading.set(false);
                     }
-                } else {
-                    sendMessage(R.string.failure_result_common, true);
-                    updateStatus(StatusEvent.Status.FAILURE, true);
-                }
-                if (isRefresh) refreshing.set(false);
-                else moreLoading.set(false);
-            }
 
-            @Override
-            public void onError(Call<ResultPage<T>> call, Throwable t) {
-                updateStatus(StatusEvent.Status.ERROR, true);
-                sendMessage(t.getMessage(), true);
-            }
-        });
+                    @Override
+                    public void onError(Call<ResultPage<T>> call, Throwable t) {
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                        sendMessage(t.getMessage(), true);
+                    }
+                });
     }
 
     public ObservableList<T> getItems() {
@@ -115,7 +113,7 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
 
     public abstract Call<ResultPage<T>> getCall(Map params);
 
-    protected abstract Map getParams();
+    public abstract ReqPage getParams();
 
     public A getAdapter() {
         return adapter;
@@ -126,12 +124,8 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
     }
 
     public void loadMore() {
-        page += 1;
+        getParams().pageIncrease();
         moreLoading.set(true);
-        if (page > 4) {
-            hasMore.set(false);
-            ToastUtils.showShort("IS END！");
-        }
         requestData(false);
     }
 

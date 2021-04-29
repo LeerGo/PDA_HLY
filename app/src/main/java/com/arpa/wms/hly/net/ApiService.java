@@ -3,6 +3,7 @@ package com.arpa.wms.hly.net;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.res.ResLogin;
+import com.arpa.wms.hly.bean.res.ResTaskList;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.utils.Const.API;
 import com.arpa.wms.hly.utils.Const.AppConfig;
@@ -42,7 +43,7 @@ public interface ApiService {
      * 获取首页的任务任务列表
      */
     @GET("wms/pda/tasks")
-    Call<ResultPage<ResLogin>> pdaTasks(@QueryMap Map<String, Object> data);
+    Call<ResultPage<ResTaskList>> pdaTasks(@QueryMap Map<String, Object> data);
 
     /**
      * 获取字典信息- 新华字典

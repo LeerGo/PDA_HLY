@@ -57,11 +57,13 @@
             app:srlEnableLoadMore="true">
             
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:adapter="@{viewModel.adapter}"
                 app:itemBinding="@{viewModel.itemBinding}"
                 app:items="@{viewModel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="20"
                 tools:listitem="@layout/item_task_type" />
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
