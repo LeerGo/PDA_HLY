@@ -11,6 +11,7 @@ import android.widget.EditText;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 
 /**
@@ -24,6 +25,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
  */
 public class WidgetSearchBar extends LinearLayoutCompat {
     private EditText etKey;
+    private AppCompatImageView ivClear;
     private DataClickListener<String> onSearchClick;
 
     public WidgetSearchBar(Context context) {
@@ -39,6 +41,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
     private void initViews(Context context) {
         LayoutInflater.from(context).inflate(R.layout.widget_search_bar, this, true);
 
+        ivClear = findViewById(R.id.iv_clear);
         etKey = findViewById(R.id.et_key);
         etKey.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -46,6 +49,8 @@ public class WidgetSearchBar extends LinearLayoutCompat {
             }
             return false;
         });
+        etKey.setOnFocusChangeListener((v, hasFocus) -> ivClear.setVisibility(hasFocus ? VISIBLE : GONE));
+        ivClear.setOnClickListener(v -> etKey.setText(""));
         findViewById(R.id.ib_search).setOnClickListener(this::extracted);
     }
 
