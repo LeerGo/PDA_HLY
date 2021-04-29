@@ -16,6 +16,10 @@ public class ResultPage <T> {
     private String msg;
     private DataBean<T> data;
 
+    public boolean isSuccess() {
+        return status == 0;
+    }
+
     public int getStatus() {
         return status;
     }

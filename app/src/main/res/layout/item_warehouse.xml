@@ -5,7 +5,7 @@
         
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.ResWarehouse" />
+            type="com.arpa.wms.hly.bean.res.ResWarehouse" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat

@@ -81,8 +81,8 @@
         <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
         
         <!-- 测试区-->
-        <activity android:name=".demo.DemoListActivity" />
-        <activity android:name=".demo.refresh.DemoListRefreshActivity" />
+        <!--<activity android:name=".demo.DemoListActivity" />-->
+        <!--<activity android:name=".demo.refresh.DemoListRefreshActivity" />-->
         
         <!-- UI 适配参数 -->
         <meta-data
@@ -91,6 +91,10 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="667" />
+        <!--App 全局配置-->
+        <meta-data
+            android:name="com.arpa.wms.hly.base.AppConfigModule"
+            android:value="FrameConfigModule" />
     </application>
 
 </manifest>

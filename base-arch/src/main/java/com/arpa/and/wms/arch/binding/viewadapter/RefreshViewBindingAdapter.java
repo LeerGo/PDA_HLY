@@ -1,7 +1,5 @@
 package com.arpa.and.wms.arch.binding.viewadapter;
 
-import android.util.Log;
-
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.scwang.smart.refresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smart.refresh.layout.listener.OnRefreshListener;
@@ -21,8 +19,7 @@ import androidx.databinding.BindingAdapter;
 public class RefreshViewBindingAdapter {
     @BindingAdapter(value = {"refreshing", "moreLoading", "hasMore"}, requireAll = false)
     public static void bindSmartRefreshLayout(SmartRefreshLayout smartLayout, Boolean refreshing, Boolean moreLoading, Boolean hasMore) {
-        Log.e("@@@@ L24", "RefreshViewBindingAdapter:bindSmartRefreshLayout() -> refreshing = " + refreshing
-                + ", moreLoading = " + moreLoading + ", hasMore = " + hasMore);
+        //        Log.e("@@@@ L24", "RefreshViewBindingAdapter:bindSmartRefreshLayout() -> refreshing = " + refreshing + ", moreLoading = " + moreLoading + ", hasMore = " + hasMore);
         if (null != refreshing && !refreshing) {
             smartLayout.finishRefresh();
         }

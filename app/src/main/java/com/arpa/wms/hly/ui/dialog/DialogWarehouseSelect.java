@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.arpa.and.wms.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.ResWarehouse;
+import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.ui.adapter.DialogWarehouseSelectAdapter;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
 import com.arpa.wms.hly.utils.ToastUtils;

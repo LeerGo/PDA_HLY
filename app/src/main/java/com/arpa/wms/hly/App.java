@@ -54,9 +54,8 @@ public class App extends Application {
     }
 
     private void setApiURL() {
-
         RetrofitHelper.getInstance().setBaseUrl(API.URL_WMS);
-        RetrofitHelper.getInstance().putDomain(API.URL_KEY, API.URL_AUTH);
+        //        RetrofitHelper.getInstance().putDomain(API.URL_KEY, API.URL_AUTH);
     }
 
     private void initLogger() {

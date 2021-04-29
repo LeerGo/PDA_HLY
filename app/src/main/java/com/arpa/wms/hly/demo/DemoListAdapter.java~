@@ -3,7 +3,7 @@ package com.arpa.wms.hly.demo;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.arpa.wms.hly.bean.ResWarehouse;
+import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener;
 
 import androidx.annotation.NonNull;

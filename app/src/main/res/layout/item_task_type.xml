@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.res.ResTaskList" />
+    </data>
+    
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:gravity="center_vertical"
+        android:paddingHorizontal="12dp"
+        android:text="@{data.code}"
+        android:textColor="@color/black"
+        tools:text="task code: 1234567890zxcvbnm" />
+</layout>

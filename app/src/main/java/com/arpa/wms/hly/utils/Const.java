@@ -128,10 +128,19 @@ public interface Const {
          */
         String URL_WMS = "http://192.168.31.24/";
         //        String URL_WMS = "http://192.168.31.144/";
+        //        /**
+        //         * 用户认证 API 服务地址
+        //         */
+        //        String URL_AUTH = URL_WMS + "arpa-basic-api/";
+
         /**
-         * 用户认证 API 服务地址
+         * API：获取仓库
          */
-        String URL_AUTH = URL_WMS + "arpa-basic-api/";
+        String API_WAREHOUSE_AUTHORIZATION="wms/warehouse/warehouseAuthorization";
+        /**
+         * API：获取认证
+         */
+        String API_AUTHORIZATION = "arpa-basic-api/authorize";
     }
 
     /**

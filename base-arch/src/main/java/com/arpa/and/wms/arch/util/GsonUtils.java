@@ -1,6 +1,8 @@
 package com.arpa.and.wms.arch.util;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.Map;
 
@@ -14,13 +16,16 @@ import java.util.Map;
  * </p>
  */
 public class GsonUtils {
-    private Gson gson;
+    private final Gson gson;
 
     /**
      * 构造方法私有化
      */
     private GsonUtils() {
-        gson = new Gson();
+        gson = new GsonBuilder()
+                .registerTypeAdapter(new TypeToken<Map<String, Object>>() {
+                }.getType(), new MapDeserializerDoubleAsIntFix())
+                .create();
     }
 
     /**
@@ -30,11 +35,13 @@ public class GsonUtils {
         return SingleHolder.ins;
     }
 
-    public Map pojo2Map(Object obj) {
-        return gson.fromJson(gson.toJsonTree(obj), Map.class);
+    public Map<String, Object> pojo2Map(Object obj) {
+        return gson.fromJson(gson.toJsonTree(obj), new TypeToken<Map<String, Object>>() {
+        }.getType());
     }
 
     private static class SingleHolder {
         private static final GsonUtils ins = new GsonUtils();
     }
 }
+

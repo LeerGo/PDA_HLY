@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.bean;
+package com.arpa.wms.hly.bean.res;
 
 public class ResWarehouse {
     private String address;

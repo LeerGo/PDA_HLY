@@ -3,15 +3,13 @@ package com.arpa.wms.hly.base.viewmodel;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.DataViewModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.and.wms.arch.http.callback.ApiCallback;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.base.Result;
-import com.arpa.wms.hly.net.ApiService;
+import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.utils.ToastUtils;
 
-import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
@@ -30,10 +28,9 @@ import retrofit2.Call;
  * 基础架构-ViewModel：分页加载
  * </p>
  */
-public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter<T>> extends DataViewModel {
+public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter<T>> extends WrapDataViewModel {
     // 分页相关
     public final static int PAGE_SIZE = 10;
-    public final ApiService apiService = getRetrofitService(ApiService.class);
 
     // 数据相关
     public int page = 1;
@@ -46,7 +43,6 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
 
     // adapter 相关
     private ObservableList<T> items;
-    private ItemBinding<T> itemBinding;
     private A adapter;
 
 
@@ -81,15 +77,15 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
 
     private void requestData(boolean isRefresh) {
         updateStatus(StatusEvent.Status.LOADING);
-        getCall().enqueue(new ApiCallback<Result<List<T>>>() {
+        getCall(getParams()).enqueue(new ApiCallback<ResultPage<T>>() {
             @Override
-            public void onResponse(Call<Result<List<T>>> call, Result<List<T>> result) {
+            public void onResponse(Call<ResultPage<T>> call, ResultPage<T> result) {
                 if (result != null) {
                     if (result.isSuccess()) { //成功
                         if (isRefresh) getItems().clear();
-                        getItems().addAll(result.getData());
+                        getItems().addAll(result.getData().getRecords());
                         updateStatus(StatusEvent.Status.SUCCESS, true);
-                        hasMore.set(result.getData().size() == PAGE_SIZE);
+                        hasMore.set(result.getData().getRecords().size() == PAGE_SIZE);
                     } else {
                         sendMessage(result.getMsg(), true);
                         updateStatus(StatusEvent.Status.FAILURE, true);
@@ -103,7 +99,7 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
             }
 
             @Override
-            public void onError(Call<Result<List<T>>> call, Throwable t) {
+            public void onError(Call<ResultPage<T>> call, Throwable t) {
                 updateStatus(StatusEvent.Status.ERROR, true);
                 sendMessage(t.getMessage(), true);
             }
@@ -117,8 +113,9 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
         return items;
     }
 
-    // FIXME: 应该用 ResultPage @lyf 2021-04-27 09:46:08
-    public abstract Call<Result<List<T>>> getCall();
+    public abstract Call<ResultPage<T>> getCall(Map params);
+
+    protected abstract Map getParams();
 
     public A getAdapter() {
         return adapter;

@@ -6,7 +6,7 @@ import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.ResWarehouse;
+import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityLoginBinding;
 import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
 import com.arpa.wms.hly.ui.listener.ViewListener;

@@ -7,7 +7,7 @@ import android.widget.TextView;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseAdapter;
 import com.arpa.wms.hly.base.BaseViewHolder;
-import com.arpa.wms.hly.bean.ResWarehouse;
+import com.arpa.wms.hly.bean.res.ResWarehouse;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
