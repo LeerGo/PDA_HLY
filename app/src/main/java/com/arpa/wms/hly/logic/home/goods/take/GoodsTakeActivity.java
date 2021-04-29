@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.databinding.ActivityGoodsTakeBinding;
+import com.arpa.wms.hly.databinding.ActivityPdataskTakeBinding;
 
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -20,10 +20,10 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeActivity extends BaseActivity<VMGoodsTake, ActivityGoodsTakeBinding> {
+public class GoodsTakeActivity extends BaseActivity<VMGoodsTake, ActivityPdataskTakeBinding> {
     @Override
     public int getLayoutId() {
-        return R.layout.activity_goods_take;
+        return R.layout.activity_pdatask_take;
     }
 
     @Override

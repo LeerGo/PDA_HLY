@@ -65,7 +65,7 @@
                 app:items="@{viewModel.items}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="20"
-                tools:listitem="@layout/item_pda_task" />
+                tools:listitem="@layout/item_goods_take" />
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

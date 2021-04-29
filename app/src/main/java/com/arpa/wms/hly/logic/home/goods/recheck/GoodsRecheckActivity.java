@@ -4,9 +4,10 @@ import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.databinding.ActivityGoodsRecheckBinding;
+import com.arpa.wms.hly.databinding.ActivityPdataskRecheckBinding;
 
 import androidx.annotation.Nullable;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -19,14 +20,18 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckActivity extends BaseActivity<VMGoodsRecheck, ActivityGoodsRecheckBinding> {
+public class GoodsRecheckActivity extends BaseActivity<VMGoodsRecheck, ActivityPdataskRecheckBinding> {
     @Override
     public int getLayoutId() {
-        return R.layout.activity_goods_recheck;
+        return R.layout.activity_pdatask_recheck;
     }
 
     @Override
     public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
-
+        viewBind.setViewModel(viewModel);
+        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider_line_vertical_10dp));
+        viewBind.rvList.addItemDecoration(itemDecoration);
     }
 }

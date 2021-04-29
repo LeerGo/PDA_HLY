@@ -19,13 +19,13 @@ public class LogicViewBinding {
     public static void setTaskStatus(AppCompatImageView imageView, String taskStatus) {
         switch (taskStatus) {
             case "采购":
-                imageView.setImageResource(R.mipmap.ic_goods_take_buy);
+                imageView.setImageResource(R.mipmap.ic_goods_status_buy);
                 break;
             case "退货":
-                imageView.setImageResource(R.mipmap.ic_goods_take_return);
+                imageView.setImageResource(R.mipmap.ic_goods_status_return);
                 break;
             case "调拨":
-                imageView.setImageResource(R.mipmap.ic_goods_take_trans);
+                imageView.setImageResource(R.mipmap.ic_goods_status_trans);
                 break;
         }
     }

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-    >
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     
     <data>
         
@@ -32,12 +32,12 @@
                 android:textColor="@color/color_434c67"
                 tools:text="收货任务号：SH2020092300008" />
             
+            <!--app:taskStatus="@{data.billTypeName}"-->
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                app:taskStatus="@{data.billTypeName}"
-                tools:src="@mipmap/ic_goods_take_buy" />
+                android:src="@mipmap/ic_goods_status_sale" />
             
             <View
                 android:id="@+id/line"
