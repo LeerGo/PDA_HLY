@@ -1,5 +1,7 @@
 package com.arpa.wms.hly.ui.binding;
 
+import android.text.TextUtils;
+
 import com.arpa.wms.hly.R;
 
 import androidx.appcompat.widget.AppCompatImageView;
@@ -17,16 +19,17 @@ import androidx.databinding.BindingAdapter;
 public class LogicViewBinding {
     @BindingAdapter(value = "taskStatus")
     public static void setTaskStatus(AppCompatImageView imageView, String taskStatus) {
-        switch (taskStatus) {
-            case "采购":
-                imageView.setImageResource(R.mipmap.ic_goods_status_buy);
-                break;
-            case "退货":
-                imageView.setImageResource(R.mipmap.ic_goods_status_return);
-                break;
-            case "调拨":
-                imageView.setImageResource(R.mipmap.ic_goods_status_trans);
-                break;
-        }
+        if (!TextUtils.isEmpty(taskStatus))
+            switch (taskStatus) {
+                case "采购":
+                    imageView.setImageResource(R.mipmap.ic_goods_status_buy);
+                    break;
+                case "退货":
+                    imageView.setImageResource(R.mipmap.ic_goods_status_return);
+                    break;
+                case "调拨":
+                    imageView.setImageResource(R.mipmap.ic_goods_status_trans);
+                    break;
+            }
     }
 }

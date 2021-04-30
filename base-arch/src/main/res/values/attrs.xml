@@ -6,7 +6,10 @@
           format="boolean" />
     <attr name="onFocusChangeCommand"
           format="reference" />
-    
+    <attr name="pageLimit"
+          format="integer" />
+    <attr name="tabDivider"
+          format="reference|color" />
     <declare-styleable name="View">
         <attr name="onFocusChangeCommand" />
     </declare-styleable>

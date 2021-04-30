@@ -45,6 +45,7 @@ dependencies {
 
     //appcompat
     compileOnly deps.appcompat
+    compileOnly deps.material
 
     //retrofit
     api deps.retrofit.retrofit

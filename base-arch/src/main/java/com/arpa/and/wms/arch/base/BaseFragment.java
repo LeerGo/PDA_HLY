@@ -46,27 +46,20 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
 
     protected static final float DEFAULT_WIDTH_RATIO = 0.85f;
     /**
-     * 请通过 {@link #getViewModel()}获取，后续版本 {@link #mViewModel}可能会私有化
-     */
-    private VM mViewModel;
-    /**
-     * 请通过 {@link #getViewDataBinding()}获取，后续版本 {@link #mBinding}可能会私有化
-     */
-    private VDB mBinding;
-    /**
      * 请通过 {@link #getRootView()} ()}获取，后续版本 {@link #mRootView}可能会私有化
      */
     private View mRootView;
     private Dialog mDialog;
-
+    /**
+     * 请通过 {@link #getViewModel()}获取，后续版本 {@link #viewModel}可能会私有化
+     */
+    public VM viewModel;
+    /**
+     * 请通过 {@link #getViewDataBinding()}获取，后续版本 {@link #viewBind}可能会私有化
+     */
+    public VDB viewBind;
     private Dialog mProgressDialog;
-    private View.OnClickListener mOnDialogCancelClick = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            dismissDialog();
-
-        }
-    };
+    private View.OnClickListener mOnDialogCancelClick = v -> dismissDialog();
 
     @Override
     public void onAttach(Context context) {
@@ -78,7 +71,7 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mRootView = createRootView(inflater, container, savedInstanceState);
         if (isBinding()) {
-            mBinding = DataBindingUtil.bind(mRootView);
+            viewBind = DataBindingUtil.bind(mRootView);
         }
         initViewModel();
         return mRootView;
@@ -95,13 +88,13 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
     public void onDestroy() {
         super.onDestroy();
 
-        if (mViewModel != null) {
-            getLifecycle().removeObserver(mViewModel);
-            mViewModel = null;
+        if (viewModel != null) {
+            getLifecycle().removeObserver(viewModel);
+            viewModel = null;
         }
 
-        if (mBinding != null) {
-            mBinding.unbind();
+        if (viewBind != null) {
+            viewBind.unbind();
         }
     }
 
@@ -113,12 +106,12 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
     }
 
     /**
-     * 初始化 {@link #mViewModel}
+     * 初始化 {@link #viewModel}
      */
     private void initViewModel() {
-        mViewModel = createViewModel();
-        if (mViewModel != null) {
-            getLifecycle().addObserver(mViewModel);
+        viewModel = createViewModel();
+        if (viewModel != null) {
+            getLifecycle().addObserver(viewModel);
             registerLoadingEvent();
         }
     }
@@ -127,14 +120,11 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
      * 注册状态监听
      */
     protected void registerLoadingEvent() {
-        mViewModel.getLoadingEvent().observe(getViewLifecycleOwner(), new Observer<Boolean>() {
-            @Override
-            public void onChanged(@Nullable Boolean isLoading) {
-                if (isLoading) {
-                    showLoading();
-                } else {
-                    hideLoading();
-                }
+        viewModel.getLoadingEvent().observe(getViewLifecycleOwner(), (Observer<Boolean>) isLoading -> {
+            if (isLoading) {
+                showLoading();
+            } else {
+                hideLoading();
             }
         });
     }
@@ -160,7 +150,7 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
     /**
      * 是否使用DataBinding
      *
-     * @return 默认为true 表示使用。如果为false，则不会初始化 {@link #mBinding}。
+     * @return 默认为true 表示使用。如果为false，则不会初始化 {@link #viewBind}。
      */
     @Override
     public boolean isBinding() {
@@ -170,7 +160,7 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
     /**
      * 创建ViewModel
      *
-     * @return 默认为null，为null时，{@link #mViewModel}会默认根据当前Activity泛型 {@link VM}获得ViewModel
+     * @return 默认为null，为null时，{@link #viewModel}会默认根据当前Activity泛型 {@link VM}获得ViewModel
      */
     @Override
     public VM createViewModel() {
@@ -232,39 +222,39 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
      * 注册消息事件
      */
     protected void registerMessageEvent(@NonNull MessageEvent.MessageObserver observer) {
-        mViewModel.getMessageEvent().observe(getViewLifecycleOwner(), observer);
+        viewModel.getMessageEvent().observe(getViewLifecycleOwner(), observer);
     }
 
     /**
      * 注册单个消息事件，消息对象:{@link Message}
      */
     protected void registerSingleLiveEvent(@NonNull Observer<Message> observer) {
-        mViewModel.getSingleLiveEvent().observe(getViewLifecycleOwner(), observer);
+        viewModel.getSingleLiveEvent().observe(getViewLifecycleOwner(), observer);
     }
 
     /**
      * 注册状态事件
      */
     protected void registerStatusEvent(@NonNull StatusEvent.StatusObserver observer) {
-        mViewModel.getStatusEvent().observe(getViewLifecycleOwner(), observer);
+        viewModel.getStatusEvent().observe(getViewLifecycleOwner(), observer);
     }
 
     /**
      * 获取 ViewModel
      *
-     * @return {@link #mViewModel}
+     * @return {@link #viewModel}
      */
     public VM getViewModel() {
-        return mViewModel;
+        return viewModel;
     }
 
     /**
      * 获取 ViewDataBinding
      *
-     * @return {@link #mBinding}
+     * @return {@link #viewBind}
      */
     public VDB getViewDataBinding() {
-        return mBinding;
+        return viewBind;
     }
 
     /**

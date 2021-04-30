@@ -25,6 +25,7 @@ public interface Const {
      */
     interface IntentKey {
         String INDEX = "index";
+        String DATA = "data";
         String CODE = "CODE";
         String CONTAINER_CODE = "containerCode";
         String WAREHOUSE_CODE = "warehouseCode";
@@ -126,7 +127,7 @@ public interface Const {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://192.168.31.24/";
+        String URL_WMS = "http://49.4.71.215/";
         //        String URL_WMS = "http://192.168.31.144/";
         //        /**
         //         * 用户认证 API 服务地址

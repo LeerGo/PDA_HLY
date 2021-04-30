@@ -71,6 +71,8 @@ public class SplashActivity extends AppCompatActivity implements WeakHandler.Mes
             } else {
                 startActivity(new Intent(this, HomeActivity.class));
             }
+            // ----------- 测试
+            //            startActivity(new Intent(this, DemoTabActivity.class));
             finish();
         }
     }

@@ -35,7 +35,7 @@ public class GoodsRecheckActivity extends BaseListActivity<VMGoodsRecheck, Activ
 
         viewBind.setViewModel(viewModel);
         viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDivider10DP());
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
 
         });

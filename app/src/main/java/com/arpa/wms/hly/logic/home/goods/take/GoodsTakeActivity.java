@@ -8,8 +8,10 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseListActivity;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeBinding;
+import com.arpa.wms.hly.demo.refresh.DemoTabActivity;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -36,10 +38,13 @@ public class GoodsTakeActivity extends BaseListActivity<VMGoodsTake, ActivityPda
 
         viewBind.setViewModel(viewModel);
         viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDivider10DP());
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
             Log.e("@@@@ L40", "GoodsTakeActivity:initData() -> --------------------------");
-            startActivity(GoodsTakeDetailActivity.class);
+            //            startActivity(GoodsTakeDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(IntentKey.DATA, data);
+            startActivity(DemoTabActivity.class, bundle);
         });
     }
 }

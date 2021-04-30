@@ -53,7 +53,6 @@ public class TaskCenterActivity extends BaseActivity {
 
         tabLayoutMediator = new TabLayoutMediator(tlTab, vpContainer, (tab, position) -> tab.setText(title[position]));
         tabLayoutMediator.attach();
-
     }
 
     @Override

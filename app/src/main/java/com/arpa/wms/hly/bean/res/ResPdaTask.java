@@ -1,5 +1,8 @@
 package com.arpa.wms.hly.bean.res;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * author: 李一方(<a href="mailto:a94118@gmail.com">a94118@gmail.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -9,7 +12,7 @@ package com.arpa.wms.hly.bean.res;
  * Res：收货、复核任务列表
  * </p>
  */
-public class ResPdaTask {
+public class ResPdaTask implements Parcelable {
     private String assignBy;
     private String assignName;
     private String billTypeName;
@@ -264,4 +267,119 @@ public class ResPdaTask {
     public void setWarehouseCode(String warehouseCode) {
         this.warehouseCode = warehouseCode;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.assignBy);
+        dest.writeString(this.assignName);
+        dest.writeString(this.billTypeName);
+        dest.writeString(this.code);
+        dest.writeString(this.createdBy);
+        dest.writeString(this.createdName);
+        dest.writeString(this.gmtCreated);
+        dest.writeString(this.gmtModified);
+        dest.writeValue(this.goodsQuantity);
+        dest.writeValue(this.goodsTypeQuantity);
+        dest.writeString(this.groupCode);
+        dest.writeValue(this.jobQuantity);
+        dest.writeString(this.jobStatus);
+        dest.writeString(this.modifiedBy);
+        dest.writeString(this.modifiedName);
+        dest.writeString(this.operatorBy);
+        dest.writeString(this.operatorName);
+        dest.writeString(this.shipmentName);
+        dest.writeString(this.sourceCode);
+        dest.writeString(this.supplierName);
+        dest.writeString(this.taskType);
+        dest.writeString(this.warehouseCode);
+        dest.writeString(this.container);
+        dest.writeString(this.location);
+        dest.writeString(this.countingCode);
+        dest.writeString(this.isSelect);
+        dest.writeString(this.locationName);
+        dest.writeString(this.customerName);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.assignBy = source.readString();
+        this.assignName = source.readString();
+        this.billTypeName = source.readString();
+        this.code = source.readString();
+        this.createdBy = source.readString();
+        this.createdName = source.readString();
+        this.gmtCreated = source.readString();
+        this.gmtModified = source.readString();
+        this.goodsQuantity = (Integer) source.readValue(Integer.class.getClassLoader());
+        this.goodsTypeQuantity = (Integer) source.readValue(Integer.class.getClassLoader());
+        this.groupCode = source.readString();
+        this.jobQuantity = (Integer) source.readValue(Integer.class.getClassLoader());
+        this.jobStatus = source.readString();
+        this.modifiedBy = source.readString();
+        this.modifiedName = source.readString();
+        this.operatorBy = source.readString();
+        this.operatorName = source.readString();
+        this.shipmentName = source.readString();
+        this.sourceCode = source.readString();
+        this.supplierName = source.readString();
+        this.taskType = source.readString();
+        this.warehouseCode = source.readString();
+        this.container = source.readString();
+        this.location = source.readString();
+        this.countingCode = source.readString();
+        this.isSelect = source.readString();
+        this.locationName = source.readString();
+        this.customerName = source.readString();
+    }
+
+    public ResPdaTask() {
+    }
+
+    protected ResPdaTask(Parcel in) {
+        this.assignBy = in.readString();
+        this.assignName = in.readString();
+        this.billTypeName = in.readString();
+        this.code = in.readString();
+        this.createdBy = in.readString();
+        this.createdName = in.readString();
+        this.gmtCreated = in.readString();
+        this.gmtModified = in.readString();
+        this.goodsQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.goodsTypeQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.groupCode = in.readString();
+        this.jobQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.jobStatus = in.readString();
+        this.modifiedBy = in.readString();
+        this.modifiedName = in.readString();
+        this.operatorBy = in.readString();
+        this.operatorName = in.readString();
+        this.shipmentName = in.readString();
+        this.sourceCode = in.readString();
+        this.supplierName = in.readString();
+        this.taskType = in.readString();
+        this.warehouseCode = in.readString();
+        this.container = in.readString();
+        this.location = in.readString();
+        this.countingCode = in.readString();
+        this.isSelect = in.readString();
+        this.locationName = in.readString();
+        this.customerName = in.readString();
+    }
+
+    public static final Parcelable.Creator<ResPdaTask> CREATOR = new Parcelable.Creator<ResPdaTask>() {
+        @Override
+        public ResPdaTask createFromParcel(Parcel source) {
+            return new ResPdaTask(source);
+        }
+
+        @Override
+        public ResPdaTask[] newArray(int size) {
+            return new ResPdaTask[size];
+        }
+    };
 }

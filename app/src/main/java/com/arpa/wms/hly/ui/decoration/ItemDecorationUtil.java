@@ -4,7 +4,6 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.utils.Utils;
 
 import androidx.annotation.DrawableRes;
-import androidx.recyclerview.widget.DividerItemDecoration;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -29,12 +28,22 @@ public class ItemDecorationUtil {
         return ItemDecorationUtil.SingleHolder.ins;
     }
 
-    public static DividerItemDecoration getDivider10DP() {
-        return getDivider(R.drawable.divider_line_vertical_10dp);
+    public static DividerItemDecoration getDividerBottom10DP() {
+        return getDividerBottom(R.drawable.divider_line_vertical_10dp);
     }
 
-    public static DividerItemDecoration getDivider(@DrawableRes int resID) {
+    public static DividerItemDecoration getDividerBottom(@DrawableRes int resID) {
         DividerItemDecoration itemDecoration = new DividerItemDecoration(Utils.getContext(), DividerItemDecoration.VERTICAL);
+        itemDecoration.setDrawable(Utils.getContext().getResources().getDrawable(resID));
+        return itemDecoration;
+    }
+
+    public static DividerItemDecoration getDividerTop10D10DP() {
+        return getDividerTop(R.drawable.divider_line_vertical_10dp);
+    }
+
+    public static DividerItemDecoration getDividerTop(@DrawableRes int resID) {
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(Utils.getContext(), DividerItemDecoration.SHOW_DIVIDER_BEGINNING, DividerItemDecoration.VERTICAL);
         itemDecoration.setDrawable(Utils.getContext().getResources().getDrawable(resID));
         return itemDecoration;
     }

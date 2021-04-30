@@ -28,6 +28,7 @@ import timber.log.Timber;
  * </p>
  */
 // TODO: 还需要一个状态页面（空数据、错误、警告） @lyf 2021-04-30 09:17:42
+// TODO: 设计到分页加载的页面，再从上一个页面时，需要重新请求最后一页数据然后替换 @lyf 2021-04-30 03:13:00
 @HiltAndroidApp
 public class App extends Application {
     static {

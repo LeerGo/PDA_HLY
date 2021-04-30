@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        
+        <import type="com.arpa.wms.hly.R" />
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.demo.refresh.VMDemoTab" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <!--标题栏-->
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/widgetTitleBar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:wtbTitle="测试 Tab" />
+        
+        <!--搜索框-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetSearchBar
+                android:id="@+id/wsbSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="12dp"
+                app:wsbHint="输入关键词" />
+        </FrameLayout>
+        
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_f3f8ff"
+                    android:paddingTop="10dp"
+                    app:layout_scrollFlags="scroll">
+                    
+                    <!--                    <include-->
+                    <!--                        layout="@layout/item_goods_take"-->
+                    <!--                        app:data="@{viewModel.data}" />-->
+                    
+                    <include
+                        layout="@layout/item_goods_take"
+                        app:data="@{viewModel.data}" />
+                </FrameLayout>
+                
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tablayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/color_f3f8ff"
+                    app:tabDivider="@{(@drawable/divider_line_vertical)}"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextAppearance="@style/TabTextStyle"
+                    app:tabTextColor="@color/color_434c67" />
+            </com.google.android.material.appbar.AppBarLayout>
+            
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:fragments="@{viewModel.fragments}"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:pageLimit="1"
+                app:tab="@{tablayout}"
+                app:titles="@{viewModel.titles}" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

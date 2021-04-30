@@ -14,6 +14,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter;
  * Adapter-Viewpager：任务中心
  * </p>
  */
+@Deprecated
 public class ViewPagerAdapter extends FragmentStateAdapter {
     private Fragment[] fragments;
 
