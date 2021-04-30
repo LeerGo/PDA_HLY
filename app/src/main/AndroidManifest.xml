@@ -48,6 +48,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".logic.home.goods.take.GoodsTakeDetailActivity" />
         <activity
             android:name=".logic.home.goods.recheck.GoodsRecheckActivity">
             <intent-filter>

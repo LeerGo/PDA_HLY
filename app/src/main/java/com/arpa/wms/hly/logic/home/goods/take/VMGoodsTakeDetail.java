@@ -6,6 +6,7 @@ import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
 import androidx.hilt.lifecycle.ViewModelInject;
 
 /**
@@ -18,9 +19,20 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * </p>
  */
 public class VMGoodsTakeDetail extends WrapDataViewModel {
+    private final ObservableField<String> searchHint = new ObservableField<>();
 
     @ViewModelInject
     public VMGoodsTakeDetail(@NonNull Application application, BaseModel model) {
         super(application, model);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        searchHint.set("请扫描/输入商品条码");
+    }
+
+    public ObservableField<String> getSearchHint() {
+        return searchHint;
     }
 }

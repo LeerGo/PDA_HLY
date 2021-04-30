@@ -23,6 +23,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  * </p>
  */
 public class VMGoodsTake extends VMPdaTask {
+    private final ItemBinding<ResPdaTask> itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take);
 
     @ViewModelInject
     public VMGoodsTake(@NonNull Application application, BaseModel model) {
@@ -36,6 +37,6 @@ public class VMGoodsTake extends VMPdaTask {
 
     @Override
     public ItemBinding<ResPdaTask> getItemBinding() {
-        return ItemBinding.of(BR.data, R.layout.item_goods_take);
+        return itemBinding;
     }
 }

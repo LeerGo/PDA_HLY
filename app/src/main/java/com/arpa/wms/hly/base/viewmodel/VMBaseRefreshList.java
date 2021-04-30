@@ -80,10 +80,20 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
                     public void onResponse(Call<ResultPage<T>> call, ResultPage<T> result) {
                         if (result != null) {
                             if (result.isSuccess()) { //成功
-                                if (isRefresh) getItems().clear();
+                                boolean isEmpty = result.getData().getRecords().isEmpty();
+                                int listSize = result.getData().getRecords().size();
+
+                                if (isRefresh) {
+                                    getItems().clear();
+                                    if (isEmpty)
+                                        sendMessage(R.string.data_empty);
+                                } else {
+                                    if (isEmpty)
+                                        sendMessage(R.string.data_no_more, true);
+                                    hasMore.set(listSize == PAGE_SIZE);
+                                }
                                 getItems().addAll(result.getData().getRecords());
                                 updateStatus(StatusEvent.Status.SUCCESS, true);
-                                hasMore.set(result.getData().getRecords().size() == PAGE_SIZE);
                             } else {
                                 sendMessage(result.getMsg(), true);
                                 updateStatus(StatusEvent.Status.FAILURE, true);

@@ -1,13 +1,17 @@
 package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
+import android.util.Log;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
+import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.BaseListActivity;
+import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeBinding;
+import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import androidx.annotation.Nullable;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -20,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeActivity extends BaseActivity<VMGoodsTake, ActivityPdataskTakeBinding> {
+public class GoodsTakeActivity extends BaseListActivity<VMGoodsTake, ActivityPdataskTakeBinding> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_pdatask_take;
@@ -28,10 +32,14 @@ public class GoodsTakeActivity extends BaseActivity<VMGoodsTake, ActivityPdatask
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
         viewBind.setViewModel(viewModel);
         viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        itemDecoration.setDrawable(getResources().getDrawable(R.drawable.divider_line_vertical_10dp));
-        viewBind.rvList.addItemDecoration(itemDecoration);
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDivider10DP());
+        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
+            Log.e("@@@@ L40", "GoodsTakeActivity:initData() -> --------------------------");
+            startActivity(GoodsTakeDetailActivity.class);
+        });
     }
 }

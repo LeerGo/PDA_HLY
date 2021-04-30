@@ -1,8 +1,12 @@
 package com.arpa.wms.hly.base;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
-import com.arpa.and.wms.arch.base.BaseViewModel;
+import android.os.Bundle;
 
+import com.arpa.and.wms.arch.base.BaseActivity;
+import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
+import com.arpa.wms.hly.utils.ToastUtils;
+
+import androidx.annotation.Nullable;
 import androidx.databinding.ViewDataBinding;
 
 /**
@@ -14,6 +18,9 @@ import androidx.databinding.ViewDataBinding;
  * 基础：上下拉刷刷新页面
  * </p>
  */
-public abstract class BaseListActivity<VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseActivity<VM, VDB> {
-
+public abstract class BaseListActivity <VM extends VMBaseRefreshList, VDB extends ViewDataBinding> extends BaseActivity<VM, VDB> {
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        registerMessageEvent(ToastUtils::showShort);
+    }
 }

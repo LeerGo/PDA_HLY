@@ -1,20 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     
     <data>
         
+        <import type="android.text.TextUtils" />
+        
+        <import type="com.arpa.wms.hly.bean.res.ResPdaTask" />
+        
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.res.ResPdaTask" />
+            type="ResPdaTask" />
+        
+        <variable
+            name="listener"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;ResPdaTask&gt;" />
     </data>
     
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        app:cardBackgroundColor="@color/white">
+        android:onClick="@{()->listener.transfer(data)}"
+        app:cardBackgroundColor="@color/white"
+        tools:layout_marginBottom="10dp">
         
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,12 +42,13 @@
                 android:textColor="@color/color_434c67"
                 tools:text="收货任务号：SH2020092300008" />
             
+            
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                app:taskStatus="@{data.billTypeName}"
-                tools:src="@mipmap/ic_goods_status_buy" />
+                android:src="@mipmap/ic_goods_status_buy"
+                app:taskStatus="@{data.billTypeName}" />
             
             <View
                 android:id="@+id/line"
@@ -95,9 +107,18 @@
                 android:id="@+id/wpi_driver"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_queue"
-                app:propsKey="客    户："
-                app:propsValue="@{data.customerName}"
+                app:propsKey="货    主："
+                app:propsValue="@{data.shipmentName}"
                 tools:propsValue="测试货主" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_stevedore"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_driver"
+                app:propsKey="供应商："
+                app:propsValue="@{data.supplierName}"
+                app:visible="@{!TextUtils.isEmpty(data.supplierName)}"
+                tools:propsValue="测试供应商" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

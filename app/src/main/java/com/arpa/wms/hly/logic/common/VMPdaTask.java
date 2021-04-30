@@ -27,7 +27,7 @@ import retrofit2.Call;
  * </p>
  */
 public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask, BindingRecyclerViewAdapter<ResPdaTask>> {
-    private final ObservableField<String> searHint = new ObservableField<>();
+    private final ObservableField<String> searchHint = new ObservableField<>();
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
 
     public VMPdaTask(@NonNull Application application, BaseModel model) {
@@ -37,7 +37,7 @@ public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask, BindingRec
     @Override
     public void onCreate() {
         super.onCreate();
-        searHint.set("请扫描/输入任务号");
+        searchHint.set("请扫描/输入任务号");
     }
 
     @Override
@@ -58,8 +58,8 @@ public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask, BindingRec
      */
     protected abstract String getTaskType();
 
-    public ObservableField<String> getSearHint() {
-        return searHint;
+    public ObservableField<String> getSearchHint() {
+        return searchHint;
     }
 
     /**
@@ -71,9 +71,5 @@ public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask, BindingRec
     public void search(String keyWord) {
         reqTaskList.setCode(keyWord);
         refresh();
-    }
-
-    public ReqTaskList getReqTaskList() {
-        return reqTaskList;
     }
 }

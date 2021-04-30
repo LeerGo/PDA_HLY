@@ -24,9 +24,10 @@ import timber.log.Timber;
  * since: 2021-04-22 1:08 PM
  *
  * <p>
- * 内容描述区域
+ * 全局 App
  * </p>
  */
+// TODO: 还需要一个状态页面（空数据、错误、警告） @lyf 2021-04-30 09:17:42
 @HiltAndroidApp
 public class App extends Application {
     static {

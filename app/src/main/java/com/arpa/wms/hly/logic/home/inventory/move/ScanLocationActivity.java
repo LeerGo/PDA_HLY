@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 public class ScanLocationActivity extends InventoryScanActivity {
 
     @Override
-    public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
 
         viewModel.getTitle().set("扫描移出库位");

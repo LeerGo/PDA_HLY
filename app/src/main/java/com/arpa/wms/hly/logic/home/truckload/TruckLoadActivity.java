@@ -27,7 +27,7 @@ public class TruckLoadActivity extends BaseActivity<VMTruckLoad, ActivityTruckLo
     }
 
     @Override
-    public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void initData(@Nullable Bundle savedInstanceState) {
 
     }
 }

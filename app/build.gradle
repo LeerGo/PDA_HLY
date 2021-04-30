@@ -15,6 +15,7 @@ android {
         versionName app_version.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
     }
 
     applicationVariants.all { variant ->

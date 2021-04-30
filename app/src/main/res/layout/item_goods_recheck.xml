@@ -6,15 +6,25 @@
     
     <data>
         
+        <import type="android.text.TextUtils" />
+        
+        <import type="com.arpa.wms.hly.bean.res.ResPdaTask" />
+        
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.res.ResPdaTask" />
+            type="ResPdaTask" />
+        
+        <variable
+            name="listener"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;ResPdaTask&gt;" />
     </data>
     
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="10dp"
+        android:onClick="@{()->listener.transfer(data)}"
         app:cardBackgroundColor="@color/white">
         
         <RelativeLayout
@@ -37,7 +47,7 @@
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
-                android:src="@mipmap/ic_goods_status_sale" />
+                tools:src="@mipmap/ic_goods_status_buy" />
             
             <View
                 android:id="@+id/line"
@@ -96,17 +106,9 @@
                 android:id="@+id/wpi_driver"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_queue"
-                app:propsKey="货    主："
-                app:propsValue="@{data.shipmentName}"
+                app:propsKey="客    户："
+                app:propsValue="@{data.customerName}"
                 tools:propsValue="测试货主" />
-            
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_stevedore"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_driver"
-                app:propsKey="供应商："
-                app:propsValue="@{data.supplierName}"
-                tools:propsValue="测试供应商" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

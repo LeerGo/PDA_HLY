@@ -25,7 +25,7 @@ public abstract class InventoryScanActivity extends BaseActivity<VMInventoryScan
     }
 
     @Override
-    public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setVmInventory(viewModel);
     }
 }

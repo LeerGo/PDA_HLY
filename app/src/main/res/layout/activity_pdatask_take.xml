@@ -40,7 +40,7 @@
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="12dp"
                 android:paddingBottom="10dp"
-                app:wsbHint="@{viewModel.searHint}" />
+                app:wsbHint="@{viewModel.searchHint}" />
         </FrameLayout>
         
         <!--内容区域-->
