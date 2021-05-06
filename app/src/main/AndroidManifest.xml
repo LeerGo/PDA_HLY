@@ -82,8 +82,8 @@
         <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
         
         <!-- 测试区-->
-        <activity android:name=".demo.refresh.DemoTabActivity" />
         <!--<activity android:name=".demo.DemoListActivity" />-->
+        <!--<activity android:name=".demo.refresh.DemoTabActivity" />-->
         <!--<activity android:name=".demo.refresh.DemoListRefreshActivity" />-->
         
         <!-- UI 适配参数 -->

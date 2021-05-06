@@ -64,11 +64,6 @@ public class DialogWarehouseSelect extends BaseDialogFragment {
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-    }
-
-    @Override
     public boolean isBinding() {
         return false;
     }
