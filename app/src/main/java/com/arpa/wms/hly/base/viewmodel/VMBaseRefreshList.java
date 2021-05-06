@@ -55,7 +55,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
 
     public void configAdapter() {
         // FIXME: 如果没有设置过 adapter，会有空指针 @lyf 2021-05-06 10:45:16
-        adapter = new BindingRecyclerViewAdapter<T>();
+        adapter = new BindingRecyclerViewAdapter<>();
     }
 
     /**

@@ -3,7 +3,7 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.wms.hly.logic.common.VMPdaTaskDetail;
+import com.arpa.wms.hly.logic.common.vm.VMPdaTaskDetail;
 import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckDetailFragment;
 
 import java.util.Arrays;

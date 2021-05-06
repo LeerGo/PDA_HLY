@@ -15,6 +15,10 @@
             type="ResPdaTask" />
         
         <variable
+            name="pos"
+            type="Integer" />
+        
+        <variable
             name="listener"
             type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;ResPdaTask&gt;" />
     </data>
@@ -35,14 +39,29 @@
             android:paddingBottom="12dp">
             
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTaskOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tvTaskNumber"
+                android:background="@drawable/shape_rrect_blue_border"
+                android:gravity="center"
+                android:minWidth="18dp"
+                android:paddingHorizontal="2dp"
+                android:text="@{pos.toString()}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                tools:text="10" />
+            
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTaskNumber"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@id/tvTaskOrder"
                 android:gravity="center_vertical"
                 android:text='@{@string/task_number_goods_take(data.code)}'
                 android:textColor="@color/color_434c67"
                 tools:text="收货任务号：SH2020092300008" />
-            
             
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="30dp"

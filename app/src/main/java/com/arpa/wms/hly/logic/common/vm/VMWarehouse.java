@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.logic.common;
+package com.arpa.wms.hly.logic.common.vm;
 
 import android.app.Application;
 

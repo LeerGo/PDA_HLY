@@ -7,7 +7,7 @@ import android.util.Log;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.logic.LoginActivity;
-import com.arpa.wms.hly.logic.common.VMWarehouse;
+import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
 

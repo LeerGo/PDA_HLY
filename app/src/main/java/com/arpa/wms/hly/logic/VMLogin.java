@@ -11,7 +11,7 @@ import com.arpa.wms.hly.bean.req.ReqLogin;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.bean.base.Result;
-import com.arpa.wms.hly.logic.common.VMWarehouse;
+import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.logic.home.HomeActivity;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 import com.arpa.wms.hly.utils.ToastUtils;

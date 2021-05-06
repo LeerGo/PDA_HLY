@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.logic.common;
+package com.arpa.wms.hly.logic.common.vm;
 
 import android.app.Application;
 
@@ -8,6 +8,7 @@ import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.logic.common.PdaTaskAdapter;
 import com.arpa.wms.hly.utils.Const;
 
 import java.util.Map;
@@ -37,6 +38,11 @@ public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask> {
     public void onCreate() {
         super.onCreate();
         searchHint.set("请扫描/输入任务号");
+    }
+
+    @Override
+    public void configAdapter() {
+        setAdapter(new PdaTaskAdapter());
     }
 
     @Override
