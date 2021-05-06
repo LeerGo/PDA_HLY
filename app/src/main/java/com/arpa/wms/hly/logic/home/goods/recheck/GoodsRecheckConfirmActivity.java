@@ -1,17 +1,14 @@
-package com.arpa.wms.hly.logic.home.goods.take;
+package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseListActivity;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
-import com.arpa.wms.hly.databinding.ActivityPdataskTakeBinding;
-import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake;
+import com.arpa.wms.hly.databinding.ActivityPdataskRecheckBinding;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.listener.ViewListener;
-import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -22,14 +19,14 @@ import dagger.hilt.android.AndroidEntryPoint;
  * since: 2021-04-25 2:01 PM
  *
  * <p>
- * 页面：商品待收货列表
+ * 页面：商品待复核列表
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeActivity extends BaseListActivity<VMGoodsTake, ActivityPdataskTakeBinding> {
+public class GoodsRecheckConfirmActivity extends BaseListActivity<VMGoodsRecheck, ActivityPdataskRecheckBinding> {
     @Override
     public int getLayoutId() {
-        return R.layout.activity_pdatask_take;
+        return R.layout.activity_pdatask_recheck;
     }
 
     @Override
@@ -40,11 +37,7 @@ public class GoodsTakeActivity extends BaseListActivity<VMGoodsTake, ActivityPda
         viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
-            Log.e("@@@@ L40", "GoodsTakeActivity:initData() -> --------------------------");
-            Bundle bundle = new Bundle();
-            bundle.putParcelable(IntentKey.DATA, data);
-            //            startActivity(DemoTabActivity.class, bundle);
-            startActivity(GoodsTakeDetailActivity.class, bundle);
+
         });
     }
 }

@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.logic.home.goods.take;
+package com.arpa.wms.hly.logic.home.goods.take.vm;
 
 import android.app.Application;
 

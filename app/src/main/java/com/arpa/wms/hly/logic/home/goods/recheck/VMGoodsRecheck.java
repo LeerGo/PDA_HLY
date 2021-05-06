@@ -35,7 +35,6 @@ public class VMGoodsRecheck extends VMPdaTask {
         return Const.TASK_TYPE.CHECK;
     }
 
-
     @Override
     public ItemBinding<ResPdaTask> getItemBinding() {
         return itemBinding;

@@ -5,6 +5,9 @@
     <string name="btn_assign_keeper">分配保管员</string>
     <string name="btn_assign_stevedore">分配装卸工</string>
     <string name="btn_assign_forklift">分配叉车工</string>
+    <string name="btn_unassign_keeper">取消保管员</string>
+    <string name="btn_unassign_stevedore">取消装卸工</string>
+    <string name="btn_unassign_forklift">取消叉车工</string>
     <string name="error_user_not_exist">当前用户不存在</string>
     <string name="error_password_wrong">密码错误，请重新输入</string>
     <string name="failure_result_common">获取失败</string>

@@ -20,6 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * 内容描述区域
  * </p>
  */
+@Deprecated
 @AndroidEntryPoint
 public class DemoTabActivity extends BaseActivity<VMDemoTab, ActivityDemoTabBinding> {
 

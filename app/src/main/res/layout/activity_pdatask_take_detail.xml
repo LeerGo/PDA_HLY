@@ -7,7 +7,7 @@
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.take.VMGoodsTakeDetail" />
+            type="com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetail" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -20,7 +20,7 @@
             android:id="@+id/widgetTitleBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:wtbTitle="商品收货" />
+            app:wtbTitle="收货详情" />
         
         <!--搜索框-->
         <FrameLayout
@@ -43,31 +43,48 @@
         </FrameLayout>
         
         <!--内容区域-->
-        <!--
-        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:autoRefresh="@{viewModel.isAutoRefresh}"
-            app:hasMore="@{viewModel.hasMore}"
-            app:moreLoading="@{viewModel.moreLoading}"
-            app:onLoadMoreListener="@{()->viewModel.loadMore()}"
-            app:onRefreshListener="@{()->viewModel.refresh()}"
-            app:refreshing="@{viewModel.refreshing}"
-            app:srlEnableFooterFollowWhenLoadFinished="true"
-            app:srlEnableFooterFollowWhenNoMoreData="true"
-            app:srlEnableLoadMore="true">
+            android:layout_height="match_parent">
+        
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
             
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvList"
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_f3f8ff"
+                    android:paddingTop="10dp"
+                    app:layout_scrollFlags="scroll">
+                
+                    <include
+                        layout="@layout/item_goods_take"
+                        app:data="@{viewModel.data}" />
+                </FrameLayout>
+            
+                <com.google.android.material.tabs.TabLayout
+                    android:id="@+id/tablayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:background="@color/color_f3f8ff"
+                    app:tabDivider="@{(@drawable/divider_line_vertical)}"
+                    app:tabIndicatorFullWidth="false"
+                    app:tabSelectedTextColor="@color/colorPrimary"
+                    app:tabTextAppearance="@style/TabTextStyle"
+                    app:tabTextColor="@color/color_434c67" />
+            </com.google.android.material.appbar.AppBarLayout>
+        
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/viewpager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:adapter="@{viewModel.adapter}"
-                app:itemBinding="@{viewModel.itemBinding}"
-                app:items="@{viewModel.items}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="20"
-                tools:listitem="@layout/item_goods_take" />
-        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-        -->
+                app:fragments="@{viewModel.fragments}"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:pageLimit="1"
+                app:tab="@{tablayout}"
+                app:titles="@{viewModel.titles}" />
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

@@ -5,6 +5,8 @@ import android.os.Bundle;
 import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeDetailBinding;
+import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetail;
+import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -28,5 +30,6 @@ public class GoodsTakeDetailActivity extends BaseActivity<VMGoodsTakeDetail, Act
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
+        viewModel.setData(getIntent().getParcelableExtra(Const.IntentKey.DATA));
     }
 }

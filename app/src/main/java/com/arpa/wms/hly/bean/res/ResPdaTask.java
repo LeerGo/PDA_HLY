@@ -13,6 +13,17 @@ import android.os.Parcelable;
  * </p>
  */
 public class ResPdaTask implements Parcelable {
+    public static final Creator<ResPdaTask> CREATOR = new Creator<ResPdaTask>() {
+        @Override
+        public ResPdaTask createFromParcel(Parcel source) {
+            return new ResPdaTask(source);
+        }
+
+        @Override
+        public ResPdaTask[] newArray(int size) {
+            return new ResPdaTask[size];
+        }
+    };
     private String assignBy;
     private String assignName;
     private String billTypeName;
@@ -38,9 +49,44 @@ public class ResPdaTask implements Parcelable {
     private String container;
     private String location;
     private String countingCode;
-    private String isSelect = "0";
+    //    private String isSelect = "0";
+    private Boolean isSelect = false;
     private String locationName;
     private String customerName;
+
+    public ResPdaTask() {
+    }
+
+    protected ResPdaTask(Parcel in) {
+        this.assignBy = in.readString();
+        this.assignName = in.readString();
+        this.billTypeName = in.readString();
+        this.code = in.readString();
+        this.createdBy = in.readString();
+        this.createdName = in.readString();
+        this.gmtCreated = in.readString();
+        this.gmtModified = in.readString();
+        this.goodsQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.goodsTypeQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.groupCode = in.readString();
+        this.jobQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.jobStatus = in.readString();
+        this.modifiedBy = in.readString();
+        this.modifiedName = in.readString();
+        this.operatorBy = in.readString();
+        this.operatorName = in.readString();
+        this.shipmentName = in.readString();
+        this.sourceCode = in.readString();
+        this.supplierName = in.readString();
+        this.taskType = in.readString();
+        this.warehouseCode = in.readString();
+        this.container = in.readString();
+        this.location = in.readString();
+        this.countingCode = in.readString();
+        this.isSelect = (Boolean) in.readValue(Boolean.class.getClassLoader());
+        this.locationName = in.readString();
+        this.customerName = in.readString();
+    }
 
     public String getCountingCode() {
         return countingCode;
@@ -50,11 +96,11 @@ public class ResPdaTask implements Parcelable {
         this.countingCode = countingCode;
     }
 
-    public String getIsSelect() {
+    public Boolean getIsSelect() {
         return isSelect;
     }
 
-    public void setIsSelect(String isSelect) {
+    public void setIsSelect(Boolean isSelect) {
         this.isSelect = isSelect;
     }
 
@@ -178,7 +224,6 @@ public class ResPdaTask implements Parcelable {
         this.gmtModified = gmtModified;
     }
 
-
     public String getGroupCode() {
         return groupCode;
     }
@@ -186,7 +231,6 @@ public class ResPdaTask implements Parcelable {
     public void setGroupCode(String groupCode) {
         this.groupCode = groupCode;
     }
-
 
     public String getJobStatus() {
         return jobStatus;
@@ -268,7 +312,6 @@ public class ResPdaTask implements Parcelable {
         this.warehouseCode = warehouseCode;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -301,7 +344,7 @@ public class ResPdaTask implements Parcelable {
         dest.writeString(this.container);
         dest.writeString(this.location);
         dest.writeString(this.countingCode);
-        dest.writeString(this.isSelect);
+        dest.writeValue(this.isSelect);
         dest.writeString(this.locationName);
         dest.writeString(this.customerName);
     }
@@ -332,54 +375,8 @@ public class ResPdaTask implements Parcelable {
         this.container = source.readString();
         this.location = source.readString();
         this.countingCode = source.readString();
-        this.isSelect = source.readString();
+        this.isSelect = (Boolean) source.readValue(Boolean.class.getClassLoader());
         this.locationName = source.readString();
         this.customerName = source.readString();
     }
-
-    public ResPdaTask() {
-    }
-
-    protected ResPdaTask(Parcel in) {
-        this.assignBy = in.readString();
-        this.assignName = in.readString();
-        this.billTypeName = in.readString();
-        this.code = in.readString();
-        this.createdBy = in.readString();
-        this.createdName = in.readString();
-        this.gmtCreated = in.readString();
-        this.gmtModified = in.readString();
-        this.goodsQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.goodsTypeQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.groupCode = in.readString();
-        this.jobQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.jobStatus = in.readString();
-        this.modifiedBy = in.readString();
-        this.modifiedName = in.readString();
-        this.operatorBy = in.readString();
-        this.operatorName = in.readString();
-        this.shipmentName = in.readString();
-        this.sourceCode = in.readString();
-        this.supplierName = in.readString();
-        this.taskType = in.readString();
-        this.warehouseCode = in.readString();
-        this.container = in.readString();
-        this.location = in.readString();
-        this.countingCode = in.readString();
-        this.isSelect = in.readString();
-        this.locationName = in.readString();
-        this.customerName = in.readString();
-    }
-
-    public static final Parcelable.Creator<ResPdaTask> CREATOR = new Parcelable.Creator<ResPdaTask>() {
-        @Override
-        public ResPdaTask createFromParcel(Parcel source) {
-            return new ResPdaTask(source);
-        }
-
-        @Override
-        public ResPdaTask[] newArray(int size) {
-            return new ResPdaTask[size];
-        }
-    };
 }

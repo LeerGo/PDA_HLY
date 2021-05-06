@@ -3,7 +3,12 @@ package com.arpa.wms.hly.logic.home.goods.take;
 import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseLazyFragment;
-import com.arpa.wms.hly.databinding.FragmentDemoTabBinding;
+import com.arpa.wms.hly.BR;
+import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.databinding.FragmentGoodsTakeDetailBinding;
+import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake;
+import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -18,7 +23,15 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTake, FragmentDemoTabBinding>{
+public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTake, FragmentGoodsTakeDetailBinding> {
+
+    public static GoodsTakeDetailFragment newInstance(String text) {
+        GoodsTakeDetailFragment fragment = new GoodsTakeDetailFragment();
+        Bundle args = new Bundle();
+        args.putString(Const.IntentKey.INDEX, text);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onLazyLoad() {
@@ -27,11 +40,12 @@ public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTake, Fragm
 
     @Override
     public int getLayoutId() {
-        return 0;
+        return R.layout.fragment_goods_take_detail;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        viewBind.setVariable(BR.viewModel, viewModel);
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10D10DP());
     }
 }

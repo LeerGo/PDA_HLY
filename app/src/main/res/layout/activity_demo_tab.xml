@@ -5,8 +5,6 @@
     
     <data>
         
-        <import type="com.arpa.wms.hly.R" />
-        
         <variable
             name="viewModel"
             type="com.arpa.wms.hly.demo.refresh.VMDemoTab" />

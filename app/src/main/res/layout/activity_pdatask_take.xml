@@ -8,7 +8,7 @@
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.take.VMGoodsTake" />
+            type="com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat

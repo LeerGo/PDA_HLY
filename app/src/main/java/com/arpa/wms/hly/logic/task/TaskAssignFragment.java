@@ -1,13 +1,18 @@
 package com.arpa.wms.hly.logic.task;
 
 import android.os.Bundle;
-import android.view.View;
 
+import com.arpa.and.wms.arch.base.BaseLazyFragment;
+import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.BaseListFragment;
-import com.arpa.wms.hly.bean.TaskAssignBean;
-import com.arpa.wms.hly.ui.adapter.TaskAssignAdapter;
+import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.databinding.FragmentTaskAssignBinding;
+import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
 import com.arpa.wms.hly.utils.Const.IntentKey;
+
+import androidx.annotation.Nullable;
+import dagger.hilt.android.AndroidEntryPoint;
 //import butterknifeR.BindView;
 //import butterknife.OnClick;
 
@@ -20,18 +25,10 @@ import com.arpa.wms.hly.utils.Const.IntentKey;
  * 内容描述区域
  * </p>
  */
-public class TaskAssignFragment <T> extends BaseListFragment<T> {
-//    @BindView(R.id.btn_assign_keeper)
-//    AppCompatButton btnAssignKeeper;
-//    @BindView(R.id.btn_assign_stevedore)
-//    AppCompatButton btnAssignStevedore;
-//    @BindView(R.id.btn_assign_forklift)
-//    AppCompatButton btnAssignForklift;
-
-    private int type;
-
-    public static TaskAssignFragment<TaskAssignBean> newInstance(int index) {
-        TaskAssignFragment<TaskAssignBean> fragment = new TaskAssignFragment<>();
+@AndroidEntryPoint
+public class TaskAssignFragment extends BaseLazyFragment<VMTaskAssign, FragmentTaskAssignBinding> {
+    public static TaskAssignFragment newInstance(int index) {
+        TaskAssignFragment fragment = new TaskAssignFragment();
         Bundle args = new Bundle();
         args.putInt(IntentKey.INDEX, index);
         fragment.setArguments(args);
@@ -39,41 +36,28 @@ public class TaskAssignFragment <T> extends BaseListFragment<T> {
     }
 
     @Override
-    protected int getLayoutID() {
+    public int getLayoutId() {
         return R.layout.fragment_task_assign;
     }
 
     @Override
-    protected void initViews() {
+    public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+        viewBind.setVariable(BR.viewModel, viewModel);
 
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10D10DP());
+        viewModel.type.set(getArguments() != null ? getArguments().getInt(IntentKey.INDEX, 0) : 0);
+        viewModel.getItemBinding()
+                .bindExtra(BR.listener, (DataClickListener<ResPdaTask>) data -> {
+                    // TODO: 跳转详情 @lyf 2021-05-06 10:09:04
+                })
+                .bindExtra(BR.select, (DataClickListener<ResPdaTask>) data -> {
+                    // 多选
+                    data.setIsSelect(!data.getIsSelect());
+                    viewBind.rvList.getAdapter().notifyDataSetChanged();
+                });
     }
 
     @Override
-    protected void initData() {
-        super.initData();
-        adapter = new TaskAssignAdapter<>(getActivity());
-        type = getArguments().getInt(IntentKey.INDEX);
-    }
-
-    @Override
-    protected void setViews() {
-        // TODO: 这里的 type 魔法数抽取到 const 里 @lyf 2021-04-22 01:30:26
-//        if (type == 0) {
-//            btnAssignKeeper.setText("分配保管员");
-//            btnAssignStevedore.setText("分配装卸工");
-//            btnAssignForklift.setText("分配叉车工");
-//        } else {
-//            btnAssignKeeper.setText("取消保管员");
-//            btnAssignStevedore.setText("取消装卸工");
-//            btnAssignForklift.setText("取消叉车工");
-//        }
-        super.setViews();
-    }
-
-//    @OnClick({R.id.ib_all})
-    public void onClick(View view) {
-        if (view.getId() == R.id.ib_all) {
-            view.setSelected(!view.isSelected());
-        }
+    public void onLazyLoad() {
     }
 }

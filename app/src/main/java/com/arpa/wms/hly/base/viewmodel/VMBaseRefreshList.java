@@ -15,7 +15,6 @@ import java.util.Map;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableList;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -29,7 +28,7 @@ import retrofit2.Call;
  * 基础架构-ViewModel：分页加载
  * </p>
  */
-public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter<T>> extends WrapDataViewModel {
+public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
     // 分页相关
     public final static int PAGE_SIZE = 10;
 
@@ -40,8 +39,8 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
     public ObservableBoolean isAutoRefresh = new ObservableBoolean();
 
     // adapter 相关
-    private ObservableList<T> items;
-    private A adapter;
+    private ObservableArrayList<T> items;
+    private BindingRecyclerViewAdapter<T> adapter;
 
     public VMBaseRefreshList(@NonNull Application application, BaseModel model) {
         super(application, model);
@@ -55,7 +54,8 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
     }
 
     public void configAdapter() {
-
+        // FIXME: 如果没有设置过 adapter，会有空指针 @lyf 2021-05-06 10:45:16
+        adapter = new BindingRecyclerViewAdapter<T>();
     }
 
     /**
@@ -114,22 +114,22 @@ public abstract class VMBaseRefreshList <T, A extends BindingRecyclerViewAdapter
                 });
     }
 
-    public ObservableList<T> getItems() {
+    public ObservableArrayList<T> getItems() {
         if (null == items) {
             items = new ObservableArrayList<>();
         }
         return items;
     }
 
-    public abstract Call<ResultPage<T>> getCall(Map params);
+    public abstract Call<ResultPage<T>> getCall(Map<String, Object> params);
 
     public abstract ReqPage getParams();
 
-    public A getAdapter() {
+    public BindingRecyclerViewAdapter<T> getAdapter() {
         return adapter;
     }
 
-    public void setAdapter(A adapter) {
+    public void setAdapter(BindingRecyclerViewAdapter<T> adapter) {
         this.adapter = adapter;
     }
 

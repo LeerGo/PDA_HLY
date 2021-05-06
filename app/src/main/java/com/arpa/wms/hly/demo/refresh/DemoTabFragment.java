@@ -6,7 +6,7 @@ import com.arpa.and.wms.arch.base.BaseLazyFragment;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.databinding.FragmentDemoTabBinding;
-import com.arpa.wms.hly.logic.home.goods.take.VMGoodsTake;
+import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
@@ -22,6 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * 内容描述区域
  * </p>
  */
+@Deprecated
 @AndroidEntryPoint
 public class DemoTabFragment extends BaseLazyFragment<VMGoodsTake, FragmentDemoTabBinding> {
 

@@ -14,7 +14,6 @@ import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
-import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import retrofit2.Call;
 
 /**
@@ -26,7 +25,7 @@ import retrofit2.Call;
  * ViewModel：PDA 任务列表
  * </p>
  */
-public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask, BindingRecyclerViewAdapter<ResPdaTask>> {
+public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask> {
     private final ObservableField<String> searchHint = new ObservableField<>();
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
 
@@ -41,7 +40,7 @@ public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask, BindingRec
     }
 
     @Override
-    public Call<ResultPage<ResPdaTask>> getCall(Map params) {
+    public Call<ResultPage<ResPdaTask>> getCall(Map<String, Object> params) {
         return apiService.pdaTasks(params);
     }
 
