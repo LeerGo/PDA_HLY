@@ -30,6 +30,6 @@ public class GoodsTakeDetailActivity extends BaseActivity<VMGoodsTakeDetail, Act
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
-        viewModel.setData(getIntent().getParcelableExtra(Const.IntentKey.DATA));
+        viewModel.data.set(getIntent().getParcelableExtra(Const.IntentKey.DATA));
     }
 }

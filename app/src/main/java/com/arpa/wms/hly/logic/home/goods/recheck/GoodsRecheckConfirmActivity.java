@@ -7,6 +7,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseListActivity;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.ActivityPdataskRecheckBinding;
+import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheck;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * since: 2021-04-25 2:01 PM
  *
  * <p>
- * 页面：商品待复核列表
+ * 页面：商品待复核确认
  * </p>
  */
 @AndroidEntryPoint

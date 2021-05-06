@@ -2,13 +2,12 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
 
+import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.BaseListActivity;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
-import com.arpa.wms.hly.databinding.ActivityPdataskRecheckBinding;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
-import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.databinding.ActivityPdataskRecheckDetailBinding;
+import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
+import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -19,25 +18,24 @@ import dagger.hilt.android.AndroidEntryPoint;
  * since: 2021-04-25 2:01 PM
  *
  * <p>
- * 页面：商品待复核列表
+ * 页面：商品待复核详情
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckDetailActivity extends BaseListActivity<VMGoodsRecheck, ActivityPdataskRecheckBinding> {
+public class GoodsRecheckDetailActivity extends BaseActivity<VMGoodsRecheckDetail, ActivityPdataskRecheckDetailBinding> {
     @Override
     public int getLayoutId() {
-        return R.layout.activity_pdatask_recheck;
+        return R.layout.activity_pdatask_recheck_detail;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        super.initData(savedInstanceState);
-
-        viewBind.setViewModel(viewModel);
-        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
-
-        });
+        viewBind.setVariable(BR.viewModel, viewModel);
+        viewModel.data.set(getIntent().getParcelableExtra(Const.IntentKey.DATA));
+        //        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
+        //        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        //        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
+        //
+        //        });
     }
 }

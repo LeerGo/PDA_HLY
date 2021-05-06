@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.logic.home.goods.recheck;
+package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 
 import android.app.Application;
 

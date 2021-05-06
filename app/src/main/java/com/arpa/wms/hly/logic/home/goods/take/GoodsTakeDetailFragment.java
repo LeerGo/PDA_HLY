@@ -5,9 +5,11 @@ import android.os.Bundle;
 import com.arpa.and.wms.arch.base.BaseLazyFragment;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.FragmentGoodsTakeDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
@@ -45,7 +47,10 @@ public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTake, Fragm
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        viewBind.setVariable(BR.viewModel, viewModel);
+        viewBind.setViewModel(viewModel);
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10D10DP());
+        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
+
+        });
     }
 }

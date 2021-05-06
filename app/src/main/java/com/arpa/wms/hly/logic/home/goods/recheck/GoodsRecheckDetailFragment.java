@@ -2,13 +2,15 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
 
+import com.arpa.and.wms.arch.base.BaseLazyFragment;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.BaseListActivity;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.ActivityPdataskRecheckBinding;
+import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheck;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -23,7 +25,16 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckDetailFragment extends BaseListActivity<VMGoodsRecheck, ActivityPdataskRecheckBinding> {
+public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheck, ActivityPdataskRecheckBinding> {
+
+    public static GoodsRecheckDetailFragment newInstance(String text) {
+        GoodsRecheckDetailFragment fragment = new GoodsRecheckDetailFragment();
+        Bundle args = new Bundle();
+        args.putString(Const.IntentKey.INDEX, text);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_pdatask_recheck;
@@ -31,13 +42,16 @@ public class GoodsRecheckDetailFragment extends BaseListActivity<VMGoodsRecheck,
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        super.initData(savedInstanceState);
-
         viewBind.setViewModel(viewModel);
         viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
 
         });
+    }
+
+    @Override
+    public void onLazyLoad() {
+
     }
 }

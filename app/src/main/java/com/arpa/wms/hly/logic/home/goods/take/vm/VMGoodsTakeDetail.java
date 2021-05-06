@@ -3,17 +3,12 @@ package com.arpa.wms.hly.logic.home.goods.take.vm;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.logic.common.VMPdaTaskDetail;
 import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeDetailFragment;
 
 import java.util.Arrays;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableList;
-import androidx.fragment.app.Fragment;
 import androidx.hilt.lifecycle.ViewModelInject;
 
 /**
@@ -25,11 +20,7 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * 页面：商品收货详情
  * </p>
  */
-public class VMGoodsTakeDetail extends WrapDataViewModel {
-    private final ObservableField<String> searchHint = new ObservableField<>();
-    private final ObservableField<ResPdaTask> data = new ObservableField<>();
-    private final ObservableList<Fragment> fragments = new ObservableArrayList<>();
-    private final ObservableList<String> titles = new ObservableArrayList<>();
+public class VMGoodsTakeDetail extends VMPdaTaskDetail {
 
     @ViewModelInject
     public VMGoodsTakeDetail(@NonNull Application application, BaseModel model) {
@@ -40,29 +31,8 @@ public class VMGoodsTakeDetail extends WrapDataViewModel {
     public void onCreate() {
         super.onCreate();
 
-        searchHint.set("请扫描/输入商品条码");
         fragments.add(GoodsTakeDetailFragment.newInstance("DemoTabFragment#1"));
         fragments.add(GoodsTakeDetailFragment.newInstance("DemoTabFragment#2"));
         titles.addAll(Arrays.asList("待收货", "已收货"));
-    }
-
-    public ObservableField<String> getSearchHint() {
-        return searchHint;
-    }
-
-    public ObservableField<ResPdaTask> getData() {
-        return data;
-    }
-
-    public void setData(ResPdaTask data) {
-        this.data.set(data);
-    }
-
-    public ObservableList<Fragment> getFragments() {
-        return fragments;
-    }
-
-    public ObservableList<String> getTitles() {
-        return titles;
     }
 }

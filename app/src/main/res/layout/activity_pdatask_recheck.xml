@@ -8,7 +8,7 @@
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.recheck.VMGoodsRecheck" />
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheck" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
