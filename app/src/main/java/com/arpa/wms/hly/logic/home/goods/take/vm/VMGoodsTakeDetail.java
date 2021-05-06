@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.logic.common.vm.VMPdaTaskDetail;
-import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeDetailFragment;
 
 import java.util.Arrays;
 
@@ -31,8 +30,6 @@ public class VMGoodsTakeDetail extends VMPdaTaskDetail {
     public void onCreate() {
         super.onCreate();
 
-        fragments.add(GoodsTakeDetailFragment.newInstance("DemoTabFragment#1"));
-        fragments.add(GoodsTakeDetailFragment.newInstance("DemoTabFragment#2"));
         titles.addAll(Arrays.asList("待收货", "已收货"));
     }
 }

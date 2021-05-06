@@ -8,7 +8,7 @@
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake" />
+            type="com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailList" />
     </data>
     
     <com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -21,17 +21,17 @@
         app:onRefreshListener="@{()->viewModel.refresh()}"
         app:refreshing="@{viewModel.refreshing}"
         app:srlEnableFooterFollowWhenNoMoreData="true"
-        app:srlEnableLoadMore="true">
+        app:srlEnableLoadMore="true"
+        app:srlEnablePreviewInEditMode="true">
         
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:adapter="@{viewModel.adapter}"
             app:itemBinding="@{viewModel.itemBinding}"
             app:items="@{viewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="20"
-            tools:listitem="@layout/item_goods_take" />
+            tools:listitem="@layout/item_goods_take_detail_wait" />
     </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>

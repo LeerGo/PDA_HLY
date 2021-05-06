@@ -1,7 +1,6 @@
 package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
@@ -40,10 +39,8 @@ public class GoodsTakeActivity extends BaseListActivity<VMGoodsTake, ActivityPda
         viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
-            Log.e("@@@@ L40", "GoodsTakeActivity:initData() -> --------------------------");
             Bundle bundle = new Bundle();
             bundle.putParcelable(IntentKey.DATA, data);
-            //            startActivity(DemoTabActivity.class, bundle);
             startActivity(GoodsTakeDetailActivity.class, bundle);
         });
     }

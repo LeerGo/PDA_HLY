@@ -5,12 +5,12 @@ import android.os.Bundle;
 import com.arpa.and.wms.arch.base.BaseLazyFragment;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail.ItemsBean;
 import com.arpa.wms.hly.databinding.FragmentGoodsTakeDetailBinding;
-import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake;
+import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailList;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.listener.ViewListener;
-import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -25,12 +25,13 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTake, FragmentGoodsTakeDetailBinding> {
+public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTakeDetailList, FragmentGoodsTakeDetailBinding> {
 
-    public static GoodsTakeDetailFragment newInstance(String text) {
+    public static GoodsTakeDetailFragment newInstance(String status, String Code) {
         GoodsTakeDetailFragment fragment = new GoodsTakeDetailFragment();
         Bundle args = new Bundle();
-        args.putString(Const.IntentKey.INDEX, text);
+        args.putString(IntentKey.STATUS, status);
+        args.putString(IntentKey.CODE, Code);
         fragment.setArguments(args);
         return fragment;
     }
@@ -48,8 +49,10 @@ public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTake, Fragm
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
+        viewModel.reqGoodsTakeDetail.setReceiveStatus(getArguments().getString(IntentKey.STATUS));
+        viewModel.reqGoodsTakeDetail.setCode(getArguments().getString(IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10D10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
+        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ItemsBean>) data -> {
 
         });
     }

@@ -2,6 +2,7 @@ package com.arpa.wms.hly.net;
 
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
+import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
@@ -46,17 +47,8 @@ public interface ApiService {
     Call<ResultPage<ResPdaTask>> pdaTasks(@QueryMap Map<String, Object> data);
 
     /**
-     * 获取字典信息- 新华字典
+     * 获取收货任务详情列表
      */
-    //    @DomainName(Constants.DOMAIN_DICTIONARY)
-    //    @GET("xhzd/query")
-    //    Call<Result<DictionaryInfo>> getDictionaryInfo(@Query("key") String key, @Query("word") String word);
-
-    /**
-     * 动态改变 BaseUrl 示例
-     */
-    //    @DomainName(Constants.DOMAIN_JENLY)
-    //    @Timeout(connectTimeout = 14, readTimeout = 15, writeTimeout = 14)
-    //    @GET("api/city/hotCities.json")
-    //    Call<List<Map<String, Object>>> getHotCities();
+    @GET("wms/pda/receive")
+    Call<Result<List<ResGoodsTakeDetail>>> goodsTakeDetailList(@QueryMap Map<String, Object> data);
 }

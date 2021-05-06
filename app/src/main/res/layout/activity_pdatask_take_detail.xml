@@ -46,24 +46,25 @@
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-        
+            
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            
+                
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/color_f3f8ff"
                     android:paddingTop="10dp"
                     app:layout_scrollFlags="scroll">
-                
+                    
                     <include
                         layout="@layout/item_goods_take"
-                        app:data="@{viewModel.data}" />
+                        app:data="@{viewModel.data}"
+                        app:showOrder="@{false}" />
                 </FrameLayout>
-            
+                
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tablayout"
                     android:layout_width="match_parent"
@@ -75,7 +76,7 @@
                     app:tabTextAppearance="@style/TabTextStyle"
                     app:tabTextColor="@color/color_434c67" />
             </com.google.android.material.appbar.AppBarLayout>
-        
+            
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"

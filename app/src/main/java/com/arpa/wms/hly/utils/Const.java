@@ -25,6 +25,7 @@ public interface Const {
      */
     interface IntentKey {
         String INDEX = "index";
+        String STATUS = "status";
         String DATA = "data";
         String CODE = "CODE";
         String CONTAINER_CODE = "containerCode";
@@ -137,7 +138,7 @@ public interface Const {
         /**
          * API：获取仓库
          */
-        String API_WAREHOUSE_AUTHORIZATION="wms/warehouse/warehouseAuthorization";
+        String API_WAREHOUSE_AUTHORIZATION = "wms/warehouse/warehouseAuthorization";
         /**
          * API：获取认证
          */
@@ -176,5 +177,19 @@ public interface Const {
         String clientSecret = "e7957728041b11ea97dffa163e9d2pda";
         String grantType = "password";
         String responseType = "token";
+    }
+
+    /**
+     * 任务状态
+     */
+    interface TASK_STATUS {
+        /**
+         * 收货 - 未收货
+         */
+        String TAKE_WAIT = "2";
+        /**
+         * 收货 - 已收货
+         */
+        String TAKE_YET = "4";
     }
 }

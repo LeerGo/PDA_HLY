@@ -16,10 +16,12 @@ import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
  * Adapter: PDA Task
  * </p>
  */
-public class PdaTaskAdapter extends BindingRecyclerViewAdapter<ResPdaTask> {
+public class
+PdaTaskAdapter extends BindingRecyclerViewAdapter<ResPdaTask> {
     @Override
     public void onBindBinding(@NonNull ViewDataBinding binding, int variableId, int layoutRes, int position, ResPdaTask item) {
         super.onBindBinding(binding, variableId, layoutRes, position, item);
         binding.setVariable(BR.pos, position + 1);
+        binding.setVariable(BR.showOrder, true);
     }
 }
