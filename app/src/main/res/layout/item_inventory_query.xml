@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.res.ResInventory" />
+    </data>
+    
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        app:cardBackgroundColor="@color/white"
+        app:contentPaddingBottom="16dp"
+        tools:layout_marginTop="10dp">
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@drawable/shape_rrect_blue_gradient"
+                android:gravity="center_vertical"
+                android:paddingStart="16dp"
+                android:textColor="@color/white"
+                tools:text="库位：A01010101" />
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical"
+                android:paddingHorizontal="16dp">
+                
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="8dp"
+                    android:src="@mipmap/ic_goods" />
+                
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="@color/color_434c67"
+                    android:textSize="14sp"
+                    tools:text="商品编码：10001" />
+                
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    tools:text="合格" />
+                
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/color_434c67"
+                    android:textSize="14sp"
+                    tools:text=" / 未锁定" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItemBase"
+                app:propsKey="商品名称："
+                tools:propsValue="测试商品一" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                app:propsKey="基本单位："
+                tools:propsValue="件" />
+            
+            <LinearLayout
+                style="@style/InventoryQueryItem">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="数        量："
+                    android:textColor="@color/grey_96a0b9" />
+                
+                <TextView
+                    style="@style/WWrapHWrap"
+                    android:text="100"
+                    android:textColor="@color/colorPrimary" />
+                
+                <TextView
+                    android:id="@+id/tv_zong"
+                    style="@style/WWrapHWrap"
+                    android:text="/100"
+                    android:textColor="@color/color_434c67" />
+            </LinearLayout>
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="托  盘  号："
+                tools:propsValue="NO12312441" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="生产日期："
+                tools:propsValue="2021-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="过期日期："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="供  应  商："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="序  列  号："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="拓  展   1："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="拓  展   2："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="拓  展   3："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="拓  展   4："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="拓  展   5："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="拓  展   6："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="收货批次："
+                tools:propsValue="2022-05-07" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="存货日期："
+                tools:propsValue="2022-05-07" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

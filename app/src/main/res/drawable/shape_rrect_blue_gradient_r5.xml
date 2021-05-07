@@ -5,6 +5,7 @@
     <stroke
         android:width="0dp"
         android:color="@color/colorPrimary" />
+    <corners android:radius="5dp" />
     <solid android:color="@color/colorPrimary" />
     <gradient
         android:angle="90"

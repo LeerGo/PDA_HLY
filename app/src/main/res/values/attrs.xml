@@ -26,5 +26,7 @@
     <declare-styleable name="WidgetSearchBar">
         <attr name="wsbHint"
               format="string|reference" />
+        <attr name="wsbText"
+              format="string|reference" />
     </declare-styleable>
 </resources>

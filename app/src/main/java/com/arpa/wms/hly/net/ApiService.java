@@ -3,6 +3,7 @@ package com.arpa.wms.hly.net;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
+import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
@@ -51,4 +52,10 @@ public interface ApiService {
      */
     @GET("wms/pda/receive")
     Call<Result<List<ResGoodsTakeDetail>>> goodsTakeDetailList(@QueryMap Map<String, Object> data);
+
+    /**
+     * 库存查询
+     */
+    @GET("wms/inventory")
+    Call<ResultPage<ResInventory>> inventoryQuery(@QueryMap Map<String, Object> data);
 }

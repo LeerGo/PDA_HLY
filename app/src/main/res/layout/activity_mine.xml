@@ -72,7 +72,7 @@
         
         <androidx.appcompat.widget.AppCompatButton
             style="@style/MineButtonBaseStyle"
-            android:background="@drawable/shape_rrect_blue_gradient"
+            android:background="@drawable/shape_rrect_blue_gradient_r5"
             android:onClick="@{()->vmMine.warehouseChange()}"
             android:text="@string/warehouse_change" />
         
