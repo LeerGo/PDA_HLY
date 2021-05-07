@@ -14,7 +14,6 @@ import com.arpa.wms.hly.bean.res.ResInventory;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import androidx.hilt.lifecycle.ViewModelInject;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -30,14 +29,16 @@ import retrofit2.Call;
  */
 public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
     private final ItemBinding<ResInventory> itemBinding = ItemBinding.of(BR.data, R.layout.item_inventory_query);
-    private final ReqInventory reqInventory = new ReqInventory(PAGE_SIZE);
-
-    public ObservableField<String> locationName = new ObservableField<>();
-    public ObservableField<String> goodsBarCode = new ObservableField<>();
+    public final ReqInventory reqInventory = new ReqInventory(PAGE_SIZE);
 
     @ViewModelInject
     public VMInventoryQuery(@NonNull Application application, BaseModel model) {
         super(application, model);
+    }
+
+    @Override
+    public void onCreate() {
+        configAdapter();
     }
 
     @Override
@@ -46,9 +47,7 @@ public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
     }
 
     @Override
-    public ReqPage getParams() {
-        reqInventory.setGoodsBarCode(goodsBarCode.get());
-        reqInventory.setLocationName(locationName.get());
+    public ReqPage getParams() {asdada
         return reqInventory;
     }
 

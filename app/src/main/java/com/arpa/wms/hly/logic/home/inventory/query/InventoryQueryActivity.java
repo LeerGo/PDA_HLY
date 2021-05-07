@@ -27,37 +27,14 @@ public class InventoryQueryActivity extends BaseActivity<VMInventoryQuery, Activ
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        viewBind.setViewModel(viewModel);
+        viewBind.wsbLocation.setOnSearchClick(data -> {
+            viewModel.reqInventory.setLocationName(data);
+            viewModel.refresh();
+        });
+        viewBind.wsbGoodbar.setOnSearchClick(data -> {
+            viewModel.reqInventory.setGoodsBarCode(data);
+            viewModel.refresh();
+        });
     }
-
-
-    //    @Override
-    //    public void handleMessage(Message msg) {
-
-    //        etScan.addTextChangedListener(new TextWatcher() {
-    //            @Override
-    //            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-    //
-    //            }
-    //
-    //            @Override
-    //            public void onTextChanged(CharSequence s, int start, int before, int count) {
-    //
-    //            }
-    //
-    //            @Override
-    //            public void afterTextChanged(Editable s) {
-    //                Message message = new Message();
-    //                message.what = MSG_SCAN;
-    //                message.obj = s.toString();
-    //                if (sHandler.hasMessages(MSG_SCAN)) sHandler.removeMessages(MSG_SCAN);
-    //                sHandler.sendMessageDelayed(message, Const.HANDLER_DELAY_TIME);
-    //            }
-    //        });
-
-    //        super.handleMessage(msg);
-    //        if (msg.what == MSG_SCAN) {
-    //            requestData((String) msg.obj);
-    //        }
-    //    }
 }

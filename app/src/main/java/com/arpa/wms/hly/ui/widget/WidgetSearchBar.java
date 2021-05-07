@@ -60,15 +60,15 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         }
     }
 
+    public void setWsbText(String text) {
+        etKey.setText(text);
+    }
+
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetSearchBar);
         setWsbHint(typedArray.getString(R.styleable.WidgetSearchBar_wsbHint));
         setWsbText(typedArray.getString(R.styleable.WidgetSearchBar_wsbText));
         typedArray.recycle();
-    }
-
-    public void setWsbText(String text) {
-        etKey.setText(text);
     }
 
     public void setWsbHint(String hint) {

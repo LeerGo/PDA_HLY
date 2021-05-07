@@ -102,12 +102,17 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
                             sendMessage(R.string.failure_result_common, true);
                             updateStatus(StatusEvent.Status.FAILURE, true);
                         }
+                        refreshComplete();
+                    }
+
+                    private void refreshComplete() {
                         if (isRefresh) refreshing.set(false);
                         else moreLoading.set(false);
                     }
 
                     @Override
                     public void onError(Call<ResultPage<T>> call, Throwable t) {
+                        refreshComplete();
                         updateStatus(StatusEvent.Status.ERROR, true);
                         sendMessage(t.getMessage(), true);
                     }

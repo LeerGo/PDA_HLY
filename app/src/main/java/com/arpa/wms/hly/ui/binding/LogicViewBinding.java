@@ -3,6 +3,8 @@ package com.arpa.wms.hly.ui.binding;
 import android.text.TextUtils;
 
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.BindingAdapter;
@@ -31,5 +33,12 @@ public class LogicViewBinding {
                     imageView.setImageResource(R.mipmap.ic_goods_status_trans);
                     break;
             }
+    }
+
+    @BindingAdapter(value = "onSearch")
+    public static void setOnSearch(WidgetSearchBar widgetSearchBar, ViewListener.DataClickListener<String> listener) {
+        if (null != listener) {
+            widgetSearchBar.setOnSearchClick(data -> listener.transfer(data));
+        }
     }
 }
