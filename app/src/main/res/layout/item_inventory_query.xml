@@ -11,6 +11,7 @@
             type="com.arpa.wms.hly.bean.res.ResInventory" />
     </data>
     
+    <!--TODO: 数据填充 @lyf 2021-05-08 07:51:55 -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -30,6 +31,7 @@
                 android:background="@drawable/shape_rrect_blue_gradient"
                 android:gravity="center_vertical"
                 android:paddingStart="16dp"
+                android:text="@{@string/goods_location(data.location)}"
                 android:textColor="@color/white"
                 tools:text="库位：A01010101" />
             
@@ -49,6 +51,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@{@string/goods_take_number(data.goodCode)}"
                     android:textColor="@color/color_434c67"
                     android:textSize="14sp"
                     tools:text="商品编码：10001" />
@@ -56,6 +59,7 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{data.goodsStatusName}"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
                     tools:text="合格" />
@@ -63,19 +67,22 @@
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@{data.isLock==0 ? @string/status_lock : @string/status_unlock}"
                     android:textColor="@color/color_434c67"
                     android:textSize="14sp"
-                    tools:text=" / 未锁定" />
+                    tools:text="/未锁定" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItemBase"
                 app:propsKey="商品名称："
+                app:propsValue="@{data.goodsName}"
                 tools:propsValue="测试商品一" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
                 app:propsKey="基本单位："
+                app:propsValue="@{data.unitName}"
                 tools:propsValue="件" />
             
             <LinearLayout
@@ -89,93 +96,119 @@
                 
                 <TextView
                     style="@style/WWrapHWrap"
-                    android:text="100"
-                    android:textColor="@color/colorPrimary" />
+                    android:textColor="@color/colorPrimary"
+                    android:visibility="gone"
+                    tools:text="100"
+                    tools:visibility="visible" />
                 
                 <TextView
-                    android:id="@+id/tv_zong"
                     style="@style/WWrapHWrap"
-                    android:text="/100"
-                    android:textColor="@color/color_434c67" />
+                    android:text="@{data.quantity}"
+                    android:textColor="@color/color_434c67"
+                    tools:text="/100" />
             </LinearLayout>
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                style="@style/InventoryQueryItem"
-                android:visibility="gone"
-                app:propsKey="托  盘  号："
-                tools:propsValue="NO12312441" />
+            <!--            <com.arpa.wms.hly.ui.widget.WidgetPropsItem-->
+            <!--                style="@style/InventoryQueryItem"-->
+            <!--                android:visibility="gone"-->
+            <!--                app:propsKey="托  盘  号："-->
+            <!--                tools:propsValue="NO12312441" />-->
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="生产日期："
-                tools:propsValue="2021-05-07" />
+                app:propsValue="@{data.gmtManufacture}"
+                app:visibleState="@{data.batchRule.gmtManufacture}"
+                tools:propsValue="2021-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="过期日期："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.gmtExpire}"
+                app:visibleState="@{data.batchRule.gmtExpire}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="供  应  商："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.supplier}"
+                app:visibleState="@{data.batchRule.supplier}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="序  列  号："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.serialNumber}"
+                app:visibleState="@{data.batchRule.serialNumber}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="拓  展   1："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.extendOne}"
+                app:visibleState="@{data.batchRule.extendOne}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="拓  展   2："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.extendTwo}"
+                app:visibleState="@{data.batchRule.extendTwo}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="拓  展   3："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.extendThree}"
+                app:visibleState="@{data.batchRule.extendThree}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="拓  展   4："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.extendFour}"
+                app:visibleState="@{data.batchRule.extendFour}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="拓  展   5："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.extendFive}"
+                app:visibleState="@{data.batchRule.extendFive}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="拓  展   6："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.extendSix}"
+                app:visibleState="@{data.batchRule.extendSix}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="收货批次："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.receiveLot}"
+                app:visibleState="@{data.batchRule.lot}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
-                android:visibility="gone"
                 app:propsKey="存货日期："
-                tools:propsValue="2022-05-07" />
+                app:propsValue="@{data.gmtStock}"
+                app:visibleState="@{data.batchRule.gmtStock}"
+                tools:propsValue="2022-05-07"
+                tools:visibility="gone" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
 </layout>

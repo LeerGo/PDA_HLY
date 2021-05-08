@@ -47,7 +47,7 @@ public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
     }
 
     @Override
-    public ReqPage getParams() {asdada
+    public ReqPage getParams() {
         return reqInventory;
     }
 

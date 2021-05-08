@@ -28,6 +28,7 @@ public class InventoryQueryActivity extends BaseActivity<VMInventoryQuery, Activ
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
+        // TODO: 先临时这样，后面改为 xml 映射 @lyf 2021-05-08 07:51:32
         viewBind.wsbLocation.setOnSearchClick(data -> {
             viewModel.reqInventory.setLocationName(data);
             viewModel.refresh();

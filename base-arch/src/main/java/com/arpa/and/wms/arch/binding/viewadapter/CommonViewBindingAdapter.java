@@ -34,6 +34,15 @@ public class CommonViewBindingAdapter {
         }
     }
 
+    @BindingAdapter(value = {"visibleState"})
+    public static void bindVisibleState(View v, Integer visibleState) {
+        if (null != visibleState && visibleState==1) {
+            v.setVisibility(View.VISIBLE);
+        } else {
+            v.setVisibility(View.GONE);
+        }
+    }
+
     @BindingAdapter({"android:onClick", "android:clickable"})
     public static void setOnClick(View view, View.OnClickListener clickListener, boolean clickable) {
         setOnClick(view, clickListener);
