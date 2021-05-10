@@ -41,7 +41,7 @@ public class ResInventory {
     private String lot;
     private String modifiedBy;
     private String productCode;
-    private String quantity;
+    private int quantity;
     private String receiveLot;
     private String remarks;
     private String serialNumber;
@@ -310,11 +310,11 @@ public class ResInventory {
         this.productCode = productCode;
     }
 
-    public String getQuantity() {
+    public int getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(String quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 

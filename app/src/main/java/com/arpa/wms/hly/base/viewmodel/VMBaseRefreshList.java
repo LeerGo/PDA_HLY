@@ -4,12 +4,14 @@ import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
-import com.arpa.and.wms.arch.http.callback.ApiCallback;
 import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
+import com.arpa.wms.hly.net.ResultError;
+import com.arpa.wms.hly.net.ResultPageCallback;
 
+import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
@@ -54,7 +56,6 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
     }
 
     public void configAdapter() {
-        // FIXME: 如果没有设置过 adapter，会有空指针 @lyf 2021-05-06 10:45:16
         adapter = new BindingRecyclerViewAdapter<>();
     }
 
@@ -78,47 +79,49 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
     private void requestData(boolean isRefresh) {
         updateStatus(StatusEvent.Status.LOADING);
         getCall(GsonUtils.getInstance().pojo2Map(getParams()))
-                .enqueue(new ApiCallback<ResultPage<T>>() {
+                .enqueue(new ResultPageCallback<T>() {
                     @Override
-                    public void onResponse(Call<ResultPage<T>> call, ResultPage<T> result) {
-                        if (result != null) {
-                            if (result.isSuccess()) { //成功
-                                boolean isEmpty = result.getData().getRecords().isEmpty();
-                                int listSize = result.getData().getRecords().size();
-
-                                if (isRefresh) {
-                                    getItems().clear();
-                                    if (isEmpty) sendMessage(R.string.data_empty);
-                                } else {
-                                    if (isEmpty) sendMessage(R.string.data_no_more, true);
-                                }
-                                hasMore.set(listSize == PAGE_SIZE);
-                                getItems().addAll(result.getData().getRecords());
-                                updateStatus(StatusEvent.Status.SUCCESS, true);
-                            } else {
-                                sendMessage(result.getMsg(), true);
-                                updateStatus(StatusEvent.Status.FAILURE, true);
-                            }
-                        } else {
+                    public void onSuccess(List<T> data) {
+                        if (null == data) {
                             sendMessage(R.string.failure_result_common, true);
                             updateStatus(StatusEvent.Status.FAILURE, true);
+                            return;
                         }
+
+                        boolean isEmpty = data.isEmpty();
+                        int listSize = data.size();
+
+                        if (isRefresh) {
+                            getItems().clear();
+                            if (isEmpty) sendMessage(R.string.data_empty);
+                        } else {
+                            if (isEmpty) sendMessage(R.string.data_no_more, true);
+                        }
+                        hasMore.set(listSize == PAGE_SIZE);
+                        getItems().addAll(data);
+                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                        sendMessage(error.getMessage(), true);
+                    }
+
+                    @Override
+                    public void onFinish() {
                         refreshComplete();
+                        isAutoRefresh.set(false);
                     }
 
                     private void refreshComplete() {
                         if (isRefresh) refreshing.set(false);
                         else moreLoading.set(false);
                     }
-
-                    @Override
-                    public void onError(Call<ResultPage<T>> call, Throwable t) {
-                        refreshComplete();
-                        updateStatus(StatusEvent.Status.ERROR, true);
-                        sendMessage(t.getMessage(), true);
-                    }
                 });
     }
+
+    public abstract Call<ResultPage<T>> getCall(Map<String, Object> params);
 
     public ObservableArrayList<T> getItems() {
         if (null == items) {
@@ -126,8 +129,6 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
         }
         return items;
     }
-
-    public abstract Call<ResultPage<T>> getCall(Map<String, Object> params);
 
     public abstract ReqPage getParams();
 

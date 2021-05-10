@@ -2,10 +2,9 @@ package com.arpa.wms.hly.logic.mine;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityMineBinding;
 import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
@@ -26,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class MineActivity extends BaseActivity<VMMine, ActivityMineBinding> implements DataClickListener<ResWarehouse> {
+public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> implements DataClickListener<ResWarehouse> {
 
     @Override
     public int getLayoutId() {
@@ -36,16 +35,6 @@ public class MineActivity extends BaseActivity<VMMine, ActivityMineBinding> impl
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setVariable(BR.vmMine, viewModel);
-        // TODO:这里的代码可以抽取复用 @lyf 2021-04-28 02:47:46
-        registerMessageEvent(ToastUtils::showShort);
-        registerStatusEvent(status -> {
-            if (status == StatusEvent.Status.LOADING) {
-                showLoading();
-            } else {
-                hideLoading();
-            }
-        });
-        // --------------------------------- 截止
         viewModel.getWarehouseLiveData().observe(this, list -> {
             if (list.size() <= 1) {
                 ToastUtils.showShort("只有一个仓库无法切换");

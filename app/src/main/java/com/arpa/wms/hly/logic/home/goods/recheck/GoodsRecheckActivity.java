@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.BaseListActivity;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.ActivityPdataskRecheckBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheck;
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckActivity extends BaseListActivity<VMGoodsRecheck, ActivityPdataskRecheckBinding> {
+public class GoodsRecheckActivity extends WrapBaseActivity<VMGoodsRecheck, ActivityPdataskRecheckBinding> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_pdatask_recheck;

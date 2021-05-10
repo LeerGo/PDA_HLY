@@ -2,9 +2,10 @@ package com.arpa.wms.hly.logic.home.inventory.query;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityInventoryQueryBinding;
+import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -19,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class InventoryQueryActivity extends BaseActivity<VMInventoryQuery, ActivityInventoryQueryBinding> {
+public class InventoryQueryActivity extends WrapBaseActivity<VMInventoryQuery, ActivityInventoryQueryBinding> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_inventory_query;
@@ -27,15 +28,14 @@ public class InventoryQueryActivity extends BaseActivity<VMInventoryQuery, Activ
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
         viewBind.setViewModel(viewModel);
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
         // TODO: 先临时这样，后面改为 xml 映射 @lyf 2021-05-08 07:51:32
-        viewBind.wsbLocation.setOnSearchClick(data -> {
-            viewModel.reqInventory.setLocationName(data);
-            viewModel.refresh();
-        });
-        viewBind.wsbGoodbar.setOnSearchClick(data -> {
-            viewModel.reqInventory.setGoodsBarCode(data);
-            viewModel.refresh();
-        });
+        viewBind.wsbGoodbar.setOnSearchClick(data -> viewModel.filter(data, false));
+        viewBind.wsbGoodbar.setOnClearClick(v -> viewModel.filter("", false));
+        viewBind.wsbLocation.setOnSearchClick(data -> viewModel.filter(data, true));
+        viewBind.wsbLocation.setOnClearClick(v -> viewModel.filter("", true));
     }
 }

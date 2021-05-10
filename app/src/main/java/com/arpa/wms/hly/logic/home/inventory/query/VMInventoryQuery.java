@@ -36,10 +36,10 @@ public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
         super(application, model);
     }
 
-    @Override
-    public void onCreate() {
-        configAdapter();
-    }
+//    @Override
+//    public void onCreate() {
+//        configAdapter();
+//    }
 
     @Override
     public Call<ResultPage<ResInventory>> getCall(Map<String, Object> params) {
@@ -54,5 +54,18 @@ public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
     @Override
     public ItemBinding<ResInventory> getItemBinding() {
         return itemBinding;
+    }
+
+    /**
+     * 库存查询过滤
+     * @param keyWord 关键词
+     * @param isLocation true - 库位；false - 商品条码
+     */
+    public void filter(String keyWord, boolean isLocation){
+        if (isLocation)
+            reqInventory.setLocationName(keyWord);
+        else
+            reqInventory.setGoodsBarCode(keyWord);
+        refresh();
     }
 }

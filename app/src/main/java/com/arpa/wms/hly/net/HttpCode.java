@@ -11,5 +11,6 @@ package com.arpa.wms.hly.net;
  */
 interface HttpCode {
     int ERROR_CODE = -1;
+
     int LOGIN_FAILED = 21332;
 }

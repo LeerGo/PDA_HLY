@@ -27,6 +27,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
     private EditText etKey;
     private AppCompatImageView ivClear;
     private DataClickListener<String> onSearchClick;
+    private View.OnClickListener onClearClick;
 
     public WidgetSearchBar(Context context) {
         super(context);
@@ -45,23 +46,22 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         etKey = findViewById(R.id.et_key);
         etKey.setOnEditorActionListener((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                extracted(v);
+                doSearch(v);
             }
             return false;
         });
         etKey.setOnFocusChangeListener((v, hasFocus) -> ivClear.setVisibility(hasFocus ? VISIBLE : GONE));
-        ivClear.setOnClickListener(v -> etKey.setText(""));
-        findViewById(R.id.ib_search).setOnClickListener(this::extracted);
+        ivClear.setOnClickListener(v -> {
+            etKey.setText("");
+            onClearClick.onClick(v);
+        });
+        findViewById(R.id.ib_search).setOnClickListener(this::doSearch);
     }
 
-    private void extracted(View v) {
+    private void doSearch(View v) {
         if (null != onSearchClick) {
             onSearchClick.transfer(etKey.getText().toString().trim());
         }
-    }
-
-    public void setWsbText(String text) {
-        etKey.setText(text);
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
@@ -71,11 +71,19 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         typedArray.recycle();
     }
 
+    public void setWsbText(String text) {
+        etKey.setText(text);
+    }
+
     public void setWsbHint(String hint) {
         etKey.setHint(hint);
     }
 
     public void setOnSearchClick(DataClickListener<String> onSearchClick) {
         this.onSearchClick = onSearchClick;
+    }
+
+    public void setOnClearClick(OnClickListener onClearClick) {
+        this.onClearClick = onClearClick;
     }
 }

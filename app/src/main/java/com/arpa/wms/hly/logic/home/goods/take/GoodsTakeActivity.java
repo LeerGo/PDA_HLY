@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.BaseListActivity;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake;
@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeActivity extends BaseListActivity<VMGoodsTake, ActivityPdataskTakeBinding> {
+public class GoodsTakeActivity extends WrapBaseActivity<VMGoodsTake, ActivityPdataskTakeBinding> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_pdatask_take;
