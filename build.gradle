@@ -4,8 +4,8 @@ buildscript {
     addRepos(repositories)
 
     dependencies {
-        classpath "com.android.tools.build:gradle:$versions.gralde"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:$versions.hiltAndroid"
+        classpath "com.android.tools.build:gradle:4.1.3"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.30.1-alpha"
     }
 }
 

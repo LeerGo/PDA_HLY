@@ -7,17 +7,20 @@ import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 import androidx.fragment.app.Fragment;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
+@HiltViewModel
 public class VMTaskCenter extends WrapDataViewModel {
     private final ObservableList<Fragment> fragments = new ObservableArrayList<>();
     private final ObservableList<String> titles = new ObservableArrayList<>();
 
-    @ViewModelInject
+    @Inject
     public VMTaskCenter(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

@@ -16,20 +16,23 @@ import com.arpa.wms.hly.utils.Const.TASK_TYPE;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
 
+@HiltViewModel
 public class VMTaskAssign extends VMBaseRefreshList<ResPdaTask> {
     public final ObservableInt type = new ObservableInt();
     private final ObservableBoolean isSelectAll = new ObservableBoolean();
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
     private final ItemBinding<ResPdaTask> itemBinding = ItemBinding.of(BR.data, R.layout.item_task_list);
 
-    @ViewModelInject
+    @Inject
     public VMTaskAssign(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

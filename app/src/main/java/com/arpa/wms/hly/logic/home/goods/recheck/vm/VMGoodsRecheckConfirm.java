@@ -5,8 +5,10 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -17,9 +19,10 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * 页面：商品收货确认
  * </p>
  */
+@HiltViewModel
 public class VMGoodsRecheckConfirm extends WrapDataViewModel {
 
-    @ViewModelInject
+    @Inject
     public VMGoodsRecheckConfirm(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

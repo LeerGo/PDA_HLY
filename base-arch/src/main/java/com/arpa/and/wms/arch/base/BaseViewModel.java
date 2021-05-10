@@ -15,7 +15,6 @@ import java.util.Map;
 import androidx.annotation.MainThread;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.Lifecycle;
 import androidx.lifecycle.LifecycleOwner;
@@ -23,7 +22,7 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.Observer;
 
 /**
- * 继承使用了BaseViewModel或其子类，你需要参照如下方式在构造函数上添加@ViewModelInject注解
+ * 如果您继承使用了BaseViewModel或其子类，你需要参照如下方式在类上添加@HiltViewModel并在构造函数上添加@Inject注解
  */
 public class BaseViewModel <M extends BaseModel> extends AndroidViewModel implements IViewModel {
     /**
@@ -58,15 +57,6 @@ public class BaseViewModel <M extends BaseModel> extends AndroidViewModel implem
     public BaseViewModel(@NonNull Application application, M model) {
         super(application);
         this.model = model;
-    }
-
-    /**
-     * 特殊构造，仅供内部使用
-     * 为了满足@ViewModelInject注解
-     */
-    @ViewModelInject
-    BaseViewModel(@NonNull Application application) {
-        super(application);
     }
 
     @Override

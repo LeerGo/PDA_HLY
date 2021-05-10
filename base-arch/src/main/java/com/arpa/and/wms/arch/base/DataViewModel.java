@@ -2,18 +2,21 @@ package com.arpa.and.wms.arch.base;
 
 import android.app.Application;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.hilt.lifecycle.ViewModelInject;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * 继承使用了DataViewModel或其子类，你需要参照如下方式在构造函数上添加@ViewModelInject注解
  */
+@HiltViewModel
 public class DataViewModel extends BaseViewModel<BaseModel> {
 
-    @ViewModelInject
+    @Inject
     public DataViewModel(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

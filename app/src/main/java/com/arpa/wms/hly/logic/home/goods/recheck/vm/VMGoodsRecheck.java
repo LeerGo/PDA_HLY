@@ -9,8 +9,10 @@ import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.logic.common.vm.VMPdaTask;
 import com.arpa.wms.hly.utils.Const;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
@@ -22,10 +24,11 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  * ViewModel: 商品待复核列表
  * </p>
  */
+@HiltViewModel
 public class VMGoodsRecheck extends VMPdaTask {
     private final ItemBinding<ResPdaTask> itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck);
 
-    @ViewModelInject
+    @Inject
     public VMGoodsRecheck(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

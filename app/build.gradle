@@ -64,34 +64,29 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
-
     // test
-    testImplementation deps.test.junit
-    androidTestImplementation deps.test.android_junit
-    androidTestImplementation deps.test.test
-    androidTestImplementation deps.test.espresso
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation "androidx.test.ext:junit:1.1.2"
+    androidTestImplementation "androidx.test:core:1.3.0"
+    androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
 
     // 本地
     implementation project(path: ':base-arch')
 
     // 官方
-    implementation deps.appcompat
-    implementation deps.material
-    implementation deps.constraintlayout
+    implementation "androidx.appcompat:appcompat:1.2.0"
+    implementation "com.google.android.material:material:1.3.0"
+    implementation "androidx.constraintlayout:constraintlayout:2.0.4"
 
-    // aop
-    implementation deps.hilt.hilt_android
-    annotationProcessor deps.hilt.hilt_android_compiler
-    implementation deps.hilt.hilt_viewmodel
-    annotationProcessor deps.hilt.hilt_compiler
+    // hilt
+    api "com.google.dagger:hilt-android:2.35"
+    annotationProcessor "com.google.dagger:hilt-android-compiler:2.35"
 
     // 功能
-    implementation deps.logger
+    implementation "com.orhanobut:logger:2.2.0"
 
     // 性能
-    debugImplementation deps.leakcanary.debug
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.7"
 
     // UI
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'

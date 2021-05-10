@@ -7,7 +7,10 @@ import com.arpa.and.wms.arch.base.DataViewModel;
 import com.arpa.wms.hly.net.ApiService;
 import com.arpa.wms.hly.utils.SPUtils;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -18,9 +21,11 @@ import androidx.annotation.NonNull;
  * 内容描述区域
  * </p>
  */
+@HiltViewModel
 public class WrapDataViewModel extends DataViewModel {
     public final ApiService apiService = getRetrofitService(ApiService.class);
 
+    @Inject
     public WrapDataViewModel(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

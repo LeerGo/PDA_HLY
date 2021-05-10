@@ -13,8 +13,10 @@ import com.arpa.wms.hly.bean.res.ResInventory;
 
 import java.util.Map;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
 
@@ -27,11 +29,12 @@ import retrofit2.Call;
  * ViewModel：库存查询
  * </p>
  */
+@HiltViewModel
 public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
     private final ItemBinding<ResInventory> itemBinding = ItemBinding.of(BR.data, R.layout.item_inventory_query);
     public final ReqInventory reqInventory = new ReqInventory(PAGE_SIZE);
 
-    @ViewModelInject
+    @Inject
     public VMInventoryQuery(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

@@ -16,9 +16,11 @@ import com.arpa.wms.hly.net.ResultError;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 import com.arpa.wms.hly.utils.ToastUtils;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -29,13 +31,14 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * ViewModel：登录
  * </p>
  */
+@HiltViewModel
 public class VMLogin extends VMWarehouse {
     // TODO: 这里的默认值记得干掉 @lyf 2021-04-27 03:41:59
     private final ObservableField<String> userName = new ObservableField<>("admin");
     private final ObservableField<String> userPass = new ObservableField<>("abcd1234");
     private final ObservableField<Boolean> isShowPass = new ObservableField<>();
 
-    @ViewModelInject
+    @Inject
     public VMLogin(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

@@ -7,8 +7,10 @@ import com.arpa.wms.hly.logic.common.vm.VMPdaTaskDetail;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -19,9 +21,10 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * 页面：商品收货详情
  * </p>
  */
+@HiltViewModel
 public class VMGoodsTakeDetail extends VMPdaTaskDetail {
 
-    @ViewModelInject
+    @Inject
     public VMGoodsTakeDetail(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

@@ -8,8 +8,10 @@ import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckDetailFragment;
 
 import java.util.Arrays;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -20,9 +22,10 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * ViewModel: 商品待复核列表
  * </p>
  */
+@HiltViewModel
 public class VMGoodsRecheckDetail extends VMPdaTaskDetail {
 
-    @ViewModelInject
+    @Inject
     public VMGoodsRecheckDetail(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

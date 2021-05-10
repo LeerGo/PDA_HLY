@@ -11,10 +11,12 @@ import com.arpa.wms.hly.logic.mine.MineActivity;
 import com.arpa.wms.hly.utils.Const.HOME_MENU;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
@@ -27,6 +29,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  * ViewModel：首页
  * </p>
  */
+@HiltViewModel
 public class VMHome extends WrapDataViewModel {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
@@ -35,7 +38,7 @@ public class VMHome extends WrapDataViewModel {
     private final ObservableArrayList<MenuBean> items = new ObservableArrayList<>();
     private final ItemBinding<MenuBean> itemBinding = ItemBinding.of(BR.data, R.layout.item_home_menu);
 
-    @ViewModelInject
+    @Inject
     public VMHome(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

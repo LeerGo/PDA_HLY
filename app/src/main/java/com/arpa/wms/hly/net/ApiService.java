@@ -9,7 +9,7 @@ import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.utils.Const.API;
 import com.arpa.wms.hly.utils.Const.AppConfig;
-import com.king.retrofit.retrofithelper.DomainName;
+import com.king.retrofit.retrofithelper.annotation.DomainName;
 
 import java.util.List;
 import java.util.Map;

@@ -17,10 +17,12 @@ import com.arpa.wms.hly.utils.Const;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
@@ -32,6 +34,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  * 内容描述区域
  * </p>
  */
+@HiltViewModel
 public class VMGoodsTakeDetailList extends WrapDataViewModel {
     // 分页相关
     public final static int PAGE_SIZE = 10;
@@ -44,7 +47,7 @@ public class VMGoodsTakeDetailList extends WrapDataViewModel {
     public ObservableBoolean hasMore = new ObservableBoolean();
     public ObservableBoolean isAutoRefresh = new ObservableBoolean();
 
-    @ViewModelInject
+    @Inject
     public VMGoodsTakeDetailList(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

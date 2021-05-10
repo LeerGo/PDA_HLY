@@ -12,7 +12,6 @@ import androidx.room.RoomDatabase;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 
-
 /**
  * 为框架提供一些配置参数入口
  *

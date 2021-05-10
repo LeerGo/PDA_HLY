@@ -11,9 +11,11 @@ import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
 
+import javax.inject.Inject;
+
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
-import androidx.hilt.lifecycle.ViewModelInject;
+import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -24,12 +26,13 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * ViewModel：我的
  * </p>
  */
+@HiltViewModel
 public class VMMine extends VMWarehouse {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
     private final ObservableField<String> version = new ObservableField<>("v0.0.0");
 
-    @ViewModelInject
+    @Inject
     public VMMine(@NonNull Application application, BaseModel model) {
         super(application, model);
     }

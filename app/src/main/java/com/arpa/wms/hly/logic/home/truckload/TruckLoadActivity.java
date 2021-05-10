@@ -28,6 +28,6 @@ public class TruckLoadActivity extends BaseActivity<VMTruckLoad, ActivityTruckLo
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-
+        viewBind.setViewModel(viewModel);
     }
 }
