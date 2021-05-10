@@ -19,16 +19,9 @@ import androidx.databinding.BindingAdapter;
 public class RefreshViewBindingAdapter {
     @BindingAdapter(value = {"refreshing", "moreLoading", "hasMore"}, requireAll = false)
     public static void bindSmartRefreshLayout(SmartRefreshLayout smartLayout, Boolean refreshing, Boolean moreLoading, Boolean hasMore) {
-        //        Log.e("@@@@ L24", "RefreshViewBindingAdapter:bindSmartRefreshLayout() -> refreshing = " + refreshing + ", moreLoading = " + moreLoading + ", hasMore = " + hasMore);
-        if (null != refreshing && !refreshing) {
-            smartLayout.finishRefresh();
-        }
-        if (null != moreLoading && !moreLoading) {
-            smartLayout.finishLoadMore();
-        }
-
-        if (hasMore != null)
-            smartLayout.setNoMoreData(!hasMore);//调用次方法会停止刷新动作
+        if (null != refreshing && !refreshing) smartLayout.finishRefresh();
+        if (null != moreLoading && !moreLoading) smartLayout.finishLoadMore();
+        if (hasMore != null) smartLayout.setNoMoreData(!hasMore);
     }
 
     @BindingAdapter(value = {"onRefreshListener", "onLoadMoreListener"}, requireAll = false)

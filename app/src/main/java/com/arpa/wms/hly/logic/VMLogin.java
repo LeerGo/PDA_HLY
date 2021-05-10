@@ -5,21 +5,20 @@ import android.text.TextUtils;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
-import com.arpa.and.wms.arch.http.callback.ApiCallback;
 import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.bean.req.ReqLogin;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
-import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.logic.home.HomeActivity;
+import com.arpa.wms.hly.net.ResultCallback;
+import com.arpa.wms.hly.net.ResultError;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import androidx.hilt.lifecycle.ViewModelInject;
-import retrofit2.Call;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -35,7 +34,6 @@ public class VMLogin extends VMWarehouse {
     private final ObservableField<String> userName = new ObservableField<>("admin");
     private final ObservableField<String> userPass = new ObservableField<>("abcd1234");
     private final ObservableField<Boolean> isShowPass = new ObservableField<>();
-
 
     @ViewModelInject
     public VMLogin(@NonNull Application application, BaseModel model) {
@@ -88,33 +86,27 @@ public class VMLogin extends VMWarehouse {
         reqLogin.setAuthorizeDataCode(warehouseSelect.getCode());
 
         apiService.authorize(GsonUtils.getInstance().pojo2Map(reqLogin))
-                .enqueue(new ApiCallback<Result<ResLogin>>() {
-                    @Override
-                    public void onResponse(Call<Result<ResLogin>> call, Result<ResLogin> result) {
-                        if (result.isSuccess()) {
-                            spPut(SPKEY.IS_NEW_USER, false);
-                            spPut(SPKEY.USER_NAME, userName.get());
-                            spPut(SPKEY.WAREHOUSE_CODE, warehouseSelect.getCode());
-                            spPut(SPKEY.WAREHOUSE_NAME, warehouseSelect.getName());
+                .enqueue(new ResultCallback<ResLogin>() {
 
-                            ResLogin data = result.getData();
-                            spPut(SPKEY.USER_TOKEN, data.getAccessToken());
-                            spPut(SPKEY.PARTY_TYPE, data.getParty().getPartyType());
-                            spPut(SPKEY.OPERATOR_NAME, data.getParty().getName());
-                            spPut(SPKEY.OPERATOR_CODE, data.getParty().getCode());
-                            updateStatus(StatusEvent.Status.SUCCESS, true);
-                            startActivity(HomeActivity.class);
-                            finish();
-                        } else {
-                            updateStatus(StatusEvent.Status.FAILURE, true);
-                            sendMessage(result.getMsg());
-                        }
+                    @Override
+                    public void onSuccess(ResLogin data) {
+                        spPut(SPKEY.IS_NEW_USER, false);
+                        spPut(SPKEY.USER_NAME, userName.get());
+                        spPut(SPKEY.WAREHOUSE_CODE, warehouseSelect.getCode());
+                        spPut(SPKEY.WAREHOUSE_NAME, warehouseSelect.getName());
+                        spPut(SPKEY.USER_TOKEN, data.getAccessToken());
+                        spPut(SPKEY.PARTY_TYPE, data.getParty().getPartyType());
+                        spPut(SPKEY.OPERATOR_NAME, data.getParty().getName());
+                        spPut(SPKEY.OPERATOR_CODE, data.getParty().getCode());
+                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                        startActivity(HomeActivity.class);
+                        finish();
                     }
 
                     @Override
-                    public void onError(Call<Result<ResLogin>> call, Throwable t) {
+                    public void onFailed(ResultError error) {
                         updateStatus(StatusEvent.Status.ERROR, true);
-                        sendMessage(t.getMessage(), true);
+                        sendMessage(error.getMessage(), true);
                     }
                 });
     }

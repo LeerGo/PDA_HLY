@@ -22,7 +22,7 @@
             android:layout_marginEnd="40dp"
             android:background="@null"
             android:gravity="center_vertical"
-            android:hint="@string/hint_please_scan_move"
+            android:hint="@string/hint_please_enter_location"
             android:imeOptions="actionSearch"
             android:maxLines="1"
             android:paddingStart="12dp"

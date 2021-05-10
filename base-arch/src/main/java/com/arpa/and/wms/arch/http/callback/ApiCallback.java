@@ -1,5 +1,6 @@
 package com.arpa.and.wms.arch.http.callback;
 
+import androidx.annotation.NonNull;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.HttpException;
@@ -8,8 +9,7 @@ import timber.log.Timber;
 
 public abstract class ApiCallback <T> implements Callback<T> {
     @Override
-    public void onResponse(Call<T> call, Response<T> response) {
-        // TODO: 在 status = 21332（登录验证失败,请重新登录） 情况下需要统一跳转登录 @lyf 2021-04-27 05:27:28
+    public void onResponse(@NonNull Call<T> call, Response<T> response) {
         if (response.isSuccessful()) {
             T result = response.body();
             // Timber.d("Response:" + result);

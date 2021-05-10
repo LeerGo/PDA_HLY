@@ -19,14 +19,11 @@ import androidx.hilt.lifecycle.ViewModelInject;
  * </p>
  */
 public class VMInventoryScan extends WrapDataViewModel {
-    private ObservableField<String> title = new ObservableField<>();
+    public final ObservableField<String> title = new ObservableField<>();
+    public final ObservableField<String> searchHint = new ObservableField<>();
 
     @ViewModelInject
     public VMInventoryScan(@NonNull Application application, BaseModel model) {
         super(application, model);
-    }
-
-    public ObservableField<String> getTitle() {
-        return title;
     }
 }

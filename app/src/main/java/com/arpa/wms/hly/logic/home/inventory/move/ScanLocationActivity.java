@@ -2,6 +2,8 @@ package com.arpa.wms.hly.logic.home.inventory.move;
 
 import android.os.Bundle;
 
+import com.arpa.wms.hly.R;
+
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -20,7 +22,7 @@ public class ScanLocationActivity extends InventoryScanActivity {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-
-        viewModel.getTitle().set("扫描移出库位");
+        viewModel.title.set("扫描移出库位");
+        viewModel.searchHint.set(getResources().getString(R.string.hint_please_enter_location));
     }
 }

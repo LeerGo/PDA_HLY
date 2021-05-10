@@ -21,7 +21,8 @@
     <string name="title_home">首页</string>
     <string name="hint_enter_phone">请输入手机号</string>
     <string name="hint_enter_password">请输入密码</string>
-    <string name="hint_please_scan_move">请扫描/输入移出库位</string>
+    <string name="hint_please_enter_location">请扫描/输入移出库位</string>
+    <string name="hint_please_enter_goodsbar">请扫描/输入商品条码</string>
     <string name="login_welcome">欢迎您的登录！</string>
     <string name="login_account">账号</string>
     <string name="login_password">密码</string>
