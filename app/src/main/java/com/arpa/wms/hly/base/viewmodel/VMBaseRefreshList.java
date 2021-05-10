@@ -77,7 +77,9 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
     }
 
     private void requestData(boolean isRefresh) {
-        updateStatus(StatusEvent.Status.LOADING);
+        if (!isAutoRefresh.get())
+            updateStatus(StatusEvent.Status.LOADING);
+
         getCall(GsonUtils.getInstance().pojo2Map(getParams()))
                 .enqueue(new ResultPageCallback<T>() {
                     @Override

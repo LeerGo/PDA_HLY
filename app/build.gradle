@@ -92,4 +92,8 @@ dependencies {
 
     // 性能
     debugImplementation deps.leakcanary.debug
+
+    // UI
+    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+
 }

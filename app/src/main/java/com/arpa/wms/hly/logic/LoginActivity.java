@@ -34,6 +34,8 @@ public class LoginActivity extends WrapBaseActivity<VMLogin, ActivityLoginBindin
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
         viewBind.setVariable(BR.vmLogin, viewModel);
         viewModel.getWarehouseLiveData().observe(this, list -> {
             if (list.size() == 1) {

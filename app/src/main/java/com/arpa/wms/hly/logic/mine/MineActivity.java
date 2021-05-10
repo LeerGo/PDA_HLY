@@ -34,6 +34,8 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> 
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
         viewBind.setVariable(BR.vmMine, viewModel);
         viewModel.getWarehouseLiveData().observe(this, list -> {
             if (list.size() <= 1) {

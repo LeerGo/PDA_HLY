@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseViewModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.Nullable;
@@ -29,5 +30,10 @@ public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends Vi
                 hideLoading();
             }
         });
+    }
+
+    @Override
+    protected void showProgressDialog(boolean isCancel) {
+        showProgressDialog(R.layout.dialog_progress_arpa, isCancel);
     }
 }
