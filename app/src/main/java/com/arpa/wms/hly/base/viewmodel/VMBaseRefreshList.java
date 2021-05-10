@@ -35,7 +35,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
     // SmartRefreshLayout 属性标记
     public ObservableBoolean refreshing = new ObservableBoolean();
     public ObservableBoolean moreLoading = new ObservableBoolean();
-    public ObservableBoolean hasMore = new ObservableBoolean();
+    public ObservableBoolean hasMore = new ObservableBoolean(true);
     public ObservableBoolean isAutoRefresh = new ObservableBoolean();
 
     // adapter 相关
@@ -66,6 +66,9 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
         refresh();
     }
 
+    /**
+     * 下拉刷新数据
+     */
     public void refresh() {
         getParams().pageReset();
         refreshing.set(true);
@@ -85,13 +88,11 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
 
                                 if (isRefresh) {
                                     getItems().clear();
-                                    if (isEmpty)
-                                        sendMessage(R.string.data_empty);
+                                    if (isEmpty) sendMessage(R.string.data_empty);
                                 } else {
-                                    if (isEmpty)
-                                        sendMessage(R.string.data_no_more, true);
-                                    hasMore.set(listSize == PAGE_SIZE);
+                                    if (isEmpty) sendMessage(R.string.data_no_more, true);
                                 }
+                                hasMore.set(listSize == PAGE_SIZE);
                                 getItems().addAll(result.getData().getRecords());
                                 updateStatus(StatusEvent.Status.SUCCESS, true);
                             } else {
@@ -138,6 +139,9 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
         this.adapter = adapter;
     }
 
+    /**
+     * 上拉加载
+     */
     public void loadMore() {
         getParams().pageIncrease();
         moreLoading.set(true);
