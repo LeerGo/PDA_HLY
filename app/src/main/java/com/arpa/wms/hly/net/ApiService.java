@@ -5,6 +5,8 @@ import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResLogin;
+import com.arpa.wms.hly.bean.res.ResMoveGoods;
+import com.arpa.wms.hly.bean.res.ResMoveLocation;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.utils.Const.API;
@@ -58,4 +60,22 @@ public interface ApiService {
      */
     @GET("wms/inventory")
     Call<ResultPage<ResInventory>> inventoryQuery(@QueryMap Map<String, Object> data);
+
+    /**
+     * 无计划扫描库位
+     */
+    @GET("wms/pda/moveTask/scanLocation")
+    Call<Result<ResMoveLocation>> scanLocation(@QueryMap Map<String, Object> data);
+
+    /**
+     * 无计划扫描商品
+     */
+    @GET("wms/pda/moveTask/scanGoods")
+    Call<Result<ResMoveGoods>> scanGoods(@QueryMap Map<String, Object> data);
+
+    /**
+     * 无计划扫描商品 - 详情
+     */
+    @GET("wms/pda/moveTask/goodsListDetail")
+    Call<Result<ResMoveGoods>> scanGoodsListDetail(@QueryMap Map<String, Object> data);
 }

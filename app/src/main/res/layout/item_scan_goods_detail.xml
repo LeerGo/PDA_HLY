@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.res.ResMoveGoods.InventoryListBean" />
+    </data>
+    
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginVertical="1dp"
+        app:cardBackgroundColor="@color/white"
+        app:contentPadding="10dp"
+        tools:layout_marginTop="10dp">
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:propsKey="库存数量："
+                    app:propsValue="@{String.valueOf(data.canUseQuantity)}"
+                    tools:propsValue="1001" />
+                
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{data.goodsStatusName}"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="14sp"
+                    tools:text="合格" />
+                
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{'/'+data.lockName}"
+                    android:textColor="@color/color_434c67"
+                    android:textSize="14sp"
+                    tools:text="/未锁定" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:propsKey="生产日期："
+                app:propsValue="@{data.gmtManufacture}"
+                app:visible="@{data.batchRule.gmtManufacture == 1}"
+                tools:propsValue="2021-05-11" />
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:propsKey="产        地："
+                    tools:propsValue="A-1001" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:propsKey="特殊品项："
+                    tools:propsValue="常规" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:propsKey="码托数量："
+                    tools:propsValue="101" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    app:propsKey="整托数量："
+                    tools:propsValue="1" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

@@ -1,34 +1,6 @@
 package com.arpa.wms.hly.bean;
 
 public class BatchRuleBean {
-    /**
-     * code : d4ac07f97d1e4015b5d4a69e8a503ea8
-     * shipmentCode : 0b3e826a88ad49ec9dcf233c8e332012
-     * shipmentName : 宋晨货主
-     * name : 批次001
-     * lot : 1
-     * gmtManufacture : 1
-     * gmtExpire : 0
-     * gmtStock : 1
-     * supplier : 1
-     * serialNumber : 1
-     * extendOne : 1
-     * extendTwo : 0
-     * extendThree : 1
-     * extendFour : 0
-     * extendFive : 1
-     * extendSix : 0
-     * state : 0
-     * remarks :
-     * id : 4
-     * deleted : 0
-     * createdBy : 7d1c6e44b2934ab39d0a077f5337c182
-     * createdName : admin
-     * modifiedName : admin
-     * modifiedBy : 7d1c6e44b2934ab39d0a077f5337c182
-     * gmtCreated : 2020-12-18
-     * gmtModified : 2020-12-18
-     */
     private String code;
     private String shipmentCode;
     private String shipmentName;

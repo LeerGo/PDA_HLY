@@ -3,6 +3,7 @@ package com.arpa.wms.hly.ui.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
@@ -18,7 +19,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
  * since: 2021-04-22 2:07 PM
  *
  * <p>
- * 内容描述区域
+ * 控件：属性条目
  * </p>
  */
 public class WidgetPropsItem extends LinearLayoutCompat {
@@ -45,6 +46,7 @@ public class WidgetPropsItem extends LinearLayoutCompat {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetPropsItem);
         setPropsKey(typedArray.getString(R.styleable.WidgetPropsItem_propsKey));
         setPropsValue(typedArray.getString(R.styleable.WidgetPropsItem_propsValue));
+        setPropsValueGravity(typedArray.getInt(R.styleable.WidgetPropsItem_propsValueGravity, -1));
         typedArray.recycle();
     }
 
@@ -55,4 +57,10 @@ public class WidgetPropsItem extends LinearLayoutCompat {
     public void setPropsValue(String desc) {
         tvValue.setText(desc);
     }
+
+    public void setPropsValueGravity(int gravity) {
+        if (gravity == -1) tvValue.setGravity(Gravity.START);
+        else tvValue.setGravity(gravity);
+    }
+
 }

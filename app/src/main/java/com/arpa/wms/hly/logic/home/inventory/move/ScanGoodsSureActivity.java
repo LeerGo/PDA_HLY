@@ -18,7 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class ScanGoodsActivity extends InventoryScanActivity {
+public class ScanGoodsSureActivity extends InventoryScanActivity {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
@@ -32,6 +32,6 @@ public class ScanGoodsActivity extends InventoryScanActivity {
     public void transfer(String goodsBar) {
         String location = getIntent().getStringExtra(IntentKey.LOCATION_NAME);
         String container = getIntent().getStringExtra(IntentKey.CONTAINER_CODE);
-        viewModel.scanGoods(goodsBar, location, container);
+        viewModel.scanGoods(goodsBar, location,container);
     }
 }

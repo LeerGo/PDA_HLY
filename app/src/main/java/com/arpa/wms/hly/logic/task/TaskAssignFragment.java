@@ -44,7 +44,7 @@ public class TaskAssignFragment extends BaseLazyFragment<VMTaskAssign, FragmentT
     public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
         viewBind.setVariable(BR.viewModel, viewModel);
 
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10D10DP());
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
         viewModel.type.set(getArguments() != null ? getArguments().getInt(IntentKey.INDEX, 0) : 0);
         viewModel.getItemBinding()
                 .bindExtra(BR.listener, (DataClickListener<ResPdaTask>) data -> {

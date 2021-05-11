@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
-import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.bean.req.ReqLogin;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
@@ -88,7 +87,7 @@ public class VMLogin extends VMWarehouse {
         reqLogin.setUsername(userName.get());
         reqLogin.setAuthorizeDataCode(warehouseSelect.getCode());
 
-        apiService.authorize(GsonUtils.getInstance().pojo2Map(reqLogin))
+        apiService.authorize(reqLogin.toParams())
                 .enqueue(new ResultCallback<ResLogin>() {
 
                     @Override

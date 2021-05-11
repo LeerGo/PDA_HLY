@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import android.annotation.SuppressLint;
 
+import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.AppConfig;
 import com.arpa.wms.hly.utils.Md5Utils;
@@ -21,7 +22,7 @@ import java.util.Date;
  * 请求：登录
  * </p>
  */
-public class ReqLogin {
+public class ReqLogin extends ReqBase {
     @SerializedName("client_id")
     public String clientID;
     @SerializedName("client_secret")

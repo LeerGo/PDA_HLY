@@ -21,6 +21,12 @@
               format="string|reference" />
         <attr name="propsValue"
               format="string|reference" />
+        <attr name="propsValueGravity">
+            <flag name="start"
+                  value="0x00800003" />
+            <flag name="end"
+                  value="0x00800005" />
+        </attr>
     </declare-styleable>
     
     <declare-styleable name="WidgetSearchBar">

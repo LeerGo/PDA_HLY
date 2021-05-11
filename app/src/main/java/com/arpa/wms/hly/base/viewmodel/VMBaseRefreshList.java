@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
-import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
@@ -80,7 +79,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
         if (!isAutoRefresh.get())
             updateStatus(StatusEvent.Status.LOADING);
 
-        getCall(GsonUtils.getInstance().pojo2Map(getParams()))
+        getCall(getParams().toParams())
                 .enqueue(new ResultPageCallback<T>() {
                     @Override
                     public void onSuccess(List<T> data) {

@@ -2,9 +2,12 @@ package com.arpa.wms.hly.logic.home.inventory.move;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityInventoryScanBinding;
+import com.arpa.wms.hly.logic.home.inventory.move.vm.VMInventoryScan;
+import com.arpa.wms.hly.ui.listener.SearchActionCallback;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import androidx.annotation.Nullable;
 
@@ -15,9 +18,10 @@ import androidx.annotation.Nullable;
  *
  * <p>
  * 界面：扫描移除库位
- * </p>
+ * </p>relskw
  */
-public abstract class InventoryScanActivity extends BaseActivity<VMInventoryScan, ActivityInventoryScanBinding> {
+public abstract class InventoryScanActivity extends WrapBaseActivity<VMInventoryScan, ActivityInventoryScanBinding>
+        implements ViewListener.DataClickListener<String> {
 
     @Override
     public int getLayoutId() {
@@ -26,6 +30,8 @@ public abstract class InventoryScanActivity extends BaseActivity<VMInventoryScan
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
         viewBind.setVmInventory(viewModel);
+        viewBind.etScan.setOnEditorActionListener(new SearchActionCallback(this));
     }
 }

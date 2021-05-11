@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
-import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
@@ -80,7 +79,7 @@ public class VMGoodsTakeDetailList extends WrapDataViewModel {
      */
     private void requestData(boolean isRefresh) {
         updateStatus(StatusEvent.Status.LOADING);
-        apiService.goodsTakeDetailList(GsonUtils.getInstance().pojo2Map(reqGoodsTakeDetail))
+        apiService.goodsTakeDetailList(reqGoodsTakeDetail.toParams())
                 .enqueue(new ResultCallback<List<ResGoodsTakeDetail>>() {
                     @Override
                     public void onSuccess(List<ResGoodsTakeDetail> data) {

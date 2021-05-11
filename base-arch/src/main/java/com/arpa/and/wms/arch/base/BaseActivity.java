@@ -76,6 +76,8 @@ public abstract class BaseActivity <VM extends BaseViewModel, VDB extends ViewDa
         if (viewBind != null) {
             viewBind.unbind();
         }
+
+        dismissDialog(mProgressDialog);
     }
 
     /**

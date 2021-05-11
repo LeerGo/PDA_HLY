@@ -80,6 +80,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
+        <activity android:name=".logic.home.inventory.move.ScanGoodsDetailActivity" />
+        <activity android:name=".logic.home.inventory.move.ScanGoodsSureActivity" />
         
         <!-- UI 适配参数 -->
         <meta-data

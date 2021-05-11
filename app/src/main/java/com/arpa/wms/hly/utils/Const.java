@@ -28,7 +28,9 @@ public interface Const {
         String STATUS = "status";
         String DATA = "data";
         String CODE = "CODE";
+        String GOODS_BAR_CODE = "goodsBarCode";
         String CONTAINER_CODE = "containerCode";
+        String LOCATION_NAME = "locationName";
         String WAREHOUSE_CODE = "warehouseCode";
         String PICK_RECHECK_TYPE = "orderTag";
     }

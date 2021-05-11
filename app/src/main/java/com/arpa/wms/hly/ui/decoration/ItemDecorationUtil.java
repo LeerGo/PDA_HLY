@@ -33,17 +33,17 @@ public class ItemDecorationUtil {
     }
 
     public static DividerItemDecoration getDividerBottom(@DrawableRes int resID) {
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(Utils.getContext(), DividerItemDecoration.VERTICAL);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(Utils.getContext(), DividerItemDecoration.VERTICAL, DividerItemDecoration.SHOW_DIVIDER_END);
         itemDecoration.setDrawable(Utils.getContext().getResources().getDrawable(resID));
         return itemDecoration;
     }
 
-    public static DividerItemDecoration getDividerTop10D10DP() {
+    public static DividerItemDecoration getDividerTop10DP() {
         return getDividerTop(R.drawable.divider_line_vertical_10dp);
     }
 
     public static DividerItemDecoration getDividerTop(@DrawableRes int resID) {
-        DividerItemDecoration itemDecoration = new DividerItemDecoration(Utils.getContext(), DividerItemDecoration.SHOW_DIVIDER_BEGINNING, DividerItemDecoration.VERTICAL);
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(Utils.getContext(), DividerItemDecoration.VERTICAL, DividerItemDecoration.SHOW_DIVIDER_BEGINNING);
         itemDecoration.setDrawable(Utils.getContext().getResources().getDrawable(resID));
         return itemDecoration;
     }

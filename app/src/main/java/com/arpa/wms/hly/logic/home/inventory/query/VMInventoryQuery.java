@@ -31,18 +31,18 @@ import retrofit2.Call;
  */
 @HiltViewModel
 public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
-    private final ItemBinding<ResInventory> itemBinding = ItemBinding.of(BR.data, R.layout.item_inventory_query);
     public final ReqInventory reqInventory = new ReqInventory(PAGE_SIZE);
+    private final ItemBinding<ResInventory> itemBinding = ItemBinding.of(BR.data, R.layout.item_inventory_query);
 
     @Inject
     public VMInventoryQuery(@NonNull Application application, BaseModel model) {
         super(application, model);
     }
 
-//    @Override
-//    public void onCreate() {
-//        configAdapter();
-//    }
+    @Override
+    public void onCreate() {
+        configAdapter();
+    }
 
     @Override
     public Call<ResultPage<ResInventory>> getCall(Map<String, Object> params) {
@@ -61,10 +61,13 @@ public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
 
     /**
      * 库存查询过滤
-     * @param keyWord 关键词
-     * @param isLocation true - 库位；false - 商品条码
+     *
+     * @param keyWord
+     *         关键词
+     * @param isLocation
+     *         true - 库位；false - 商品条码
      */
-    public void filter(String keyWord, boolean isLocation){
+    public void filter(String keyWord, boolean isLocation) {
         if (isLocation)
             reqInventory.setLocationName(keyWord);
         else

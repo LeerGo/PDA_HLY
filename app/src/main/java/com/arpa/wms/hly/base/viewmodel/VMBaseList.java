@@ -9,7 +9,7 @@ import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableList;
+import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import retrofit2.Call;
 
 /**
@@ -22,11 +22,29 @@ import retrofit2.Call;
  * </p>
  */
 public abstract class VMBaseList <T> extends WrapDataViewModel {
-    public final ObservableList<T> data = new ObservableArrayList<>();
+
+    // adapter 相关
+    private ObservableArrayList<T> items;
+    private BindingRecyclerViewAdapter<T> adapter;
 
     public VMBaseList(@NonNull Application application, BaseModel model) {
         super(application, model);
     }
 
     public abstract Call<Result<List<T>>> getCall();
+
+    public BindingRecyclerViewAdapter<T> getAdapter() {
+        return adapter;
+    }
+
+    public void setAdapter(BindingRecyclerViewAdapter<T> adapter) {
+        this.adapter = adapter;
+    }
+
+    public ObservableArrayList<T> getItems() {
+        if (null == items) {
+            items = new ObservableArrayList<>();
+        }
+        return items;
+    }
 }

@@ -22,7 +22,13 @@ public class ScanLocationActivity extends InventoryScanActivity {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
+
         viewModel.title.set("扫描移出库位");
         viewModel.searchHint.set(getResources().getString(R.string.hint_please_enter_location));
+    }
+
+    @Override
+    public void transfer(String data) {
+        viewModel.scanLocations(data);
     }
 }
