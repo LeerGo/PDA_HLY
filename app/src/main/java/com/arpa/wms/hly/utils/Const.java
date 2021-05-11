@@ -24,10 +24,11 @@ public interface Const {
      * Intent 常量
      */
     interface IntentKey {
+        String LOT = "lot";
+        String DATA = "data";
+        String CODE = "code";
         String INDEX = "index";
         String STATUS = "status";
-        String DATA = "data";
-        String CODE = "CODE";
         String GOODS_BAR_CODE = "goodsBarCode";
         String CONTAINER_CODE = "containerCode";
         String LOCATION_NAME = "locationName";

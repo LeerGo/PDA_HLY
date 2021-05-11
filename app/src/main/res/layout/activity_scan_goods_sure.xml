@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.inventory.move.vm.VMScanGoodsSure" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            app:wtbTitle="移位确认" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            android:paddingTop="10dp"
+            app:propsKey="移出库位"
+            app:propsValue="@{viewModel.liveData.locationName}"
+            app:propsValueGravity="end"
+            tools:propsValue="RELSKW" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="商品名称"
+            app:propsValue="@{viewModel.liveData.goodsName}"
+            app:propsValueGravity="end"
+            tools:propsValue="伊利优酸乳" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="单        位"
+            app:propsValue="@{viewModel.liveData.unitName}"
+            app:propsValueGravity="end"
+            tools:propsValue="瓶" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="库存数量"
+            app:propsValue="@{String.valueOf(viewModel.liveData.quantity)}"
+            app:propsValueGravity="end"
+            tools:propsValue="200" />
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            style="@style/ScanGoodSureStyle">
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="库存状态"
+                android:textColor="@color/grey_96a0b9"
+                android:textSize="14sp" />
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.liveData.goodsStatusName}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                tools:text="合格" />
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{'/'+viewModel.liveData.lockName}"
+                android:textColor="@color/color_434c67"
+                android:textSize="14sp"
+                tools:text="/未锁定" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="生产日期"
+            app:propsValue="@{viewModel.liveData.gmtManufacture}"
+            app:propsValueGravity="end"
+            tools:propsValue="2021-05-11" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="产        地"
+            app:propsValueGravity="end"
+            tools:propsValue="A7" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="特殊品项"
+            app:propsValueGravity="end"
+            tools:propsValue="常规" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            android:layout_marginBottom="10dp"
+            android:paddingBottom="10dp"
+            app:propsKey="码托数量"
+            app:propsValueGravity="end"
+            tools:propsValue="100" />
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingHorizontal="12dp"
+            app:divider="@drawable/divider_line_horizontal"
+            app:showDividers="middle">
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="移位数量"
+                    android:textColor="@color/color_434c67" />
+                
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@null"
+                    android:gravity="end"
+                    android:hint="请输入移位数量"
+                    android:singleLine="true"
+                    android:text="@={viewModel.moveQuantity}"
+                    android:textColor="@color/grey_96a0b9"
+                    android:textColorHint="#B6BED2"
+                    android:textSize="14sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:gravity="center_vertical">
+                
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="移入库位"
+                    android:textColor="@color/color_434c67" />
+                
+                <androidx.appcompat.widget.AppCompatEditText
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:gravity="end"
+                    android:hint="请扫描/输入移入库位"
+                    android:singleLine="true"
+                    android:text="@={viewModel.moveLocation}"
+                    android:textColor="@color/grey_96a0b9"
+                    android:textColorHint="#B6BED2"
+                    android:textSize="14sp" />
+                
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:src="@mipmap/ic_scan" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <Space
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp">
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_marginEnd="10dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_rrect_blue_border"
+                android:onClick="@{()->viewModel.finish()}"
+                android:text="取消"
+                android:textColor="@color/colorPrimary" />
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="32dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_rrect_blue_gradient_r5"
+                android:onClick="@{()->viewModel.moveConfirm()}"
+                android:text="确认"
+                android:textColor="@color/white" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

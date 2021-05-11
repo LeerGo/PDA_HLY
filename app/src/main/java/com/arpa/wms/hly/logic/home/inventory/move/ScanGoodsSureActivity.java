@@ -3,6 +3,9 @@ package com.arpa.wms.hly.logic.home.inventory.move;
 import android.os.Bundle;
 
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseActivity;
+import com.arpa.wms.hly.databinding.ActivityScanGoodsSureBinding;
+import com.arpa.wms.hly.logic.home.inventory.move.vm.VMScanGoodsSure;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
@@ -18,20 +21,18 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class ScanGoodsSureActivity extends InventoryScanActivity {
+public class ScanGoodsSureActivity extends WrapBaseActivity<VMScanGoodsSure, ActivityScanGoodsSureBinding> {
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.activity_scan_goods_sure;
+    }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
 
-        viewModel.title.set("扫描移位商品");
-        viewModel.searchHint.set(getResources().getString(R.string.hint_please_enter_goodsbar));
-    }
-
-    @Override
-    public void transfer(String goodsBar) {
-        String location = getIntent().getStringExtra(IntentKey.LOCATION_NAME);
-        String container = getIntent().getStringExtra(IntentKey.CONTAINER_CODE);
-        viewModel.scanGoods(goodsBar, location,container);
+        viewBind.setViewModel(viewModel);
+        viewModel.getScanGoodsDetail(getIntent().getParcelableExtra(IntentKey.DATA));
     }
 }

@@ -2,10 +2,12 @@ package com.arpa.wms.hly.net;
 
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
+import com.arpa.wms.hly.bean.req.ReqMoveSure;
 import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResMoveGoods;
+import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
@@ -17,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -25,10 +28,6 @@ import retrofit2.http.POST;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
-
-/**
- *
- */
 public interface ApiService {
 
     /**
@@ -74,8 +73,20 @@ public interface ApiService {
     Call<Result<ResMoveGoods>> scanGoods(@QueryMap Map<String, Object> data);
 
     /**
-     * 无计划扫描商品 - 详情
+     * 无计划扫描商品 - 列表
      */
     @GET("wms/pda/moveTask/goodsListDetail")
     Call<Result<ResMoveGoods>> scanGoodsListDetail(@QueryMap Map<String, Object> data);
+
+    /**
+     * 无计划扫描商品 - 详情
+     */
+    @GET("wms/pda/moveTask/goodsDetail")
+    Call<Result<ResMoveGoodsSure>> scanGoodsDetail(@QueryMap Map<String, Object> data);
+
+    /**
+     * 无计划扫描商品 - 详情
+     */
+    @POST("wms/pda/moveTask/moveConfirm")
+    Call<Result<ResMoveGoods>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
 }

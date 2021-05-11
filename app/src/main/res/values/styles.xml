@@ -63,4 +63,12 @@
            parent="InventoryQueryItemBase">
         <item name="android:layout_marginTop">8dp</item>
     </style>
+    
+    <style name="ScanGoodSureStyle"
+           parent="WMatchHWrap">
+        <item name="android:background">@color/white</item>
+        <item name="android:paddingStart">12dp</item>
+        <item name="android:paddingEnd">12dp</item>
+        <item name="android:paddingTop">4dp</item>
+    </style>
 </resources>

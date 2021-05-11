@@ -157,7 +157,6 @@ public class ResMoveGoods {
         private String gmtModified;
         private String gmtStock;
         private String goodCode;
-        private String locationName;
         private String goodsBarCode;
         private String goodsCode;
         private String goodsName;
@@ -187,14 +186,6 @@ public class ResMoveGoods {
         private String inventoryContainerBarCode;
         private BatchRuleBean batchRule;
         private int canUseQuantity;
-
-        public String getLocationName() {
-            return locationName;
-        }
-
-        public void setLocationName(String locationName) {
-            this.locationName = locationName;
-        }
 
         public BatchRuleBean getBatchRule() {
             return batchRule;

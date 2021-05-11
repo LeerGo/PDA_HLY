@@ -78,13 +78,13 @@
         
         <androidx.appcompat.widget.AppCompatButton
             style="@style/MineButtonStyle"
-            android:background="@drawable/btn_biankuang_grey"
+            android:background="@drawable/shape_rrect_blue_border"
             android:onClick="@{()->vmMine.modifyPassword()}"
             android:text="@string/account_modify_password" />
         
         <androidx.appcompat.widget.AppCompatButton
             style="@style/MineButtonStyle"
-            android:background="@drawable/btn_biankuang_grey"
+            android:background="@drawable/shape_rrect_blue_border"
             android:onClick="@{()->vmMine.logout()}"
             android:text="@string/account_logout" />
     </androidx.appcompat.widget.LinearLayoutCompat>
