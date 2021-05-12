@@ -38,6 +38,7 @@
     <string name="stevedore">装卸工：</string>
     <string name="warehouse_change">切换仓库</string>
     <string name="task_number_goods_take">收货任务号：%s</string>
+    <string name="car_number">车牌号：%s</string>
     <string name="goods_take_number">商品编码：%s</string>
     <string name="goods_location">库位：%s</string>
     <string name="status_lock">/已锁定</string>

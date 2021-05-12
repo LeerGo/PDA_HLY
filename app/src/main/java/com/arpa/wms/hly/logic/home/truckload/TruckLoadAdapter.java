@@ -1,7 +1,7 @@
-package com.arpa.wms.hly.logic.common;
+package com.arpa.wms.hly.logic.home.truckload;
 
 import com.arpa.wms.hly.BR;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTruckLoad;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
@@ -16,11 +16,10 @@ import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
  * Adapter: PDA Task
  * </p>
  */
-public class PdaTaskAdapter extends BindingRecyclerViewAdapter<ResPdaTask> {
+public class TruckLoadAdapter extends BindingRecyclerViewAdapter<ResTruckLoad> {
     @Override
-    public void onBindBinding(@NonNull ViewDataBinding binding, int variableId, int layoutRes, int position, ResPdaTask item) {
+    public void onBindBinding(@NonNull ViewDataBinding binding, int variableId, int layoutRes, int position, ResTruckLoad item) {
         super.onBindBinding(binding, variableId, layoutRes, position, item);
         binding.setVariable(BR.pos, position + 1);
-        binding.setVariable(BR.showOrder, true);
     }
 }

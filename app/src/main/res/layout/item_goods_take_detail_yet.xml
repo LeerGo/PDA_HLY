@@ -34,7 +34,7 @@
                 android:src="@mipmap/ic_goods" />
             
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTaskNumber"
+                android:id="@+id/tvCarNumber"
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
                 android:layout_marginStart="4dp"
@@ -47,7 +47,7 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/tvTaskNumber"
+                android:layout_alignBaseline="@id/tvCarNumber"
                 android:layout_alignParentEnd="true"
                 android:text="@{data.goodsStatusName}"
                 android:textColor="@color/colorPrimary"
@@ -57,7 +57,7 @@
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_below="@id/tvTaskNumber"
+                android:layout_below="@id/tvCarNumber"
                 android:background="@color/grey" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem

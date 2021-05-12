@@ -7,6 +7,7 @@ import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
 
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 
 /**
@@ -35,6 +36,29 @@ public class LogicViewBinding {
             }
     }
 
+    @BindingAdapter(value = "truckStatus")
+    public static void setTruckStatus(AppCompatTextView textView, String truckStatus) {
+        if (!TextUtils.isEmpty(truckStatus))
+            switch (truckStatus) {
+                case "待装车":
+                    textView.setBackgroundResource(R.drawable.shape_truck_status_1);
+                    break;
+                case "已装车":
+                    textView.setBackgroundResource(R.drawable.shape_truck_status_2);
+                    break;
+                case "已取消":
+                    textView.setBackgroundResource(R.drawable.shape_truck_status_3);
+                    break;
+                case "已完成":
+                    textView.setBackgroundResource(R.drawable.shape_truck_status_4);
+                    break;
+                default:
+                    break;
+            }
+    }
+
+
+    // TODO: 替换现有的 onSearchClick @lyf 2021-05-12 09:15:15
     @BindingAdapter(value = "onSearch")
     public static void setOnSearch(WidgetSearchBar widgetSearchBar, ViewListener.DataClickListener<String> listener) {
         if (null != listener) {

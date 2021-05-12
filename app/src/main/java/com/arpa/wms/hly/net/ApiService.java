@@ -10,6 +10,7 @@ import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTruckLoad;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.utils.Const.API;
 import com.arpa.wms.hly.utils.Const.AppConfig;
@@ -89,4 +90,11 @@ public interface ApiService {
      */
     @POST("wms/pda/moveTask/moveConfirm")
     Call<Result<ResMoveGoods>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
+
+    // TODO: 等待 API @lyf 2021-05-12 09:40:45
+    /**
+     * 获取装车列表
+     */
+    @GET("装车列表")
+    Call<ResultPage<ResTruckLoad>> getTruckLoadList(@QueryMap Map<String, Object> data);
 }

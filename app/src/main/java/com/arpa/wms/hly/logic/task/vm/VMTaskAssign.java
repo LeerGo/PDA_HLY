@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.logic.task;
+package com.arpa.wms.hly.logic.task.vm;
 
 import android.annotation.SuppressLint;
 import android.app.Application;

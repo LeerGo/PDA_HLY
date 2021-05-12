@@ -5,7 +5,7 @@
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.task.VMTaskCenter" />
+            type="com.arpa.wms.hly.logic.task.vm.VMTaskCenter" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat

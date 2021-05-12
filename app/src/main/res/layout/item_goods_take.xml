@@ -46,11 +46,11 @@
                 android:id="@+id/tvTaskOrder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/tvTaskNumber"
+                android:layout_alignBaseline="@id/tvCarNumber"
                 android:background="@drawable/shape_rrect_blue_border"
                 android:gravity="center"
                 android:minWidth="18dp"
-                android:paddingHorizontal="2dp"
+                android:paddingHorizontal="2.5dp"
                 android:text="@{pos.toString()}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
@@ -58,7 +58,7 @@
                 tools:text="10" />
             
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvTaskNumber"
+                android:id="@+id/tvCarNumber"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginStart="4dp"
@@ -79,7 +79,7 @@
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:layout_below="@id/tvTaskNumber"
+                android:layout_below="@id/tvCarNumber"
                 android:background="@color/grey" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem

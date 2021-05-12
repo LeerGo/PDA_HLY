@@ -7,6 +7,7 @@ import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.FragmentTaskAssignBinding;
+import com.arpa.wms.hly.logic.task.vm.VMTaskAssign;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
 import com.arpa.wms.hly.utils.Const.IntentKey;
