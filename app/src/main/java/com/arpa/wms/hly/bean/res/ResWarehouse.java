@@ -1,6 +1,6 @@
 package com.arpa.wms.hly.bean.res;
 
-public class ResWarehouse {
+public class ResWarehouse extends SelectItem{
     private String address;
     private String city;
     private String code;

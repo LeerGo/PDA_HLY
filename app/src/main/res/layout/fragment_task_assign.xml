@@ -58,9 +58,9 @@
                 android:layout_width="45dp"
                 android:layout_height="match_parent"
                 android:background="@null"
-                app:select="@{viewModel.isSelectAll}"
                 android:onClick="@{()->viewModel.selectAll()}"
-                android:src="@drawable/selector_circle" />
+                android:src="@drawable/selector_circle"
+                app:select="@{viewModel.isSelectAll}" />
             
             <TextView
                 android:layout_width="0dp"
