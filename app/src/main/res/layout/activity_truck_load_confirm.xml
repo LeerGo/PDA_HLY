@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+    >
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoadConfirm" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/widgetTitleBar3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:wtbTitle="装车确认" />
+        
+        <!--TODO: include 部分，作为 header 放入 recyclerview @lyf 2021-05-12 02:55:45 -->
+        <!--TODO: 最后要删除 @lyf 2021-05-12 02:55:58 -->
+        <include
+            android:id="@+id/include"
+            layout="@layout/header_truck_load_confirm" />
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:itemBinding="@{viewModel.itemBinding}"
+            app:items="@{viewModel.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_truck_load_confirm" />
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat2"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginVertical="8dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="12dp">
+            
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:text="托盘"
+                android:textColor="#ff434c67"
+                android:textSize="14sp" />
+            
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:hint="请输入托盘"
+                android:textColor="@color/color_434c67"
+                android:textColorHint="#B6BED2"
+                android:textSize="14sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/linearLayoutCompat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:padding="12dp">
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_login"
+                android:layout_width="match_parent"
+                android:layout_height="36dp"
+                android:background="@drawable/shape_rrect_blue_gradient_r5"
+                android:gravity="center"
+                android:text="确认"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

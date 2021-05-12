@@ -47,6 +47,8 @@ public class WidgetPropsItem extends LinearLayoutCompat {
         setPropsKey(typedArray.getString(R.styleable.WidgetPropsItem_propsKey));
         setPropsValue(typedArray.getString(R.styleable.WidgetPropsItem_propsValue));
         setPropsValueGravity(typedArray.getInt(R.styleable.WidgetPropsItem_propsValueGravity, -1));
+        setPropsKeyColor(typedArray.getColor(R.styleable.WidgetPropsItem_propsKeyColor, context.getResources().getColor(R.color.grey_96a0b9)));
+        setPropsValueColor(typedArray.getColor(R.styleable.WidgetPropsItem_propsValueColor, context.getResources().getColor(R.color.color_434c67)));
         typedArray.recycle();
     }
 
@@ -63,4 +65,11 @@ public class WidgetPropsItem extends LinearLayoutCompat {
         else tvValue.setGravity(gravity);
     }
 
+    private void setPropsKeyColor(int color) {
+        tvKey.setTextColor(color);
+    }
+
+    private void setPropsValueColor(int color) {
+        tvValue.setTextColor(color);
+    }
 }

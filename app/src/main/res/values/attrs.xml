@@ -21,6 +21,10 @@
               format="string|reference" />
         <attr name="propsValue"
               format="string|reference" />
+        <attr name="propsKeyColor"
+              format="color|reference" />
+        <attr name="propsValueColor"
+              format="color|reference" />
         <attr name="propsValueGravity">
             <flag name="start"
                   value="0x00800003" />

@@ -2,10 +2,10 @@ package com.arpa.wms.hly.logic.home.truckload;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.databinding.ActivityTruckLoadBinding;
-import com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoad;
+import com.arpa.wms.hly.base.WrapBaseActivity;
+import com.arpa.wms.hly.databinding.ActivityTruckLoadConfirmBinding;
+import com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoadConfirm;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -20,15 +20,16 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class TruckLoadConfirmActivity extends BaseActivity<VMTruckLoad, ActivityTruckLoadBinding> {
+public class TruckLoadConfirmActivity extends WrapBaseActivity<VMTruckLoadConfirm, ActivityTruckLoadConfirmBinding> {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_truck_load;
+        return R.layout.activity_truck_load_confirm;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
     }
 }

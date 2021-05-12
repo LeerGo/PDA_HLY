@@ -2,8 +2,8 @@ package com.arpa.wms.hly.logic.home.truckload;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityTruckLoadDetailBinding;
 import com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoadDetail;
 
@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class TruckLoadDetailActivity extends BaseActivity<VMTruckLoadDetail, ActivityTruckLoadDetailBinding> {
+public class TruckLoadDetailActivity extends WrapBaseActivity<VMTruckLoadDetail, ActivityTruckLoadDetailBinding> {
 
     @Override
     public int getLayoutId() {
@@ -29,6 +29,7 @@ public class TruckLoadDetailActivity extends BaseActivity<VMTruckLoadDetail, Act
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
     }
 }

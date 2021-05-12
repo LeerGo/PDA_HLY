@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.res.ResTruckLoad" />
+    </data>
+    
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:paddingHorizontal="12dp"
+        app:divider="@drawable/divider_line_horizontal"
+        app:showDividers="middle"
+        tools:layout_marginBottom="10dp">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            app:propsKey="商品名称"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValueGravity="end"
+            tools:propsValue="金典有机奶" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            app:propsKey="单位"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValueGravity="end"
+            tools:propsValue="箱" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            app:propsKey="产地"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValueGravity="end"
+            tools:propsValue="A7" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            app:propsKey="生产日期"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValueGravity="end"
+            tools:propsValue="2020-11-20" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            app:propsKey="特殊品项"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValueGravity="end"
+            tools:propsValue="常规" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            app:propsKey="计划数量"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValueGravity="end"
+            tools:propsValue="500" />
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:gravity="center_vertical">
+            
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="托盘"
+                android:textColor="#ff434c67"
+                android:textSize="14sp" />
+            
+            <androidx.appcompat.widget.AppCompatEditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:hint="请输入托盘"
+                android:textColor="@color/color_434c67"
+                android:textColorHint="#B6BED2"
+                android:textSize="14sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
