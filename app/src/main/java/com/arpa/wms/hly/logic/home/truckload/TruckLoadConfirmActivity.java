@@ -20,7 +20,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class TruckLoadActivity extends BaseActivity<VMTruckLoad, ActivityTruckLoadBinding> {
+public class TruckLoadConfirmActivity extends BaseActivity<VMTruckLoad, ActivityTruckLoadBinding> {
 
     @Override
     public int getLayoutId() {

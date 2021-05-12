@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.databinding.ActivityTruckLoadBinding;
-import com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoad;
+import com.arpa.wms.hly.databinding.ActivityTruckLoadDetailBinding;
+import com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoadDetail;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -20,11 +20,11 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class TruckLoadActivity extends BaseActivity<VMTruckLoad, ActivityTruckLoadBinding> {
+public class TruckLoadDetailActivity extends BaseActivity<VMTruckLoadDetail, ActivityTruckLoadDetailBinding> {
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_truck_load;
+        return R.layout.activity_truck_load_detail;
     }
 
     @Override

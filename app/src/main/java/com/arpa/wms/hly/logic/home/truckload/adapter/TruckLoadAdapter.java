@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.logic.home.truckload;
+package com.arpa.wms.hly.logic.home.truckload.adapter;
 
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.bean.res.ResTruckLoad;

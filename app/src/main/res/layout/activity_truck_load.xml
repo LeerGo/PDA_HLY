@@ -8,7 +8,7 @@
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.truckload.VMTruckLoad" />
+            type="com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoad" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat

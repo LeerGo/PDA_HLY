@@ -18,6 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
+        
         <activity
             android:name=".SplashActivity"
             
@@ -32,6 +33,7 @@
         <activity android:name=".logic.LoginActivity" />
         <activity android:name=".logic.home.HomeActivity" />
         <activity android:name=".logic.mine.MineActivity" />
+        
         <activity
             android:name=".logic.task.TaskCenterActivity">
             <intent-filter>
@@ -40,6 +42,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        
         <activity
             android:name=".logic.home.goods.take.GoodsTakeActivity">
             <intent-filter>
@@ -49,6 +52,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".logic.home.goods.take.GoodsTakeDetailActivity" />
+        <activity android:name=".logic.home.goods.take.GoodsTakeConfirmActivity" />
+        
         <activity
             android:name=".logic.home.goods.recheck.GoodsRecheckActivity">
             <intent-filter>
@@ -56,6 +61,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".logic.home.goods.recheck.GoodsRecheckDetailActivity" />
+        <activity android:name=".logic.home.goods.recheck.GoodsRecheckConfirmActivity" />
+        
         <activity
             android:name=".logic.home.truckload.TruckLoadActivity">
             <intent-filter>
@@ -63,6 +71,9 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".logic.home.truckload.TruckLoadDetailActivity" />
+        <activity android:name=".logic.home.truckload.TruckLoadConfirmActivity" />
+        
         <activity
             android:name=".logic.home.inventory.move.ScanLocationActivity">
             <intent-filter>
@@ -71,6 +82,10 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
+        <activity android:name=".logic.home.inventory.move.ScanGoodsDetailActivity" />
+        <activity android:name=".logic.home.inventory.move.ScanGoodsSureActivity" />
+        
         <activity
             android:name=".logic.home.inventory.query.InventoryQueryActivity">
             <intent-filter>
@@ -79,9 +94,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
-        <activity android:name=".logic.home.inventory.move.ScanGoodsDetailActivity" />
-        <activity android:name=".logic.home.inventory.move.ScanGoodsSureActivity" />
         
         <!-- UI 适配参数 -->
         <meta-data
@@ -90,7 +102,7 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="667" />
-
+        
         <!--App 全局配置-->
         <meta-data
             android:name="com.arpa.wms.hly.base.AppConfigModule"
