@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto">
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
     
     <data>
         
@@ -28,7 +29,124 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-            
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/ItemRecheckBatchStyle"
+                    android:paddingHorizontal="@dimen/dp_15"
+                    app:propsKey="商品名称"
+                    app:propsKeyColor="@color/color_434c67"
+                    app:propsKeySize="15sp"
+                    app:propsValueGravity="end"
+                    tools:propsValue="伊利优酸乳" />
+                
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/GoodsRecheckConfirmStyle"
+                    app:divider="@drawable/divider_line_horizontal"
+                    app:showDividers="middle">
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="单位"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        tools:propsValue="箱" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="库存状态"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        tools:propsValue="合格" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="生产日期"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        tools:propsValue="2021-05-13" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="产地"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        tools:propsValue="A7" />
+                
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/GoodsRecheckConfirmStyle"
+                    app:divider="@drawable/divider_line_horizontal"
+                    app:showDividers="middle">
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="特殊品项"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        tools:propsValue="常规" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="码托数量"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        tools:propsValue="100" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="整托数"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        tools:propsValue="3" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拣货数量"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        tools:propsValue="300" />
+                    
+                    <androidx.appcompat.widget.LinearLayoutCompat
+                        style="@style/ItemRecheckBatchStyle">
+                        
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="复核数量"
+                            android:textColor="@color/color_434c67"
+                            android:textSize="15sp" />
+                        
+                        <androidx.appcompat.widget.AppCompatEditText
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center_vertical|end"
+                            android:hint="请输入复核数量"
+                            android:textColor="@color/color_434c67"
+                            android:textColorHint="@color/color_hint_text"
+                            android:textSize="15sp" />
+                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        android:paddingVertical=""
+                        app:propsKey="批次号"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValueGravity="end"
+                        app:propsValueSize="14sp"
+                        tools:propsValue="20201127001，20201127002，20201127003，" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
         

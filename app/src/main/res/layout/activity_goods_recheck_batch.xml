@@ -22,31 +22,44 @@
             app:wtbTitle="商品复核" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            style="@style/ItemRecheckBatch"
+            style="@style/ItemRecheckBatchStyle"
+            android:paddingHorizontal="@dimen/dp_15"
             app:propsKey="商品名称"
             app:propsKeyColor="@color/color_434c67"
             app:propsKeySize="15sp"
-            app:propsValue="伊利优酸乳"
-            app:propsValueGravity="end" />
+            app:propsValueGravity="end"
+            tools:propsValue="伊利优酸乳" />
         
-        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            style="@style/ItemRecheckBatch"
-            android:layout_marginTop="10dp"
-            app:propsKey="单位"
-            app:propsKeyColor="@color/color_434c67"
-            app:propsValue="伊利优酸乳"
-            app:propsValueGravity="end" />
-        
-        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            style="@style/ItemRecheckBatch"
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="1px"
-            android:minHeight="50dp"
-            android:paddingVertical="4dp"
-            app:propsKey="批次"
-            app:propsKeyColor="@color/color_434c67"
-            app:propsValue="20201127001，20201127002，20201127003，"
-            app:propsValueGravity="end" />
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingHorizontal="@dimen/dp_15">
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/ItemRecheckBatchStyle"
+                app:propsKey="单位"
+                app:propsKeyColor="@color/color_434c67"
+                app:propsValueGravity="end"
+                tools:propsValue="伊利优酸乳" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/grey_eeeeee" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/ItemRecheckBatchStyle"
+                android:layout_height="wrap_content"
+                android:minHeight="50dp"
+                android:paddingVertical="4dp"
+                app:propsKey="批次"
+                app:propsKeyColor="@color/color_434c67"
+                app:propsValueGravity="end"
+                tools:propsValue="20201127001，20201127002，20201127003，" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
         
         <Space
             android:layout_width="0dp"
@@ -99,7 +112,7 @@
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/color_f3f8ff"
+                android:background="@color/grey_eeeeee"
                 app:layout_constraintTop_toBottomOf="@+id/appCompatEditText" />
             
             <androidx.appcompat.widget.AppCompatButton
