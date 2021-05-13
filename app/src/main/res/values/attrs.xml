@@ -25,6 +25,10 @@
               format="color|reference" />
         <attr name="propsValueColor"
               format="color|reference" />
+        <attr name="propsKeySize"
+              format="dimension" />
+        <attr name="propsValueSize"
+              format="dimension" />
         <attr name="propsValueGravity">
             <flag name="start"
                   value="0x00800003" />

@@ -58,7 +58,8 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="15dp">
+        android:paddingHorizontal="12dp"
+        android:paddingVertical="16dp">
         
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/apt_cancel"

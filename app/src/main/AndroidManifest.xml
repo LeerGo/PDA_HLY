@@ -63,6 +63,7 @@
         </activity>
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckDetailActivity" />
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckConfirmActivity" />
+        <activity android:name=".logic.home.goods.recheck.GoodsRecheckBatchActivity" />
         
         <activity
             android:name=".logic.home.truckload.TruckLoadActivity">

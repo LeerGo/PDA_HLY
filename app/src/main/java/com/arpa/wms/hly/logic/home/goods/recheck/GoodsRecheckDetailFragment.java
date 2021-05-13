@@ -21,7 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * since: 2021-04-25 2:01 PM
  *
  * <p>
- * 页面：商品待复核列表
+ * 页面：商品待复核、已复核列表
  * </p>
  */
 @AndroidEntryPoint

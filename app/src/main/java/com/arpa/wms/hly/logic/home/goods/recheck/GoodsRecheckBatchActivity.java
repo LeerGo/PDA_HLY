@@ -4,8 +4,8 @@ import android.os.Bundle;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
-import com.arpa.wms.hly.databinding.ActivityGoodsRecheckConfirmBinding;
-import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckConfirm;
+import com.arpa.wms.hly.databinding.ActivityGoodsRecheckBatchBinding;
+import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -16,14 +16,14 @@ import dagger.hilt.android.AndroidEntryPoint;
  * since: 2021-04-25 2:01 PM
  *
  * <p>
- * 页面：商品复核确认
+ * 页面：商品复核 - 批次登记
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheckConfirm, ActivityGoodsRecheckConfirmBinding> {
+public class GoodsRecheckBatchActivity extends WrapBaseActivity<VMGoodsRecheckBatch, ActivityGoodsRecheckBatchBinding> {
     @Override
     public int getLayoutId() {
-        return R.layout.activity_goods_recheck_confirm;
+        return R.layout.activity_goods_recheck_batch;
     }
 
     @Override

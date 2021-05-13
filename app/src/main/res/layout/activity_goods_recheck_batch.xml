@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:wtbTitle="商品复核" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ItemRecheckBatch"
+            app:propsKey="商品名称"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsKeySize="15sp"
+            app:propsValue="伊利优酸乳"
+            app:propsValueGravity="end" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ItemRecheckBatch"
+            android:layout_marginTop="10dp"
+            app:propsKey="单位"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="伊利优酸乳"
+            app:propsValueGravity="end" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ItemRecheckBatch"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="1px"
+            android:minHeight="50dp"
+            android:paddingVertical="4dp"
+            app:propsKey="批次"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="20201127001，20201127002，20201127003，"
+            app:propsValueGravity="end" />
+        
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="20dp">
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/appCompatTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="商品条码"
+                android:textColor="@color/color_434c67"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatEditText"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/appCompatEditText" />
+            
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/appCompatEditText"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:background="@null"
+                android:gravity="end|center_vertical"
+                android:hint="请扫描/输入商品条码"
+                android:textColorHint="@color/color_hint_text"
+                android:textSize="14sp"
+                app:layout_constraintEnd_toStartOf="@+id/appCompatImageView3"
+                app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
+                app:layout_constraintTop_toTopOf="parent" />
+            
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/appCompatImageView3"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_alignParentEnd="true"
+                android:src="@mipmap/ic_scan"
+                app:layout_constraintBottom_toBottomOf="@+id/appCompatEditText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/appCompatEditText" />
+            
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:background="@color/color_f3f8ff"
+                app:layout_constraintTop_toBottomOf="@+id/appCompatEditText" />
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/shape_rrect_blue_gradient_r5"
+                android:text="确认"
+                android:textSize="18sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/view2"
+                tools:layout_editor_absoluteX="12dp" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    
+    
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

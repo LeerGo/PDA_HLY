@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBaseline="@id/tvCarNumber"
-                android:background="@drawable/shape_rrect_blue_border"
+                android:background="@drawable/shape_rrect_blue_gradient_border_r5"
                 android:gravity="center"
                 android:minWidth="18dp"
                 android:paddingHorizontal="2.5dp"
