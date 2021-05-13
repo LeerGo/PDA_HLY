@@ -2,12 +2,9 @@ package com.arpa.wms.hly.ui.dialog;
 
 import android.os.Bundle;
 import android.util.TypedValue;
-import android.view.Gravity;
-import android.view.Window;
-import android.view.WindowManager;
 
-import com.arpa.and.wms.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.zyyoona7.picker.DatePickerView;
 
@@ -24,30 +21,15 @@ import static com.zyyoona7.wheel.WheelView.DIVIDER_TYPE_FILL;
  * since: 2021-04-25 3:58 PM
  *
  * <p>
- * Dialog: 选择仓库
+ * Dialog: 选择日期
  * </p>
  */
-public class DialogDateSelect extends BaseDialogFragment {
+public class DialogDateSelect extends BaseBottomDialogFragment {
     private final DataTransCallback<String> listener;
-    private String result;
+    private DatePickerView datePicker;
 
     public DialogDateSelect(DataTransCallback<String> listener) {
         this.listener = listener;
-    }
-
-    @Override
-    protected void setWindow(Window window, float widthRatio) {
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.width = getWidthPixels();
-        lp.gravity = Gravity.BOTTOM;
-        lp.windowAnimations = R.style.ArpaDialogAnimationTrans;
-        window.setAttributes(lp);
-
-    }
-
-    @Override
-    public boolean isBinding() {
-        return false;
     }
 
     @Override
@@ -64,7 +46,7 @@ public class DialogDateSelect extends BaseDialogFragment {
     private void setDatePicker() {
         Calendar cal = Calendar.getInstance();
 
-        DatePickerView datePicker = (DatePickerView) findViewById(R.id.dpv_date);
+        datePicker = (DatePickerView) findViewById(R.id.dpv_date);
         datePicker.setShowDivider(true);
         datePicker.setTextSize(24, true);
         datePicker.setDividerType(DIVIDER_TYPE_FILL);
@@ -79,8 +61,6 @@ public class DialogDateSelect extends BaseDialogFragment {
         datePicker.setSelectedDay(cal.get(Calendar.DAY_OF_MONTH));
         datePicker.setSelectedMonth(cal.get(Calendar.MONTH));
         datePicker.setSelectedYear(cal.get(Calendar.YEAR));
-        result = datePicker.getSelectedDate();
-        datePicker.setOnDateSelectedListener((datePickerView, year, month, day, date) -> result = year + "-" + month + "-" + day);
     }
 
     private void setOptArea() {
@@ -89,7 +69,7 @@ public class DialogDateSelect extends BaseDialogFragment {
 
         btnCancel.setOnClickListener(v -> dismiss());
         btnSure.setOnClickListener(v -> {
-            listener.transfer(result);
+            listener.transfer(datePicker.getSelectedDate());
             dismiss();
         });
     }

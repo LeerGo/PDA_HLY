@@ -3,14 +3,12 @@ package com.arpa.wms.hly.ui.dialog;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.arpa.and.wms.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.ui.adapter.DialogAssignSelectAdapter;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
@@ -35,7 +33,7 @@ import androidx.recyclerview.widget.RecyclerView;
  * Dialog: 选择仓库
  * </p>
  */
-public class DialogAssignSelect extends BaseDialogFragment {
+public class DialogAssignSelect extends BaseBottomDialogFragment {
     private final String title;
     private final List<String> workType;
     private final List<ResWarehouse> staffList;
@@ -52,21 +50,6 @@ public class DialogAssignSelect extends BaseDialogFragment {
         this.workType = workType;
         this.staffList = staffList;
         this.listener = listener;
-    }
-
-    @Override
-    protected void setWindow(Window window, float widthRatio) {
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.width = getWidthPixels();
-        lp.gravity = Gravity.BOTTOM;
-        lp.windowAnimations = R.style.ArpaDialogAnimationTrans;
-        window.setAttributes(lp);
-
-    }
-
-    @Override
-    public boolean isBinding() {
-        return false;
     }
 
     @Override
