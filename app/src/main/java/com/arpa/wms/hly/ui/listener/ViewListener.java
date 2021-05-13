@@ -17,6 +17,10 @@ public interface ViewListener {
         void transfer(T data);
     }
 
+    interface DataTransCallback<T>{
+        void transfer(T data);
+    }
+
     interface OnItemClickListener <T> {
         void onItemClick(View view, int position, T data);
     }

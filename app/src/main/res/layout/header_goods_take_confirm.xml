@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    android:padding="12dp">
+    
+    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:propsKey="车牌号"
+        app:propsValueGravity="end"
+        tools:propsValue="豫HM8983" />
+    
+    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:propsKey="商品名称"
+        app:propsValueGravity="end"
+        tools:propsValue="金典有机奶" />
+    
+    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:propsKey="单位"
+        app:propsValueGravity="end"
+        tools:propsValue="箱" />
+    
+    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:propsKey="应收数量"
+        app:propsValueColor="@color/colorPrimary"
+        app:propsValueGravity="end"
+        tools:propsValue="1000" />
+</androidx.appcompat.widget.LinearLayoutCompat>

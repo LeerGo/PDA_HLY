@@ -50,15 +50,52 @@
                 android:layout_height="1px"
                 android:background="@color/grey_eeeeee" />
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            
+            <RelativeLayout
                 style="@style/ItemRecheckBatchStyle"
-                android:layout_height="wrap_content"
-                android:minHeight="50dp"
-                android:paddingVertical="4dp"
-                app:propsKey="批次"
-                app:propsKeyColor="@color/color_434c67"
-                app:propsValueGravity="end"
-                tools:propsValue="20201127001，20201127002，20201127003，" />
+                android:layout_height="wrap_content">
+                
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="批次"
+                    android:textColor="@color/color_434c67" />
+                
+                <!--TODO: addViews @lyf 2021-05-13 02:05:04 -->
+                <com.google.android.material.chip.ChipGroup
+                    android:id="@+id/cgBatchTags"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    app:lineSpacing="-8dp"
+                    android:layout_marginStart="8dp">
+                    
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20201127001" />
+                    
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="127001" />
+                    
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20201127001" />
+                    
+                    <com.google.android.material.chip.Chip
+                        style="@style/Widget.MaterialComponents.Chip.Entry"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="20201127001" />
+                </com.google.android.material.chip.ChipGroup>
+            </RelativeLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
         
         <Space

@@ -1,5 +1,7 @@
 package com.arpa.wms.hly.logic.home.goods.recheck;
 
+import com.google.android.material.chip.Chip;
+
 import android.os.Bundle;
 
 import com.arpa.wms.hly.R;
@@ -30,5 +32,16 @@ public class GoodsRecheckBatchActivity extends WrapBaseActivity<VMGoodsRecheckBa
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
+    }
+
+    private void addTagView(String text) {
+        Chip chip = new Chip(this);
+        chip.setCloseIconVisible(true);
+        chip.setText(text);
+        chip.setOnCloseIconClickListener(v -> {
+            //            viewModel.tagList.remove(chip.getText());
+            viewBind.cgBatchTags.removeView(v);
+        });
+        viewBind.cgBatchTags.addView(chip);
     }
 }

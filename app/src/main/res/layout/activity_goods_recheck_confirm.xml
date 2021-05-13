@@ -139,7 +139,7 @@
                         style="@style/ItemRecheckBatchStyle"
                         android:layout_height="wrap_content"
                         android:minHeight="50dp"
-                        android:paddingVertical=""
+                        android:paddingVertical="4dp"
                         app:propsKey="批次号"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"

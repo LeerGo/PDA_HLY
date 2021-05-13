@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical">
+    
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/color_434c67"
+        android:textSize="14sp"
+        android:text="种数：" />
+    
+    <androidx.appcompat.widget.AppCompatEditText
+        android:id="@+id/et_input"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginHorizontal="4dp"
+        android:layout_weight="1"
+        android:background="@null"
+        android:textColor="@color/color_434c67"
+        android:textColorHint="@color/color_hint_text"
+        android:textSize="14sp"
+        tools:gravity="center_vertical|end"
+        tools:hint="请输入收货数量" />
+    
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        tools:src="@mipmap/ic_scan"
+        tools:visibility="visible" />
+</androidx.appcompat.widget.LinearLayoutCompat>
