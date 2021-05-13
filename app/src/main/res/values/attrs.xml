@@ -40,6 +40,8 @@
     <declare-styleable name="WidgetInputItem">
         <attr name="inputTitle"
               format="string|reference" />
+        <attr name="inputText"
+              format="string|reference" />
         <attr name="inputHint"
               format="string|reference" />
         <attr name="inputIcon"

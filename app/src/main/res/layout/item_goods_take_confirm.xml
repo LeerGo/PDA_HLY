@@ -5,7 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
-    
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.GoodsTakeBatchItem" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -25,6 +28,7 @@
             app:inputEnable="false"
             app:inputHint="请选择收货状态"
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
+            app:inputText="@={data.receivedState}"
             app:inputTitle="收货状态" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
@@ -32,13 +36,17 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             app:inputHint="请输入收货数量"
+            app:inputText="@={data.receivedCount}"
             app:inputTitle="收货数量" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
+            app:inputEnable="false"
             app:inputHint="请输入生产日期，格式yyyymmdd"
+            app:inputIcon="@mipmap/ic_arrow_light_gray_right"
+            app:inputText="@={data.productDate}"
             app:inputTitle="生产日期" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
@@ -66,7 +74,6 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            app:inputEnable="false"
             app:inputHint="库位"
             app:inputIcon="@mipmap/ic_scan"
             app:inputTitle="请扫描/输入库位" />

@@ -1,13 +1,18 @@
 package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.databinding.ActivityGoodsTakeConfirmBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeConfirm;
+import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.dialog.DialogDateSelect;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import androidx.annotation.Nullable;
+import dagger.hilt.android.AndroidEntryPoint;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -18,6 +23,7 @@ import androidx.annotation.Nullable;
  * 页面：商品收货确认
  * </p>
  */
+@AndroidEntryPoint
 public class GoodsTakeConfirmActivity extends BaseActivity<VMGoodsTakeConfirm, ActivityGoodsTakeConfirmBinding> {
     @Override
     public int getLayoutId() {
@@ -27,5 +33,13 @@ public class GoodsTakeConfirmActivity extends BaseActivity<VMGoodsTakeConfirm, A
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        viewBind.button.setOnClickListener(v -> showDialogFragment(new DialogDateSelect(new ViewListener.DataTransCallback<String>() {
+            @Override
+            public void transfer(String data) {
+                Log.e("@@@@ L40", "GoodsTakeConfirmActivity:transfer() -> data = " + data);
+                //                ToastUtils::showShort
+            }
+        })));
     }
 }

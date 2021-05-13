@@ -8,16 +8,21 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.widget.RelativeLayout;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
+
+import java.util.Objects;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingAdapter;
+import androidx.databinding.InverseBindingListener;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -28,7 +33,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
  * 控件：属性输入条目
  * </p>
  */
-public class WidgetInputItem extends LinearLayoutCompat {
+public class WidgetInputItem extends RelativeLayout {
     private AppCompatTextView tvTitle;
     private AppCompatEditText etInput;
     private AppCompatImageView ivIcon;
@@ -51,25 +56,7 @@ public class WidgetInputItem extends LinearLayoutCompat {
         tvTitle = findViewById(R.id.tv_title);
         etInput = findViewById(R.id.et_input);
         ivIcon = findViewById(R.id.iv_icon);
-    }
-
-    private void initAttrs(Context context, AttributeSet attrs) {
-        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.WidgetInputItem);
-        setInputTitle(array.getString(R.styleable.WidgetInputItem_inputTitle));
-        setInputHint(array.getString(R.styleable.WidgetInputItem_inputHint));
-        setInputIcon(array.getDrawable(R.styleable.WidgetInputItem_inputIcon));
-        setInputEnable(array.getBoolean(R.styleable.WidgetInputItem_inputEnable, true));
-        setInputGravity(array.getInt(R.styleable.WidgetInputItem_inputGravity, -1));
-        array.recycle();
-    }
-
-    private void setInputTitle(String title) {
-        tvTitle.setText(title);
-    }
-
-    private void setInputEnable(boolean isEnable) {
-        etInput.setEnabled(isEnable);
-        if (isEnable) addTextWatcher();
+        addTextWatcher();
     }
 
     private void addTextWatcher() {
@@ -93,6 +80,25 @@ public class WidgetInputItem extends LinearLayoutCompat {
         });
     }
 
+    private void initAttrs(Context context, AttributeSet attrs) {
+        TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.WidgetInputItem);
+        setInputTitle(array.getString(R.styleable.WidgetInputItem_inputTitle));
+        setInputText(array.getString(R.styleable.WidgetInputItem_inputText));
+        setInputHint(array.getString(R.styleable.WidgetInputItem_inputHint));
+        setInputIcon(array.getDrawable(R.styleable.WidgetInputItem_inputIcon));
+        setInputEnable(array.getBoolean(R.styleable.WidgetInputItem_inputEnable, true));
+        setInputGravity(array.getInt(R.styleable.WidgetInputItem_inputGravity, -1));
+        array.recycle();
+    }
+
+    private void setInputTitle(String title) {
+        tvTitle.setText(title);
+    }
+
+    private void setInputEnable(boolean isEnable) {
+        etInput.setEnabled(isEnable);
+    }
+
     public void setInputGravity(int gravity) {
         if (gravity == -1) etInput.setGravity(Gravity.END);
         else etInput.setGravity(gravity);
@@ -111,8 +117,22 @@ public class WidgetInputItem extends LinearLayoutCompat {
         etInput.setHint(hint);
     }
 
-    private void setPropsInputText(String text) {
+    public void setInputText(String text) {
         etInput.setText(text);
+    }
+
+    @InverseBindingAdapter(attribute = "inputText")
+    public static String getInputText(WidgetInputItem view) {
+        return view.geText();
+    }
+
+    private String geText() {
+        return Objects.requireNonNull(etInput.getText()).toString();
+    }
+
+    @BindingAdapter("inputTextAttrChanged")
+    public static void setOnAttrsChangeList(WidgetInputItem view, InverseBindingListener listener) {
+        view.setOnTextChanged(data -> listener.onChange());
     }
 
     public void setOnTextChanged(DataTransCallback<String> onTextChanged) {

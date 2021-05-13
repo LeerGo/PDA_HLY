@@ -40,13 +40,13 @@
                 app:wsbHint="请扫描/输入商品条码" />
         </FrameLayout>
         
-        <!--TODO: 以 header 加入 RecyclerView，最后删除 @lyf 2021-05-13 10:19:44 -->
-        <include layout="@layout/header_goods_take_confirm" />
-        
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
+            app:itemBinding="@{viewModel.onItemBind}"
+            app:items="@{viewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="20"
             tools:listitem="@layout/item_goods_take_confirm" />
@@ -64,6 +64,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center"
+                android:onClick="@{()->viewModel.addBatchItem()}"
                 android:text="+ 添加收货批次"
                 android:textColor="@color/colorPrimary" />
             
@@ -80,8 +81,10 @@
                     android:background="@drawable/shape_rrect_blue_border_r5"
                     android:text="整单确认"
                     android:textColor="@color/colorPrimary" />
-                
+    
+                <!--android:onClick="@{()->viewModel.orderBatchConfirm()}"-->
                 <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"

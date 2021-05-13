@@ -52,7 +52,9 @@
             </intent-filter>
         </activity>
         <activity android:name=".logic.home.goods.take.GoodsTakeDetailActivity" />
-        <activity android:name=".logic.home.goods.take.GoodsTakeConfirmActivity" />
+        <activity
+            android:name=".logic.home.goods.take.GoodsTakeConfirmActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan"/>
         
         <activity
             android:name=".logic.home.goods.recheck.GoodsRecheckActivity">

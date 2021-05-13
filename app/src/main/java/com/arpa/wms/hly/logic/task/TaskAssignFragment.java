@@ -42,7 +42,7 @@ public class TaskAssignFragment extends BaseLazyFragment<VMTaskAssign, FragmentT
     }
 
     @Override
-    public void initData(@Nullable @org.jetbrains.annotations.Nullable Bundle savedInstanceState) {
+    public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setVariable(BR.viewModel, viewModel);
 
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
