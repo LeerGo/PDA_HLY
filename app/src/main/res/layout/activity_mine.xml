@@ -77,9 +77,9 @@
             android:text="@string/warehouse_change" />
         
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/acbModifyPass"
             style="@style/MineButtonStyle"
             android:background="@drawable/shape_rrect_border_grey_r5"
-            android:onClick="@{()->vmMine.modifyPassword()}"
             android:text="@string/account_modify_password" />
         
         <androidx.appcompat.widget.AppCompatButton

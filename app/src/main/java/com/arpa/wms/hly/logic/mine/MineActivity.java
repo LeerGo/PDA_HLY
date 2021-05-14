@@ -7,9 +7,11 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityMineBinding;
-import com.arpa.wms.hly.ui.dialog.DialogAssignSelect;
+import com.arpa.wms.hly.ui.dialog.DialogModifyPass;
+import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -24,7 +26,8 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> implements DataTransCallback<ResWarehouse> {
+public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding>
+        implements DataTransCallback<ResWarehouse> {
 
     @Override
     public int getLayoutId() {
@@ -37,13 +40,16 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> 
 
         viewBind.setVariable(BR.vmMine, viewModel);
         viewModel.getWarehouseLiveData().observe(this, list -> {
-            //            if (list.size() <= 1) {
-            //                ToastUtils.showShort("只有一个仓库无法切换");
-            //            } else {
-            //                showDialogFragment(new DialogWarehouseSelect(list, this));
-            //            }
-            showDialogFragment(new DialogAssignSelect("分配保管员", list, this));
+            if (list.size() <= 1) {
+                ToastUtils.showShort("只有一个仓库无法切换");
+            } else {
+                showDialogFragment(new DialogWarehouseSelect(list, this));
+            }
+            //            showDialogFragment(new DialogAssignSelect("分配保管员", list, this));
         });
+        viewBind.acbModifyPass.setOnClickListener(v ->
+                showDialogFragment(new DialogModifyPass(data -> viewModel.modifyPassword(data)))
+        );
     }
 
     @Override

@@ -43,6 +43,11 @@ public class DialogTips extends BaseDialogFragment {
     }
 
     @Override
+    public boolean isBinding() {
+        return false;
+    }
+
+    @Override
     public int getLayoutId() {
         return R.layout.dialog_tips;
     }

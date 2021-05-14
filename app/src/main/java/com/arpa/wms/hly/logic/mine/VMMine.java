@@ -6,6 +6,7 @@ import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BuildConfig;
+import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.utils.Const;
@@ -61,16 +62,15 @@ public class VMMine extends VMWarehouse {
     /**
      * 修改密码
      */
-    public void modifyPassword() {
+    public void modifyPassword(ReqModifyPass data) {
         // TODO: 待实现 @lyf 2021-04-27 03:49:32
-        Log.e("@@@@ L58", "VMMine:modifyPassword() -> 修改密码");
+        Log.e("@@@@ L58", "VMMine:modifyPassword() -> 修改密码：" + data.toString());
     }
 
     /**
      * 切换仓库
      */
     public void warehouseChange() {
-        // TODO: 待实现 @lyf 2021-04-27 03:49:32
         getWarehouseWithoutAuth(spGetString(Const.SPKEY.USER_NAME));
     }
 

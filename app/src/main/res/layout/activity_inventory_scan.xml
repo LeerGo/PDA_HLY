@@ -55,7 +55,7 @@
                 android:imeOptions="actionSearch"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@color/black"
+                android:textColor="@color/color_434c67"
                 android:textColorHint="@color/color_b6bed2"
                 android:textSize="14sp"
                 tools:hint="@string/hint_please_enter_location" />

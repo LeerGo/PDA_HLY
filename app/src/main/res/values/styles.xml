@@ -13,6 +13,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
     </style>
+    <style name="BaseEditTextStyle">
+        <item name="android:textColor">@color/color_434c67</item>
+        <item name="android:textColorHint">@color/color_hint_text</item>
+        <item name="android:textSize">14sp</item>
+    </style>
     
     <style name="TitleTextStyle">
         <item name="android:layout_width">match_parent</item>
@@ -96,6 +101,19 @@
         <item name="android:paddingStart">@dimen/dp_15</item>
         <item name="android:paddingEnd">@dimen/dp_15</item>
         <item name="android:orientation">vertical</item>
+    </style>
+    
+    <style name="ModifyPassInputStyle"
+           parent="BaseEditTextStyle">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:inputType">textPassword</item>
+        <item name="android:layout_height">40dp</item>
+        <item name="android:layout_marginStart">20dp</item>
+        <item name="android:layout_marginEnd">20dp</item>
+        <item name="android:background">@drawable/shape_round_gray_border_r30</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:singleLine">true</item>
     </style>
     
     <!-- dialog animation -->

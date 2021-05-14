@@ -42,7 +42,7 @@ import androidx.lifecycle.ViewModelStoreOwner;
  */
 public abstract class BaseDialogFragment <VM extends BaseViewModel, VDB extends ViewDataBinding> extends DialogFragment implements IView<VM>, BaseNavigator {
 
-    protected static final float DEFAULT_WIDTH_RATIO = 0.85f;
+    protected static final float DEFAULT_WIDTH_RATIO = 0.75f;
     /**
      * 请通过 {@link #getRootView()} ()}获取，后续版本 {@link #rootView}可能会私有化
      */

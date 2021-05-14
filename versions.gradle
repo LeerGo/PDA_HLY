@@ -13,9 +13,9 @@ ext.arch_version = arch_version
 //build version
 def build_versions = [:]
 build_versions.minSdk = 19
-build_versions.targetSdk = 30
-build_versions.compileSdk = 30
-build_versions.buildTools = "30.0.3"
+build_versions.targetSdk = 29
+build_versions.compileSdk = 29
+build_versions.buildTools = "29.0.3"
 ext.build_versions = build_versions
 
 def addRepos(RepositoryHandler handler) {
@@ -23,7 +23,6 @@ def addRepos(RepositoryHandler handler) {
     handler.jcenter()
     handler.mavenCentral()
     handler.maven { url "https://jitpack.io" }
-
 }
 
 ext.addRepos = this.&addRepos
