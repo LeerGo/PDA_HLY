@@ -116,6 +116,16 @@
         <item name="android:singleLine">true</item>
     </style>
     
+    <style name="TableTextStyle">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_marginStart">-1dp</item>
+        <item name="android:textColor">#333333</item>
+        <item name="android:textSize">10sp</item>
+        <item name="android:background">@drawable/shape_rrect_border_grey</item>
+        <item name="android:gravity">center</item>
+    </style>
+    
     <!-- dialog animation -->
     <style name="ArpaDialogAnimationTrans"
            parent="android:style/Animation.Dialog">

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.appcompat.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:minHeight="24dp"
+    android:layout_marginTop="-1px"
+    android:orientation="horizontal">
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="7"
+        android:textColor="@color/black"
+        tools:text="1001" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="8.35"
+        android:textColor="@color/black"
+        tools:text="优酸乳" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="6"
+        android:textColor="@color/black"
+        tools:text="箱" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="8.33"
+        android:textColor="@color/black"
+        tools:text="2020-11-01" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_width="wrap_content"
+        android:layout_weight="6.9"
+        android:textColor="@color/black"
+        tools:text="A1" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="8.33"
+        android:textColor="@color/black"
+        tools:text="常规" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="8.33"
+        android:textColor="@color/black"
+        tools:text="1000" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="8.33"
+        android:textColor="@color/black"
+        tools:text="200" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="8.33"
+        android:textColor="@color/black"
+        tools:text="5" />
+    
+    <TextView
+        style="@style/TableTextStyle"
+        android:layout_weight="8.33"
+        android:textColor="@color/black"
+        tools:text="1" />
+    
+    <ImageView
+        style="@style/TableTextStyle"
+        android:layout_weight="8.33"
+        android:scaleType="center"
+        android:src="@mipmap/ic_pick_add" />
+</androidx.appcompat.widget.LinearLayoutCompat>

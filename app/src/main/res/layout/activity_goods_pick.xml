@@ -11,7 +11,7 @@
             type="com.arpa.wms.hly.logic.home.goods.pick.VMGoodsPick" />
     </data>
     
-    <RelativeLayout
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
@@ -20,52 +20,107 @@
         <com.arpa.wms.hly.ui.widget.WidgetTitleBar
             android:id="@+id/title"
             android:layout_width="match_parent"
-            android:layout_height="36dp"
+            android:layout_height="32dp"
             app:wtbTitle="拣货确认" />
         
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/llOrder"
-            android:layout_width="100dp"
-            android:layout_height="match_parent"
-            android:layout_below="@id/title"
-            android:background="@color/red"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:background="@color/color_d4dbf4">
             
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:background="@color/color_d4dbf4"
-                android:gravity="center"
-                android:text="拣货单"
-                android:textSize="12sp" />
+                style="@style/TableTextStyle"
+                android:layout_weight="12.80"
+                android:text="拣货单" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="7.1"
+                android:text="拣货库位" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="8.34"
+                android:text="商品名称" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="6"
+                android:text="单位" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="8.33"
+                android:text="生产日期" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_width="wrap_content"
+                android:layout_weight="5.99"
+                android:text="产地" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="8.33"
+                android:text="特殊品项" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="8.33"
+                android:text="计划数量" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="8.33"
+                android:text="码托数量" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="8.33"
+                android:text="计划托数" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="8.33"
+                android:text="已拣托数" />
+            
+            <TextView
+                style="@style/TableTextStyle"
+                android:layout_weight="8.33"
+                android:text="操作" />
         </androidx.appcompat.widget.LinearLayoutCompat>
         
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/title"
-            android:layout_toStartOf="@id/llOperator"
-            android:layout_toEndOf="@id/llOrder"
-            android:orientation="vertical">
-        
-        </androidx.appcompat.widget.LinearLayoutCompat>
-        
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/llOperator"
-            android:layout_width="80dp"
-            android:layout_height="match_parent"
-            android:layout_below="@id/title"
-            android:layout_alignParentEnd="true"
-            android:background="@color/red"
-            android:orientation="vertical">
+            android:background="@color/white">
             
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="24dp"
-                android:background="@color/color_d4dbf4"
-                android:gravity="center"
-                android:text="操作"
-                android:textSize="12sp" />
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="12.7">
+                
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="20"
+                    tools:listitem="@layout/item_pick_list" />
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+            
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="87.3">
+                
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="20"
+                    tools:listitem="@layout/item_pick_detail" />
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </RelativeLayout>
+    
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
