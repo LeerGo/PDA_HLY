@@ -8,6 +8,11 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
     </style>
+    <style name="WWeightHWrap">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+    </style>
     
     <style name="TitleTextStyle">
         <item name="android:layout_width">match_parent</item>
@@ -47,6 +52,10 @@
     </style>
     <style name="TaskPropsStyle"
            parent="WWrapHWrap">
+        <item name="android:layout_marginTop">8dp</item>
+    </style>
+    <style name="TaskPropsWeightStyle"
+           parent="WWeightHWrap">
         <item name="android:layout_marginTop">8dp</item>
     </style>
     <style name="TaskPropsRightStyle"

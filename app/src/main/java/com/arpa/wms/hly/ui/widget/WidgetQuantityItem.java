@@ -23,6 +23,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
  */
 public class WidgetQuantityItem extends LinearLayoutCompat {
     private TextView tvSum;
+    private TextView tvName;
     private TextView tvSplit;
     private TextView tvCount;
 
@@ -39,6 +40,7 @@ public class WidgetQuantityItem extends LinearLayoutCompat {
     private void initViews(Context context) {
         LayoutInflater.from(context).inflate(R.layout.widget_quantity_item, this, true);
         tvSum = findViewById(R.id.tv_sum);
+        tvName = findViewById(R.id.tv_name);
         tvSplit = findViewById(R.id.tv_split);
         tvCount = findViewById(R.id.tv_count);
     }
@@ -46,9 +48,14 @@ public class WidgetQuantityItem extends LinearLayoutCompat {
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetQuantityItem);
         setWqiSum(typedArray.getInt(R.styleable.WidgetQuantityItem_wqiSum, 0));
+        setWqiName(typedArray.getString(R.styleable.WidgetQuantityItem_wqiName));
         setWqiCount(typedArray.getInt(R.styleable.WidgetQuantityItem_wqiCount, 0));
         setWqiShowCount(typedArray.getBoolean(R.styleable.WidgetQuantityItem_wqiShowCount, true));
         typedArray.recycle();
+    }
+
+    private void setWqiName(String text) {
+        tvName.setText(text);
     }
 
     private void setWqiSum(int sum) {
@@ -63,6 +70,4 @@ public class WidgetQuantityItem extends LinearLayoutCompat {
         tvSplit.setVisibility(showCount ? VISIBLE : GONE);
         tvCount.setVisibility(showCount ? VISIBLE : GONE);
     }
-
-
 }

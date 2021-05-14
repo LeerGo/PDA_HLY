@@ -49,76 +49,55 @@
                 android:gravity="center_vertical"
                 android:text='@{@string/goods_take_number(data.goodCode)}'
                 android:textColor="@color/color_434c67"
-                tools:text="商品编码：SH2020092300008" />
+                tools:text="商品名称：测试商品" />
             
             <View
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/tvCarNumber"
-                android:background="@color/grey" />
+                android:background="@color/color_ececec" />
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_name"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/line"
-                app:propsKey="商品名称："
-                app:propsValue="@{data.goodsName}"
-                tools:propsValue="测试商品" />
-            
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_queue"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_name"
-                app:propsKey="基本单位："
-                app:propsValue="@{data.basicUnitName}"
-                tools:propsValue="10" />
-    
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/wpi_name"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="12dp">
-        
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="件   数："
-                    android:textColor="@color/grey_96a0b9"
-                    android:textSize="14sp" />
-        
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    app:text="@{data.receivedQuantity.toString()}"
-                    tools:text="100" />
-        
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/"
-                    android:textColor="@color/color_434c67"
-                    android:textSize="14sp" />
-        
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@{data.planQuantity.toString()}"
-                    android:textColor="@color/color_434c67"
-                    android:textSize="14sp"
-                    tools:text="1000" />
+                android:id="@+id/ll1"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/line">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="基本单位："
+                    app:propsValue="@{data.basicUnitName}"
+                    tools:propsValue="件" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:wqiName="收货数量：" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll2"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/ll1">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="产        地："
+                    app:propsValue="@{data.goodsName}"
+                    tools:propsValue="A7" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="特殊品项：："
+                    app:propsValue="@{data.gmtManufacture}"
+                    tools:propsValue="常规" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_driver"
                 style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_queue"
-                app:propsKey="商品规格："
-                app:propsValue="@{data.spec}"
-                tools:propsValue="测试规格" />
+                android:layout_below="@id/ll2"
+                app:propsKey="生产日期："
+                app:propsValue="@{data.gmtManufacture}"
+                tools:propsValue="2021-05-14" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -58,60 +58,63 @@
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/tvCarNumber"
-                android:background="@color/grey" />
+                android:background="@color/color_ececec" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_name"
+                android:id="@+id/wpi_place"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
                 app:propsKey="商品名称："
                 app:propsValue="@{data.goodsName}"
                 tools:propsValue="测试商品" />
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_queue"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_name"
-                app:propsKey="基本单位："
-                app:propsValue="@{data.basicUnitName}"
-                tools:propsValue="10" />
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_driver"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_queue"
-                app:propsKey="收货数量："
-                app:propsValue="@{data.receivedQuantity.toString()}"
-                tools:propsValue="100" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll1"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/wpi_place">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="基本单位："
+                    app:propsValue="@{data.basicUnitName}"
+                    tools:propsValue="10" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="收货数量："
+                    app:propsValue="@{data.receivedQuantity.toString()}"
+                    tools:propsValue="100" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_date"
                 style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_driver"
+                android:layout_below="@id/ll1"
                 app:propsKey="生产日期："
                 app:propsValue="@{data.gmtManufacture}"
                 tools:propsValue="2021-05-06" />
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_address"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_date"
-                app:propsKey="产        地："
-                app:propsValue="A7"
-                tools:propsValue="A7" />
-            
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_special"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_address"
-                app:propsKey="特殊品项："
-                app:propsValue="常规"
-                tools:propsValue="常规" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll2"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/wpi_date">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="产        地："
+                    tools:propsValue="A7" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="特殊品项："
+                    tools:propsValue="常规" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_yards"
                 style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_special"
+                android:layout_below="@id/ll2"
                 app:propsKey="码托数量："
                 app:propsValue="100"
                 tools:propsValue="100" />

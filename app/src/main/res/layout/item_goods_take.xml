@@ -84,10 +84,10 @@
                 tools:propsValue="10" />
             
             <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
                 android:layout_alignParentEnd="true"
+                app:wqiName="件数："
                 tools:wqiCount="100"
                 tools:wqiSum="10000" />
             

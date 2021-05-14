@@ -40,6 +40,8 @@
     <declare-styleable name="WidgetQuantityItem">
         <attr name="wqiSum"
               format="integer" />
+        <attr name="wqiName"
+              format="string|reference" />
         <attr name="wqiCount"
               format="string|reference" />
         <attr name="wqiShowCount"

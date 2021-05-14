@@ -24,9 +24,11 @@
             app:wtbTitle="待收货列表" />
         
         <!--搜索框-->
+        <!--TODO: UI 设计稿上没有搜索模块 @lyf 2021-05-14 10:12:24 -->
         <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
             
             <FrameLayout
                 android:layout_width="match_parent"
@@ -60,6 +62,7 @@
                 android:id="@+id/rvList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="10dp"
                 app:adapter="@{viewModel.adapter}"
                 app:itemBinding="@{viewModel.itemBinding}"
                 app:items="@{viewModel.items}"

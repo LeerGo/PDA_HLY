@@ -40,6 +40,7 @@
     <string name="task_number_goods_take">收货任务号：%s</string>
     <string name="car_number">车牌号：%s</string>
     <string name="goods_take_number">商品编码：%s</string>
+    <string name="goods_name">商品名称：%s</string>
     <string name="goods_location">库位：%s</string>
     <string name="status_lock">/已锁定</string>
     <string name="status_unlock">/未锁定</string>

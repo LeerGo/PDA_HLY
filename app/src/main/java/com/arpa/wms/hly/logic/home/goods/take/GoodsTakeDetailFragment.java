@@ -49,8 +49,8 @@ public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTakeDetailL
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
-        viewModel.reqGoodsTakeDetail.setReceiveStatus(getArguments().getString(IntentKey.STATUS));
-        viewModel.reqGoodsTakeDetail.setCode(getArguments().getString(IntentKey.CODE));
+        viewModel.reqGoodsTakeDetail.setReceiveStatus(requireArguments().getString(IntentKey.STATUS));
+        viewModel.reqGoodsTakeDetail.setCode(requireArguments().getString(IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ItemsBean>) data -> {
 
