@@ -47,7 +47,7 @@
     </style>
     <style name="TaskPropsStyle"
            parent="WWrapHWrap">
-        <item name="android:layout_marginTop">12dp</item>
+        <item name="android:layout_marginTop">8dp</item>
     </style>
     <style name="TaskPropsRightStyle"
            parent="TaskPropsStyle">

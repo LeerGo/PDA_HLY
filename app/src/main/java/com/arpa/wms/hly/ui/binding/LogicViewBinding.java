@@ -6,7 +6,6 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
 
-import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 
@@ -20,7 +19,9 @@ import androidx.databinding.BindingAdapter;
  * </p>
  */
 public class LogicViewBinding {
-    @BindingAdapter(value = "taskStatus")
+    // TODO: 待删除 @lyf 2021-05-14 09:39:23
+    /*@BindingAdapter(value = "taskStatus")
+    @Deprecated
     public static void setTaskStatus(AppCompatImageView imageView, String taskStatus) {
         if (!TextUtils.isEmpty(taskStatus))
             switch (taskStatus) {
@@ -34,7 +35,7 @@ public class LogicViewBinding {
                     imageView.setImageResource(R.mipmap.ic_goods_status_trans);
                     break;
             }
-    }
+    }*/
 
     @BindingAdapter(value = "truckStatus")
     public static void setTruckStatus(AppCompatTextView textView, String truckStatus) {

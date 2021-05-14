@@ -37,6 +37,15 @@
         </attr>
     </declare-styleable>
     
+    <declare-styleable name="WidgetQuantityItem">
+        <attr name="wqiSum"
+              format="integer" />
+        <attr name="wqiCount"
+              format="string|reference" />
+        <attr name="wqiShowCount"
+              format="boolean" />
+    </declare-styleable>
+    
     <declare-styleable name="WidgetInputItem">
         <attr name="inputTitle"
               format="string|reference" />
