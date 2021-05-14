@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.goods.pick.VMGoodsPick" />
+    </data>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".logic.home.goods.pick.GoodsPickActivity">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            app:wtbTitle="拣货确认" />
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llOrder"
+            android:layout_width="100dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/title"
+            android:background="@color/red"
+            android:orientation="vertical">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:background="@color/color_d4dbf4"
+                android:gravity="center"
+                android:text="拣货单"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/title"
+            android:layout_toStartOf="@id/llOperator"
+            android:layout_toEndOf="@id/llOrder"
+            android:orientation="vertical">
+        
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/llOperator"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/title"
+            android:layout_alignParentEnd="true"
+            android:background="@color/red"
+            android:orientation="vertical">
+            
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:background="@color/color_d4dbf4"
+                android:gravity="center"
+                android:text="操作"
+                android:textSize="12sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
+</layout>

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.arpa.wms.hly">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+          package="com.arpa.wms.hly">
     
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -18,10 +17,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
-        
         <activity
             android:name=".SplashActivity"
-            
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -29,13 +26,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        
         <activity android:name=".logic.LoginActivity" />
         <activity android:name=".logic.home.HomeActivity" />
         <activity android:name=".logic.mine.MineActivity" />
         
-        <activity
-            android:name=".logic.task.TaskCenterActivity">
+        <activity android:name=".logic.task.TaskCenterActivity">
             <intent-filter>
                 <action android:name="arpa.wms.TASK_CENTER" />
                 
@@ -43,8 +38,7 @@
             </intent-filter>
         </activity>
         
-        <activity
-            android:name=".logic.home.goods.take.GoodsTakeActivity">
+        <activity android:name=".logic.home.goods.take.GoodsTakeActivity">
             <intent-filter>
                 <action android:name="arpa.wms.GOODS_TAKE" />
                 
@@ -54,12 +48,22 @@
         <activity android:name=".logic.home.goods.take.GoodsTakeDetailActivity" />
         <activity
             android:name=".logic.home.goods.take.GoodsTakeConfirmActivity"
-            android:windowSoftInputMode="stateVisible|adjustPan"/>
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         
         <activity
-            android:name=".logic.home.goods.recheck.GoodsRecheckActivity">
+            android:name=".logic.home.goods.pick.GoodsPickActivity"
+            android:screenOrientation="landscape">
+            <intent-filter>
+                <action android:name="arpa.wms.GOODS_PICK" />
+                
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        
+        <activity android:name=".logic.home.goods.recheck.GoodsRecheckActivity">
             <intent-filter>
                 <action android:name="arpa.wms.GOODS_RECHECK" />
+                
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
@@ -67,18 +71,17 @@
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckConfirmActivity" />
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckBatchActivity" />
         
-        <activity
-            android:name=".logic.home.truckload.TruckLoadActivity">
+        <activity android:name=".logic.home.truckload.TruckLoadActivity">
             <intent-filter>
                 <action android:name="arpa.wms.TRUCK_LOAD" />
+                
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
         <activity android:name=".logic.home.truckload.TruckLoadDetailActivity" />
         <activity android:name=".logic.home.truckload.TruckLoadConfirmActivity" />
         
-        <activity
-            android:name=".logic.home.inventory.move.ScanLocationActivity">
+        <activity android:name=".logic.home.inventory.move.ScanLocationActivity">
             <intent-filter>
                 <action android:name="arpa.wms.INVENTORY_MOVE" />
                 
@@ -89,8 +92,7 @@
         <activity android:name=".logic.home.inventory.move.ScanGoodsDetailActivity" />
         <activity android:name=".logic.home.inventory.move.ScanGoodsSureActivity" />
         
-        <activity
-            android:name=".logic.home.inventory.query.InventoryQueryActivity">
+        <activity android:name=".logic.home.inventory.query.InventoryQueryActivity">
             <intent-filter>
                 <action android:name="arpa.wms.INVENTORY_QUERY" />
                 
@@ -106,7 +108,7 @@
             android:name="design_height_in_dp"
             android:value="667" />
         
-        <!--App 全局配置-->
+        <!-- App 全局配置 -->
         <meta-data
             android:name="com.arpa.wms.hly.base.AppConfigModule"
             android:value="FrameConfigModule" />

@@ -3,13 +3,9 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseLazyFragment;
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
-import com.arpa.wms.hly.databinding.ActivityPdataskRecheckBinding;
-import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheck;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
-import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
+import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList;
 import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
@@ -24,8 +20,9 @@ import dagger.hilt.android.AndroidEntryPoint;
  * 页面：商品待复核、已复核列表
  * </p>
  */
+// TODO: 列表 ITEM、ViewModel 布局还需要做一下 @lyf 2021-05-14 03:50:09
 @AndroidEntryPoint
-public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheck, ActivityPdataskRecheckBinding> {
+public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheckDetailList, FragmentGoodsRecheckDetailBinding> {
 
     public static GoodsRecheckDetailFragment newInstance(String text) {
         GoodsRecheckDetailFragment fragment = new GoodsRecheckDetailFragment();
@@ -37,17 +34,16 @@ public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheck,
 
     @Override
     public int getLayoutId() {
-        return R.layout.activity_pdatask_recheck;
+        return R.layout.fragment_goods_recheck_detail;
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
-        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
+        //        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        /*viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
 
-        });
+        });*/
     }
 
     @Override

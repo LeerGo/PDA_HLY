@@ -38,7 +38,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginStart="16dp"
                 app:imageId="@{data.imageRes}"
-                tools:src="@mipmap/ic_goods_take" />
+                tools:src="@mipmap/ic_home_truck_load" />
             
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="wrap_content"
