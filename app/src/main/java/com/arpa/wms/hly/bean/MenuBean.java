@@ -2,17 +2,15 @@ package com.arpa.wms.hly.bean;
 
 public class MenuBean {
     private int imageRes;
-    private String text;
+    private String title;
     private String path;
+    private String describe;
 
-    public MenuBean(int imageRes, String text) {
-        this(imageRes, text, null);
-    }
-
-    public MenuBean(int imageRes, String text, String path) {
+    public MenuBean(int imageRes, String title, String describe, String path) {
         this.imageRes = imageRes;
         this.path = path;
-        this.text = text;
+        this.title = title;
+        this.describe = describe;
     }
 
     public int getImageRes() {
@@ -23,12 +21,12 @@ public class MenuBean {
         this.imageRes = imageRes;
     }
 
-    public String getText() {
-        return text;
+    public String getTitle() {
+        return title;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public String getPath() {
@@ -37,5 +35,13 @@ public class MenuBean {
 
     public void setPath(String path) {
         this.path = path;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 }

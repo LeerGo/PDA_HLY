@@ -63,12 +63,12 @@ public class VMHome extends WrapDataViewModel {
      * 创建菜单
      */
     private void createMenu() {
-        items.add(new MenuBean(R.mipmap.ic_goods_take, "任务中心", HOME_MENU.TASK_CENTER));
-        items.add(new MenuBean(R.mipmap.ic_goods_take, "收货", HOME_MENU.GOODS_TAKE));
-        items.add(new MenuBean(R.mipmap.ic_goods_recheck, "复核", HOME_MENU.GOODS_RECHECK));
-        items.add(new MenuBean(R.mipmap.ic_truck_load, "装车", HOME_MENU.TRUCK_LOAD));
-        items.add(new MenuBean(R.mipmap.ic_inventory_move, "移位", HOME_MENU.INVENTORY_MOVE));
-        items.add(new MenuBean(R.mipmap.ic_inventory_query, "库存查询", HOME_MENU.INVENTORY_QUERY));
+        items.add(new MenuBean(R.mipmap.ic_task_center, "任务中心","Task Center", HOME_MENU.TASK_CENTER));
+        items.add(new MenuBean(R.mipmap.ic_goods_take, "收货","Receiving Goods", HOME_MENU.GOODS_TAKE));
+        items.add(new MenuBean(R.mipmap.ic_goods_recheck, "复核", "To Review",HOME_MENU.GOODS_RECHECK));
+        items.add(new MenuBean(R.mipmap.ic_truck_load, "装车", "Loading",HOME_MENU.TRUCK_LOAD));
+        items.add(new MenuBean(R.mipmap.ic_inventory_move, "移位", "Displacement",HOME_MENU.INVENTORY_MOVE));
+        items.add(new MenuBean(R.mipmap.ic_inventory_query, "库存查询", "Inventory Query",HOME_MENU.INVENTORY_QUERY));
     }
 
     public void jumpMine() {
