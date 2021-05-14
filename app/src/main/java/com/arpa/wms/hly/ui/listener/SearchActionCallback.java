@@ -5,7 +5,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.TextView;
 
-import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.KeyboardUtils;
 
 /**
@@ -18,9 +18,9 @@ import com.arpa.wms.hly.utils.KeyboardUtils;
  * </p>
  */
 public class SearchActionCallback implements TextView.OnEditorActionListener {
-    private final DataClickListener<String> onSearchListener;
+    private final DataTransCallback<String> onSearchListener;
 
-    public SearchActionCallback(DataClickListener<String> onSearchListener) {
+    public SearchActionCallback(ViewListener.DataTransCallback<String> onSearchListener) {
         this.onSearchListener = onSearchListener;
     }
 

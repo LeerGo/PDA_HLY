@@ -22,7 +22,7 @@
         
         <variable
             name="onStatusClick"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;GoodsTakeBatchItem&gt;" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat

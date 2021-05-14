@@ -34,7 +34,7 @@ public class GoodsRecheckDetailActivity extends BaseActivity<VMGoodsRecheckDetai
         viewModel.data.set(getIntent().getParcelableExtra(Const.IntentKey.DATA));
         //        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         //        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        //        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
+        //        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
         //
         //        });
     }

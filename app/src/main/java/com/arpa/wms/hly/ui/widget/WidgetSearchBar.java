@@ -9,7 +9,7 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
@@ -26,7 +26,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
 public class WidgetSearchBar extends LinearLayoutCompat {
     private EditText etKey;
     private AppCompatImageView ivClear;
-    private DataClickListener<String> onSearchClick;
+    private DataTransCallback<String> onSearchClick;
     private View.OnClickListener onClearClick;
 
     public WidgetSearchBar(Context context) {
@@ -79,7 +79,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         etKey.setHint(hint);
     }
 
-    public void setOnSearchClick(DataClickListener<String> onSearchClick) {
+    public void setOnSearchClick(DataTransCallback<String> onSearchClick) {
         this.onSearchClick = onSearchClick;
     }
 

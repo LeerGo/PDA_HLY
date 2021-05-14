@@ -10,7 +10,7 @@
         
         <variable
             name="listener"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;MenuBean&gt;" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
         
         <variable
             name="data"

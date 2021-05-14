@@ -21,7 +21,7 @@ import androidx.annotation.Nullable;
  * </p>relskw
  */
 public abstract class InventoryScanActivity extends WrapBaseActivity<VMInventoryScan, ActivityInventoryScanBinding>
-        implements ViewListener.DataClickListener<String> {
+        implements ViewListener.DataTransCallback<String> {
 
     @Override
     public int getLayoutId() {

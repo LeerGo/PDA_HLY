@@ -18,7 +18,7 @@
         
         <variable
             name="listener"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;ResTruckLoad&gt;" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
     </data>
     
     <com.google.android.material.card.MaterialCardView

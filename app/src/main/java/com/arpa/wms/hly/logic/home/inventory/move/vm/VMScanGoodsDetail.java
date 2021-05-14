@@ -43,7 +43,7 @@ public class VMScanGoodsDetail extends WrapDataViewModel {
     public BindingRecyclerViewAdapter<InventoryListBean> adapter = new BindingRecyclerViewAdapter<>();
     public ItemBinding<Object> itemBinding =
             ItemBinding.of(BR.data, R.layout.item_scan_goods_detail)
-                    .bindExtra(BR.listener, (ViewListener.DataClickListener<InventoryListBean>) this::jumpMoveSure);
+                    .bindExtra(BR.listener, (ViewListener.DataTransCallback<InventoryListBean>) this::jumpMoveSure);
 
     @Inject
     public VMScanGoodsDetail(@NonNull Application application, BaseModel model) {

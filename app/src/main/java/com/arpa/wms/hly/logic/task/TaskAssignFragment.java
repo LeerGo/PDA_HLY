@@ -9,7 +9,7 @@ import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.FragmentTaskAssignBinding;
 import com.arpa.wms.hly.logic.task.vm.VMTaskAssign;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
-import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
@@ -48,10 +48,10 @@ public class TaskAssignFragment extends BaseLazyFragment<VMTaskAssign, FragmentT
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
         viewModel.type.set(getArguments() != null ? getArguments().getInt(IntentKey.INDEX, 0) : 0);
         viewModel.getItemBinding()
-                .bindExtra(BR.listener, (DataClickListener<ResPdaTask>) data -> {
+                .bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
                     // TODO: 跳转详情 @lyf 2021-05-06 10:09:04
                 })
-                .bindExtra(BR.select, (DataClickListener<ResPdaTask>) data -> {
+                .bindExtra(BR.select, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
                     // 多选
                     data.setIsSelect(!data.getIsSelect());
                     viewBind.rvList.getAdapter().notifyDataSetChanged();

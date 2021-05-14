@@ -59,7 +59,7 @@ public class VMTruckLoad extends VMBaseRefreshList<ResTruckLoad> {
 
     @Override
     public ItemBinding<ResTruckLoad> getItemBinding() {
-        itemBinding.bindExtra(BR.listener, (ViewListener.DataClickListener<ResTruckLoad>) data -> {
+        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTruckLoad>) data -> {
 
         });
         return itemBinding;

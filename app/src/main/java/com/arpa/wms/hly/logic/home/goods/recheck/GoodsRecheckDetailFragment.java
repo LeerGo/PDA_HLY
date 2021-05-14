@@ -45,7 +45,7 @@ public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheck,
         viewBind.setViewModel(viewModel);
         viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ResPdaTask>) data -> {
+        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
 
         });
     }

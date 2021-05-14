@@ -12,7 +12,7 @@ import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.ui.adapter.DialogAssignSelectAdapter;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
-import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.List;
@@ -37,15 +37,15 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
     private final String title;
     private final List<String> workType;
     private final List<ResWarehouse> staffList;
-    private final DataClickListener<ResWarehouse> listener;
+    private final ViewListener.DataTransCallback<ResWarehouse> listener;
 
     private ResWarehouse result;
 
-    public DialogAssignSelect(String title, List<ResWarehouse> staffList, DataClickListener<ResWarehouse> listener) {
+    public DialogAssignSelect(String title, List<ResWarehouse> staffList, ViewListener.DataTransCallback<ResWarehouse> listener) {
         this(title, null, staffList, listener);
     }
 
-    public DialogAssignSelect(String title, List<String> workType, List<ResWarehouse> staffList, DataClickListener<ResWarehouse> listener) {
+    public DialogAssignSelect(String title, List<String> workType, List<ResWarehouse> staffList, ViewListener.DataTransCallback<ResWarehouse> listener) {
         this.title = title;
         this.workType = workType;
         this.staffList = staffList;

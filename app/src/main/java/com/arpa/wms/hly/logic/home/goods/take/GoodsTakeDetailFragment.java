@@ -52,7 +52,7 @@ public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTakeDetailL
         viewModel.reqGoodsTakeDetail.setReceiveStatus(requireArguments().getString(IntentKey.STATUS));
         viewModel.reqGoodsTakeDetail.setCode(requireArguments().getString(IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<ItemsBean>) data -> {
+        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ItemsBean>) data -> {
 
         });
     }

@@ -14,11 +14,11 @@
         
         <variable
             name="listener"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;ResPdaTask&gt;" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
         
         <variable
             name="select"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener&lt;ResPdaTask&gt;" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
     </data>
     
     <com.google.android.material.card.MaterialCardView

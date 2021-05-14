@@ -36,7 +36,7 @@ public class GoodsTakeConfirmActivity extends BaseActivity<VMGoodsTakeConfirm, A
         viewBind.setViewModel(viewModel);
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
         viewModel.itemBinding
-                .bindExtra(BR.onStatusClick, (ViewListener.DataClickListener<GoodsTakeBatchItem>) data ->
+                .bindExtra(BR.onStatusClick, (ViewListener.DataTransCallback<GoodsTakeBatchItem>) data ->
                         showDialogFragment(new DialogDateSelect(data::setReceivedState))
                 )
                 .bindExtra(BR.onDateClick,

@@ -38,7 +38,7 @@ public class HomeActivity extends BaseActivity<VMHome, ActivityHomeBinding> {
         viewBind.setVariable(BR.vmHome, viewModel);
 
         viewBind.rvMenu.addItemDecoration(new GridItemDecoration(DensityUtils.dip2px(10)));
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataClickListener<MenuBean>) data -> {
+        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<MenuBean>) data -> {
             if (!TextUtils.isEmpty(data.getPath())) {
                 Intent intent = new Intent();
                 intent.setAction(data.getPath());

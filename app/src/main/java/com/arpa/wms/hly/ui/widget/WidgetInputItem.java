@@ -12,6 +12,7 @@ import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 
 import java.util.Objects;
@@ -143,7 +144,7 @@ public class WidgetInputItem extends RelativeLayout {
         view.setOnTextChanged(data -> listener.onChange());
     }
 
-    public void setOnTextChanged(DataTransCallback<String> onTextChanged) {
+    public void setOnTextChanged(ViewListener.DataTransCallback<String> onTextChanged) {
         this.onTextChanged = onTextChanged;
     }
 

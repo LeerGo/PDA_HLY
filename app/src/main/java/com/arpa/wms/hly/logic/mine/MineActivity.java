@@ -8,7 +8,7 @@ import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityMineBinding;
 import com.arpa.wms.hly.ui.dialog.DialogAssignSelect;
-import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> implements DataClickListener<ResWarehouse> {
+public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> implements DataTransCallback<ResWarehouse> {
 
     @Override
     public int getLayoutId() {

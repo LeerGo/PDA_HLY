@@ -61,7 +61,7 @@ public class LogicViewBinding {
 
     // TODO: 替换现有的 onSearchClick @lyf 2021-05-12 09:15:15
     @BindingAdapter(value = "onSearch")
-    public static void setOnSearch(WidgetSearchBar widgetSearchBar, ViewListener.DataClickListener<String> listener) {
+    public static void setOnSearch(WidgetSearchBar widgetSearchBar, ViewListener.DataTransCallback<String> listener) {
         if (null != listener) {
             widgetSearchBar.setOnSearchClick(data -> listener.transfer(data));
         }

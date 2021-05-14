@@ -13,11 +13,7 @@ import android.view.View;
  */
 public interface ViewListener {
 
-    interface DataClickListener <T> {
-        void transfer(T data);
-    }
-
-    interface DataTransCallback<T>{
+    interface DataTransCallback <T> {
         void transfer(T data);
     }
 

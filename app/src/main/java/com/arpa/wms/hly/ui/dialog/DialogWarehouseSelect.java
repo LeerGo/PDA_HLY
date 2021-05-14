@@ -7,7 +7,7 @@ import com.arpa.and.wms.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.ui.adapter.DialogWarehouseSelectAdapter;
-import com.arpa.wms.hly.ui.listener.ViewListener.DataClickListener;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.List;
@@ -27,11 +27,11 @@ import androidx.recyclerview.widget.RecyclerView;
  */
 public class DialogWarehouseSelect extends BaseDialogFragment {
     private final List<ResWarehouse> warehouses;
-    private final DataClickListener<ResWarehouse> listener;
+    private final ViewListener.DataTransCallback<ResWarehouse> listener;
 
     private ResWarehouse result;
 
-    public DialogWarehouseSelect(List<ResWarehouse> warehouses, DataClickListener<ResWarehouse> listener) {
+    public DialogWarehouseSelect(List<ResWarehouse> warehouses, ViewListener.DataTransCallback<ResWarehouse> listener) {
         this.warehouses = warehouses;
         this.listener = listener;
     }
