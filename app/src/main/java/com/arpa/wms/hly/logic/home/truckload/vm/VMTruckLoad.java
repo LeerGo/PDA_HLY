@@ -5,12 +5,12 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBindingRVAdapter;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTruckLoad;
 import com.arpa.wms.hly.bean.res.ResTruckLoad;
-import com.arpa.wms.hly.logic.home.truckload.adapter.TruckLoadAdapter;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import java.util.Map;
@@ -43,7 +43,7 @@ public class VMTruckLoad extends VMBaseRefreshList<ResTruckLoad> {
 
     @Override
     public void configAdapter() {
-        setAdapter(new TruckLoadAdapter());
+        setAdapter(new WrapBindingRVAdapter<>());
     }
 
     @Override

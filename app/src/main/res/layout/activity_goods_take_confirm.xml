@@ -45,7 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:itemBinding="@{viewModel.onItemBind}"
+            app:adapter="@{viewModel.adapter}"
+            app:itemBinding="@{viewModel.itemBinding}"
             app:items="@{viewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="20"
@@ -81,14 +82,14 @@
                     android:background="@drawable/shape_rrect_blue_border_r5"
                     android:text="整单确认"
                     android:textColor="@color/colorPrimary" />
-    
-                <!--android:onClick="@{()->viewModel.orderBatchConfirm()}"-->
+                
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:background="@drawable/shape_rrect_blue_gradient_r5"
+                    android:onClick="@{()->viewModel.orderBatchConfirm()}"
                     android:text="确认"
                     android:textColor="@color/white" />
             </androidx.appcompat.widget.LinearLayoutCompat>

@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.widget.RelativeLayout;
 
 import com.arpa.wms.hly.R;
@@ -38,6 +39,7 @@ public class WidgetInputItem extends RelativeLayout {
     private AppCompatEditText etInput;
     private AppCompatImageView ivIcon;
 
+    private boolean isEnable = true;
     private DataTransCallback<String> onTextChanged;
 
     public WidgetInputItem(@NonNull Context context) {
@@ -96,6 +98,7 @@ public class WidgetInputItem extends RelativeLayout {
     }
 
     private void setInputEnable(boolean isEnable) {
+        this.isEnable = isEnable;
         etInput.setEnabled(isEnable);
     }
 
@@ -117,17 +120,22 @@ public class WidgetInputItem extends RelativeLayout {
         etInput.setHint(hint);
     }
 
-    public void setInputText(String text) {
-        etInput.setText(text);
+    @BindingAdapter({"inputText"})
+    public static void setInputText(WidgetInputItem view, String text) {
+        view.setInputText(text);
     }
 
     @InverseBindingAdapter(attribute = "inputText")
     public static String getInputText(WidgetInputItem view) {
-        return view.geText();
+        return view.getInputText();
     }
 
-    private String geText() {
+    private String getInputText() {
         return Objects.requireNonNull(etInput.getText()).toString();
+    }
+
+    public void setInputText(String text) {
+        etInput.setText(text);
     }
 
     @BindingAdapter("inputTextAttrChanged")
@@ -137,5 +145,10 @@ public class WidgetInputItem extends RelativeLayout {
 
     public void setOnTextChanged(DataTransCallback<String> onTextChanged) {
         this.onTextChanged = onTextChanged;
+    }
+
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
+        return !isEnable;
     }
 }

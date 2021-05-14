@@ -1,10 +1,11 @@
 package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseActivity;
+import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.bean.GoodsTakeBatchItem;
 import com.arpa.wms.hly.databinding.ActivityGoodsTakeConfirmBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeConfirm;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
@@ -34,12 +35,14 @@ public class GoodsTakeConfirmActivity extends BaseActivity<VMGoodsTakeConfirm, A
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        viewBind.button.setOnClickListener(v -> showDialogFragment(new DialogDateSelect(new ViewListener.DataTransCallback<String>() {
-            @Override
-            public void transfer(String data) {
-                Log.e("@@@@ L40", "GoodsTakeConfirmActivity:transfer() -> data = " + data);
-                //                ToastUtils::showShort
-            }
-        })));
+        viewModel.itemBinding
+                .bindExtra(BR.onStatusClick, (ViewListener.DataClickListener<GoodsTakeBatchItem>) data ->
+                        showDialogFragment(new DialogDateSelect(data::setReceivedState))
+                )
+                .bindExtra(BR.onDateClick,
+                        (ViewListener.OnItemClickListener<GoodsTakeBatchItem>) (view, position, data) -> showDialogFragment(new DialogDateSelect(date -> {
+                            data.setProductDate(date);
+                            viewModel.update(position, data);
+                        })));
     }
 }

@@ -1,7 +1,6 @@
-package com.arpa.wms.hly.logic.home.truckload.adapter;
+package com.arpa.wms.hly.base;
 
 import com.arpa.wms.hly.BR;
-import com.arpa.wms.hly.bean.res.ResTruckLoad;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ViewDataBinding;
@@ -10,16 +9,16 @@ import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
- * since: 2021-05-06 14:27
+ * since: 2021-05-14 08:23
  *
  * <p>
- * Adapter: PDA Task
+ * 适配器：二次包装的适配器（MVVM）
  * </p>
  */
-public class TruckLoadAdapter extends BindingRecyclerViewAdapter<ResTruckLoad> {
+public class WrapBindingRVAdapter <T> extends BindingRecyclerViewAdapter<T> {
     @Override
-    public void onBindBinding(@NonNull ViewDataBinding binding, int variableId, int layoutRes, int position, ResTruckLoad item) {
+    public void onBindBinding(@NonNull ViewDataBinding binding, int variableId, int layoutRes, int position, T item) {
         super.onBindBinding(binding, variableId, layoutRes, position, item);
-        binding.setVariable(BR.pos, position + 1);
+        binding.setVariable(BR.position, position);
     }
 }

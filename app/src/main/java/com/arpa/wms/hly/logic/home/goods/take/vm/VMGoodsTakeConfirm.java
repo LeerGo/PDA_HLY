@@ -7,6 +7,7 @@ import android.util.Log;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBindingRVAdapter;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.GoodsTakeBatchHeader;
 import com.arpa.wms.hly.bean.GoodsTakeBatchItem;
@@ -17,6 +18,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableList;
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import me.tatarka.bindingcollectionadapter2.OnItemBind;
 
 /**
@@ -31,16 +34,17 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
 @HiltViewModel
 public class VMGoodsTakeConfirm extends WrapDataViewModel {
     // adapter 相关
-    public final ObservableList<Object> items = new ObservableArrayList<>();
-    public final OnItemBind<Object> onItemBind =
+    private final OnItemBind<Object> onItemBind =
             (itemBinding, position, data) -> {
                 if (position == 0) {
                     itemBinding.set(BR.data, R.layout.header_goods_take_confirm);
                 } else {
                     itemBinding.set(BR.data, R.layout.item_goods_take_confirm);
-
                 }
             };
+    public final ItemBinding<Object> itemBinding = ItemBinding.of(onItemBind);
+    public final ObservableList<Object> items = new ObservableArrayList<>();
+    public final BindingRecyclerViewAdapter<Object> adapter = new WrapBindingRVAdapter<>();
 
     @Inject
     public VMGoodsTakeConfirm(@NonNull Application application, BaseModel model) {
@@ -52,7 +56,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
         super.onCreate();
 
         items.add(new GoodsTakeBatchHeader());
-        GoodsTakeBatchItem item= new GoodsTakeBatchItem();
+        GoodsTakeBatchItem item = new GoodsTakeBatchItem();
         item.setReceivedCount("1000");
         items.add(item);
     }
@@ -64,5 +68,10 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     @SuppressLint("LogNotTimber")
     public void orderBatchConfirm() {
         Log.e("@@@@ L61", "VMGoodsTakeConfirm:orderBatchConfirm() -> \n" + items.toString());
+    }
+
+    public void update(int position, GoodsTakeBatchItem data){
+        items.remove(position);
+        items.add(position, data);
     }
 }

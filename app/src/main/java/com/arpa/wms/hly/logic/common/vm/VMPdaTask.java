@@ -3,12 +3,12 @@ package com.arpa.wms.hly.logic.common.vm;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
+import com.arpa.wms.hly.base.WrapBindingRVAdapter;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
-import com.arpa.wms.hly.logic.common.PdaTaskAdapter;
 import com.arpa.wms.hly.utils.Const;
 
 import java.util.Map;
@@ -42,7 +42,7 @@ public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask> {
 
     @Override
     public void configAdapter() {
-        setAdapter(new PdaTaskAdapter());
+        setAdapter(new WrapBindingRVAdapter<>());
     }
 
     @Override

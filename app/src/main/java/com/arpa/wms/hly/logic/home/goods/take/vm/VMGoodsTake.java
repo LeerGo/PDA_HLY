@@ -40,6 +40,7 @@ public class VMGoodsTake extends VMPdaTask {
 
     @Override
     public ItemBinding<ResPdaTask> getItemBinding() {
+        itemBinding.bindExtra(BR.showOrder, true);
         return itemBinding;
     }
 }

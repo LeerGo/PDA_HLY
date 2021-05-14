@@ -13,6 +13,10 @@
         <variable
             name="data"
             type="ResPdaTask" />
+    
+        <variable
+            name="position"
+            type="Integer" />
         
         <variable
             name="listener"
