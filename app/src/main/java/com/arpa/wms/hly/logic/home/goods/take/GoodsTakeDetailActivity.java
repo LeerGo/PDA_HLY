@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetail;
 import com.arpa.wms.hly.utils.Const;
@@ -31,7 +31,7 @@ public class GoodsTakeDetailActivity extends BaseActivity<VMGoodsTakeDetail, Act
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
-        ResPdaTask data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
+        ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
         viewModel.data.set(data);
         viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(Const.TASK_STATUS.TAKE_WAIT, data.getCode()));
         viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(Const.TASK_STATUS.TAKE_YET, data.getCode()));

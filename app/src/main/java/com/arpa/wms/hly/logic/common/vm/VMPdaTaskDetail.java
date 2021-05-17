@@ -4,7 +4,7 @@ import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
@@ -23,7 +23,7 @@ import androidx.fragment.app.Fragment;
  */
 public abstract class VMPdaTaskDetail extends WrapDataViewModel {
     public final ObservableField<String> searchHint = new ObservableField<>();
-    public final ObservableField<ResPdaTask> data = new ObservableField<>();
+    public final ObservableField<ResTaskAssign> data = new ObservableField<>();
     public final ObservableList<Fragment> fragments = new ObservableArrayList<>();
     public final ObservableList<String> titles = new ObservableArrayList<>();
 

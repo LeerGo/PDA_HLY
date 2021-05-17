@@ -1,5 +1,8 @@
 package com.arpa.wms.hly.bean.res;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import java.util.List;
 
 /**
@@ -7,7 +10,19 @@ import java.util.List;
  * version: 1.0.0<br/>
  * since: 2021-05-17 13:44
  */
-public class ResTaskAssign extends SelectItem {
+public class ResTaskAssign extends SelectItem implements Parcelable {
+    public static final Parcelable.Creator<ResTaskAssign> CREATOR = new Parcelable.Creator<ResTaskAssign>() {
+        @Override
+        public ResTaskAssign createFromParcel(Parcel source) {
+            return new ResTaskAssign(source);
+        }
+
+        @Override
+        public ResTaskAssign[] newArray(int size) {
+            return new ResTaskAssign[size];
+        }
+    };
+
     private String carQueueNumber;
     private String code;
     private String custodian;
@@ -22,6 +37,25 @@ public class ResTaskAssign extends SelectItem {
     private int receivedQuantity;
     private int totalQuantity;
     private List<?> receiveItemVOList;
+
+    public ResTaskAssign() {
+    }
+
+    protected ResTaskAssign(Parcel in) {
+        this.carQueueNumber = in.readString();
+        this.code = in.readString();
+        this.custodian = in.readString();
+        this.driverName = in.readString();
+        this.driverPhone = in.readString();
+        this.goodsQuantity = in.readInt();
+        this.licensePlateNumber = in.readString();
+        this.taskTypeDes = in.readString();
+        this.customerName = in.readString();
+        this.forklift = in.readString();
+        this.stevedore = in.readString();
+        this.receivedQuantity = in.readInt();
+        this.totalQuantity = in.readInt();
+    }
 
     public int getReceivedQuantity() {
         return receivedQuantity;
@@ -133,5 +167,44 @@ public class ResTaskAssign extends SelectItem {
 
     public void setTaskTypeDes(String taskTypeDes) {
         this.taskTypeDes = taskTypeDes;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.carQueueNumber);
+        dest.writeString(this.code);
+        dest.writeString(this.custodian);
+        dest.writeString(this.driverName);
+        dest.writeString(this.driverPhone);
+        dest.writeInt(this.goodsQuantity);
+        dest.writeString(this.licensePlateNumber);
+        dest.writeString(this.taskTypeDes);
+        dest.writeString(this.customerName);
+        dest.writeString(this.forklift);
+        dest.writeString(this.stevedore);
+        dest.writeInt(this.receivedQuantity);
+        dest.writeInt(this.totalQuantity);
+        dest.writeList(this.receiveItemVOList);
+    }
+
+    public void readFromParcel(Parcel source) {
+        this.carQueueNumber = source.readString();
+        this.code = source.readString();
+        this.custodian = source.readString();
+        this.driverName = source.readString();
+        this.driverPhone = source.readString();
+        this.goodsQuantity = source.readInt();
+        this.licensePlateNumber = source.readString();
+        this.taskTypeDes = source.readString();
+        this.customerName = source.readString();
+        this.forklift = source.readString();
+        this.stevedore = source.readString();
+        this.receivedQuantity = source.readInt();
+        this.totalQuantity = source.readInt();
     }
 }

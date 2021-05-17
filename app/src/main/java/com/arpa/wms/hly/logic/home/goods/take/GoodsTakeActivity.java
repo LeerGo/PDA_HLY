@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
@@ -38,7 +38,7 @@ public class GoodsTakeActivity extends WrapBaseActivity<VMGoodsTake, ActivityPda
         viewBind.setViewModel(viewModel);
 //        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
+        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable(IntentKey.DATA, data);
             startActivity(GoodsTakeDetailActivity.class, bundle);
