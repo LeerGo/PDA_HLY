@@ -58,11 +58,13 @@
                     android:background="@color/color_f3f8ff"
                     android:paddingTop="10dp"
                     app:layout_scrollFlags="scroll">
-                    
-                    <include
+    
+                    <!--TODO: 这里的 data 数据类型为ResPdaTask， 实际需要 ResTaskAssign @lyf 2021-05-17 03:56:13 -->
+                    <!--TODO: 待处理 @lyf 2021-05-17 03:56:40 -->
+                    <!--<include
                         layout="@layout/item_goods_take"
                         app:data="@{viewModel.data}"
-                        app:showOrder="@{false}" />
+                        app:showOrder="@{false}" />-->
                 </FrameLayout>
                 
                 <com.google.android.material.tabs.TabLayout

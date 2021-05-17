@@ -8,11 +8,11 @@
         
         <import type="android.text.TextUtils" />
         
-        <import type="com.arpa.wms.hly.bean.res.ResPdaTask" />
+        <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
         
         <variable
             name="data"
-            type="ResPdaTask" />
+            type="ResTaskAssign" />
         
         <variable
             name="position"
@@ -64,7 +64,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_toEndOf="@id/tvTaskOrder"
                 android:gravity="center_vertical"
-                android:text='@{@string/car_number(data.code)}'
+                android:text="@{@string/car_number(data.licensePlateNumber)}"
                 android:textColor="@color/color_434c67"
                 tools:text="车牌号：豫HM8983" />
             
@@ -80,7 +80,7 @@
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
                 app:propsKey="排队号："
-                app:propsValue="@{data.goodsTypeQuantity.toString()}"
+                app:propsValue="@{data.carQueueNumber}"
                 tools:propsValue="10" />
             
             <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
@@ -88,6 +88,8 @@
                 android:layout_below="@id/line"
                 android:layout_alignParentEnd="true"
                 app:wqiName="件数："
+                app:wqiSum="@{data.totalQuantity}"
+                app:wqiCount="@{data.receivedQuantity}"
                 tools:wqiCount="100"
                 tools:wqiSum="10000" />
             
@@ -96,7 +98,8 @@
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_queue"
                 app:propsKey="保管员："
-                app:propsValue="@{data.shipmentName}"
+                app:propsValue="@{data.custodian}"
+                app:visible="@{!TextUtils.isEmpty(data.custodian)}"
                 tools:propsValue="张三，李四" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -104,16 +107,16 @@
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_keeper"
                 app:propsKey="装卸工："
-                app:propsValue="@{data.supplierName}"
-                app:visible="@{!TextUtils.isEmpty(data.supplierName)}"
+                app:propsValue="@{data.stevedore}"
+                app:visible="@{!TextUtils.isEmpty(data.stevedore)}"
                 tools:propsValue="装卸工一，装卸工一" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_stevedore"
                 app:propsKey="叉车工："
-                app:propsValue="@{data.supplierName}"
-                app:visible="@{!TextUtils.isEmpty(data.supplierName)}"
+                app:propsValue="@{data.forklift}"
+                app:visible="@{!TextUtils.isEmpty(data.forklift)}"
                 tools:propsValue="叉车工一" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

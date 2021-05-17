@@ -36,7 +36,7 @@ public class GoodsTakeActivity extends WrapBaseActivity<VMGoodsTake, ActivityPda
         super.initData(savedInstanceState);
 
         viewBind.setViewModel(viewModel);
-        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
+//        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
             Bundle bundle = new Bundle();

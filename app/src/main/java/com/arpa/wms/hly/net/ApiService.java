@@ -71,6 +71,11 @@ public interface ApiService {
     Call<Result<Object>> pdaTasksCancelAssign(@Body ReqTaskAssign reqTaskAssign);
 
     /**
+     * 收货列表接口
+     */
+    @GET("wms/pda/receive/list")
+    Call<ResultPage<ResTaskAssign>> goodsReceiveList(@QueryMap Map<String, Object> data);
+    /**
      * 获取收货任务详情列表
      */
     @GET("wms/pda/receive")

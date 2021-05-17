@@ -58,16 +58,16 @@ public class WidgetQuantityItem extends LinearLayoutCompat {
         tvName.setText(text);
     }
 
-    private void setWqiSum(int sum) {
-        tvSum.setText(String.valueOf(sum));
-    }
-
-    private void setWqiCount(int count) {
-        tvCount.setText(String.valueOf(count));
-    }
-
     private void setWqiShowCount(boolean showCount) {
         tvSplit.setVisibility(showCount ? VISIBLE : GONE);
         tvCount.setVisibility(showCount ? VISIBLE : GONE);
+    }
+
+    public void setWqiSum(int sum) {
+        tvSum.setText(String.valueOf(sum));
+    }
+
+    public void setWqiCount(int count) {
+        tvCount.setText(String.valueOf(count));
     }
 }

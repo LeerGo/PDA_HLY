@@ -1,5 +1,7 @@
 package com.arpa.wms.hly.bean.res;
 
+import java.util.List;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -12,11 +14,38 @@ public class ResTaskAssign extends SelectItem {
     private String driverName;
     private String driverPhone;
     private int goodsQuantity;
-    private String licensePlatenNumber;
+    private String licensePlateNumber;
     private String taskTypeDes;
     private String customerName;
     private String forklift;
     private String stevedore;
+    private int receivedQuantity;
+    private int totalQuantity;
+    private List<?> receiveItemVOList;
+
+    public int getReceivedQuantity() {
+        return receivedQuantity;
+    }
+
+    public void setReceivedQuantity(int receivedQuantity) {
+        this.receivedQuantity = receivedQuantity;
+    }
+
+    public int getTotalQuantity() {
+        return totalQuantity;
+    }
+
+    public void setTotalQuantity(int totalQuantity) {
+        this.totalQuantity = totalQuantity;
+    }
+
+    public List<?> getReceiveItemVOList() {
+        return receiveItemVOList;
+    }
+
+    public void setReceiveItemVOList(List<?> receiveItemVOList) {
+        this.receiveItemVOList = receiveItemVOList;
+    }
 
     public String getStevedore() {
         return stevedore;
@@ -90,12 +119,12 @@ public class ResTaskAssign extends SelectItem {
         this.goodsQuantity = goodsQuantity;
     }
 
-    public String getLicensePlatenNumber() {
-        return licensePlatenNumber;
+    public String getLicensePlateNumber() {
+        return licensePlateNumber;
     }
 
-    public void setLicensePlatenNumber(String licensePlatenNumber) {
-        this.licensePlatenNumber = licensePlatenNumber;
+    public void setLicensePlateNumber(String licensePlateNumber) {
+        this.licensePlateNumber = licensePlateNumber;
     }
 
     public String getTaskTypeDes() {

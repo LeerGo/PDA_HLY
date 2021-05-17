@@ -7,7 +7,6 @@
         
         <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
         
-        <!--TODO: 等待数据填充 @lyf 2021-05-06 09:21:14 -->
         <variable
             name="data"
             type="ResTaskAssign" />
@@ -55,7 +54,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="@{@string/car_number(data.licensePlatenNumber)}"
+                    android:text="@{@string/car_number(data.licensePlateNumber)}"
                     android:textColor="@color/color_434c67"
                     android:textSize="16sp"
                     tools:text="车牌号：豫HM8983" />

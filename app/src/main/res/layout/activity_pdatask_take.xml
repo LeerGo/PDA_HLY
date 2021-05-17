@@ -25,7 +25,7 @@
         
         <!--搜索框-->
         <!--TODO: UI 设计稿上没有搜索模块 @lyf 2021-05-14 10:12:24 -->
-        <FrameLayout
+        <!--<FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone">
@@ -43,7 +43,7 @@
                 android:paddingHorizontal="12dp"
                 android:paddingBottom="10dp"
                 app:wsbHint="@{viewModel.searchHint}" />
-        </FrameLayout>
+        </FrameLayout>-->
         
         <!--内容区域-->
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
