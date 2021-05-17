@@ -89,7 +89,6 @@ public class VMLogin extends VMWarehouse {
 
         apiService.authorize(reqLogin.toParams())
                 .enqueue(new ResultCallback<ResLogin>() {
-
                     @Override
                     public void onSuccess(ResLogin data) {
                         spPut(SPKEY.IS_NEW_USER, false);

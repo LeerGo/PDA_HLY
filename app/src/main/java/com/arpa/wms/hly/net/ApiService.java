@@ -92,7 +92,6 @@ public interface ApiService {
     @POST("wms/pda/moveTask/moveConfirm")
     Call<Result<ResMoveGoods>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
 
-    // TODO: 等待 API @lyf 2021-05-12 09:40:45
     /**
      * 获取装车列表
      */

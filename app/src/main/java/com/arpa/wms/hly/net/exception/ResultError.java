@@ -9,11 +9,20 @@ package com.arpa.wms.hly.net.exception;
  * 内容描述区域
  * </p>
  */
-public class ResultError extends Exception{
+public class ResultError extends Exception {
     private int code;
     private String message;
 
+    public ResultError(Throwable cause) {
+        super(cause);
+    }
+
     public ResultError(int code, String message) {
+        this.code = code;
+        this.message = message;
+    }
+
+    public void setInfo(int code, String message){
         this.code = code;
         this.message = message;
     }

@@ -37,6 +37,7 @@ public class VMWarehouse extends WrapDataViewModel {
         updateStatus(StatusEvent.Status.LOADING);
         apiService.getWarehouseWithoutAuth(loginID)
                 .enqueue(new ResultCallback<List<ResWarehouse>>() {
+
                     @Override
                     public void onSuccess(List<ResWarehouse> data) {
                         warehouseLiveData.postValue(data);
