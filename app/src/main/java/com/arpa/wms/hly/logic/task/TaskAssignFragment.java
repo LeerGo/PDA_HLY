@@ -14,8 +14,6 @@ import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
-//import butterknifeR.BindView;
-//import butterknife.OnClick;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>

@@ -161,5 +161,10 @@ public interface Const {
          * 收货 - 已收货
          */
         String TAKE_YET = "4";
+
+        // 指派状态：0未指派，1已指派，2指派中
+        int ASSIGN_NOT = 0;
+        int ASSIGN_YET = 1;
+        int ASSIGN_IN = 2;
     }
 }

@@ -5,7 +5,7 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.logic.common.vm.VMPdaTask;
 import com.arpa.wms.hly.utils.Const;
 
@@ -26,7 +26,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 @HiltViewModel
 public class VMGoodsRecheck extends VMPdaTask {
-    private final ItemBinding<ResPdaTask> itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck);
+    private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck);
 
     @Inject
     public VMGoodsRecheck(@NonNull Application application, BaseModel model) {
@@ -39,7 +39,7 @@ public class VMGoodsRecheck extends VMPdaTask {
     }
 
     @Override
-    public ItemBinding<ResPdaTask> getItemBinding() {
+    public ItemBinding<ResTaskAssign> getItemBinding() {
         return itemBinding;
     }
 }

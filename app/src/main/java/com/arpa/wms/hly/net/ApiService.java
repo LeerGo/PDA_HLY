@@ -9,7 +9,7 @@ import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.bean.res.ResTruckLoad;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.utils.Const.AppConfig;
@@ -48,7 +48,7 @@ public interface ApiService {
      * 获取首页的任务任务列表
      */
     @GET("wms/pda/tasks")
-    Call<ResultPage<ResPdaTask>> pdaTasks(@QueryMap Map<String, Object> data);
+    Call<ResultPage<ResTaskAssign>> pdaTasks(@QueryMap Map<String, Object> data);
 
     /**
      * 获取收货任务详情列表

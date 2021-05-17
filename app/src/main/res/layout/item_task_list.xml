@@ -5,12 +5,12 @@
         
         <import type="android.text.TextUtils" />
         
-        <import type="com.arpa.wms.hly.bean.res.ResPdaTask" />
+        <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
         
         <!--TODO: 等待数据填充 @lyf 2021-05-06 09:21:14 -->
         <variable
             name="data"
-            type="ResPdaTask" />
+            type="ResTaskAssign" />
         
         <variable
             name="listener"
@@ -55,15 +55,17 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:text="@{@string/car_number(data.licensePlatenNumber)}"
                     android:textColor="@color/color_434c67"
                     android:textSize="16sp"
                     tools:text="车牌号：豫HM8983" />
                 
-                <ImageView
+                <androidx.appcompat.widget.AppCompatImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="12dp"
-                    android:src="@mipmap/ic_task_goods_pick" />
+                    app:taskType="@{data.taskTypeDes}"
+                    tools:src="@mipmap/ic_task_goods_pick" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
             <View
@@ -75,26 +77,49 @@
                 android:background="@color/grey" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_queue"
+                android:id="@+id/wpi_custom"
                 style="@style/TaskPropsRightStyle"
                 android:layout_below="@id/line"
+                app:propsKey="@string/custom"
+                app:propsValue="@{data.customerName}"
+                app:visible="@{!TextUtils.isEmpty(data.customerName)}"
+                tools:propsValue="张三    13200000000" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_queue"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_custom"
                 app:propsKey="@string/line_take_no"
+                app:propsValue="@{data.carQueueNumber}"
+                app:visible="@{!TextUtils.isEmpty(data.carQueueNumber)}"
                 tools:propsValue="10" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_count"
                 style="@style/TaskPropsStyle"
-                android:layout_below="@id/line"
+                android:layout_below="@id/wpi_custom"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="12dp"
                 app:propsKey="@string/number_of_units"
+                app:propsValue="@{String.valueOf(data.goodsQuantity)}"
                 tools:propsValue="1000" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_custodian"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_queue"
+                app:propsKey="@string/custodian"
+                app:propsValue="@{data.custodian}"
+                app:visible="@{!TextUtils.isEmpty(data.custodian)}"
+                tools:propsValue="张三    13200000000" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_driver"
                 style="@style/TaskPropsRightStyle"
-                android:layout_below="@id/wpi_queue"
+                android:layout_below="@id/wpi_custodian"
                 app:propsKey="@string/driver"
+                app:propsValue="@{data.driverName+`    `+data.driverPhone}"
+                app:visible="@{!TextUtils.isEmpty(data.driverName)}"
                 tools:propsValue="张三    13200000000" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -102,6 +127,8 @@
                 style="@style/TaskPropsRightStyle"
                 android:layout_below="@id/wpi_driver"
                 app:propsKey="@string/stevedore"
+                app:propsValue="@{data.stevedore}"
+                app:visible="@{!TextUtils.isEmpty(data.stevedore)}"
                 tools:propsValue="装卸工一，装卸工一" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -109,6 +136,8 @@
                 style="@style/TaskPropsRightStyle"
                 android:layout_below="@id/wpi_stevedore"
                 app:propsKey="@string/forklift"
+                app:propsValue="@{data.forklift}"
+                app:visible="@{!TextUtils.isEmpty(data.forklift)}"
                 tools:propsValue="叉车工一，叉车工一" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>

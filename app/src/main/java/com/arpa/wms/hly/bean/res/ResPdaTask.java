@@ -12,6 +12,7 @@ import android.os.Parcelable;
  * Res：收货、复核任务列表
  * </p>
  */
+@Deprecated
 public class ResPdaTask implements Parcelable {
     public static final Creator<ResPdaTask> CREATOR = new Creator<ResPdaTask>() {
         @Override

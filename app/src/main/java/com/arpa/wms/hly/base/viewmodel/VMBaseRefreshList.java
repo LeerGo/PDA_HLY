@@ -7,8 +7,8 @@ import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
-import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.net.callback.ResultPageCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
 
 import java.util.List;
 import java.util.Map;
@@ -51,11 +51,12 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
     public void onCreate() {
         super.onCreate();
         configAdapter();
-        autoRefresh();
     }
 
-    public void configAdapter() {
-        adapter = new BindingRecyclerViewAdapter<>();
+    @Override
+    public void onStart() {
+        super.onStart();
+        autoRefresh();
     }
 
     /**
@@ -104,15 +105,15 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
                     }
 
                     @Override
-                    public void onFailed(ResultError error) {
-                        updateStatus(StatusEvent.Status.ERROR, true);
-                        sendMessage(error.getMessage(), true);
-                    }
-
-                    @Override
                     public void onFinish() {
                         refreshComplete();
                         isAutoRefresh.set(false);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                        sendMessage(error.getMessage(), true);
                     }
 
                     private void refreshComplete() {
@@ -132,6 +133,10 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
     }
 
     public abstract ReqPage getParams();
+
+    public void configAdapter() {
+        adapter = new BindingRecyclerViewAdapter<>();
+    }
 
     public BindingRecyclerViewAdapter<T> getAdapter() {
         return adapter;

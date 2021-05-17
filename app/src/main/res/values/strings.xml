@@ -34,7 +34,9 @@
     <string name="line_take_no">排队号：</string>
     <string name="number_of_units">件数：</string>
     <string name="forklift">叉车工：</string>
-    <string name="driver">司 机：</string>
+    <string name="driver">司机：</string>
+    <string name="custom">客户：</string>
+    <string name="custodian">保管员：</string>
     <string name="stevedore">装卸工：</string>
     <string name="warehouse_change">切换仓库</string>
     <string name="task_number_goods_take">收货任务号：%s</string>

@@ -6,6 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
 
+import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 
@@ -36,6 +37,22 @@ public class LogicViewBinding {
                     break;
             }
     }*/
+    @BindingAdapter(value = "taskType")
+    @Deprecated
+    public static void setTaskType(AppCompatImageView imageView, String taskType) {
+        if (!TextUtils.isEmpty(taskType))
+            switch (taskType) {
+                case "收货":
+                    imageView.setImageResource(R.mipmap.ic_task_goods_take);
+                    break;
+                case "复核":
+                    imageView.setImageResource(R.mipmap.ic_task_goods_recheck);
+                    break;
+                case "拣货":
+                    imageView.setImageResource(R.mipmap.ic_task_goods_pick);
+                    break;
+            }
+    }
 
     @BindingAdapter(value = "truckStatus")
     public static void setTruckStatus(AppCompatTextView textView, String truckStatus) {

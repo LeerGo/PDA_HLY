@@ -8,7 +8,7 @@ import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.utils.Const;
 
 import java.util.Map;
@@ -26,7 +26,7 @@ import retrofit2.Call;
  * ViewModel：PDA 任务列表
  * </p>
  */
-public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask> {
+public abstract class VMPdaTask extends VMBaseRefreshList<ResTaskAssign> {
     private final ObservableField<String> searchHint = new ObservableField<>();
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
 
@@ -46,7 +46,7 @@ public abstract class VMPdaTask extends VMBaseRefreshList<ResPdaTask> {
     }
 
     @Override
-    public Call<ResultPage<ResPdaTask>> getCall(Map<String, Object> params) {
+    public Call<ResultPage<ResTaskAssign>> getCall(Map<String, Object> params) {
         return apiService.pdaTasks(params);
     }
 

@@ -10,9 +10,7 @@ import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
-import com.arpa.wms.hly.utils.Const;
-import com.arpa.wms.hly.utils.Const.TASK_TYPE;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 
 import java.util.Map;
 
@@ -26,11 +24,11 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
 
 @HiltViewModel
-public class VMTaskAssign extends VMBaseRefreshList<ResPdaTask> {
+public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     public final ObservableInt type = new ObservableInt();
     private final ObservableBoolean isSelectAll = new ObservableBoolean();
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
-    private final ItemBinding<ResPdaTask> itemBinding = ItemBinding.of(BR.data, R.layout.item_task_list);
+    private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_task_list);
 
     @Inject
     public VMTaskAssign(@NonNull Application application, BaseModel model) {
@@ -43,28 +41,29 @@ public class VMTaskAssign extends VMBaseRefreshList<ResPdaTask> {
     }
 
     @Override
-    public Call<ResultPage<ResPdaTask>> getCall(Map<String, Object> params) {
+    public Call<ResultPage<ResTaskAssign>> getCall(Map<String, Object> params) {
         return apiService.pdaTasks(params);
     }
 
     @Override
     public ReqPage getParams() {
-        reqTaskList.setTaskType(TASK_TYPE.RECEIVE);
-        reqTaskList.setJobStatus(Const.JOB_STATUS.UNFINISHED);
-        reqTaskList.setWarehouseCode(spGetString(Const.SPKEY.WAREHOUSE_CODE));
+//        reqTaskList.setTaskType(TASK_TYPE.RECEIVE);
+//        reqTaskList.setJobStatus(Const.JOB_STATUS.UNFINISHED);
+//        reqTaskList.setWarehouseCode(spGetString(Const.SPKEY.WAREHOUSE_CODE));
+        reqTaskList.setAssign(type.get());
         return reqTaskList;
     }
 
     @Override
-    public ItemBinding<ResPdaTask> getItemBinding() {
+    public ItemBinding<ResTaskAssign> getItemBinding() {
         return itemBinding;
     }
 
     @SuppressLint("NotifyDataSetChanged")
     public void selectAll() {
         isSelectAll.set(!isSelectAll.get());
-        for (ResPdaTask item : getItems()) {
-            item.setIsSelect(isSelectAll.get());
+        for (ResTaskAssign item : getItems()) {
+            item.setSelect(isSelectAll.get());
         }
         getAdapter().notifyDataSetChanged();
     }

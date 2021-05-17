@@ -1,9 +1,6 @@
 package com.arpa.wms.hly.bean.req;
 
 import com.arpa.wms.hly.bean.base.ReqPage;
-import com.arpa.wms.hly.utils.SPUtils;
-
-import static com.arpa.wms.hly.utils.Const.SPKEY.WAREHOUSE_CODE;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -15,14 +12,26 @@ import static com.arpa.wms.hly.utils.Const.SPKEY.WAREHOUSE_CODE;
  * </p>
  */
 public class ReqTaskList extends ReqPage {
+    @Deprecated
     private String taskType;
+    @Deprecated
     private String jobStatus;
+    @Deprecated
     private String warehouseCode;
     private String code;
+    private int assign;//指派状态：0未指派，1已指派，2指派中
 
     public ReqTaskList(int pageSize) {
         super(pageSize);
-        warehouseCode = SPUtils.getInstance().getString(WAREHOUSE_CODE);
+//        warehouseCode = SPUtils.getInstance().getString(WAREHOUSE_CODE);
+    }
+
+    public int getAssign() {
+        return assign;
+    }
+
+    public void setAssign(int assign) {
+        this.assign = assign;
     }
 
     public String getTaskType() {
