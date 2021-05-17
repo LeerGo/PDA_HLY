@@ -46,9 +46,13 @@ public class VMHome extends WrapDataViewModel {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        initHeader();
         createMenu();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        initHeader();
     }
 
     /**

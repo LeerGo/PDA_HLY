@@ -45,7 +45,6 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding>
             } else {
                 showDialogFragment(new DialogWarehouseSelect(list, this));
             }
-            //            showDialogFragment(new DialogAssignSelect("分配保管员", list, this));
         });
         viewBind.acbModifyPass.setOnClickListener(v ->
                 showDialogFragment(new DialogModifyPass(data -> viewModel.modifyPassword(data)))
@@ -57,5 +56,6 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding>
         viewModel.spPut(Const.SPKEY.WAREHOUSE_CODE, data.getCode());
         viewModel.spPut(Const.SPKEY.WAREHOUSE_NAME, data.getName());
         viewModel.getWarehouse().set(data.getName());
+        viewModel.warehouseChange(data.getCode());
     }
 }

@@ -45,6 +45,13 @@ public interface ApiService {
     Call<Result<ResLogin>> authorize(@FieldMap Map<String, Object> data);
 
     /**
+     * 切换登录信息
+     */
+    @POST("arpa-basic-api/changeLogin")
+    @FormUrlEncoded
+    Call<Result<Object>> changeLogin(@FieldMap Map<String, Object> data);
+
+    /**
      * 获取首页的任务任务列表
      */
     @GET("wms/pda/tasks")

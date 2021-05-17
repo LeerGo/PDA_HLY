@@ -5,10 +5,14 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
+import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BuildConfig;
+import com.arpa.wms.hly.bean.req.ReqChangeWarehouse;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
+import com.arpa.wms.hly.net.callback.ResultCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
 
@@ -31,7 +35,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class VMMine extends VMWarehouse {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
-    private final ObservableField<String> version = new ObservableField<>("v0.0.0");
+    private final ObservableField<String> version = new ObservableField<>();
 
     @Inject
     public VMMine(@NonNull Application application, BaseModel model) {
@@ -70,9 +74,29 @@ public class VMMine extends VMWarehouse {
     /**
      * 切换仓库
      */
-    public void warehouseChange() {
+    public void getWarehouseList() {
         getWarehouseWithoutAuth(spGetString(Const.SPKEY.USER_NAME));
     }
+
+    public void warehouseChange(String authorizeDataCode) {
+        updateStatus(StatusEvent.Status.LOADING);
+        ReqChangeWarehouse reqChangeWarehouse = new ReqChangeWarehouse(authorizeDataCode);
+        apiService.changeLogin(reqChangeWarehouse.toParams())
+                .enqueue(new ResultCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object data) {
+                        sendMessage("仓库修改成功");
+                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        sendMessage(error.getMessage(), true);
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                    }
+                });
+    }
+
 
     public ObservableField<String> getAccount() {
         return account;
