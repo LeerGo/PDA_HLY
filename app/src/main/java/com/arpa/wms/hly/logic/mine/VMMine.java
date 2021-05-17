@@ -2,7 +2,6 @@ package com.arpa.wms.hly.logic.mine;
 
 import android.app.Application;
 import android.content.Intent;
-import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
@@ -15,6 +14,7 @@ import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
+import com.arpa.wms.hly.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -67,8 +67,24 @@ public class VMMine extends VMWarehouse {
      * 修改密码
      */
     public void modifyPassword(ReqModifyPass data) {
-        // TODO: 待实现 @lyf 2021-04-27 03:49:32
-        Log.e("@@@@ L58", "VMMine:modifyPassword() -> 修改密码：" + data.toString());
+        updateStatus(StatusEvent.Status.LOADING);
+        apiService.updatePass(data.toParams())
+                .enqueue(new ResultCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object data) {
+                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                        sendMessage("修改密码成功");
+                        Intent intent = new Intent(Utils.getContext(), LoginActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        Utils.getContext().startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        sendMessage(error.getMessage(), true);
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                    }
+                });
     }
 
     /**

@@ -59,9 +59,9 @@ public class DialogModifyPass extends BaseDialogFragment {
     private void setOptArea() {
         findViewById(R.id.iv_close).setOnClickListener(v -> dismiss());
         findViewById(R.id.acb_sure).setOnClickListener(v -> {
-            data.setOldPass(Objects.requireNonNull(etOldPass.getText()).toString());
-            data.setNewPass(Objects.requireNonNull(etNewPass.getText()).toString());
-            data.setNewPassRepeat(Objects.requireNonNull(etNewPassRepeat.getText()).toString());
+            data.setOldPwd(Objects.requireNonNull(etOldPass.getText()).toString());
+            data.setNewPwd(Objects.requireNonNull(etNewPass.getText()).toString());
+            data.setNewRepwd(Objects.requireNonNull(etNewPassRepeat.getText()).toString());
             if (verify(data)) {
                 dismiss();
                 onSure.transfer(data);
@@ -70,16 +70,20 @@ public class DialogModifyPass extends BaseDialogFragment {
     }
 
     private boolean verify(ReqModifyPass data) {
-        if (TextUtils.isEmpty(data.getOldPass())) {
+        if (TextUtils.isEmpty(data.getOldPwd())) {
             Toast.makeText(requireActivity().getApplicationContext(), "请输入原密码", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (TextUtils.isEmpty(data.getNewPass())) {
+        if (TextUtils.isEmpty(data.getNewPwd())) {
             Toast.makeText(getActivity(), "请输入新密码", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (TextUtils.isEmpty(data.getNewPassRepeat())) {
+        if (TextUtils.isEmpty(data.getNewRepwd())) {
             Toast.makeText(getActivity(), "请再次输入新密码", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (!data.getNewPwd().equals(data.getNewRepwd())){
+            Toast.makeText(getActivity(), "输入两次新密码不一致", Toast.LENGTH_SHORT).show();
             return false;
         }
         return true;

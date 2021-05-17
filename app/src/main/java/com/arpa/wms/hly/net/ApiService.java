@@ -53,6 +53,13 @@ public interface ApiService {
     Call<Result<Object>> changeLogin(@FieldMap Map<String, Object> data);
 
     /**
+     * 切换登录信息
+     */
+    @POST("arpa-basic-api/party/updatePass")
+    @FormUrlEncoded
+    Call<Result<Object>> updatePass(@FieldMap Map<String, Object> data);
+
+    /**
      * 获取首页的任务任务列表
      */
     @GET("wms/pda/tasks")
@@ -75,6 +82,7 @@ public interface ApiService {
      */
     @GET("wms/pda/receive/list")
     Call<ResultPage<ResTaskAssign>> goodsReceiveList(@QueryMap Map<String, Object> data);
+
     /**
      * 获取收货任务详情列表
      */
