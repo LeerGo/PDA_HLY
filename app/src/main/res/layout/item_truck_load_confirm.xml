@@ -76,27 +76,11 @@
             app:propsValueGravity="end"
             tools:propsValue="500" />
         
-        <androidx.appcompat.widget.LinearLayoutCompat
+        <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="@color/white"
-            android:gravity="center_vertical">
-            
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="托盘"
-                android:textColor="#ff434c67"
-                android:textSize="14sp" />
-            
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end"
-                android:hint="请输入托盘"
-                android:textColor="@color/color_434c67"
-                android:textColorHint="#B6BED2"
-                android:textSize="14sp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:gravity="center_vertical"
+            app:inputHint="请输入装车数量"
+            app:inputTitle="装车数量" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-    >
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     
     <data>
         
@@ -39,32 +39,15 @@
             tools:itemCount="20"
             tools:listitem="@layout/item_truck_load_confirm" />
         
-        <androidx.appcompat.widget.LinearLayoutCompat
-            android:id="@+id/linearLayoutCompat2"
+        <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginVertical="8dp"
+            android:layout_marginBottom="10dp"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:paddingHorizontal="12dp">
-            
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="托盘"
-                android:textColor="#ff434c67"
-                android:textSize="14sp" />
-            
-            <androidx.appcompat.widget.AppCompatEditText
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="end"
-                android:hint="请输入托盘"
-                android:textColor="@color/color_434c67"
-                android:textColorHint="#B6BED2"
-                android:textSize="14sp" />
-        </androidx.appcompat.widget.LinearLayoutCompat>
+            android:padding="12dp"
+            app:inputHint="请输入托盘"
+            app:inputTitle="托盘" />
         
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat"
