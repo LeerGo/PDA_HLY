@@ -8,7 +8,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.net.exception.ResultError;
-import com.arpa.wms.hly.net.ResultPageCallback;
+import com.arpa.wms.hly.net.callback.ResultPageCallback;
 
 import java.util.List;
 import java.util.Map;

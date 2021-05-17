@@ -11,7 +11,7 @@ import com.arpa.wms.hly.bean.req.ReqMoveGoods;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
 import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
-import com.arpa.wms.hly.net.ResultCallback;
+import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.NumberUtils;
 import com.arpa.wms.hly.utils.ToastUtils;

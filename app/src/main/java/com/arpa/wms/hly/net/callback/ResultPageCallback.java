@@ -1,24 +1,26 @@
-package com.arpa.wms.hly.net;
+package com.arpa.wms.hly.net.callback;
 
 import android.content.Intent;
 
 import com.arpa.and.wms.arch.http.callback.ApiCallback;
-import com.arpa.wms.hly.bean.base.Result;
+import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.ToastUtils;
 import com.arpa.wms.hly.utils.Utils;
+
+import java.util.List;
 
 import retrofit2.Call;
 
 import static com.arpa.wms.hly.net.exception.ErrorCode.ERROR_CODE;
 import static com.arpa.wms.hly.net.exception.ErrorCode.LOGIN_FAILED;
 
-public abstract class ResultCallback <T> extends ApiCallback<Result<T>> {
+public abstract class ResultPageCallback <T> extends ApiCallback<ResultPage<T>> {
 
     @Override
-    public void onResponse(Call<Result<T>> call, Result<T> result) {
-        if (result.isSuccess()) onSuccess(result.getData());
+    public void onResponse(Call<ResultPage<T>> call, ResultPage<T> result) {
+        if (result.isSuccess()) onSuccess(result.getData().getRecords());
         else innerFailed(new ResultError(result.getStatus(), result.getMsg()));
         onFinish();
     }
@@ -36,12 +38,12 @@ public abstract class ResultCallback <T> extends ApiCallback<Result<T>> {
     }
 
     @Override
-    public void onError(Call<Result<T>> call, Throwable t) {
+    public void onError(Call<ResultPage<T>> call, Throwable t) {
         onFailed(new ResultError(ERROR_CODE, t.getMessage()));
         onFinish();
     }
 
-    public abstract void onSuccess(T data);
+    public abstract void onSuccess(List<T> data);
 
     public abstract void onFailed(ResultError error);
 

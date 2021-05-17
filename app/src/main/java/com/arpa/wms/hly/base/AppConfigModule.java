@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.arpa.and.wms.arch.config.FrameConfigModule;
 import com.arpa.and.wms.arch.di.module.ConfigModule;
-import com.arpa.wms.hly.net.HeaderInterceptor;
+import com.arpa.wms.hly.net.interceptor.HeaderInterceptor;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
