@@ -5,6 +5,7 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.logic.task.TaskAssignFragment;
+import com.arpa.wms.hly.utils.Const.ASSIGN_WORK;
 
 import java.util.Arrays;
 
@@ -30,8 +31,8 @@ public class VMTaskCenter extends WrapDataViewModel {
     public void onCreate() {
         super.onCreate();
 
-        fragments.add(TaskAssignFragment.newInstance(0));
-        fragments.add(TaskAssignFragment.newInstance(1));
+        fragments.add(TaskAssignFragment.newInstance(ASSIGN_WORK.ASSIGN_NOT));
+        fragments.add(TaskAssignFragment.newInstance(ASSIGN_WORK.ASSIGN_YET));
         titles.addAll(Arrays.asList("待指派", "已指派"));
     }
 

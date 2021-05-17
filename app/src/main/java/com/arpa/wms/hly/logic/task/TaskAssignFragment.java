@@ -5,11 +5,12 @@ import android.os.Bundle;
 import com.arpa.and.wms.arch.base.BaseLazyFragment;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.FragmentTaskAssignBinding;
 import com.arpa.wms.hly.logic.task.vm.VMTaskAssign;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const.ASSIGN_WORK;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
@@ -44,16 +45,24 @@ public class TaskAssignFragment extends BaseLazyFragment<VMTaskAssign, FragmentT
         viewBind.setVariable(BR.viewModel, viewModel);
 
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
-        viewModel.type.set(getArguments() != null ? getArguments().getInt(IntentKey.INDEX, 0) : 0);
+        viewModel.type.set(getArguments() != null ? getArguments().getInt(IntentKey.INDEX, ASSIGN_WORK.ASSIGN_NOT) : ASSIGN_WORK.ASSIGN_NOT);
         viewModel.getItemBinding()
-                .bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
+                .bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
                     // TODO: 跳转详情 @lyf 2021-05-06 10:09:04
                 })
-                .bindExtra(BR.select, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
+                .bindExtra(BR.select, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
                     // 多选
-                    data.setIsSelect(!data.getIsSelect());
+                    data.setSelect(!data.isSelect());
                     viewBind.rvList.getAdapter().notifyDataSetChanged();
                 });
+        viewBind.btnAssignKeeper.setOnClickListener(view -> showStaffDialog(ASSIGN_WORK.WORK_CUSTODIAN));
+        viewBind.btnAssignStevedore.setOnClickListener(view -> showStaffDialog(ASSIGN_WORK.WORK_STEVEDORE));
+        viewBind.btnAssignForklift.setOnClickListener(view -> showStaffDialog(ASSIGN_WORK.WORK_FORKLIFT));
+    }
+
+    private void showStaffDialog(String assignType) {
+        // TODO: 获取作业类型、人员的接口还没有 @lyf 2021-05-17 02:54:58
+//        showDialogFragment(new DialogAssignSelect());
     }
 
     @Override

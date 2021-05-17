@@ -3,6 +3,7 @@ package com.arpa.wms.hly.net;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
+import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResLogin;
@@ -56,6 +57,18 @@ public interface ApiService {
      */
     @GET("wms/pda/tasks")
     Call<ResultPage<ResTaskAssign>> pdaTasks(@QueryMap Map<String, Object> data);
+
+    /**
+     * PDA分配装卸工、叉车工、保管员
+     */
+    @POST("wms/pda/tasks/assignPDA")
+    Call<Result<Object>> pdaTasksAssign(@Body ReqTaskAssign reqTaskAssign);
+
+    /**
+     * PDA取消分配装卸工、叉车工、保管员
+     */
+    @POST("wms/pda/tasks/cancelAssign")
+    Call<Result<Object>> pdaTasksCancelAssign(@Body ReqTaskAssign reqTaskAssign);
 
     /**
      * 获取收货任务详情列表

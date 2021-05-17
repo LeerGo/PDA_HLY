@@ -6,6 +6,10 @@
         <variable
             name="viewModel"
             type="com.arpa.wms.hly.logic.task.vm.VMTaskAssign" />
+        
+        <variable
+            name="ASSIGN_WORK"
+            type="com.arpa.wms.hly.utils.Const.ASSIGN_WORK" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -72,14 +76,14 @@
                 tools:ignore="HardcodedText" />
             
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_assign_keeper"
+                android:id="@+id/btnAssignKeeper"
                 style="@style/TaskButtonStyle"
                 android:text="@{viewModel.type==0 ? @string/btn_assign_keeper : @string/btn_unassign_keeper}"
                 tools:ignore="HardcodedText"
                 tools:text="分配保管员" />
             
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_assign_stevedore"
+                android:id="@+id/btnAssignStevedore"
                 style="@style/TaskButtonStyle"
                 android:layout_marginStart="6dp"
                 android:text="@{viewModel.type==0 ? @string/btn_assign_stevedore : @string/btn_unassign_stevedore}"
@@ -87,7 +91,7 @@
                 tools:text="分配装卸工" />
             
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/btn_assign_forklift"
+                android:id="@+id/btnAssignForklift"
                 style="@style/TaskButtonStyle"
                 android:layout_marginStart="6dp"
                 android:text="@{viewModel.type==0 ? @string/btn_assign_forklift : @string/btn_unassign_forklift}"
