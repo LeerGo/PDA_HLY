@@ -13,8 +13,8 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 
-import static com.arpa.wms.hly.utils.Const.API.API_AUTHORIZATION;
-import static com.arpa.wms.hly.utils.Const.API.API_WAREHOUSE_AUTHORIZATION;
+import static com.arpa.wms.hly.net.ApiService.API.API_AUTHORIZATION;
+import static com.arpa.wms.hly.net.ApiService.API.API_WAREHOUSE_AUTHORIZATION;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>

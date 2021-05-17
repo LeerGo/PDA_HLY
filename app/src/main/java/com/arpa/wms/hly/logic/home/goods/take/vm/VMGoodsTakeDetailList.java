@@ -11,7 +11,7 @@ import com.arpa.wms.hly.bean.req.ReqGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail.ItemsBean;
 import com.arpa.wms.hly.net.ResultCallback;
-import com.arpa.wms.hly.net.ResultError;
+import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
 
 import java.util.List;

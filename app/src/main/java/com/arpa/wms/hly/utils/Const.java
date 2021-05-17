@@ -16,11 +16,6 @@ public interface Const {
     String LOG_TAG = "Arpa-Logger";
 
     /**
-     * Handler 延迟发送消息的默认延迟时长
-     */
-    int HANDLER_DELAY_TIME = 500;
-
-    /**
      * Intent 常量
      */
     interface IntentKey {
@@ -123,32 +118,6 @@ public interface Const {
     }
 
     /**
-     * API 请求地址
-     */
-    interface API {
-        String URL_KEY = "API-AUTH";
-
-        /**
-         * 仓储服务 API 服务地址
-         */
-        String URL_WMS = "http://49.4.71.215/";
-        //        String URL_WMS = "http://192.168.31.144/";
-        //        /**
-        //         * 用户认证 API 服务地址
-        //         */
-        //        String URL_AUTH = URL_WMS + "arpa-basic-api/";
-
-        /**
-         * API：获取仓库
-         */
-        String API_WAREHOUSE_AUTHORIZATION = "wms/warehouse/warehouseAuthorization";
-        /**
-         * API：获取认证
-         */
-        String API_AUTHORIZATION = "arpa-basic-api/authorize";
-    }
-
-    /**
      * SharedPreferences KEY
      */
     interface SPKEY {
@@ -178,8 +147,6 @@ public interface Const {
     interface AppConfig {
         String clientID = "1e069e240a163e9d2a18f4111ewecpda";
         String clientSecret = "e7957728041b11ea97dffa163e9d2pda";
-        String grantType = "password";
-        String responseType = "token";
     }
 
     /**

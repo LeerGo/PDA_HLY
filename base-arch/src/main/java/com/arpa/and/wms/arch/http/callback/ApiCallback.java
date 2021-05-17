@@ -20,7 +20,7 @@ public abstract class ApiCallback <T> implements Callback<T> {
     }
 
     @Override
-    public void onFailure(Call<T> call, Throwable t) {
+    public void onFailure(@NonNull Call<T> call, @NonNull Throwable t) {
         Timber.w(t);
         onError(call, t);
     }

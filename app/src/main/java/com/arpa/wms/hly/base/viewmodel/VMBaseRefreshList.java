@@ -7,7 +7,7 @@ import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
-import com.arpa.wms.hly.net.ResultError;
+import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.net.ResultPageCallback;
 
 import java.util.List;

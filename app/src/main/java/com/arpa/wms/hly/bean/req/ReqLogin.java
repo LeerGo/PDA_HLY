@@ -43,8 +43,8 @@ public class ReqLogin extends ReqBase {
     public ReqLogin() {
         clientID = AppConfig.clientID;
         clientSecret = AppConfig.clientSecret;
-        grantType = AppConfig.grantType;
-        responseType = AppConfig.responseType;
+        grantType = "password";
+        responseType = "token";
         time = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date());
         deviceID = SPUtils.getInstance().getString(Const.SPKEY.DEVICE_ID);
     }

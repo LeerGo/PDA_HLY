@@ -13,7 +13,7 @@ import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoods.InventoryListBean;
 import com.arpa.wms.hly.logic.home.inventory.move.ScanGoodsSureActivity;
 import com.arpa.wms.hly.net.ResultCallback;
-import com.arpa.wms.hly.net.ResultError;
+import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 

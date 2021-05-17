@@ -12,9 +12,7 @@ import com.arpa.wms.hly.bean.res.ResMoveLocation;
 import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.bean.res.ResTruckLoad;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
-import com.arpa.wms.hly.utils.Const.API;
 import com.arpa.wms.hly.utils.Const.AppConfig;
-import com.king.retrofit.retrofithelper.annotation.DomainName;
 
 import java.util.List;
 import java.util.Map;
@@ -32,13 +30,16 @@ import retrofit2.http.QueryMap;
 public interface ApiService {
 
     /**
-     * 查询国内油价
+     * 获取仓库
      */
     @Headers({"client_id: " + AppConfig.clientID, "client_secret: " + AppConfig.clientSecret})
     @GET(API.API_WAREHOUSE_AUTHORIZATION)
     Call<Result<List<ResWarehouse>>> getWarehouseWithoutAuth(@Query("userLoginId") String loginID);
 
-    @DomainName(API.URL_KEY)
+    /**
+     * 获取认证
+     */
+    // @DomainName(API.URL_KEY)
     @POST(API.API_AUTHORIZATION)
     @FormUrlEncoded
     Call<Result<ResLogin>> authorize(@FieldMap Map<String, Object> data);
@@ -97,4 +98,28 @@ public interface ApiService {
      */
     @GET("装车列表")
     Call<ResultPage<ResTruckLoad>> getTruckLoadList(@QueryMap Map<String, Object> data);
+
+    /**
+     * API 请求地址、一些参数
+     */
+    interface API {
+        String URL_KEY = "API-AUTH";
+
+        /**
+         * 仓储服务 API 服务地址
+         */
+        String URL_WMS = "http://192.168.30.170/";
+        //    String URL_WMS = "http://49.4.71.215/";
+        //    String URL_WMS = "http://192.168.31.144/";
+        //    String URL_AUTH = "http://192.168.30.170:999/";
+
+        /**
+         * API：获取仓库
+         */
+        String API_WAREHOUSE_AUTHORIZATION = "wms/warehouse/warehouseAuthorization";
+        /**
+         * API：获取认证
+         */
+        String API_AUTHORIZATION = "arpa-basic-api/authorize";
+    }
 }

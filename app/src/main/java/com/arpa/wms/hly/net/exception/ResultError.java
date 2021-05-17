@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.net;
+package com.arpa.wms.hly.net.exception;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -9,7 +9,7 @@ package com.arpa.wms.hly.net;
  * 内容描述区域
  * </p>
  */
-public class ResultError {
+public class ResultError extends Exception{
     private int code;
     private String message;
 

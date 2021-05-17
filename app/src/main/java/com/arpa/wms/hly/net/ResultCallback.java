@@ -5,13 +5,14 @@ import android.content.Intent;
 import com.arpa.and.wms.arch.http.callback.ApiCallback;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.logic.LoginActivity;
+import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.ToastUtils;
 import com.arpa.wms.hly.utils.Utils;
 
 import retrofit2.Call;
 
-import static com.arpa.wms.hly.net.HttpCode.ERROR_CODE;
-import static com.arpa.wms.hly.net.HttpCode.LOGIN_FAILED;
+import static com.arpa.wms.hly.net.exception.ErrorCode.ERROR_CODE;
+import static com.arpa.wms.hly.net.exception.ErrorCode.LOGIN_FAILED;
 
 public abstract class ResultCallback <T> extends ApiCallback<Result<T>> {
 
