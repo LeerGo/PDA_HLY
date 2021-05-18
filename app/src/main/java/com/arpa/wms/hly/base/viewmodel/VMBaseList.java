@@ -3,12 +3,19 @@ package com.arpa.wms.hly.base.viewmodel;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
+import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
+import com.arpa.wms.hly.net.callback.ResultCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
 
 import java.util.List;
+import java.util.Map;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import retrofit2.Call;
 
@@ -22,6 +29,8 @@ import retrofit2.Call;
  * </p>
  */
 public abstract class VMBaseList <T> extends WrapDataViewModel {
+    public ObservableBoolean refreshing = new ObservableBoolean();
+    public ObservableBoolean isAutoRefresh = new ObservableBoolean();
 
     // adapter 相关
     private ObservableArrayList<T> items;
@@ -31,14 +40,71 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
         super(application, model);
     }
 
-    public abstract Call<Result<List<T>>> getCall();
-
-    public BindingRecyclerViewAdapter<T> getAdapter() {
-        return adapter;
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        configAdapter();
     }
 
-    public void setAdapter(BindingRecyclerViewAdapter<T> adapter) {
-        this.adapter = adapter;
+    public void configAdapter() {
+        adapter = new BindingRecyclerViewAdapter<>();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        autoRefresh();
+    }
+
+    /**
+     * 自动刷新
+     */
+    public void autoRefresh() {
+        isAutoRefresh.set(true);
+        refresh();
+    }
+
+    /**
+     * 下拉刷新数据
+     */
+    public void refresh() {
+        refreshing.set(true);
+        requestData();
+    }
+
+    private void requestData() {
+        if (!isAutoRefresh.get())
+            updateStatus(StatusEvent.Status.LOADING);
+
+        getCall(getParams().toParams())
+                .enqueue(new ResultCallback<List<T>>() {
+                    @Override
+                    public void onSuccess(List<T> data) {
+                        if (null == data) {
+                            sendMessage(R.string.failure_result_common, true);
+                            updateStatus(StatusEvent.Status.FAILURE, true);
+                            return;
+                        }
+                        getItems().clear();
+                        if (data.isEmpty()) sendMessage(R.string.data_empty);
+                        else getItems().addAll(data);
+
+                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        refreshing.set(false);
+                        isAutoRefresh.set(false);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                        sendMessage(error.getMessage(), true);
+                    }
+                });
     }
 
     public ObservableArrayList<T> getItems() {
@@ -47,4 +113,8 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
         }
         return items;
     }
+
+    public abstract Call<Result<List<T>>> getCall(Map<String, Object> params);
+
+    public abstract ReqBase getParams();
 }
