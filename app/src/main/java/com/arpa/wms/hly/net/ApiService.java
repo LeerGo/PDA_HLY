@@ -11,7 +11,6 @@ import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
-import com.arpa.wms.hly.bean.res.ResTruckLoad;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.utils.Const.AppConfig;
 
@@ -125,11 +124,11 @@ public interface ApiService {
     @POST("wms/pda/moveTask/moveConfirm")
     Call<Result<ResMoveGoods>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
 
-    /**
-     * 获取装车列表
-     */
-    @GET("装车列表")
-    Call<ResultPage<ResTruckLoad>> getTruckLoadList(@QueryMap Map<String, Object> data);
+//    /**
+//     * 获取装车列表
+//     */
+//    @GET("装车列表")
+//    Call<ResultPage<ResTruckLoad>> getTruckLoadList(@QueryMap Map<String, Object> data);
 
     /**
      * API 请求地址、一些参数
@@ -140,10 +139,10 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://192.168.30.170/";
-        //    String URL_WMS = "http://49.4.71.215/";
-        //    String URL_WMS = "http://192.168.31.144/";
-        //    String URL_AUTH = "http://192.168.30.170:999/";
+        String URL_WMS = "http://192.168.31.166/"; // 夏宝新
+        //    String URL_WMS = "http://192.168.30.170/"; // 邵朱尧
+        //    String URL_WMS = "http://49.4.71.215/"; // 标准版开发测试
+        //    String URL_WMS = "http://192.168.31.144/"; // 508 内部服务器（原徐杨）
 
         /**
          * API：获取仓库

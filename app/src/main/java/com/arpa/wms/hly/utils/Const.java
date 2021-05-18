@@ -59,6 +59,10 @@ public interface Const {
          * 移位
          */
         String MOVE = "MOVE";
+        /**
+         * 装车
+         */
+        String LOADING="LOADING";
     }
 
     /**

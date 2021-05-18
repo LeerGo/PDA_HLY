@@ -54,11 +54,6 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     }
 
     @Override
-    public void configAdapter() {
-        super.configAdapter();
-    }
-
-    @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
         return itemBinding;
     }

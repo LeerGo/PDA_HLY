@@ -7,7 +7,6 @@ import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
 
 import androidx.appcompat.widget.AppCompatImageView;
-import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 
 /**
@@ -37,8 +36,8 @@ public class LogicViewBinding {
                     break;
             }
     }*/
+
     @BindingAdapter(value = "taskType")
-    @Deprecated
     public static void setTaskType(AppCompatImageView imageView, String taskType) {
         if (!TextUtils.isEmpty(taskType))
             switch (taskType) {
@@ -54,7 +53,7 @@ public class LogicViewBinding {
             }
     }
 
-    @BindingAdapter(value = "truckStatus")
+    /*@BindingAdapter(value = "truckStatus")
     public static void setTruckStatus(AppCompatTextView textView, String truckStatus) {
         if (!TextUtils.isEmpty(truckStatus))
             switch (truckStatus) {
@@ -73,7 +72,7 @@ public class LogicViewBinding {
                 default:
                     break;
             }
-    }
+    }*/
 
 
     // TODO: 替换现有的 onSearchClick @lyf 2021-05-12 09:15:15

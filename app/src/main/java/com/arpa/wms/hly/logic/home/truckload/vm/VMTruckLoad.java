@@ -10,7 +10,7 @@ import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTruckLoad;
-import com.arpa.wms.hly.bean.res.ResTruckLoad;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import java.util.Map;
@@ -32,8 +32,8 @@ import retrofit2.Call;
  * </p>
  */
 @HiltViewModel
-public class VMTruckLoad extends VMBaseRefreshList<ResTruckLoad> {
-    private final ItemBinding<ResTruckLoad> itemBinding = ItemBinding.of(BR.data, R.layout.item_truck_load);
+public class VMTruckLoad extends VMBaseRefreshList<ResTaskAssign> {
+    private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_truck_load);
     private final ReqTruckLoad reqTruckLoad = new ReqTruckLoad(PAGE_SIZE);
 
     @Inject
@@ -47,19 +47,18 @@ public class VMTruckLoad extends VMBaseRefreshList<ResTruckLoad> {
     }
 
     @Override
-    public Call<ResultPage<ResTruckLoad>> getCall(Map<String, Object> params) {
-        return apiService.getTruckLoadList(params);
+    public Call<ResultPage<ResTaskAssign>> getCall(Map<String, Object> params) {
+        return apiService.pdaTasks(params);
     }
 
     @Override
     public ReqPage getParams() {
-        // TODO: 设置请求装车入参 @lyf 2021-05-12 09:40:11
         return reqTruckLoad;
     }
 
     @Override
-    public ItemBinding<ResTruckLoad> getItemBinding() {
-        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTruckLoad>) data -> {
+    public ItemBinding<ResTaskAssign> getItemBinding() {
+        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
 
         });
         return itemBinding;

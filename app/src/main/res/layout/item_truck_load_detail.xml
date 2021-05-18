@@ -6,11 +6,11 @@
     
     <data>
         
-        <import type="com.arpa.wms.hly.bean.res.ResTruckLoad" />
+        <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
         
         <variable
             name="data"
-            type="ResTruckLoad" />
+            type="ResTaskAssign" />
         
         <variable
             name="listener"

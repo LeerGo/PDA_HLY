@@ -82,7 +82,7 @@ public class DialogModifyPass extends BaseDialogFragment {
             Toast.makeText(getActivity(), "请再次输入新密码", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (!data.getNewPwd().equals(data.getNewRepwd())){
+        if (!data.getNewPwd().equals(data.getNewRepwd())) {
             Toast.makeText(getActivity(), "输入两次新密码不一致", Toast.LENGTH_SHORT).show();
             return false;
         }

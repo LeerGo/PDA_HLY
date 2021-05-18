@@ -102,9 +102,6 @@ public class VMGoodsTakeDetailList extends WrapDataViewModel {
                         }
                         if (isRefresh) refreshing.set(false);
                         else moreLoading.set(false);
-
-                        if (isRefresh) refreshing.set(false);
-                        else moreLoading.set(false);
                     }
 
                     @Override

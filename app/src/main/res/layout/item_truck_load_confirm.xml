@@ -8,7 +8,7 @@
         
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.res.ResTruckLoad" />
+            type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
     </data>
     
     
