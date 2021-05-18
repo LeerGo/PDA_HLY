@@ -17,6 +17,15 @@ public class OutboundItemVOList {
     private String gmtManufacture; // 生产日期
     private String extendTwo; // 特殊品项
     private int planQuantity; // 计划数量
+    private String loadQuantity;
+
+    public String getLoadQuantity() {
+        return loadQuantity;
+    }
+
+    public void setLoadQuantity(String loadQuantity) {
+        this.loadQuantity = loadQuantity;
+    }
 
     public String getCode() {
         return code;

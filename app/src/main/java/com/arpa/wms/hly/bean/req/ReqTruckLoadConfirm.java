@@ -1,5 +1,6 @@
 package com.arpa.wms.hly.bean.req;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,16 +10,29 @@ import java.util.List;
  */
 public class ReqTruckLoadConfirm {
     private String code;
-    private int trayQuantity;
+    // 序列化为托数，而且会有，先行注释
+    // private int trayQuantity;
+    // 从 view 接受数据，赋值给 trayQuantity，不需要序列化
+    // private transient String trayCount;
     private List<OutboundItemDTOS> outboundItemDTOS;
 
-    public int getTrayQuantity() {
+    /*public int getTrayQuantity() {
         return trayQuantity;
     }
 
     public void setTrayQuantity(int trayQuantity) {
         this.trayQuantity = trayQuantity;
     }
+
+    public String getTrayCount() {
+        return trayCount;
+    }
+
+    public void setTrayCount(String trayCount) {
+        setTrayQuantity(Integer.parseInt(trayCount));
+        this.trayCount = trayCount;
+
+    }*/
 
     public String getCode() {
         return code;
@@ -29,6 +43,7 @@ public class ReqTruckLoadConfirm {
     }
 
     public List<OutboundItemDTOS> getOutboundItemDTOS() {
+        if (outboundItemDTOS == null) outboundItemDTOS = new ArrayList<>();
         return outboundItemDTOS;
     }
 
@@ -38,7 +53,12 @@ public class ReqTruckLoadConfirm {
 
     public static class OutboundItemDTOS {
         private String code;
-        private Integer loadingCarQuantity;
+        private int loadingCarQuantity;
+
+        public OutboundItemDTOS(String code, String loadingCarQuantity) {
+            this.code = code;
+            this.loadingCarQuantity = Integer.parseInt(loadingCarQuantity);
+        }
 
         public String getCode() {
             return code;
@@ -48,11 +68,11 @@ public class ReqTruckLoadConfirm {
             this.code = code;
         }
 
-        public Integer getLoadingCarQuantity() {
+        public int getLoadingCarQuantity() {
             return loadingCarQuantity;
         }
 
-        public void setLoadingCarQuantity(Integer loadingCarQuantity) {
+        public void setLoadingCarQuantity(int loadingCarQuantity) {
             this.loadingCarQuantity = loadingCarQuantity;
         }
     }

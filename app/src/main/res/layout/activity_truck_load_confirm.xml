@@ -40,15 +40,17 @@
             tools:itemCount="20"
             tools:listitem="@layout/item_truck_load_confirm" />
         
-        <com.arpa.wms.hly.ui.widget.WidgetInputItem
+        <!--二期可能会有，这一期先注释掉-->
+        <!--<com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_marginBottom="8dp"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:padding="12dp"
+            app:inputText="@={viewModel.request.trayCount}"
             app:inputHint="请输入托盘"
-            app:inputTitle="托盘" />
+            app:inputTitle="托盘" />-->
         
         <androidx.appcompat.widget.LinearLayoutCompat
             android:id="@+id/linearLayoutCompat"
@@ -63,6 +65,7 @@
                 android:layout_height="36dp"
                 android:background="@drawable/shape_rrect_blue_gradient_r5"
                 android:gravity="center"
+                android:onClick="@{()->viewModel.confirm()}"
                 android:text="确认"
                 android:textColor="@color/white"
                 android:textSize="17sp" />

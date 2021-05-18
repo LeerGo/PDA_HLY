@@ -4,6 +4,7 @@ import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
+import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
 import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResInventory;
@@ -138,6 +139,12 @@ public interface ApiService {
      */
     @GET("wms/pda/outbound/loadingCarDetail")
     Call<Result<ResTruckLoadConfirm>> getTruckLoadConfirmDetail(@Query("outboundCode") String outboundCode);
+
+    /**
+     * 获取装车提交确认
+     */
+    @POST("wms/pda/outbound/loadingCarConfirm")
+    Call<Result<Object>> confirmTruckLoad(@Body ReqTruckLoadConfirm reqTruckLoadConfirm);
 
     /**
      * API 请求地址、一些参数

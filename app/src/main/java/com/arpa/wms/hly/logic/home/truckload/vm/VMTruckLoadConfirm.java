@@ -1,15 +1,23 @@
 package com.arpa.wms.hly.logic.home.truckload.vm;
 
+import com.google.gson.Gson;
+
+import android.annotation.SuppressLint;
 import android.app.Application;
+import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
+import com.arpa.wms.hly.bean.OutboundItemVOList;
 import com.arpa.wms.hly.bean.OutboundVOS;
+import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
+import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm.OutboundItemDTOS;
 import com.arpa.wms.hly.bean.res.ResTruckLoadConfirm;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.Objects;
 
@@ -17,6 +25,7 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
@@ -31,8 +40,11 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 @HiltViewModel
 public class VMTruckLoadConfirm extends WrapDataViewModel {
-    public final ObservableArrayList<Object> items = new ObservableArrayList<>();
+    // header 独立置顶的操作
     //    public final ItemBinding<OutboundItemVOList> itemBinding = ItemBinding.of(BR.data, R.layout.item_truck_load_confirm);
+    //    public final ObservableField<OutboundVOS> headerData = new ObservableField<>();
+
+    public final ObservableArrayList<Object> items = new ObservableArrayList<>();
     public final ItemBinding<Object> itemBinding = ItemBinding.of((itemBinding, position, item) -> {
         if (position == 0) {
             itemBinding.set(BR.data, R.layout.header_truck_load_confirm);
@@ -40,7 +52,7 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
             itemBinding.set(BR.data, R.layout.item_truck_load_confirm);
         }
     });
-    //    public final ObservableField<OutboundVOS> headerData = new ObservableField<>();
+    public final ObservableField<ReqTruckLoadConfirm> request = new ObservableField<>(new ReqTruckLoadConfirm());
     public OutboundVOS headerData;
 
     @Inject
@@ -62,6 +74,7 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
                     public void onSuccess(ResTruckLoadConfirm data) {
                         items.add(headerData);
                         items.addAll(data.getOutboundItemVOList());
+                        request.get().setCode(data.getCode());
                     }
 
                     @Override
@@ -75,5 +88,39 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
                         sendMessage(error.getMessage());
                     }
                 });
+    }
+
+    public void confirm() {
+        showLoading();
+        buildRequest();
+        apiService.confirmTruckLoad(request.get())
+                .enqueue(new ResultCallback<Object>() {
+                    @Override
+                    public void onSuccess(Object data) {
+                        ToastUtils.showShort(R.string.request_success);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideLoading();
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        sendMessage(error.getMessage());
+                    }
+                });
+    }
+
+    @SuppressLint("LogNotTimber")
+    private void buildRequest() {
+        Objects.requireNonNull(request.get()).getOutboundItemDTOS().clear();
+        for (int i = 1; i < items.size(); i++) {
+            OutboundItemVOList data = (OutboundItemVOList) items.get(i);
+            request.get().getOutboundItemDTOS().add(new OutboundItemDTOS(data.getCode(), data.getLoadQuantity()));
+        }
+        Log.e("@@@@ L98", "VMTruckLoadConfirm:buildRequest() -> " + new Gson().toJson(request.get()));
     }
 }
