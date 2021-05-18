@@ -9,5 +9,6 @@ package com.arpa.wms.hly.bean;
  * 内容描述区域
  * </p>
  */
+@Deprecated
 public class TaskAssignBean {
 }

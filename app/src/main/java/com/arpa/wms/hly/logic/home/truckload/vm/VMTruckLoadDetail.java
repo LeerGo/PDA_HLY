@@ -5,21 +5,25 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
-import com.arpa.wms.hly.bean.base.ReqPage;
-import com.arpa.wms.hly.bean.base.ResultPage;
-import com.arpa.wms.hly.bean.req.ReqTruckLoad;
+import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
+import com.arpa.wms.hly.bean.OutboundVOS;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
+import com.arpa.wms.hly.bean.res.ResTruckLoad;
+import com.arpa.wms.hly.net.callback.ResultCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 
-import java.util.Map;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableList;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import retrofit2.Call;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -31,9 +35,16 @@ import retrofit2.Call;
  * </p>
  */
 @HiltViewModel
-public class VMTruckLoadDetail extends VMBaseRefreshList<ResTaskAssign> {
-    private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_truck_load_detail);
-    private final ReqTruckLoad reqTruckLoad = new ReqTruckLoad(PAGE_SIZE);
+public class VMTruckLoadDetail extends WrapDataViewModel {
+    public final ItemBinding<Object> itemBinding =
+            ItemBinding.of(BR.data, R.layout.item_truck_load_detail)
+                    .bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTruckLoad>) data -> {
+
+                    });
+    public ObservableField<ResTaskAssign> truckLoadHeader = new ObservableField<>();
+    public ObservableField<ResTruckLoad> truckLoadData = new ObservableField<>();
+    public ObservableList<OutboundVOS> items = new ObservableArrayList<>();
+    public ObservableBoolean refreshing = new ObservableBoolean(false);
 
     @Inject
     public VMTruckLoadDetail(@NonNull Application application, BaseModel model) {
@@ -41,21 +52,34 @@ public class VMTruckLoadDetail extends VMBaseRefreshList<ResTaskAssign> {
     }
 
     @Override
-    public Call<ResultPage<ResTaskAssign>> getCall(Map<String, Object> params) {
-        return apiService.pdaTasks(params);
+    public void onResume() {
+        super.onResume();
+        requestData(false);
     }
 
-    @Override
-    public ReqPage getParams() {
-        // TODO: 设置请求装车入参 @lyf 2021-05-12 09:40:11
-        return reqTruckLoad;
-    }
+    public void requestData(boolean isRefreshMode) {
+        if (isRefreshMode) refreshing.set(true);
+        else showLoading();
+        apiService.getTruckLoadList(Objects.requireNonNull(truckLoadHeader.get()).convert())
+                .enqueue(new ResultCallback<ResTruckLoad>() {
+                    @Override
+                    public void onSuccess(ResTruckLoad data) {
+                        truckLoadData.set(data);
+                        items.addAll(data.getOutboundVOS());
+                    }
 
-    @Override
-    public ItemBinding<ResTaskAssign> getItemBinding() {
-        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
 
-        });
-        return itemBinding;
+                        if (isRefreshMode) refreshing.set(false);
+                        else hideLoading();
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        sendMessage(error.getMessage());
+                    }
+                });
     }
 }

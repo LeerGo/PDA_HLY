@@ -3,6 +3,8 @@ package com.arpa.wms.hly.bean.res;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
+
 import java.util.List;
 
 /**
@@ -206,5 +208,9 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.stevedore = source.readString();
         this.receivedQuantity = source.readInt();
         this.totalQuantity = source.readInt();
+    }
+
+    public ReqTruckLoadDetail convert() {
+        return new ReqTruckLoadDetail(licensePlateNumber, driverName, driverPhone);
     }
 }

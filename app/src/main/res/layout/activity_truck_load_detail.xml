@@ -34,54 +34,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:propsKey="车牌号"
-                app:propsValue="鲁A12345"
-                app:propsValueGravity="end" />
+                app:propsValue="@{viewModel.truckLoadHeader.licensePlateNumber}"
+                app:propsValueGravity="end"
+                tools:propsValue="鲁A12345" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 app:propsKey="司机名称"
-                app:propsValue="刘二"
-                app:propsValueGravity="end" />
+                app:propsValue="@{viewModel.truckLoadHeader.driverName}"
+                app:propsValueGravity="end"
+                tools:propsValue="刘二" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 app:propsKey="司机电话"
-                app:propsValue="13133333333"
-                app:propsValueGravity="end" />
+                app:propsValue="@{viewModel.truckLoadHeader.driverPhone}"
+                app:propsValueGravity="end"
+                tools:propsValue="13133333333" />
             
+            <!--TODO: 等接通了 TMS 才有数据 联系@夏宝新 @lyf 2021-05-18 09:26:40 -->
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 app:propsKey="预计装车高度"
-                app:propsValue="2 m"
-                app:propsValueGravity="end" />
+                app:propsValue="@{viewModel.truckLoadData.expectHeight}"
+                app:propsValueGravity="end"
+                tools:propsValue="2 m" />
         </androidx.appcompat.widget.LinearLayoutCompat>
         
-        <!--TODO: 这里不需要分页 API 与@夏宝新 沟通 @lyf 2021-05-12 02:30:31 -->
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:autoRefresh="@{viewModel.isAutoRefresh}"
-            app:hasMore="@{viewModel.hasMore}"
-            app:moreLoading="@{viewModel.moreLoading}"
-            app:onLoadMoreListener="@{()->viewModel.loadMore()}"
-            app:onRefreshListener="@{()->viewModel.refresh()}"
             app:refreshing="@{viewModel.refreshing}"
-            app:srlEnableFooterFollowWhenNoMoreData="true"
-            app:srlEnableLoadMore="true"
+            app:onRefreshListener="@{()->viewModel.requestData(true)}"
+            app:srlEnableFooterFollowWhenNoMoreData="false"
+            app:srlEnableLoadMore="false"
             app:srlEnablePreviewInEditMode="true">
             
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:itemBinding="@{viewModel.itemBinding}"
-                app:items="@{viewModel.items}"
+                app:items="@{viewModel.truckLoadData.outboundVOS}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="20"
                 tools:listitem="@layout/item_truck_load_detail" />

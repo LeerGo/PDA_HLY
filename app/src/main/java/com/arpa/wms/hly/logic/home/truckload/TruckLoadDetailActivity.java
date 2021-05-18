@@ -6,6 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityTruckLoadDetailBinding;
 import com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoadDetail;
+import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -31,5 +32,6 @@ public class TruckLoadDetailActivity extends WrapBaseActivity<VMTruckLoadDetail,
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
+        viewModel.truckLoadHeader.set(getIntent().getParcelableExtra(IntentKey.DATA));
     }
 }

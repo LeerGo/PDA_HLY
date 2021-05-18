@@ -4,6 +4,7 @@ import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
+import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
 import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResLogin;
@@ -11,6 +12,7 @@ import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
+import com.arpa.wms.hly.bean.res.ResTruckLoad;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.utils.Const.AppConfig;
 
@@ -124,11 +126,11 @@ public interface ApiService {
     @POST("wms/pda/moveTask/moveConfirm")
     Call<Result<ResMoveGoods>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
 
-//    /**
-//     * 获取装车列表
-//     */
-//    @GET("装车列表")
-//    Call<ResultPage<ResTruckLoad>> getTruckLoadList(@QueryMap Map<String, Object> data);
+    /**
+     * 获取装车列表
+     */
+    @POST("wms/pda/outbound/loadingCarTaskList")
+    Call<Result<ResTruckLoad>> getTruckLoadList(@Body ReqTruckLoadDetail reqTruckLoadDetail);
 
     /**
      * API 请求地址、一些参数

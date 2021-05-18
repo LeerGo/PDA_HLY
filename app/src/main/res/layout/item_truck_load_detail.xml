@@ -6,11 +6,11 @@
     
     <data>
         
-        <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
+        <import type="com.arpa.wms.hly.bean.OutboundVOS" />
         
         <variable
             name="data"
-            type="ResTaskAssign" />
+            type="OutboundVOS" />
         
         <variable
             name="listener"
@@ -43,12 +43,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginTop="12dp"
-            android:text="客户：客户一名称客户一名称"
+            android:text="@{`客户：` + data.customerName}"
             android:textColor="@color/color_434c67"
             android:textSize="16sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/view"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="客户：客户一名称客户一名称" />
         
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/appCompatImageView"
@@ -83,13 +84,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
-            android:text="天津市静海区天津市静海区天津市静海区天津市静海区蔡公庄镇四东村幸福街111道"
+            android:text="@{data.sendAddress}"
             android:textColor="#ff434c67"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"
             app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView" />
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:text="天津市静海区天津市静海区天津市静海区天津市静海区蔡公庄镇四东村幸福街111道" />
         
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textView3"
@@ -97,13 +99,14 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="10dp"
-            android:text="天津市静海区天津市静海区天津市静海区天津市静海区蔡公庄镇四东村幸福街道"
+            android:text="@{data.receiveAddress}"
             android:textColor="#ff434c67"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/appCompatImageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView2" />
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:text="天津市静海区天津市静海区天津市静海区天津市静海区蔡公庄镇四东村幸福街道" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             android:id="@+id/widgetPropsItem"
@@ -112,30 +115,9 @@
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@+id/line"
             app:propsKey="计划装车数量"
+            app:propsValue="@{String.valueOf(data.recheckQuantity)}"
             app:propsValueGravity="end"
             tools:layout_editor_absoluteX="-4dp"
-            tools:propsValue="500件" />
-        
-        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            android:id="@+id/widgetPropsItem2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintTop_toBottomOf="@+id/widgetPropsItem"
-            app:propsKey="已装车数量"
-            app:propsValueGravity="end"
-            tools:layout_editor_absoluteX="8dp"
             tools:propsValue="500" />
-        
-        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/widgetPropsItem2"
-            app:propsKey="装车完成时间"
-            app:propsValueGravity="end"
-            tools:layout_editor_absoluteX="12dp"
-            tools:propsValue="2021-05-12 14:13" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

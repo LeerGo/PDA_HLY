@@ -31,6 +31,7 @@ public class TruckLoadActivity extends WrapBaseActivity<VMTruckLoad, ActivityTru
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
+
         viewBind.setViewModel(viewModel);
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
     }
