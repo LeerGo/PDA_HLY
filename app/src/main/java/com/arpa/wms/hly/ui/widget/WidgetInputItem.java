@@ -4,14 +4,19 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
+import android.view.inputmethod.EditorInfo;
 import android.widget.RelativeLayout;
 
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.ui.filter.InputFilterMinMax;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 
@@ -36,10 +41,15 @@ import androidx.databinding.InverseBindingListener;
  * </p>
  */
 public class WidgetInputItem extends RelativeLayout {
+    private static final String DIGITS_NUMBER = "1234567890";
+
     private AppCompatTextView tvTitle;
     private AppCompatEditText etInput;
     private AppCompatImageView ivIcon;
 
+    private int inputType;
+    private int maxValue = -1;
+    private String digits;
     private boolean isEnable = true;
     private DataTransCallback<String> onTextChanged;
 
@@ -52,6 +62,7 @@ public class WidgetInputItem extends RelativeLayout {
 
         initViews(context);
         initAttrs(context, attrs);
+        addFocusListener();
     }
 
     private void initViews(Context context) {
@@ -59,28 +70,41 @@ public class WidgetInputItem extends RelativeLayout {
         tvTitle = findViewById(R.id.tv_title);
         etInput = findViewById(R.id.et_input);
         ivIcon = findViewById(R.id.iv_icon);
-        addTextWatcher();
+    }
+
+    private void addFocusListener() {
+        etInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                addTextWatcher();
+                setInputDigits(digits);
+                if (inputType == EditorInfo.TYPE_CLASS_NUMBER && maxValue != -1) {
+                    setInputDigits(DIGITS_NUMBER);
+                    etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
+                }
+            }
+        });
     }
 
     private void addTextWatcher() {
-        etInput.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                ((AppCompatEditText) v).addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                    }
+        etInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
 
-                    @Override
-                    public void onTextChanged(CharSequence s, int start, int before, int count) {
-                        if (null != onTextChanged) onTextChanged.transfer(s.toString());
-                    }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (null != onTextChanged) onTextChanged.transfer(s.toString());
+            }
 
-                    @Override
-                    public void afterTextChanged(Editable s) {
-                    }
-                });
+            @Override
+            public void afterTextChanged(Editable s) {
             }
         });
+    }
+
+    private void setInputDigits(String digits) {
+        if (!TextUtils.isEmpty(digits))
+            etInput.setKeyListener(DigitsKeyListener.getInstance(digits));
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
@@ -91,7 +115,14 @@ public class WidgetInputItem extends RelativeLayout {
         setInputIcon(array.getDrawable(R.styleable.WidgetInputItem_inputIcon));
         setInputEnable(array.getBoolean(R.styleable.WidgetInputItem_inputEnable, true));
         setInputGravity(array.getInt(R.styleable.WidgetInputItem_inputGravity, -1));
+        inputType = array.getInt(R.styleable.WidgetInputItem_inputType, EditorInfo.TYPE_NULL);
+        digits = array.getString(R.styleable.WidgetInputItem_inputDigits);
+        setInputType(inputType);
         array.recycle();
+    }
+
+    private void setInputType(int inputType) {
+        etInput.setInputType(inputType);
     }
 
     private void setInputTitle(String title) {
@@ -119,6 +150,15 @@ public class WidgetInputItem extends RelativeLayout {
 
     private void setInputHint(String hint) {
         etInput.setHint(hint);
+    }
+
+    @BindingAdapter("inputMax")
+    public static void setInputMax(WidgetInputItem view, int maxValue) {
+        view.setInputMax(maxValue);
+    }
+
+    public void setInputMax(int maxValue) {
+        this.maxValue = maxValue;
     }
 
     @BindingAdapter({"inputText"})
