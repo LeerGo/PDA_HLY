@@ -3,6 +3,7 @@ package com.arpa.wms.hly.bean.res;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.arpa.wms.hly.bean.SelectItem;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
 
 import java.util.List;

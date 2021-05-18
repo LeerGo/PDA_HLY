@@ -1,6 +1,7 @@
 package com.arpa.wms.hly.logic.home.truckload.vm;
 
 import android.app.Application;
+import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
@@ -9,19 +10,19 @@ import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.OutboundVOS;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.bean.res.ResTruckLoad;
+import com.arpa.wms.hly.logic.home.truckload.TruckLoadConfirmActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const;
 
 import java.util.Objects;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
-import androidx.databinding.ObservableList;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
@@ -36,15 +37,17 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 @HiltViewModel
 public class VMTruckLoadDetail extends WrapDataViewModel {
+    public final ObservableField<ResTaskAssign> truckLoadHeader = new ObservableField<>();
     public final ItemBinding<Object> itemBinding =
             ItemBinding.of(BR.data, R.layout.item_truck_load_detail)
-                    .bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTruckLoad>) data -> {
-
+                    .bindExtra(BR.listener, (ViewListener.DataTransCallback<OutboundVOS>) data -> {
+                        Bundle bundle = new Bundle();
+                        data.setLicensePlateNumber(truckLoadHeader.get().getLicensePlateNumber());
+                        bundle.putParcelable(Const.IntentKey.DATA, data);
+                        startActivity(TruckLoadConfirmActivity.class, bundle);
                     });
-    public ObservableField<ResTaskAssign> truckLoadHeader = new ObservableField<>();
-    public ObservableField<ResTruckLoad> truckLoadData = new ObservableField<>();
-    public ObservableList<OutboundVOS> items = new ObservableArrayList<>();
-    public ObservableBoolean refreshing = new ObservableBoolean(false);
+    public final ObservableField<ResTruckLoad> truckLoadData = new ObservableField<>();
+    public final ObservableBoolean refreshing = new ObservableBoolean(false);
 
     @Inject
     public VMTruckLoadDetail(@NonNull Application application, BaseModel model) {
@@ -60,12 +63,12 @@ public class VMTruckLoadDetail extends WrapDataViewModel {
     public void requestData(boolean isRefreshMode) {
         if (isRefreshMode) refreshing.set(true);
         else showLoading();
+
         apiService.getTruckLoadList(Objects.requireNonNull(truckLoadHeader.get()).convert())
                 .enqueue(new ResultCallback<ResTruckLoad>() {
                     @Override
                     public void onSuccess(ResTruckLoad data) {
                         truckLoadData.set(data);
-                        items.addAll(data.getOutboundVOS());
                     }
 
                     @Override

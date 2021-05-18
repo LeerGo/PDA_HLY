@@ -8,9 +8,8 @@
         
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
+            type="com.arpa.wms.hly.bean.OutboundItemVOList" />
     </data>
-    
     
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
@@ -28,6 +27,7 @@
             android:gravity="center_vertical"
             app:propsKey="商品名称"
             app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.goodsName}"
             app:propsValueGravity="end"
             tools:propsValue="金典有机奶" />
         
@@ -37,6 +37,7 @@
             android:gravity="center_vertical"
             app:propsKey="单位"
             app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.goodsUnitName}"
             app:propsValueGravity="end"
             tools:propsValue="箱" />
         
@@ -46,6 +47,7 @@
             android:gravity="center_vertical"
             app:propsKey="产地"
             app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.extendOne}"
             app:propsValueGravity="end"
             tools:propsValue="A7" />
         
@@ -55,6 +57,7 @@
             android:gravity="center_vertical"
             app:propsKey="生产日期"
             app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.gmtManufacture}"
             app:propsValueGravity="end"
             tools:propsValue="2020-11-20" />
         
@@ -64,6 +67,7 @@
             android:gravity="center_vertical"
             app:propsKey="特殊品项"
             app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.extendTwo}"
             app:propsValueGravity="end"
             tools:propsValue="常规" />
         
@@ -73,6 +77,7 @@
             android:gravity="center_vertical"
             app:propsKey="计划数量"
             app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{String.valueOf(data.planQuantity)}"
             app:propsValueGravity="end"
             tools:propsValue="500" />
         

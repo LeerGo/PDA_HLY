@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.bean.res;
+package com.arpa.wms.hly.bean;
 
 public class PartyBean {
     private String id;

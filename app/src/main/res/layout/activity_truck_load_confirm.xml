@@ -24,12 +24,13 @@
         
         <!--TODO: include 部分，作为 header 放入 recyclerview @lyf 2021-05-12 02:55:45 -->
         <!--TODO: 最后要删除 @lyf 2021-05-12 02:55:58 -->
-        <include
+        <!--<include
             android:id="@+id/include"
-            layout="@layout/header_truck_load_confirm" />
+            layout="@layout/header_truck_load_confirm"
+            app:data="@{viewModel.headerData}" />-->
         
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerView"
+            android:id="@+id/rvList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -42,7 +43,7 @@
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="8dp"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:padding="12dp"

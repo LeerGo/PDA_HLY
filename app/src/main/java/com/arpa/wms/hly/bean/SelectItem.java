@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.bean.res;
+package com.arpa.wms.hly.bean;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>

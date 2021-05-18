@@ -12,7 +12,6 @@ import java.util.List;
  * since: 2021-05-18 09:35
  */
 public class ResTruckLoad {
-
     private String driverName;
     private String driverPhone;
     private String licensePlateNumber;
