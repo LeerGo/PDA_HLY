@@ -121,7 +121,8 @@
                 android:gravity="center_vertical"
                 app:inputHint="请扫描/输入移位数量"
                 app:inputText="@={viewModel.moveQuantity}"
-                app:inputTitle="移位数量" />
+                app:inputTitle="移位数量"
+                app:inputType="number" />
             
             <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:layout_width="match_parent"
