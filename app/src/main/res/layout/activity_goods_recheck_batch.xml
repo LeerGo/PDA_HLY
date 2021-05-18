@@ -68,8 +68,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
-                    app:lineSpacing="-8dp"
-                    android:layout_marginStart="8dp">
+                    android:layout_marginStart="8dp"
+                    app:lineSpacing="-8dp">
                     
                     <com.google.android.material.chip.Chip
                         style="@style/Widget.MaterialComponents.Chip.Entry"
@@ -103,54 +103,27 @@
             android:layout_height="0dp"
             android:layout_weight="1" />
         
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
+            android:orientation="vertical"
             android:paddingHorizontal="12dp"
             android:paddingBottom="20dp">
             
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/appCompatTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="商品条码"
-                android:textColor="@color/color_434c67"
-                app:layout_constraintBottom_toBottomOf="@+id/appCompatEditText"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/appCompatEditText" />
-            
-            <androidx.appcompat.widget.AppCompatEditText
-                android:id="@+id/appCompatEditText"
-                android:layout_width="0dp"
+            <com.arpa.wms.hly.ui.widget.WidgetInputItem
+                android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:background="@null"
-                android:gravity="end|center_vertical"
-                android:hint="请扫描/输入商品条码"
-                android:textColorHint="@color/color_hint_text"
-                android:textSize="14sp"
-                app:layout_constraintEnd_toStartOf="@+id/appCompatImageView3"
-                app:layout_constraintStart_toEndOf="@+id/appCompatTextView"
-                app:layout_constraintTop_toTopOf="parent" />
-            
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/appCompatImageView3"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_alignParentEnd="true"
-                android:src="@mipmap/ic_scan"
-                app:layout_constraintBottom_toBottomOf="@+id/appCompatEditText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/appCompatEditText" />
+                android:gravity="center_vertical"
+                app:inputHint="请扫描/输入商品条码"
+                app:inputIcon="@mipmap/ic_scan"
+                app:inputTitle="商品条码" />
             
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/grey_eeeeee"
-                app:layout_constraintTop_toBottomOf="@+id/appCompatEditText" />
+                android:background="@color/grey_eeeeee" />
             
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="match_parent"
@@ -158,12 +131,8 @@
                 android:layout_marginTop="20dp"
                 android:background="@drawable/shape_rrect_blue_gradient_r5"
                 android:text="确认"
-                android:textSize="18sp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/view2"
-                tools:layout_editor_absoluteX="12dp" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    
-    
+                android:textColor="@color/white"
+                android:textSize="18sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

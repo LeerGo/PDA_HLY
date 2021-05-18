@@ -52,7 +52,8 @@
             android:gravity="center_vertical"
             app:inputHint="请输入收货数量"
             app:inputText="@={data.receivedCount}"
-            app:inputTitle="收货数量" />
+            app:inputTitle="收货数量"
+            app:inputType="number" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -77,7 +78,8 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             app:inputHint="请输入码托数量"
-            app:inputTitle="码托数量" />
+            app:inputTitle="码托数量"
+            app:inputType="number" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"

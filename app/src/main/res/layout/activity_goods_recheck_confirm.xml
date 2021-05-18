@@ -115,25 +115,11 @@
                         app:propsValueGravity="end"
                         tools:propsValue="300" />
                     
-                    <androidx.appcompat.widget.LinearLayoutCompat
-                        style="@style/ItemRecheckBatchStyle">
-                        
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="复核数量"
-                            android:textColor="@color/color_434c67"
-                            android:textSize="15sp" />
-                        
-                        <androidx.appcompat.widget.AppCompatEditText
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical|end"
-                            android:hint="请输入复核数量"
-                            android:textColor="@color/color_434c67"
-                            android:textColorHint="@color/color_hint_text"
-                            android:textSize="15sp" />
-                    </androidx.appcompat.widget.LinearLayoutCompat>
+                    <com.arpa.wms.hly.ui.widget.WidgetInputItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:inputHint="请输入复核数量"
+                        app:inputTitle="复核数量"
+                        app:inputType="number" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         style="@style/ItemRecheckBatchStyle"

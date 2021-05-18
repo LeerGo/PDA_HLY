@@ -115,60 +115,21 @@
             app:divider="@drawable/divider_line_horizontal"
             app:showDividers="middle">
             
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center_vertical">
-                
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="移位数量"
-                    android:textColor="@color/color_434c67" />
-                
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="end"
-                    android:hint="请输入移位数量"
-                    android:singleLine="true"
-                    android:text="@={viewModel.moveQuantity}"
-                    android:textColor="@color/grey_96a0b9"
-                    android:textColorHint="#B6BED2"
-                    android:textSize="14sp" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:gravity="center_vertical"
+                app:inputHint="请扫描/输入移位数量"
+                app:inputText="@={viewModel.moveQuantity}"
+                app:inputTitle="移位数量" />
             
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center_vertical">
-                
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="移入库位"
-                    android:textColor="@color/color_434c67" />
-                
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:gravity="end"
-                    android:hint="请扫描/输入移入库位"
-                    android:singleLine="true"
-                    android:text="@={viewModel.moveLocation}"
-                    android:textColor="@color/grey_96a0b9"
-                    android:textColorHint="#B6BED2"
-                    android:textSize="14sp" />
-                
-                <androidx.appcompat.widget.AppCompatImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:src="@mipmap/ic_scan" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                android:gravity="center_vertical"
+                app:inputHint="请扫描/输入移入库位"
+                app:inputIcon="@mipmap/ic_scan"
+                app:inputTitle="移入库位" />
         </androidx.appcompat.widget.LinearLayoutCompat>
         
         <Space

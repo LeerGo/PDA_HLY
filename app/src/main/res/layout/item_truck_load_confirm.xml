@@ -86,7 +86,9 @@
             android:layout_height="40dp"
             android:gravity="center_vertical"
             app:inputHint="请输入装车数量"
+            app:inputMax="@={data.planQuantity}"
             app:inputText="@={data.loadQuantity}"
-            app:inputTitle="装车数量" />
+            app:inputTitle="装车数量"
+            app:inputType="number" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

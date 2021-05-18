@@ -77,9 +77,11 @@ public class WidgetInputItem extends RelativeLayout {
             if (hasFocus) {
                 addTextWatcher();
                 setInputDigits(digits);
-                if (inputType == EditorInfo.TYPE_CLASS_NUMBER && maxValue != -1) {
+                if (inputType == EditorInfo.TYPE_CLASS_NUMBER) {
                     setInputDigits(DIGITS_NUMBER);
-                    etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
+
+                    if (maxValue != -1)
+                        etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
                 }
             }
         });
