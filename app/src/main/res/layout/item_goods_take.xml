@@ -33,8 +33,7 @@
         android:layout_marginHorizontal="12dp"
         android:layout_marginBottom="1dp"
         android:onClick="@{()->listener.transfer(data)}"
-        app:cardBackgroundColor="@color/white"
-        tools:layout_marginBottom="10dp">
+        app:cardBackgroundColor="@color/white">
         
         <RelativeLayout
             android:layout_width="match_parent"
@@ -82,14 +81,14 @@
                 app:propsKey="排队号："
                 app:propsValue="@{data.carQueueNumber}"
                 tools:propsValue="10" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
                 android:layout_alignParentEnd="true"
+                app:wqiCount="@{data.receivedQuantity}"
                 app:wqiName="件数："
                 app:wqiSum="@{data.totalQuantity}"
-                app:wqiCount="@{data.receivedQuantity}"
                 tools:wqiCount="100"
                 tools:wqiSum="10000" />
             

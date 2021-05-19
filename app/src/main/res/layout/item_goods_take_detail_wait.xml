@@ -8,11 +8,9 @@
         
         <import type="android.text.TextUtils" />
         
-        <import type="com.arpa.wms.hly.bean.res.ResGoodsTakeDetail.ItemsBean" />
-        
         <variable
             name="data"
-            type="ItemsBean" />
+            type="com.arpa.wms.hly.bean.OutboundItemVOList" />
         
         <variable
             name="listener"
@@ -47,7 +45,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_toEndOf="@id/ivIcon"
                 android:gravity="center_vertical"
-                android:text='@{@string/goods_take_number(data.goodCode)}'
+                android:text='@{@string/goods_name(data.goodsName)}'
                 android:textColor="@color/color_434c67"
                 tools:text="商品名称：测试商品" />
             
@@ -66,7 +64,7 @@
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="基本单位："
-                    app:propsValue="@{data.basicUnitName}"
+                    app:propsValue="@{data.goodsUnitName}"
                     tools:propsValue="件" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetQuantityItem

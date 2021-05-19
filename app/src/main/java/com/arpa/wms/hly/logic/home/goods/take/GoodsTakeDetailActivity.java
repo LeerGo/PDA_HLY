@@ -32,8 +32,9 @@ public class GoodsTakeDetailActivity extends BaseActivity<VMGoodsTakeDetail, Act
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
         ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
-        viewModel.data.set(data);
-        viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(Const.TASK_STATUS.TAKE_WAIT, data.getCode()));
-        viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(Const.TASK_STATUS.TAKE_YET, data.getCode()));
+        String receiveCode = data.getCode();
+        viewModel.headerData.set(data);
+        viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(Const.TASK_STATUS.TAKE_WAIT, receiveCode));
+        viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(Const.TASK_STATUS.TAKE_YET, receiveCode));
     }
 }

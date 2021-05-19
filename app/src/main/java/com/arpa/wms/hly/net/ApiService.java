@@ -1,5 +1,6 @@
 package com.arpa.wms.hly.net;
 
+import com.arpa.wms.hly.bean.OutboundItemVOList;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
@@ -93,6 +94,18 @@ public interface ApiService {
     Call<Result<List<ResGoodsTakeDetail>>> goodsTakeDetailList(@QueryMap Map<String, Object> data);
 
     /**
+     * 收货详情接口上方数据
+     */
+    @GET("wms/pda/receive/receiveDetailsAbouve")
+    Call<Result<ResTaskAssign>> receiveDetailsAbove(@Query("receiveCode") String receiveCode);
+
+    /**
+     * 收货详情接口下方数据
+     */
+    @GET("wms/pda/receive/receiveDetailsBelow")
+    Call<Result<List<OutboundItemVOList>>> receiveDetailsBelow(@QueryMap Map<String, Object> data);
+
+    /**
      * 库存查询
      */
     @GET("wms/inventory")
@@ -155,10 +168,10 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://192.168.31.166/"; // 夏宝新
-        //    String URL_WMS = "http://192.168.30.170/"; // 邵朱尧
-        //    String URL_WMS = "http://49.4.71.215/"; // 标准版开发测试
-        //    String URL_WMS = "http://192.168.31.144/"; // 508 内部服务器（原徐杨）
+        // String URL_WMS = "http://192.168.31.166/"; // 夏宝新
+        String URL_WMS = "http://192.168.30.170/"; // 邵朱尧
+        //  String URL_WMS = "http://49.4.71.215/"; // 标准版开发测试
+        //  String URL_WMS = "http://192.168.31.144/"; // 508 内部服务器（原徐杨）
 
         /**
          * API：获取仓库

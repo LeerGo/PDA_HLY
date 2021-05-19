@@ -160,11 +160,11 @@ public interface Const {
         /**
          * 收货 - 未收货
          */
-        String TAKE_WAIT = "2";
+        int TAKE_WAIT = 0;
         /**
          * 收货 - 已收货
          */
-        String TAKE_YET = "4";
+        int TAKE_YET = 2;
     }
 
     interface ASSIGN_WORK {

@@ -27,11 +27,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTakeDetailList, FragmentGoodsTakeDetailBinding> {
 
-    public static GoodsTakeDetailFragment newInstance(String status, String Code) {
+    public static GoodsTakeDetailFragment newInstance(int receiveStatus, String receiveCode) {
         GoodsTakeDetailFragment fragment = new GoodsTakeDetailFragment();
         Bundle args = new Bundle();
-        args.putString(IntentKey.STATUS, status);
-        args.putString(IntentKey.CODE, Code);
+        args.putInt(IntentKey.STATUS, receiveStatus);
+        args.putString(IntentKey.CODE, receiveCode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -49,8 +49,7 @@ public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTakeDetailL
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
-        viewModel.reqGoodsTakeDetail.setReceiveStatus(requireArguments().getString(IntentKey.STATUS));
-        viewModel.reqGoodsTakeDetail.setCode(requireArguments().getString(IntentKey.CODE));
+        viewModel.request.setParams(requireArguments().getInt(IntentKey.STATUS), requireArguments().getString(IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ItemsBean>) data -> {
 

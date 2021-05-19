@@ -156,10 +156,10 @@ public class WidgetInputItem extends RelativeLayout {
 
     @BindingAdapter("inputMax")
     public static void setInputMax(WidgetInputItem view, int maxValue) {
-        view.setInputMax(maxValue);
+        view.setMaxValue(maxValue);
     }
 
-    public void setInputMax(int maxValue) {
+    public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
     }
 

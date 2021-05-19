@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
 
 /**
@@ -117,4 +118,6 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
     public abstract Call<Result<List<T>>> getCall(Map<String, Object> params);
 
     public abstract ReqBase getParams();
+
+    public abstract ItemBinding<T> getItemBinding();
 }

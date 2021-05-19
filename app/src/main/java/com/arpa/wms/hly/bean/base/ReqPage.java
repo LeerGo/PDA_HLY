@@ -10,10 +10,10 @@ package com.arpa.wms.hly.bean.base;
  * </p>
  */
 public class ReqPage extends ReqBase{
-    public Integer pageNum;
-    public Integer pageSize;
+    public int pageNum;
+    public int pageSize;
 
-    public ReqPage(Integer pageSize) {
+    public ReqPage(int pageSize) {
         this.pageNum = 1;
         this.pageSize = pageSize;
     }

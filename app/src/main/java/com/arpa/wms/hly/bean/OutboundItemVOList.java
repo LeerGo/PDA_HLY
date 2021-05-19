@@ -11,6 +11,7 @@ package com.arpa.wms.hly.bean;
  */
 public class OutboundItemVOList {
     private String code;
+    private String goodCode; // 商品编码
     private String goodsName; // 商品名称
     private String goodsUnitName; // 单位
     private String extendOne; // 产地
@@ -18,6 +19,14 @@ public class OutboundItemVOList {
     private String extendTwo; // 特殊品项
     private int planQuantity; // 计划数量
     private String loadQuantity;
+
+    public String getGoodCode() {
+        return goodCode;
+    }
+
+    public void setGoodCode(String goodCode) {
+        this.goodCode = goodCode;
+    }
 
     public String getLoadQuantity() {
         return loadQuantity;

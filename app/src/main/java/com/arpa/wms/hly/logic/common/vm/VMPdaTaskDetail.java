@@ -5,6 +5,9 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
+import com.arpa.wms.hly.net.callback.ResultCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
@@ -23,7 +26,7 @@ import androidx.fragment.app.Fragment;
  */
 public abstract class VMPdaTaskDetail extends WrapDataViewModel {
     public final ObservableField<String> searchHint = new ObservableField<>();
-    public final ObservableField<ResTaskAssign> data = new ObservableField<>();
+    public final ObservableField<ResTaskAssign> headerData = new ObservableField<>();
     public final ObservableList<Fragment> fragments = new ObservableArrayList<>();
     public final ObservableList<String> titles = new ObservableArrayList<>();
 
@@ -36,5 +39,26 @@ public abstract class VMPdaTaskDetail extends WrapDataViewModel {
         super.onCreate();
 
         searchHint.set("请扫描/输入商品条码");
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refreshData();
+    }
+
+    private void refreshData() {
+        apiService.receiveDetailsAbove(headerData.get().getCode())
+                .enqueue(new ResultCallback<ResTaskAssign>() {
+                    @Override
+                    public void onSuccess(ResTaskAssign data) {
+                        headerData.set(data);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        ToastUtils.showShort(error.getMessage());
+                    }
+                });
     }
 }

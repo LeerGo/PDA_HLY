@@ -4,6 +4,7 @@ import com.arpa.wms.hly.bean.BatchRuleBean;
 
 import java.util.List;
 
+@Deprecated
 public class ResGoodsTakeDetail {
     private String assignBy;
     private String assignName;

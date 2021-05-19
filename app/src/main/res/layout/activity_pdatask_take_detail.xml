@@ -38,7 +38,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="12dp"
-                android:paddingBottom="10dp"
                 app:wsbHint="@{viewModel.searchHint}" />
         </FrameLayout>
         
@@ -61,7 +60,7 @@
                     
                     <include
                         layout="@layout/item_goods_take"
-                        app:data="@{viewModel.data}"
+                        app:data="@{viewModel.headerData}"
                         app:showOrder="@{false}" />
                 </FrameLayout>
                 
