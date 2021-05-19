@@ -5,9 +5,6 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
-import com.arpa.wms.hly.net.callback.ResultCallback;
-import com.arpa.wms.hly.net.exception.ResultError;
-import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
@@ -44,21 +41,9 @@ public abstract class VMPdaTaskDetail extends WrapDataViewModel {
     @Override
     public void onResume() {
         super.onResume();
-        refreshData();
+        refreshHeader();
     }
 
-    private void refreshData() {
-        apiService.receiveDetailsAbove(headerData.get().getCode())
-                .enqueue(new ResultCallback<ResTaskAssign>() {
-                    @Override
-                    public void onSuccess(ResTaskAssign data) {
-                        headerData.set(data);
-                    }
+    protected abstract void refreshHeader();
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        ToastUtils.showShort(error.getMessage());
-                    }
-                });
-    }
 }

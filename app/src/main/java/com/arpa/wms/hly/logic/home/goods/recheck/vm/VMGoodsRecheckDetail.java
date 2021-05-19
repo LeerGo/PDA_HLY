@@ -3,8 +3,11 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.logic.common.vm.VMPdaTaskDetail;
-import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckDetailFragment;
+import com.arpa.wms.hly.net.callback.ResultCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.Arrays;
 
@@ -33,9 +36,22 @@ public class VMGoodsRecheckDetail extends VMPdaTaskDetail {
     @Override
     public void onCreate() {
         super.onCreate();
-
-        fragments.add(GoodsRecheckDetailFragment.newInstance("DemoTabFragment#1"));
-        fragments.add(GoodsRecheckDetailFragment.newInstance("DemoTabFragment#2"));
         titles.addAll(Arrays.asList("待复核", "已复核"));
+    }
+
+    @Override
+    protected void refreshHeader() {
+        apiService.recheckItemList(headerData.get().getCode())
+                .enqueue(new ResultCallback<ResTaskAssign>() {
+                    @Override
+                    public void onSuccess(ResTaskAssign data) {
+                        headerData.set(data);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        ToastUtils.showShort(error.getMessage());
+                    }
+                });
     }
 }

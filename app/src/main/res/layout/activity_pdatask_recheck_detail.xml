@@ -39,7 +39,6 @@
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
                 android:paddingHorizontal="12dp"
-                android:paddingBottom="10dp"
                 app:wsbHint="@{viewModel.searchHint}" />
         </FrameLayout>
         
@@ -60,11 +59,9 @@
                     android:paddingTop="10dp"
                     app:layout_scrollFlags="scroll">
                     
-                    <!--TODO: 这里的 data 数据类型为ResPdaTask， 实际需要 ResTaskAssign @lyf 2021-05-17 03:56:13 -->
-                    <!--TODO: 这里的 data 数据类型为ResPdaTask， 实际需要 ResTaskAssign @lyf 2021-05-17 03:56:13 -->
-                    <!--<include
+                    <include
                         layout="@layout/item_goods_take"
-                        app:data="@{viewModel.data}" />-->
+                        app:data="@{viewModel.headerData}" />
                 </FrameLayout>
                 
                 <com.google.android.material.tabs.TabLayout

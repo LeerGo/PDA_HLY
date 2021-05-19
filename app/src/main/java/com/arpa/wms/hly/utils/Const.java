@@ -165,6 +165,14 @@ public interface Const {
          * 收货 - 已收货
          */
         int TAKE_YET = 2;
+        /**
+         * 复核 - 未复核
+         */
+        int RECHECK_WAIT = 0;
+        /**
+         * 复核 - 已复核
+         */
+        int RECHECK_YET = 1;
     }
 
     interface ASSIGN_WORK {

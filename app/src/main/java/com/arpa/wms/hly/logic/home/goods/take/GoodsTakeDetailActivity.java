@@ -21,6 +21,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * 页面：商品收货详情
  * </p>
  */
+// TODO: 搜索功能需要完成 @lyf 2021-05-19 10:47:41
 @AndroidEntryPoint
 public class GoodsTakeDetailActivity extends BaseActivity<VMGoodsTakeDetail, ActivityPdataskTakeDetailBinding> {
     @Override

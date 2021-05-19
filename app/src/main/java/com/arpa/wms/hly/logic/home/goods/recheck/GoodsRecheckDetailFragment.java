@@ -3,9 +3,13 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseLazyFragment;
+import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList;
+import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
@@ -24,10 +28,11 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheckDetailList, FragmentGoodsRecheckDetailBinding> {
 
-    public static GoodsRecheckDetailFragment newInstance(String text) {
+    public static GoodsRecheckDetailFragment newInstance(int outboundStatus, String outboundCode) {
         GoodsRecheckDetailFragment fragment = new GoodsRecheckDetailFragment();
         Bundle args = new Bundle();
-        args.putString(Const.IntentKey.INDEX, text);
+        args.putInt(Const.IntentKey.STATUS, outboundStatus);
+        args.putString(Const.IntentKey.CODE, outboundCode);
         fragment.setArguments(args);
         return fragment;
     }
@@ -40,10 +45,11 @@ public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheckD
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setViewModel(viewModel);
-        //        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        /*viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
+        viewModel.request.setParams(requireArguments().getInt(Const.IntentKey.STATUS), requireArguments().getString(Const.IntentKey.CODE));
+        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
+        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResGoodsTakeDetail.ItemsBean>) data -> {
 
-        });*/
+        });
     }
 
     @Override

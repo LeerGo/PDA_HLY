@@ -7,7 +7,6 @@ import com.arpa.wms.hly.bean.req.ReqMoveSure;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
-import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResMoveGoods;
@@ -88,12 +87,6 @@ public interface ApiService {
     Call<ResultPage<ResTaskAssign>> goodsReceiveList(@QueryMap Map<String, Object> data);
 
     /**
-     * 获取收货任务详情列表
-     */
-    @GET("wms/pda/receive")
-    Call<Result<List<ResGoodsTakeDetail>>> goodsTakeDetailList(@QueryMap Map<String, Object> data);
-
-    /**
      * 收货详情接口上方数据
      */
     @GET("wms/pda/receive/receiveDetailsAbouve")
@@ -104,6 +97,24 @@ public interface ApiService {
      */
     @GET("wms/pda/receive/receiveDetailsBelow")
     Call<Result<List<OutboundItemVOList>>> receiveDetailsBelow(@QueryMap Map<String, Object> data);
+
+    /**
+     * 复核列表接口
+     */
+    @GET("wms/pda/outbound/recheckList")
+    Call<ResultPage<ResTaskAssign>> goodsRecheckList(@QueryMap Map<String, Object> data);
+
+    /**
+     * 查询复核列表详情接口上方数据
+     */
+    @GET("wms/pda/outbound/recheckItemListAbouve")
+    Call<Result<ResTaskAssign>> recheckItemList(@Query("outboundCode") String outboundCode);
+
+    /**
+     * 查询复核列表详情接口下方数据
+     */
+    @GET("wms/pda/outbound/recheckItemListBelow")
+    Call<Result<List<OutboundItemVOList>>> recheckItemListBelow(@QueryMap Map<String, Object> data);
 
     /**
      * 库存查询

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.ActivityPdataskRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
 import com.arpa.wms.hly.utils.Const;
@@ -31,11 +32,10 @@ public class GoodsRecheckDetailActivity extends BaseActivity<VMGoodsRecheckDetai
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         viewBind.setVariable(BR.viewModel, viewModel);
-        viewModel.headerData.set(getIntent().getParcelableExtra(Const.IntentKey.DATA));
-        //        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
-        //        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        //        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
-        //
-        //        });
+        ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
+        String outboundCode = data.getCode();
+        viewModel.headerData.set(data);
+        viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_WAIT, outboundCode));
+        viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_YET, outboundCode));
     }
 }

@@ -10,7 +10,7 @@ import com.arpa.wms.hly.bean.OutboundItemVOList;
 import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeDetail;
-import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.Const.TASK_STATUS;
 
 import java.util.List;
 import java.util.Map;
@@ -53,7 +53,7 @@ public class VMGoodsTakeDetailList extends VMBaseList<OutboundItemVOList> {
     @Override
     public ItemBinding<OutboundItemVOList> getItemBinding() {
         ItemBinding<OutboundItemVOList> itemBinding;
-        if (request.getReceiveStatus() == Const.TASK_STATUS.TAKE_WAIT) {
+        if (request.getReceiveStatus() == TASK_STATUS.TAKE_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take_detail_wait);
         } else {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take_detail_yet);

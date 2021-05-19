@@ -26,6 +26,7 @@ import retrofit2.Call;
  * ViewModel：PDA 任务列表
  * </p>
  */
+@Deprecated
 public abstract class VMPdaTask extends VMBaseRefreshList<ResTaskAssign> {
     private final ObservableField<String> searchHint = new ObservableField<>();
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);

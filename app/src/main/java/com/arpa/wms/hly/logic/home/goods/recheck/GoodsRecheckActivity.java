@@ -2,14 +2,11 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
 
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
-import com.arpa.wms.hly.bean.res.ResPdaTask;
 import com.arpa.wms.hly.databinding.ActivityPdataskRecheckBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheck;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
-import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -36,10 +33,7 @@ public class GoodsRecheckActivity extends WrapBaseActivity<VMGoodsRecheck, Activ
 
         viewBind.setViewModel(viewModel);
         // TODO: 替换为 xml 映射 @lyf 2021-05-12 09:15:28
-        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
+        // viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResPdaTask>) data -> {
-
-        });
     }
 }

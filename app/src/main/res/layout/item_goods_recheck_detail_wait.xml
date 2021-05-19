@@ -11,6 +11,10 @@
         <variable
             name="data"
             type="com.arpa.wms.hly.bean.OutboundItemVOList" />
+        
+        <variable
+            name="listener"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
     </data>
     
     <com.google.android.material.card.MaterialCardView
@@ -18,6 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
         android:layout_marginBottom="1dp"
+        android:onClick="@{()->listener.transfer(data)}"
         app:cardBackgroundColor="@color/white"
         tools:layout_marginBottom="10dp">
         
@@ -35,23 +40,14 @@
             
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvCarNumber"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginStart="4dp"
                 android:layout_toEndOf="@id/ivIcon"
                 android:gravity="center_vertical"
-                android:text='@{@string/goods_take_number(data.goodCode)}'
+                android:text='@{@string/goods_name(data.goodsName)}'
                 android:textColor="@color/color_434c67"
-                tools:text="商品编码：SH2020092300008" />
-            
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBaseline="@id/tvCarNumber"
-                android:layout_alignParentEnd="true"
-                android:text="@{data.extendTwo}"
-                android:textColor="@color/colorPrimary"
-                tools:text="合格" />
+                tools:text="商品名称：测试商品" />
             
             <View
                 android:id="@+id/line"
@@ -60,71 +56,64 @@
                 android:layout_below="@id/tvCarNumber"
                 android:background="@color/color_ececec" />
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_place"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/line"
-                app:propsKey="商品名称："
-                app:propsValue="@{data.goodsName}"
-                tools:propsValue="测试商品" />
-    
-    
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll1"
                 style="@style/WMatchHWrap"
-                android:layout_below="@id/wpi_place">
-        
+                android:layout_below="@id/line">
+                
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="基本单位："
                     app:propsValue="@{data.goodsUnitName}"
-                    tools:propsValue="箱" />
-        
-                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    tools:propsValue="件" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
                     style="@style/TaskPropsWeightStyle"
-                    app:propsKey="收货数量："
-                    app:propsValue="1000"
-                    tools:propsValue="100" />
+                    app:wqiName="复核数量：" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-            
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_date"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/ll1"
-                app:propsKey="生产日期："
-                app:propsValue="@{data.gmtManufacture}"
-                tools:propsValue="2021-05-06" />
             
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll2"
                 style="@style/WMatchHWrap"
-                android:layout_below="@id/wpi_date">
+                android:layout_below="@id/ll1">
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="产        地："
+                    app:propsValue="@{data.goodsName}"
                     tools:propsValue="A7" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="特殊品项："
+                    app:propsValue="@{data.gmtManufacture}"
                     tools:propsValue="常规" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_yards"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/ll2"
-                app:propsKey="码托数量："
-                app:propsValue="100"
-                tools:propsValue="100" />
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll3"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/ll2">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="码托数量："
+                    app:propsValue="@{data.goodsName}"
+                    tools:propsValue="100" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="整  托  数："
+                    app:propsValue="@{data.gmtManufacture}"
+                    tools:propsValue="200" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_yards"
-                app:propsKey="存放库位："
-                app:propsValue="1001"
-                tools:propsValue="1001" />
+                android:layout_below="@id/ll3"
+                app:propsKey="生产日期："
+                app:propsValue="@{data.gmtManufacture}"
+                tools:propsValue="2021-05-14" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

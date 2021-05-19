@@ -3,7 +3,11 @@ package com.arpa.wms.hly.logic.home.goods.take.vm;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.logic.common.vm.VMPdaTaskDetail;
+import com.arpa.wms.hly.net.callback.ResultCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.Arrays;
 
@@ -32,7 +36,22 @@ public class VMGoodsTakeDetail extends VMPdaTaskDetail {
     @Override
     public void onCreate() {
         super.onCreate();
-
         titles.addAll(Arrays.asList("待收货", "已收货"));
+    }
+
+    @Override
+    protected void refreshHeader() {
+        apiService.receiveDetailsAbove(headerData.get().getCode())
+                .enqueue(new ResultCallback<ResTaskAssign>() {
+                    @Override
+                    public void onSuccess(ResTaskAssign data) {
+                        headerData.set(data);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        ToastUtils.showShort(error.getMessage());
+                    }
+                });
     }
 }

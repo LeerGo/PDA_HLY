@@ -71,21 +71,21 @@
                     style="@style/TaskPropsWeightStyle"
                     app:wqiName="收货数量：" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-            
+    
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll2"
                 style="@style/WMatchHWrap"
                 android:layout_below="@id/ll1">
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="产        地："
                     app:propsValue="@{data.goodsName}"
                     tools:propsValue="A7" />
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
-                    app:propsKey="特殊品项：："
+                    app:propsKey="特殊品项："
                     app:propsValue="@{data.gmtManufacture}"
                     tools:propsValue="常规" />
             </androidx.appcompat.widget.LinearLayoutCompat>

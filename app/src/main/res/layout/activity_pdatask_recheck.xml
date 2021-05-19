@@ -24,7 +24,8 @@
             app:wtbTitle="待复核列表" />
         
         <!--搜索框-->
-        <FrameLayout
+        <!--TODO: UI 设计稿上没有搜索模块 @lyf 2021-05-14 10:12:24 -->
+        <!--<FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
@@ -41,7 +42,7 @@
                 android:paddingHorizontal="12dp"
                 android:paddingBottom="10dp"
                 app:wsbHint="@{viewModel.searchHint}" />
-        </FrameLayout>
+        </FrameLayout>-->
         
         <!--内容区域-->
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
@@ -60,6 +61,7 @@
                 android:id="@+id/rvList"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:paddingTop="10dp"
                 app:adapter="@{viewModel.adapter}"
                 app:itemBinding="@{viewModel.itemBinding}"
                 app:items="@{viewModel.items}"

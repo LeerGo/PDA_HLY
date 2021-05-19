@@ -1,6 +1,7 @@
 package com.arpa.wms.hly.logic.home.goods.take.vm;
 
 import android.app.Application;
+import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
@@ -10,6 +11,9 @@ import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
+import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeDetailActivity;
+import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const;
 
 import java.util.Map;
 
@@ -40,11 +44,6 @@ public class VMGoodsTake extends VMBaseRefreshList<ResTaskAssign> {
     }
 
     @Override
-    public void configAdapter() {
-        setAdapter(new WrapBindingRVAdapter<>());
-    }
-
-    @Override
     public Call<ResultPage<ResTaskAssign>> getCall(Map<String, Object> params) {
         return apiService.goodsReceiveList(params);
     }
@@ -54,10 +53,19 @@ public class VMGoodsTake extends VMBaseRefreshList<ResTaskAssign> {
         return reqPage;
     }
 
+    @Override
+    public void configAdapter() {
+        setAdapter(new WrapBindingRVAdapter<>());
+    }
 
     @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
         itemBinding.bindExtra(BR.showOrder, true);
+        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
+            Bundle bundle = new Bundle();
+            bundle.putParcelable(Const.IntentKey.DATA, data);
+            startActivity(GoodsTakeDetailActivity.class, bundle);
+        });
         return itemBinding;
     }
 }

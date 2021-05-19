@@ -10,31 +10,25 @@
             name="viewModel"
             type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList" />
     </data>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
     
-<!--    <com.scwang.smart.refresh.layout.SmartRefreshLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        app:autoRefresh="@{viewModel.isAutoRefresh}"-->
-<!--        app:hasMore="@{viewModel.hasMore}"-->
-<!--        app:moreLoading="@{viewModel.moreLoading}"-->
-<!--        app:onLoadMoreListener="@{()->viewModel.loadMore()}"-->
-<!--        app:onRefreshListener="@{()->viewModel.refresh()}"-->
-<!--        app:refreshing="@{viewModel.refreshing}"-->
-<!--        app:srlEnableFooterFollowWhenNoMoreData="true"-->
-<!--        app:srlEnableLoadMore="true"-->
-<!--        app:srlEnablePreviewInEditMode="true">-->
-<!--        -->
-<!--        <androidx.recyclerview.widget.RecyclerView-->
-<!--            android:id="@+id/rvList"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            app:itemBinding="@{viewModel.itemBinding}"-->
-<!--            app:items="@{viewModel.items}"-->
-<!--            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"-->
-<!--            tools:itemCount="20"-->
-<!--            tools:listitem="@layout/item_goods_recheck" />-->
-<!--    </com.scwang.smart.refresh.layout.SmartRefreshLayout>-->
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:autoRefresh="@{viewModel.isAutoRefresh}"
+        app:onRefreshListener="@{()->viewModel.refresh()}"
+        app:refreshing="@{viewModel.refreshing}"
+        app:srlEnableFooterFollowWhenNoMoreData="false"
+        app:srlEnableLoadMore="false"
+        app:srlEnablePreviewInEditMode="true">
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:itemBinding="@{viewModel.itemBinding}"
+            app:items="@{viewModel.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_goods_recheck_detail_wait" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 </layout>
