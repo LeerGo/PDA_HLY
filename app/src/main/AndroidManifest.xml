@@ -70,7 +70,9 @@
         </activity>
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckDetailActivity" />
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckConfirmActivity" />
-        <activity android:name=".logic.home.goods.recheck.GoodsRecheckBatchActivity" />
+        <activity
+            android:name=".logic.home.goods.recheck.GoodsRecheckBatchActivity"
+            android:windowSoftInputMode="stateVisible|adjustPan" />
         <!--装车-->
         <activity android:name=".logic.home.truckload.TruckLoadActivity">
             <intent-filter>

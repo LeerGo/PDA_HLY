@@ -61,7 +61,6 @@ public class VMGoodsRecheckDetailList extends VMBaseList<OutboundItemVOList> {
         if (request.getRecheckStatus() == TASK_STATUS.RECHECK_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_wait);
             itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<OutboundItemVOList>) data -> {
-                Log.e("@@@@ L63", "VMGoodsRecheckDetailList :getItemBinding() -> -------------------");
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentKey.OUTBOUND_CODE, data.getOutboundCode());
                 bundle.putString(IntentKey.OUTBOUND_ITEM_CODE, data.getCode());

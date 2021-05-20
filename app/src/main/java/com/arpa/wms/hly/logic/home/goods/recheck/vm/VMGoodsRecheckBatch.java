@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
@@ -23,11 +24,12 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMGoodsRecheckBatch extends WrapDataViewModel {
+    public ObservableField<String> goodName = new ObservableField<>();
+    public ObservableField<String> goodUnitName = new ObservableField<>();
     public ArrayList<String> codeList = new ArrayList<>();
 
     @Inject
     public VMGoodsRecheckBatch(@NonNull Application application, BaseModel model) {
         super(application, model);
-
     }
 }

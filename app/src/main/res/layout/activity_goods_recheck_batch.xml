@@ -39,6 +39,7 @@
                     app:propsKey="商品名称"
                     app:propsKeyColor="@color/color_434c67"
                     app:propsKeySize="15sp"
+                    app:propsValue="@{viewModel.goodName}"
                     app:propsValueGravity="end"
                     tools:propsValue="伊利优酸乳" />
                 
@@ -54,8 +55,9 @@
                         style="@style/ItemRecheckBatchStyle"
                         app:propsKey="单位"
                         app:propsKeyColor="@color/color_434c67"
+                        app:propsValue="@{viewModel.goodUnitName}"
                         app:propsValueGravity="end"
-                        tools:propsValue="伊利优酸乳" />
+                        tools:propsValue="箱" />
                     
                     <View
                         android:layout_width="match_parent"

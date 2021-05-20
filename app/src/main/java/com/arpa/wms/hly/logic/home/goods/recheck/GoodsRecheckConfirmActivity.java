@@ -26,6 +26,9 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheckConfirm, ActivityGoodsRecheckConfirmBinding> {
 
+    /**
+     * 批次登记的 activity result
+     */
     private final ActivityResultLauncher<Intent> batchResult =
             registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
                     result -> {
@@ -54,6 +57,8 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
                 getIntent().getStringExtra(IntentKey.OUTBOUND_ITEM_CODE));
         viewBind.acbBatchRegist.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
+            bundle.putString(IntentKey.GOODS_NAME, viewModel.detail.get().getGoodsName());
+            bundle.putString(IntentKey.GOODS_UNIT_NAME, viewModel.detail.get().getGoodsUnitName());
             bundle.putStringArrayList(IntentKey.DATA, viewModel.batchCodeList);
             batchResult.launch(newIntent(GoodsRecheckBatchActivity.class, bundle));
         });

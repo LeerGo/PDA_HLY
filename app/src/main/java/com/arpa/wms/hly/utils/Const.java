@@ -31,6 +31,8 @@ public interface Const {
         String OUTBOUND_CODE = "outboundCode";
         String OUTBOUND_ITEM_CODE = "outboundItemCode";
         String PICK_RECHECK_TYPE = "orderTag";
+        String GOODS_NAME = "goodName";
+        String GOODS_UNIT_NAME = "goodUnitName";
     }
 
     /**
@@ -64,7 +66,7 @@ public interface Const {
         /**
          * 装车
          */
-        String LOADING="LOADING";
+        String LOADING = "LOADING";
     }
 
     /**

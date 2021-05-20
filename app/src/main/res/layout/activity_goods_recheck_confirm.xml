@@ -10,7 +10,6 @@
             type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckConfirm" />
     </data>
     
-    <!--TODO: 数据填充 @lyf 2021-05-19 04:05:34 -->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -38,6 +37,7 @@
                     app:propsKey="商品名称"
                     app:propsKeyColor="@color/color_434c67"
                     app:propsKeySize="15sp"
+                    app:propsValue="@{viewModel.detail.goodsName}"
                     app:propsValueGravity="end"
                     tools:propsValue="伊利优酸乳" />
                 
@@ -51,6 +51,7 @@
                         app:propsKey="单位"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.goodsUnitName}"
                         app:propsValueGravity="end"
                         tools:propsValue="箱" />
                     
@@ -59,6 +60,7 @@
                         app:propsKey="库存状态"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.goodsStatusName}"
                         app:propsValueGravity="end"
                         tools:propsValue="合格" />
                     
@@ -67,6 +69,7 @@
                         app:propsKey="生产日期"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.gmtManufacture}"
                         app:propsValueGravity="end"
                         tools:propsValue="2021-05-13" />
                     
@@ -75,6 +78,7 @@
                         app:propsKey="产地"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendOne}"
                         app:propsValueGravity="end"
                         tools:propsValue="A7" />
                 
@@ -90,6 +94,7 @@
                         app:propsKey="特殊品项"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendTwo}"
                         app:propsValueGravity="end"
                         tools:propsValue="常规" />
                     
@@ -98,6 +103,7 @@
                         app:propsKey="码托数量"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{String.valueOf(viewModel.detail.supportNum)}"
                         app:propsValueGravity="end"
                         tools:propsValue="100" />
                     
@@ -106,6 +112,7 @@
                         app:propsKey="整托数"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{String.valueOf(viewModel.detail.traysNum)}"
                         app:propsValueGravity="end"
                         tools:propsValue="3" />
                     
@@ -114,6 +121,7 @@
                         app:propsKey="拣货数量"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{String.valueOf(viewModel.detail.planQuantity)}"
                         app:propsValueGravity="end"
                         tools:propsValue="300" />
                     

@@ -48,6 +48,14 @@ public class GoodsRecheckBatchActivity
         super.initData(savedInstanceState);
         sHandler = new WeakHandler<>(GoodsRecheckBatchActivity.this);
         viewBind.setViewModel(viewModel);
+
+        setViews();
+        restoreCodes();
+        viewModel.goodName.set(getIntent().getStringExtra(IntentKey.GOODS_NAME));
+        viewModel.goodUnitName.set(getIntent().getStringExtra(IntentKey.GOODS_UNIT_NAME));
+    }
+
+    private void setViews() {
         viewBind.acbSure.setOnClickListener(v -> {
             Intent data = new Intent();
             data.putStringArrayListExtra(IntentKey.DATA, viewModel.codeList);
@@ -55,6 +63,9 @@ public class GoodsRecheckBatchActivity
             finish();
         });
         viewBind.wiiInput.setOnTextChanged(this::postMsgDelayed);
+    }
+
+    private void restoreCodes() {
         ArrayList<String> codeList = getIntent().getStringArrayListExtra(IntentKey.DATA);
         if (!codeList.isEmpty()) {
             for (String code : codeList) addTagView(code);

@@ -14,12 +14,39 @@ public class OutboundItemVOList {
     private String goodCode; // 商品编码
     private String goodsName; // 商品名称
     private String goodsUnitName; // 单位
-    private String extendOne; // 产地
     private String gmtManufacture; // 生产日期
+    private String extendOne; // 产地
     private String extendTwo; // 特殊品项
-    private int planQuantity; // 计划数量
+    private int planQuantity; // 计划数量，在复核里是拣货数量
+    private int traysNum; //托数
+    private int supportNum; //码托数量
     private String loadQuantity;
     private String outboundCode; // 出库码，复核用
+    private String goodsStatusName; // 商品状态名称
+
+    public String getGoodsStatusName() {
+        return goodsStatusName;
+    }
+
+    public void setGoodsStatusName(String goodsStatusName) {
+        this.goodsStatusName = goodsStatusName;
+    }
+
+    public int getTraysNum() {
+        return traysNum;
+    }
+
+    public void setTraysNum(int traysNum) {
+        this.traysNum = traysNum;
+    }
+
+    public int getSupportNum() {
+        return supportNum;
+    }
+
+    public void setSupportNum(int supportNum) {
+        this.supportNum = supportNum;
+    }
 
     public String getOutboundCode() {
         return outboundCode;
