@@ -21,9 +21,27 @@ public class OutboundItemVOList {
     private int traysNum; // (整)托数
     private int recheckQuantity; // 复核数量
     private int supportNum; // 码托数量
+    private int itemReceivedQuantity; // 收货数量
     private String loadQuantity;
     private String outboundCode; // 出库码，复核用
     private String goodsStatusName; // 商品状态名称
+    private String location; // 库位
+
+    public int getItemReceivedQuantity() {
+        return itemReceivedQuantity;
+    }
+
+    public void setItemReceivedQuantity(int itemReceivedQuantity) {
+        this.itemReceivedQuantity = itemReceivedQuantity;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
 
     public String getGoodsStatusName() {
         return goodsStatusName;

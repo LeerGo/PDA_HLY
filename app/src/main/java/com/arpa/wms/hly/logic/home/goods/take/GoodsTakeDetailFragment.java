@@ -3,13 +3,10 @@ package com.arpa.wms.hly.logic.home.goods.take;
 import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseLazyFragment;
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail.ItemsBean;
 import com.arpa.wms.hly.databinding.FragmentGoodsTakeDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailList;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
-import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
@@ -51,8 +48,5 @@ public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTakeDetailL
         viewBind.setViewModel(viewModel);
         viewModel.request.setParams(requireArguments().getInt(IntentKey.STATUS), requireArguments().getString(IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ItemsBean>) data -> {
-
-        });
     }
 }

@@ -214,6 +214,7 @@ public class ResGoodsTakeDetail {
         this.items = items;
     }
 
+    @Deprecated
     public static class ItemsBean {
         /**
          * code : 9fe4d56b640344d189a625e31927e7f0

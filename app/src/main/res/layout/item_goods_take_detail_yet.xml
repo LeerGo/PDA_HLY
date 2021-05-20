@@ -13,6 +13,7 @@
             type="com.arpa.wms.hly.bean.OutboundItemVOList" />
     </data>
     
+    <!--TODO: 有两个字段待填充 @lyf 2021-05-20 01:17:58 -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,23 +68,23 @@
                 app:propsKey="商品名称："
                 app:propsValue="@{data.goodsName}"
                 tools:propsValue="测试商品" />
-    
-    
+            
+            
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll1"
                 style="@style/WMatchHWrap"
                 android:layout_below="@id/wpi_place">
-        
+                
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="基本单位："
                     app:propsValue="@{data.goodsUnitName}"
                     tools:propsValue="箱" />
-        
+                
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="收货数量："
-                    app:propsValue="1000"
+                    app:propsValue="@{data.itemReceivedQuantity}"
                     tools:propsValue="100" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
@@ -103,11 +104,13 @@
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="产        地："
+                    app:propsValue="@{data.extendOne}"
                     tools:propsValue="A7" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="特殊品项："
+                    app:propsValue="@{data.extendTwo}"
                     tools:propsValue="常规" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
@@ -116,14 +119,14 @@
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/ll2"
                 app:propsKey="码托数量："
-                app:propsValue="100"
+                app:propsValue="@{data.supportNum}"
                 tools:propsValue="100" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_yards"
                 app:propsKey="存放库位："
-                app:propsValue="1001"
+                app:propsValue="@{data.location}"
                 tools:propsValue="1001" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
