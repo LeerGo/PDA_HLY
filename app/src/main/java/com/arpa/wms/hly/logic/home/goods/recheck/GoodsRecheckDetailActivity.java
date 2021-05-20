@@ -2,9 +2,9 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.ActivityPdataskRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckDetailActivity extends BaseActivity<VMGoodsRecheckDetail, ActivityPdataskRecheckDetailBinding> {
+public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckDetail, ActivityPdataskRecheckDetailBinding> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_pdatask_recheck_detail;
@@ -31,6 +31,8 @@ public class GoodsRecheckDetailActivity extends BaseActivity<VMGoodsRecheckDetai
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
         viewBind.setVariable(BR.viewModel, viewModel);
         ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
         String outboundCode = data.getCode();

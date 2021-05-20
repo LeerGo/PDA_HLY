@@ -19,6 +19,15 @@ public class OutboundItemVOList {
     private String extendTwo; // 特殊品项
     private int planQuantity; // 计划数量
     private String loadQuantity;
+    private String outboundCode; // 出库码，复核用
+
+    public String getOutboundCode() {
+        return outboundCode;
+    }
+
+    public void setOutboundCode(String outboundCode) {
+        this.outboundCode = outboundCode;
+    }
 
     public String getGoodCode() {
         return goodCode;

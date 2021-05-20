@@ -10,6 +10,7 @@
             type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckConfirm" />
     </data>
     
+    <!--TODO: 数据填充 @lyf 2021-05-19 04:05:34 -->
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -28,7 +29,8 @@
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/ItemRecheckBatchStyle"
@@ -129,9 +131,10 @@
                         app:propsKey="批次号"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.obvBatchCode}"
                         app:propsValueGravity="end"
                         app:propsValueSize="14sp"
-                        tools:propsValue="20201127001，20201127002，20201127003，" />
+                        tools:propsValue="20201127001，20201127002" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
@@ -144,6 +147,7 @@
             android:paddingVertical="16dp">
             
             <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acbBatchRegist"
                 android:layout_width="0dp"
                 android:layout_height="40dp"
                 android:layout_marginEnd="16dp"
@@ -159,6 +163,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/shape_rrect_blue_gradient_r5"
                 android:text="复核确认"
+                android:textColor="@color/white"
                 android:textSize="17sp" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>

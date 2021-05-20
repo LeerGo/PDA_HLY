@@ -51,6 +51,10 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
         adapter = new BindingRecyclerViewAdapter<>();
     }
 
+    public BindingRecyclerViewAdapter<T> getAdapter() {
+        return adapter;
+    }
+
     @Override
     public void onStart() {
         super.onStart();

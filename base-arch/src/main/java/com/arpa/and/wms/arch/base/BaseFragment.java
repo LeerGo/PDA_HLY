@@ -18,9 +18,11 @@ import android.widget.PopupWindow;
 import com.arpa.and.wms.arch.R;
 import com.arpa.and.wms.arch.base.livedata.MessageEvent;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.wms.arch.util.Const;
 
 import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
+import java.util.Map;
 
 import androidx.annotation.IdRes;
 import androidx.annotation.LayoutRes;
@@ -46,11 +48,6 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
 
     protected static final float DEFAULT_WIDTH_RATIO = 0.85f;
     /**
-     * 请通过 {@link #getRootView()} ()}获取，后续版本 {@link #mRootView}可能会私有化
-     */
-    private View mRootView;
-    private Dialog mDialog;
-    /**
      * 请通过 {@link #getViewModel()}获取，后续版本 {@link #viewModel}可能会私有化
      */
     public VM viewModel;
@@ -58,6 +55,11 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
      * 请通过 {@link #getViewDataBinding()}获取，后续版本 {@link #viewBind}可能会私有化
      */
     public VDB viewBind;
+    /**
+     * 请通过 {@link #getRootView()} ()}获取，后续版本 {@link #mRootView}可能会私有化
+     */
+    private View mRootView;
+    private Dialog mDialog;
     private Dialog mProgressDialog;
     private View.OnClickListener mOnDialogCancelClick = v -> dismissDialog();
 
@@ -113,7 +115,41 @@ public abstract class BaseFragment <VM extends BaseViewModel, VDB extends ViewDa
         if (viewModel != null) {
             getLifecycle().addObserver(viewModel);
             registerLoadingEvent();
+            registerStartActivityEvent();
+            registerFinishEvent();
         }
+    }
+
+    /**
+     * 注册界面跳转事件
+     */
+    protected void registerStartActivityEvent() {
+        viewModel.getStartActivityEvent().observe(this, (Observer<Map<String, Object>>) params -> {
+            Class<?> clz = (Class<?>) params.get(Const.ParameterField.CLASS);
+            Bundle bundle = (Bundle) params.get(Const.ParameterField.BUNDLE);
+            Integer flags = (Integer) params.get(Const.ParameterField.FLAGS);
+            startActivity(clz, bundle, flags);
+        });
+    }
+
+    public void startActivity(Class<?> clz, Bundle bundle, Integer flags) {
+        startActivity(newIntent(clz, bundle, flags));
+    }
+
+    protected Intent newIntent(Class<?> clz, Bundle bundle, Integer flags) {
+        Intent intent = new Intent(getContext(), clz);
+        if (null != bundle) intent.putExtras(bundle);
+        if (null != flags && -1 != flags) intent.addFlags(flags);
+        return intent;
+    }
+
+    /**
+     * 注册界面跳转事件
+     */
+    protected void registerFinishEvent() {
+        viewModel.getFinishEvent().observe(this, o -> {
+            finish();
+        });
     }
 
     /**

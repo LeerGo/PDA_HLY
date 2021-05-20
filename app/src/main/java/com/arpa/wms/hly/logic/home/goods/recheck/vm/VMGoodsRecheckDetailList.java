@@ -1,6 +1,8 @@
 package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 
 import android.app.Application;
+import android.os.Bundle;
+import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
@@ -10,6 +12,9 @@ import com.arpa.wms.hly.bean.OutboundItemVOList;
 import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
+import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckConfirmActivity;
+import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.Const.TASK_STATUS;
 
 import java.util.List;
@@ -53,8 +58,15 @@ public class VMGoodsRecheckDetailList extends VMBaseList<OutboundItemVOList> {
     @Override
     public ItemBinding<OutboundItemVOList> getItemBinding() {
         ItemBinding<OutboundItemVOList> itemBinding;
-        if (request.getOutboundStatus() == TASK_STATUS.RECHECK_WAIT) {
+        if (request.getRecheckStatus() == TASK_STATUS.RECHECK_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_wait);
+            itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<OutboundItemVOList>) data -> {
+                Log.e("@@@@ L63", "VMGoodsRecheckDetailList :getItemBinding() -> -------------------");
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentKey.OUTBOUND_CODE, data.getOutboundCode());
+                bundle.putString(IntentKey.OUTBOUND_ITEM_CODE, data.getCode());
+                startActivity(GoodsRecheckConfirmActivity.class, bundle);
+            });
         } else {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_yet);
         }

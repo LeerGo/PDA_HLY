@@ -28,6 +28,8 @@ public interface Const {
         String CONTAINER_CODE = "containerCode";
         String LOCATION_NAME = "locationName";
         String WAREHOUSE_CODE = "warehouseCode";
+        String OUTBOUND_CODE = "outboundCode";
+        String OUTBOUND_ITEM_CODE = "outboundItemCode";
         String PICK_RECHECK_TYPE = "orderTag";
     }
 

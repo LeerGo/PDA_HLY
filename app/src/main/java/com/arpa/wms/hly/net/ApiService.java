@@ -117,6 +117,12 @@ public interface ApiService {
     Call<Result<List<OutboundItemVOList>>> recheckItemListBelow(@QueryMap Map<String, Object> data);
 
     /**
+     * 查询单个商品复核详情
+     */
+    @GET("wms/pda/outbound/recheckRegisterDetail")
+    Call<Result<OutboundItemVOList>> recheckRegisterDetail(@QueryMap Map<String, Object> data);
+
+    /**
      * 库存查询
      */
     @GET("wms/inventory")

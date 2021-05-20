@@ -8,20 +8,34 @@ import com.arpa.wms.hly.bean.base.ReqBase;
  * since: 2021-05-18 17:11
  */
 public class ReqGoodRecheckDetail extends ReqBase {
-    private int outboundStatus;
+    private int recheckStatus;
     private String outboundCode;
+    private String outboundItemCode;
+
+    public void setParams(String outboundCode, String outboundItemCode) {
+        this.outboundCode = outboundCode;
+        this.outboundItemCode = outboundItemCode;
+    }
 
     public void setParams(int outboundStatus, String outboundCode) {
         this.outboundCode = outboundCode;
-        this.outboundStatus = outboundStatus;
+        this.recheckStatus = outboundStatus;
     }
 
-    public int getOutboundStatus() {
-        return outboundStatus;
+    public String getOutboundItemCode() {
+        return outboundItemCode;
     }
 
-    public void setOutboundStatus(int outboundStatus) {
-        this.outboundStatus = outboundStatus;
+    public void setOutboundItemCode(String outboundItemCode) {
+        this.outboundItemCode = outboundItemCode;
+    }
+
+    public int getRecheckStatus() {
+        return recheckStatus;
+    }
+
+    public void setRecheckStatus(int recheckStatus) {
+        this.recheckStatus = recheckStatus;
     }
 
     public String getOutboundCode() {
