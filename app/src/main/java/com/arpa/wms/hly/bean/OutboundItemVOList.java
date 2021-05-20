@@ -18,8 +18,9 @@ public class OutboundItemVOList {
     private String extendOne; // 产地
     private String extendTwo; // 特殊品项
     private int planQuantity; // 计划数量，在复核里是拣货数量
-    private int traysNum; //托数
-    private int supportNum; //码托数量
+    private int traysNum; // (整)托数
+    private int recheckQuantity; // 复核数量
+    private int supportNum; // 码托数量
     private String loadQuantity;
     private String outboundCode; // 出库码，复核用
     private String goodsStatusName; // 商品状态名称
@@ -38,6 +39,14 @@ public class OutboundItemVOList {
 
     public void setTraysNum(int traysNum) {
         this.traysNum = traysNum;
+    }
+
+    public int getRecheckQuantity() {
+        return recheckQuantity;
+    }
+
+    public void setRecheckQuantity(int recheckQuantity) {
+        this.recheckQuantity = recheckQuantity;
     }
 
     public int getSupportNum() {

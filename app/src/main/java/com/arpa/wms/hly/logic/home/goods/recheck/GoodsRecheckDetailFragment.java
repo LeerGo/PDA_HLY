@@ -3,13 +3,10 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseLazyFragment;
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.res.ResGoodsTakeDetail;
 import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
-import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
@@ -24,7 +21,6 @@ import dagger.hilt.android.AndroidEntryPoint;
  * 页面：商品待复核、已复核列表
  * </p>
  */
-// TODO: 列表 ITEM、ViewModel 布局还需要做一下 @lyf 2021-05-14 03:50:09
 @AndroidEntryPoint
 public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheckDetailList, FragmentGoodsRecheckDetailBinding> {
 
@@ -47,9 +43,6 @@ public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheckD
         viewBind.setViewModel(viewModel);
         viewModel.request.setParams(requireArguments().getInt(Const.IntentKey.STATUS), requireArguments().getString(Const.IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<ResGoodsTakeDetail.ItemsBean>) data -> {
-
-        });
     }
 
     @Override

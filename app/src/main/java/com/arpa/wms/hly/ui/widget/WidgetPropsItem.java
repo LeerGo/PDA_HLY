@@ -86,4 +86,8 @@ public class WidgetPropsItem extends LinearLayoutCompat {
     private void setPropsValueColor(int color) {
         tvValue.setTextColor(color);
     }
+
+    public void setPropsValue(int value) {
+        setPropsValue(String.valueOf(value));
+    }
 }

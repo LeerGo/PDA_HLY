@@ -80,13 +80,13 @@
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="产        地："
-                    app:propsValue="@{data.goodsName}"
+                    app:propsValue="@{data.extendOne}"
                     tools:propsValue="A7" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="特殊品项："
-                    app:propsValue="@{data.gmtManufacture}"
+                    app:propsValue="@{data.extendTwo}"
                     tools:propsValue="常规" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
@@ -98,13 +98,13 @@
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="码托数量："
-                    app:propsValue="@{data.goodsName}"
+                    app:propsValue="@{data.supportNum}"
                     tools:propsValue="100" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="整  托  数："
-                    app:propsValue="@{data.gmtManufacture}"
+                    app:propsValue="@{data.traysNum}"
                     tools:propsValue="200" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             

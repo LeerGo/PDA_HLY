@@ -32,8 +32,8 @@ public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckD
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-
         viewBind.setVariable(BR.viewModel, viewModel);
+
         ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
         String outboundCode = data.getCode();
         viewModel.headerData.set(data);
