@@ -65,14 +65,13 @@ public class SplashActivity extends AppCompatActivity implements WeakHandler.Mes
     @Override
     public void handleMessage(Message msg) {
         if (msg.what == msgJump) {
-            // TODO: 这里还需要根据有无 token，跳转登录或首页 @lyf 2021-04-22 08:33:30
-            if (SPUtils.getInstance().getBoolean(SPKEY.IS_NEW_USER, true)) {
+            if (SPUtils.getInstance().getBoolean(SPKEY.IS_NEW_USER, true))
                 startActivity(new Intent(this, LoginActivity.class));
-            } else {
+            else
                 startActivity(new Intent(this, HomeActivity.class));
-            }
+
             // ----------- 测试
-            // startActivity(new Intent(this, GoodsTakeConfirmActivity.class));
+            // startActivity(new Intent(this, DemoActivity.class));
             finish();
         }
     }

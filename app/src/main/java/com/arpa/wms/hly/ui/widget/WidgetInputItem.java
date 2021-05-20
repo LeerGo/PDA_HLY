@@ -117,7 +117,7 @@ public class WidgetInputItem extends RelativeLayout {
         setInputIcon(array.getDrawable(R.styleable.WidgetInputItem_inputIcon));
         setInputEnable(array.getBoolean(R.styleable.WidgetInputItem_inputEnable, true));
         setInputGravity(array.getInt(R.styleable.WidgetInputItem_inputGravity, -1));
-        inputType = array.getInt(R.styleable.WidgetInputItem_inputType, EditorInfo.TYPE_NULL);
+        inputType = array.getInt(R.styleable.WidgetInputItem_inputType, EditorInfo.TYPE_CLASS_TEXT);
         digits = array.getString(R.styleable.WidgetInputItem_inputDigits);
         setInputType(inputType);
         array.recycle();

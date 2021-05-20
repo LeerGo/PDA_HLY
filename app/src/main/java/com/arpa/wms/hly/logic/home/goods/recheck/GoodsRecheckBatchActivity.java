@@ -93,8 +93,8 @@ public class GoodsRecheckBatchActivity
             viewModel.codeList.remove(text);
             viewBind.cgBatchTags.removeView(v);
         });
-        viewModel.codeList.add(text);
-        viewBind.cgBatchTags.addView(chip);
+        viewModel.codeList.add(0, text);
+        viewBind.cgBatchTags.addView(chip, 0);
     }
 
     @Override

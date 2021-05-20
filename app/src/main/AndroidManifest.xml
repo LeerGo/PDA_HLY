@@ -17,6 +17,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="UnusedAttribute">
+        
         <activity
             android:name=".SplashActivity"
             android:theme="@style/SplashTheme">
@@ -29,7 +30,7 @@
         <activity android:name=".logic.LoginActivity" />
         <activity android:name=".logic.home.HomeActivity" />
         <activity android:name=".logic.mine.MineActivity" />
-        
+        <!--任务中心-->
         <activity android:name=".logic.task.TaskCenterActivity">
             <intent-filter>
                 <action android:name="arpa.wms.TASK_CENTER" />
@@ -37,7 +38,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+        <!--收货-->
         <activity android:name=".logic.home.goods.take.GoodsTakeActivity">
             <intent-filter>
                 <action android:name="arpa.wms.GOODS_TAKE" />
@@ -49,7 +50,7 @@
         <activity
             android:name=".logic.home.goods.take.GoodsTakeConfirmActivity"
             android:windowSoftInputMode="stateVisible|adjustPan" />
-        
+        <!--拣货-->
         <activity
             android:name=".logic.home.goods.pick.GoodsPickActivity"
             android:screenOrientation="landscape">
@@ -59,7 +60,7 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+        <!--复核-->
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckActivity">
             <intent-filter>
                 <action android:name="arpa.wms.GOODS_RECHECK" />
@@ -70,7 +71,7 @@
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckDetailActivity" />
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckConfirmActivity" />
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckBatchActivity" />
-        
+        <!--装车-->
         <activity android:name=".logic.home.truckload.TruckLoadActivity">
             <intent-filter>
                 <action android:name="arpa.wms.TRUCK_LOAD" />
@@ -80,7 +81,7 @@
         </activity>
         <activity android:name=".logic.home.truckload.TruckLoadDetailActivity" />
         <activity android:name=".logic.home.truckload.TruckLoadConfirmActivity" />
-        
+        <!--移位-->
         <activity android:name=".logic.home.inventory.move.ScanLocationActivity">
             <intent-filter>
                 <action android:name="arpa.wms.INVENTORY_MOVE" />
@@ -91,7 +92,7 @@
         <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
         <activity android:name=".logic.home.inventory.move.ScanGoodsDetailActivity" />
         <activity android:name=".logic.home.inventory.move.ScanGoodsSureActivity" />
-        
+        <!--库存查询-->
         <activity android:name=".logic.home.inventory.query.InventoryQueryActivity">
             <intent-filter>
                 <action android:name="arpa.wms.INVENTORY_QUERY" />
@@ -99,16 +100,15 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        
+        <!--测试页面-->
+        <activity android:name=".DemoActivity" />
         <!-- UI 适配参数 -->
         <meta-data
             android:name="design_width_in_dp"
             android:value="375" />
         <meta-data
             android:name="design_height_in_dp"
-            android:value="667" />
-        
-        <!-- App 全局配置 -->
+            android:value="667" /> <!-- App 全局配置 -->
         <meta-data
             android:name="com.arpa.wms.hly.base.AppConfigModule"
             android:value="FrameConfigModule" />
