@@ -1,7 +1,10 @@
 package com.arpa.and.wms.arch.util;
 
+import com.google.gson.ExclusionStrategy;
+import com.google.gson.FieldAttributes;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.Map;
@@ -23,8 +26,19 @@ public class GsonUtils {
      */
     private GsonUtils() {
         gson = new GsonBuilder()
-                .registerTypeAdapter(new TypeToken<Map<String, Object>>() {
-                }.getType(), new MapDeserializerDoubleAsIntFix())
+                .registerTypeAdapter(new TypeToken<Map<String, Object>>() {}.getType(), new MapDeserializerDoubleAsIntFix())
+                .addSerializationExclusionStrategy(new ExclusionStrategy() {
+                    @Override
+                    public boolean shouldSkipField(FieldAttributes f) {
+                        Expose expose = f.getAnnotation(Expose.class);
+                        return expose != null && !expose.serialize();
+                    }
+
+                    @Override
+                    public boolean shouldSkipClass(Class<?> clazz) {
+                        return false;
+                    }
+                })
                 .create();
     }
 

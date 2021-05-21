@@ -13,13 +13,16 @@ import java.util.List;
  * since: 2021-05-20 14:39
  */
 public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
+    @Expose(serialize = false)
     private int planQuantity; // 应收数量
+    @Expose(serialize = false)
     private String goodsName; // 商品名称
+    @Expose(serialize = false)
     private String goodsUnitName;// 商品单位
-    @Expose(deserialize = false)
+    @Expose(serialize = false)
     private ReceiveBean receive; // 取车牌号
-    @Expose(deserialize = false)
-    private List<InventoryStatus> inventoryStatusList; // 取车牌号
+    @Expose(serialize = false)
+    private List<InventoryStatus> inventoryStatusList; // 去状态列表
 
     public ReceiveBean getReceive() {
         return receive;
