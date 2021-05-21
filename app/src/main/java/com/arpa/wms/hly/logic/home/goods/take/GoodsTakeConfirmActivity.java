@@ -10,6 +10,7 @@ import com.arpa.wms.hly.databinding.ActivityGoodsTakeConfirmBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeConfirm;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.dialog.DialogDateSelect;
+import com.arpa.wms.hly.ui.dialog.DialogGoodStatusSelect;
 import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
@@ -49,14 +50,22 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
                 getIntent().getStringExtra(Const.IntentKey.RECEIVE_CODE),
                 getIntent().getStringExtra(Const.IntentKey.RECEIVE_ITEM_CODE));
         viewModel.itemBinding
-                .bindExtra(BR.onStatusClick, (ViewListener.DataTransCallback<GoodsItemVO>) data ->
-                        showDialogFragment(new DialogDateSelect(data::setGmtManufacture))
+                .bindExtra(BR.onStatusClick,
+                        (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
+                                showDialogFragment(new DialogGoodStatusSelect(
+                                        raw.getGoodsStatus(),
+                                        viewModel.detail.getInventoryStatusList(),
+                                        data -> {
+                                            raw.setGoodsStatus(data.getCode());
+                                            raw.setGoodsStatusName(data.getName());
+                                            viewModel.update(position, raw);
+                                        }))
                 ).bindExtra(BR.onDateClick,
-                        (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) ->
-                                showDialogFragment(new DialogDateSelect(date -> {
-                                    data.setGmtManufacture(date);
-                                    viewModel.update(position, data);
-                                }))
-                );
+                (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) ->
+                        showDialogFragment(new DialogDateSelect(date -> {
+                            data.setGmtManufacture(date);
+                            viewModel.update(position, data);
+                        }))
+        );
     }
 }

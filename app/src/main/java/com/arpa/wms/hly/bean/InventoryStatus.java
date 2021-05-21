@@ -4,6 +4,10 @@ public class InventoryStatus {
     private String code;
     private String name;
 
+    public InventoryStatus(String code) {
+        this.code = code;
+    }
+
     public String getCode() {
         return code;
     }
@@ -18,5 +22,20 @@ public class InventoryStatus {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public int hashCode() {
+        return code.hashCode();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof InventoryStatus)) return false;
+
+        InventoryStatus that = (InventoryStatus) o;
+
+        return code.equals(that.code);
     }
 }

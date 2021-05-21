@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseAdapter;
 import com.arpa.wms.hly.base.BaseViewHolder;
-import com.arpa.wms.hly.bean.res.ResWarehouse;
+import com.arpa.wms.hly.bean.InventoryStatus;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -20,10 +20,12 @@ import com.arpa.wms.hly.bean.res.ResWarehouse;
  * Adapter：分配保管员、装卸工、叉车工等
  * </p>
  */
-public class DialogAssignSelectAdapter extends BaseAdapter<ResWarehouse> {
+public class DialogGoodStatusAdapter extends BaseAdapter<InventoryStatus> {
+    private int currentIndex;
 
-    public DialogAssignSelectAdapter(Context context) {
+    public DialogGoodStatusAdapter(Context context, int currentIndex) {
         super(context);
+        this.currentIndex = currentIndex;
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -32,13 +34,13 @@ public class DialogAssignSelectAdapter extends BaseAdapter<ResWarehouse> {
         ImageView ivSelect = holder.getView(R.id.iv_check);
         TextView tvWarehouse = holder.getView(R.id.tv_name);
 
-        ResWarehouse data = getDataList().get(position);
-        ivSelect.setVisibility(data.isSelect() ? View.VISIBLE : View.GONE);
+        InventoryStatus data = getDataList().get(position);
+        ivSelect.setVisibility(position == currentIndex ? View.VISIBLE : View.GONE);
         tvWarehouse.setText(data.getName());
         holder.itemView.setOnClickListener(v -> {
-            data.setSelect(!data.isSelect());
+            currentIndex = position;
             onItemClickListener.onItemClick(v, position, data);
-            notifyItemChanged(position);
+            notifyDataSetChanged();
         });
     }
 

@@ -1,12 +1,11 @@
 package com.arpa.wms.hly.logic.home.goods.take.vm;
 
-import com.google.gson.Gson;
-
 import android.app.Application;
 import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.wms.arch.util.GsonUtils;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBindingRVAdapter;
@@ -143,7 +142,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      */
     public void orderConfirm(boolean isWholeConfirm) {
         requestConfirm = detail;
-        Log.e("@@@@ L112", "VMGoodsTakeConfirm:orderConfirm() -> request json = " + new Gson().toJson(requestConfirm));
+        Log.e("@@@@ L112", "VMGoodsTakeConfirm:orderConfirm() -> request json = " + GsonUtils.getInstance().pojo2Map(requestConfirm));
+        Log.e("@@@@ L112", "VMGoodsTakeConfirm:orderConfirm() -> request json = " + GsonUtils.getInstance().pojo2Map(detail));
         /*updateStatus(StatusEvent.Status.LOADING);
         ResultCallback<Object> callback = new ResultCallback<Object>() {
             @Override

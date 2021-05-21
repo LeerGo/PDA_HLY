@@ -22,7 +22,7 @@
         
         <variable
             name="onStatusClick"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -39,7 +39,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:onClick="@{()->onStatusClick.transfer(data)}"
+            android:onClick="@{v->onStatusClick.onItemClick(v, position, data)}"
             app:inputEnable="false"
             app:inputHint="请选择收货状态"
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
@@ -60,7 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
-            android:onClick="@{v->onDateClick.onItemClick(v, position, data)}"
+            android:onClick="@{v -> onDateClick.onItemClick(v, position, data)}"
             app:inputEnable="false"
             app:inputHint="请输入生产日期，格式yyyymmdd"
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
