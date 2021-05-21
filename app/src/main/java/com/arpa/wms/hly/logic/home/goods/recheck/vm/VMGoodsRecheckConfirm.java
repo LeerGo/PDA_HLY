@@ -5,7 +5,7 @@ import android.app.Application;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
-import com.arpa.wms.hly.bean.OutboundItemVOList;
+import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
@@ -29,7 +29,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMGoodsRecheckConfirm extends WrapDataViewModel {
-    public ObservableField<OutboundItemVOList> detail = new ObservableField<>();
+    public ObservableField<GoodsItemVO> detail = new ObservableField<>();
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
     public ArrayList<String> batchCodeList = new ArrayList<>();
     public ObservableField<String> obvBatchCode = new ObservableField<>();
@@ -48,9 +48,9 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     private void requestData() {
         updateStatus(Status.LOADING);
         apiService.recheckRegisterDetail(request.toParams())
-                .enqueue(new ResultCallback<OutboundItemVOList>() {
+                .enqueue(new ResultCallback<GoodsItemVO>() {
                     @Override
-                    public void onSuccess(OutboundItemVOList data) {
+                    public void onSuccess(GoodsItemVO data) {
                         detail.set(data);
                     }
 

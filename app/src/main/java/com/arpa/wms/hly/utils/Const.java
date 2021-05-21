@@ -30,7 +30,8 @@ public interface Const {
         String WAREHOUSE_CODE = "warehouseCode";
         String OUTBOUND_CODE = "outboundCode";
         String OUTBOUND_ITEM_CODE = "outboundItemCode";
-        String PICK_RECHECK_TYPE = "orderTag";
+        String RECEIVE_CODE = "receiveCode";
+        String RECEIVE_ITEM_CODE = "receiveItemCode";
         String GOODS_NAME = "goodName";
         String GOODS_UNIT_NAME = "goodUnitName";
     }

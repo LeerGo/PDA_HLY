@@ -6,11 +6,11 @@
     
     <data>
         
-        <import type="com.arpa.wms.hly.bean.GoodsTakeBatchItem" />
+        <import type="com.arpa.wms.hly.bean.GoodsItemVO" />
         
         <variable
             name="data"
-            type="GoodsTakeBatchItem" />
+            type="GoodsItemVO" />
         
         <variable
             name="position"
@@ -18,7 +18,7 @@
         
         <variable
             name="onDateClick"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener&lt;GoodsTakeBatchItem&gt;" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener" />
         
         <variable
             name="onStatusClick"
@@ -43,15 +43,16 @@
             app:inputEnable="false"
             app:inputHint="请选择收货状态"
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
-            app:inputText="@={data.receivedState}"
+            app:inputText="@={data.goodsStatusName}"
             app:inputTitle="收货状态" />
         
+        <!--TODO: 这里需要调整一下 @lyf 2021-05-20 04:36:39 -->
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:gravity="center_vertical"
             app:inputHint="请输入收货数量"
-            app:inputText="@={data.receivedCount}"
+            app:inputText="@={data.receivedQuantityS}"
             app:inputTitle="收货数量"
             app:inputType="number" />
         
@@ -63,7 +64,7 @@
             app:inputEnable="false"
             app:inputHint="请输入生产日期，格式yyyymmdd"
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
-            app:inputText="@={data.productDate}"
+            app:inputText="@={data.gmtManufacture}"
             app:inputTitle="生产日期" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
@@ -71,6 +72,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             app:inputHint="请输入产地"
+            app:inputText="@={data.extendOne}"
             app:inputTitle="产地" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
@@ -78,6 +80,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             app:inputHint="请输入码托数量"
+            app:inputText="@={data.supportNumS}"
             app:inputTitle="码托数量"
             app:inputType="number" />
         
@@ -86,6 +89,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             app:inputHint="请输入特殊品项"
+            app:inputText="@={data.extendTwo}"
             app:inputTitle="特殊品项" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
@@ -94,6 +98,7 @@
             android:gravity="center_vertical"
             app:inputHint="库位"
             app:inputIcon="@mipmap/ic_scan"
+            app:inputText="@={data.location}"
             app:inputTitle="请扫描/输入库位" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

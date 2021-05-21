@@ -1,8 +1,5 @@
 package com.arpa.and.wms.arch.base;
 
-/**
- *
- */
 public interface ILoading {
     /**
      * 显示加载

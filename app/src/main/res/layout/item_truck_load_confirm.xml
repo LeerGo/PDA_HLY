@@ -8,7 +8,7 @@
         
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.OutboundItemVOList" />
+            type="com.arpa.wms.hly.bean.GoodsItemVO" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat

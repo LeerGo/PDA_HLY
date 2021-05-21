@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:propsKey="车牌号"
-            app:propsValue="@{data.carNumber}"
+            app:propsValue="@{data.licensePlateNumber}"
             app:propsValueGravity="end"
             tools:propsValue="豫HM8983" />
         
@@ -32,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:propsKey="商品名称"
+            app:propsValue="@{data.goodsName}"
             app:propsValueGravity="end"
             tools:propsValue="金典有机奶" />
         
@@ -40,6 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:propsKey="单位"
+            app:propsValue="@{data.goodsUnitName}"
             app:propsValueGravity="end"
             tools:propsValue="箱" />
         
@@ -48,6 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:propsKey="应收数量"
+            app:propsValue="@{data.planQuantity}"
             app:propsValueColor="@color/colorPrimary"
             app:propsValueGravity="end"
             tools:propsValue="1000" />

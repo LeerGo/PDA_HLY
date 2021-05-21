@@ -2,13 +2,12 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 
 import android.app.Application;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.VMBaseList;
-import com.arpa.wms.hly.bean.OutboundItemVOList;
+import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
@@ -37,7 +36,7 @@ import retrofit2.Call;
  * </p>
  */
 @HiltViewModel
-public class VMGoodsRecheckDetailList extends VMBaseList<OutboundItemVOList> {
+public class VMGoodsRecheckDetailList extends VMBaseList<GoodsItemVO> {
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
 
     @Inject
@@ -46,7 +45,7 @@ public class VMGoodsRecheckDetailList extends VMBaseList<OutboundItemVOList> {
     }
 
     @Override
-    public Call<Result<List<OutboundItemVOList>>> getCall(Map<String, Object> params) {
+    public Call<Result<List<GoodsItemVO>>> getCall(Map<String, Object> params) {
         return apiService.recheckItemListBelow(params);
     }
 
@@ -56,11 +55,11 @@ public class VMGoodsRecheckDetailList extends VMBaseList<OutboundItemVOList> {
     }
 
     @Override
-    public ItemBinding<OutboundItemVOList> getItemBinding() {
-        ItemBinding<OutboundItemVOList> itemBinding;
+    public ItemBinding<GoodsItemVO> getItemBinding() {
+        ItemBinding<GoodsItemVO> itemBinding;
         if (request.getRecheckStatus() == TASK_STATUS.RECHECK_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_wait);
-            itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<OutboundItemVOList>) data -> {
+            itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsItemVO>) data -> {
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentKey.OUTBOUND_CODE, data.getOutboundCode());
                 bundle.putString(IntentKey.OUTBOUND_ITEM_CODE, data.getCode());

@@ -2,8 +2,8 @@ package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetail;
@@ -23,7 +23,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 // TODO: 搜索功能需要完成 @lyf 2021-05-19 10:47:41
 @AndroidEntryPoint
-public class GoodsTakeDetailActivity extends BaseActivity<VMGoodsTakeDetail, ActivityPdataskTakeDetailBinding> {
+public class GoodsTakeDetailActivity extends WrapBaseActivity<VMGoodsTakeDetail, ActivityPdataskTakeDetailBinding> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_pdatask_take_detail;
@@ -31,6 +31,7 @@ public class GoodsTakeDetailActivity extends BaseActivity<VMGoodsTakeDetail, Act
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
         ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
         viewModel.headerData.set(data);

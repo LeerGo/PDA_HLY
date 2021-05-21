@@ -10,6 +10,7 @@ import com.arpa.wms.hly.utils.Utils;
 
 import org.json.JSONException;
 
+import java.io.IOException;
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
 import java.text.ParseException;
@@ -46,7 +47,9 @@ public class ErrorHandler {
             error.setInfo(ErrorCode.HTTP_ERROR, "请求超时");
         } else if (e instanceof ConnectException) {
             error.setInfo(ErrorCode.HTTP_ERROR, "请求异常");
-        } else {
+        } else if (e instanceof IOException){
+            error = new ResultError(ErrorCode.SERVER_ERROR, "服务器无响应");
+        }else {
             error = new ResultError(ErrorCode.UNKNOWN, "未知错误");
         }
         return error;

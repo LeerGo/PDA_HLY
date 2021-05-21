@@ -9,7 +9,7 @@ package com.arpa.wms.hly.bean;
  * 内容描述区域
  * </p>
  */
-public class OutboundItemVOList {
+public class GoodsItemVO {
     private String code;
     private String goodCode; // 商品编码
     private String goodsName; // 商品名称
@@ -17,15 +17,74 @@ public class OutboundItemVOList {
     private String gmtManufacture; // 生产日期
     private String extendOne; // 产地
     private String extendTwo; // 特殊品项
-    private int planQuantity; // 计划数量，在复核里是拣货数量
     private int traysNum; // (整)托数
-    private int recheckQuantity; // 复核数量
     private int supportNum; // 码托数量
-    private int itemReceivedQuantity; // 收货数量
+    private int recheckQuantity; // 复核数量
+    private int receivedQuantity; //  收货数量（收货确认用）
+    private int itemReceivedQuantity; // 收货数量（收货详情列表用）
+    private int planQuantity; // 计划数量，在复核里是拣货数量
     private String loadQuantity;
     private String outboundCode; // 出库码，复核用
+    private String receiveCode; // 收货码，收货用
+    private String goodsStatus; //  商品状态 ID
     private String goodsStatusName; // 商品状态名称
     private String location; // 库位
+    private String tempInventoryCode; // 收货确认使用，临时库存code
+
+    // ---------------- 在 databind 中输入暂时只能接受 String 类型，复制出来俩字段接受数据，赋值给对应的 int 字段
+    // ---------------- 勿删 add by @lyf 2021-05-20 16:56:56
+    private String supportNumS; // 码托数量
+    private String receivedQuantityS; //  收货数量（收货确认用）
+
+    public String getSupportNumS() {
+        return supportNumS;
+    }
+
+    public void setSupportNumS(String supportNumS) {
+        setSupportNum(Integer.parseInt(supportNumS));
+        this.supportNumS = supportNumS;
+    }
+
+    public String getReceivedQuantityS() {
+        return receivedQuantityS;
+    }
+
+    public void setReceivedQuantityS(String receivedQuantityS) {
+        setReceivedQuantity(Integer.parseInt(receivedQuantityS));
+        this.receivedQuantityS = receivedQuantityS;
+    }
+
+    public int getReceivedQuantity() {
+        return receivedQuantity;
+    }
+
+    public void setReceivedQuantity(int receivedQuantity) {
+        this.receivedQuantity = receivedQuantity;
+    }
+
+    public String getTempInventoryCode() {
+        return tempInventoryCode;
+    }
+
+    public void setTempInventoryCode(String tempInventoryCode) {
+        this.tempInventoryCode = tempInventoryCode;
+    }
+
+    public String getGoodsStatus() {
+        return goodsStatus;
+    }
+
+    public void setGoodsStatus(String goodsStatus) {
+        this.goodsStatus = goodsStatus;
+    }
+
+    public String getReceiveCode() {
+        return receiveCode;
+    }
+
+    public void setReceiveCode(String receiveCode) {
+        this.receiveCode = receiveCode;
+    }
 
     public int getItemReceivedQuantity() {
         return itemReceivedQuantity;

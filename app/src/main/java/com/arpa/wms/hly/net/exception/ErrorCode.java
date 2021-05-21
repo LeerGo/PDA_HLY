@@ -10,10 +10,10 @@ package com.arpa.wms.hly.net.exception;
  * </p>
  */
 public interface ErrorCode {
-    int ERROR_CODE = -1;
     int UNKNOWN = -100;
     int JSON_ERROR = -200;
     int HTTP_ERROR = -300;
+    int SERVER_ERROR = -400;
     // 业务  - token 失效
     int TOKEN_INVALID = 21332;
 }

@@ -17,7 +17,7 @@ import androidx.appcompat.widget.AppCompatTextView;
  * since: 2021-04-25 3:58 PM
  *
  * <p>
- * Dialog: 选择日期
+ * Dialog: 提示弹窗
  * </p>
  */
 public class DialogTips extends BaseDialogFragment {

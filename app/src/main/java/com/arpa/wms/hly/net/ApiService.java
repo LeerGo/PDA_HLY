@@ -1,12 +1,14 @@
 package com.arpa.wms.hly.net;
 
-import com.arpa.wms.hly.bean.OutboundItemVOList;
+import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
+import com.arpa.wms.hly.bean.req.ReqGoodTakeConfirm;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
+import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
 import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResMoveGoods;
@@ -96,7 +98,25 @@ public interface ApiService {
      * 收货详情接口下方数据
      */
     @GET("wms/pda/receive/receiveDetailsBelow")
-    Call<Result<List<OutboundItemVOList>>> receiveDetailsBelow(@QueryMap Map<String, Object> data);
+    Call<Result<List<GoodsItemVO>>> receiveDetailsBelow(@QueryMap Map<String, Object> data);
+
+    /**
+     * 收货登记查询明细
+     */
+    @GET("wms/pda/receive/register")
+    Call<Result<ResGoodTakeConfirm>> takeRegisterDetail(@QueryMap Map<String, Object> data);
+
+    /**
+     * PDA收货登记确认
+     */
+    @GET("wms/pda/receive/confirm")
+    Call<Result<Object>> takeSingleConfirm(@Body ReqGoodTakeConfirm reqGoodTakeConfirm);
+
+    /**
+     * PDA收货登记整单确认
+     */
+    @GET("wms/pda/receive/wholeConfirm")
+    Call<Result<Object>> takeWholeConfirm(@Body ReqGoodTakeConfirm reqGoodTakeConfirm);
 
     /**
      * 复核列表接口
@@ -114,13 +134,13 @@ public interface ApiService {
      * 查询复核列表详情接口下方数据
      */
     @GET("wms/pda/outbound/recheckItemListBelow")
-    Call<Result<List<OutboundItemVOList>>> recheckItemListBelow(@QueryMap Map<String, Object> data);
+    Call<Result<List<GoodsItemVO>>> recheckItemListBelow(@QueryMap Map<String, Object> data);
 
     /**
      * 查询单个商品复核详情
      */
     @GET("wms/pda/outbound/recheckRegisterDetail")
-    Call<Result<OutboundItemVOList>> recheckRegisterDetail(@QueryMap Map<String, Object> data);
+    Call<Result<GoodsItemVO>> recheckRegisterDetail(@QueryMap Map<String, Object> data);
 
     /**
      * 库存查询

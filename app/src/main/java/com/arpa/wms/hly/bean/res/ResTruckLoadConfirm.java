@@ -1,6 +1,6 @@
 package com.arpa.wms.hly.bean.res;
 
-import com.arpa.wms.hly.bean.OutboundItemVOList;
+import com.arpa.wms.hly.bean.GoodsItemVO;
 
 import java.util.List;
 
@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class ResTruckLoadConfirm {
     private String code;
-    private List<OutboundItemVOList> outboundItemVOList;
+    private List<GoodsItemVO> outboundItemVOList;
 
     public String getCode() {
         return code;
@@ -21,11 +21,11 @@ public class ResTruckLoadConfirm {
         this.code = code;
     }
 
-    public List<OutboundItemVOList> getOutboundItemVOList() {
+    public List<GoodsItemVO> getOutboundItemVOList() {
         return outboundItemVOList;
     }
 
-    public void setOutboundItemVOList(List<OutboundItemVOList> outboundItemVOList) {
+    public void setOutboundItemVOList(List<GoodsItemVO> outboundItemVOList) {
         this.outboundItemVOList = outboundItemVOList;
     }
 }

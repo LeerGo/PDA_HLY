@@ -2,15 +2,17 @@ package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.bean.GoodsTakeBatchItem;
+import com.arpa.wms.hly.base.WrapBaseActivity;
+import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.databinding.ActivityGoodsTakeConfirmBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeConfirm;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.ui.dialog.DialogDateSelect;
+import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -25,7 +27,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeConfirmActivity extends BaseActivity<VMGoodsTakeConfirm, ActivityGoodsTakeConfirmBinding> {
+public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfirm, ActivityGoodsTakeConfirmBinding> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_goods_take_confirm;
@@ -33,16 +35,28 @@ public class GoodsTakeConfirmActivity extends BaseActivity<VMGoodsTakeConfirm, A
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
         viewBind.setViewModel(viewModel);
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        viewBind.acbWholeConfirm.setOnClickListener(v ->
+                showDialogFragment(new DialogTips(
+                        "整单确认",
+                        "当前订单存在未收货商品，整单确认后未收货商品不能继续收货。",
+                        () -> viewModel.orderConfirm(false)))
+        );
+        viewModel.request.setParams(
+                getIntent().getStringExtra(Const.IntentKey.RECEIVE_CODE),
+                getIntent().getStringExtra(Const.IntentKey.RECEIVE_ITEM_CODE));
         viewModel.itemBinding
-                .bindExtra(BR.onStatusClick, (ViewListener.DataTransCallback<GoodsTakeBatchItem>) data ->
-                        showDialogFragment(new DialogDateSelect(data::setReceivedState))
-                )
-                .bindExtra(BR.onDateClick,
-                        (ViewListener.OnItemClickListener<GoodsTakeBatchItem>) (view, position, data) -> showDialogFragment(new DialogDateSelect(date -> {
-                            data.setProductDate(date);
-                            viewModel.update(position, data);
-                        })));
+                .bindExtra(BR.onStatusClick, (ViewListener.DataTransCallback<GoodsItemVO>) data ->
+                        showDialogFragment(new DialogDateSelect(data::setGmtManufacture))
+                ).bindExtra(BR.onDateClick,
+                        (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) ->
+                                showDialogFragment(new DialogDateSelect(date -> {
+                                    data.setGmtManufacture(date);
+                                    viewModel.update(position, data);
+                                }))
+                );
     }
 }

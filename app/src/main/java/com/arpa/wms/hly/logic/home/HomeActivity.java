@@ -4,9 +4,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 
-import com.arpa.and.wms.arch.base.BaseActivity;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.databinding.ActivityHomeBinding;
 import com.arpa.wms.hly.ui.decoration.GridItemDecoration;
@@ -26,7 +26,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class HomeActivity extends BaseActivity<VMHome, ActivityHomeBinding> {
+public class HomeActivity extends WrapBaseActivity<VMHome, ActivityHomeBinding> {
 
     @Override
     public int getLayoutId() {
@@ -35,8 +35,9 @@ public class HomeActivity extends BaseActivity<VMHome, ActivityHomeBinding> {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        viewBind.setVariable(BR.vmHome, viewModel);
+        super.initData(savedInstanceState);
 
+        viewBind.setVariable(BR.vmHome, viewModel);
         viewBind.rvMenu.addItemDecoration(new GridItemDecoration(DensityUtils.dip2px(10)));
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<MenuBean>) data -> {
             if (!TextUtils.isEmpty(data.getPath())) {

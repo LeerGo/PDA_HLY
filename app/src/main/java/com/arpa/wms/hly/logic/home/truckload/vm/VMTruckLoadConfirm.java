@@ -10,7 +10,7 @@ import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
-import com.arpa.wms.hly.bean.OutboundItemVOList;
+import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.OutboundVOS;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm.OutboundItemDTOS;
@@ -41,7 +41,7 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
 @HiltViewModel
 public class VMTruckLoadConfirm extends WrapDataViewModel {
     // header 独立置顶的操作
-    //    public final ItemBinding<OutboundItemVOList> itemBinding = ItemBinding.of(BR.data, R.layout.item_truck_load_confirm);
+    //    public final ItemBinding<GoodsItemVO> itemBinding = ItemBinding.of(BR.data, R.layout.item_truck_load_confirm);
     //    public final ObservableField<OutboundVOS> headerData = new ObservableField<>();
 
     public final ObservableArrayList<Object> items = new ObservableArrayList<>();
@@ -118,7 +118,7 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
     private void buildRequest() {
         Objects.requireNonNull(request.get()).getOutboundItemDTOS().clear();
         for (int i = 1; i < items.size(); i++) {
-            OutboundItemVOList data = (OutboundItemVOList) items.get(i);
+            GoodsItemVO data = (GoodsItemVO) items.get(i);
             request.get().getOutboundItemDTOS().add(new OutboundItemDTOS(data.getCode(), data.getLoadQuantity()));
         }
         Log.e("@@@@ L98", "VMTruckLoadConfirm:buildRequest() -> " + new Gson().toJson(request.get()));

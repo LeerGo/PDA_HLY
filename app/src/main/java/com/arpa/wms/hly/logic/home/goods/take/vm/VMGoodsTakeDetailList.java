@@ -1,16 +1,19 @@
 package com.arpa.wms.hly.logic.home.goods.take.vm;
 
 import android.app.Application;
+import android.os.Bundle;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.VMBaseList;
-import com.arpa.wms.hly.bean.OutboundItemVOList;
+import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeDetail;
+import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeConfirmActivity;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.Const.TASK_STATUS;
 
 import java.util.List;
@@ -33,7 +36,7 @@ import retrofit2.Call;
  * </p>
  */
 @HiltViewModel
-public class VMGoodsTakeDetailList extends VMBaseList<OutboundItemVOList> {
+public class VMGoodsTakeDetailList extends VMBaseList<GoodsItemVO> {
     public ReqGoodTakeDetail request = new ReqGoodTakeDetail();
 
     @Inject
@@ -42,7 +45,7 @@ public class VMGoodsTakeDetailList extends VMBaseList<OutboundItemVOList> {
     }
 
     @Override
-    public Call<Result<List<OutboundItemVOList>>> getCall(Map<String, Object> params) {
+    public Call<Result<List<GoodsItemVO>>> getCall(Map<String, Object> params) {
         return apiService.receiveDetailsBelow(params);
     }
 
@@ -52,15 +55,15 @@ public class VMGoodsTakeDetailList extends VMBaseList<OutboundItemVOList> {
     }
 
     @Override
-    public ItemBinding<OutboundItemVOList> getItemBinding() {
-        ItemBinding<OutboundItemVOList> itemBinding;
+    public ItemBinding<GoodsItemVO> getItemBinding() {
+        ItemBinding<GoodsItemVO> itemBinding;
         if (request.getReceiveStatus() == TASK_STATUS.TAKE_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take_detail_wait);
-            itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<OutboundItemVOList>) data -> {
-                /*Bundle bundle = new Bundle();
-                bundle.putString(Const.IntentKey.OUTBOUND_CODE, data.getOutboundCode());
-                bundle.putString(Const.IntentKey.OUTBOUND_ITEM_CODE, data.getCode());
-                startActivity(GoodsRecheckConfirmActivity.class, bundle);*/
+            itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsItemVO>) data -> {
+                Bundle bundle = new Bundle();
+                bundle.putString(IntentKey.RECEIVE_CODE, data.getReceiveCode());
+                bundle.putString(IntentKey.RECEIVE_ITEM_CODE, data.getCode());
+                startActivity(GoodsTakeConfirmActivity.class, bundle);
             });
         } else {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take_detail_yet);

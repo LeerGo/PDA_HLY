@@ -10,10 +10,24 @@ import com.arpa.wms.hly.bean.base.ReqBase;
 public class ReqGoodTakeDetail extends ReqBase {
     private int receiveStatus;
     private String receiveCode;
+    private String receiveItemCode;
+
+    public void setParams(String receiveCode, String receiveItemCode) {
+        this.receiveCode = receiveCode;
+        this.receiveItemCode = receiveItemCode;
+    }
 
     public void setParams(int receiveStatus, String receiveCode) {
         this.receiveCode = receiveCode;
         this.receiveStatus = receiveStatus;
+    }
+
+    public String getReceiveItemCode() {
+        return receiveItemCode;
+    }
+
+    public void setReceiveItemCode(String receiveItemCode) {
+        this.receiveItemCode = receiveItemCode;
     }
 
     public int getReceiveStatus() {

@@ -10,7 +10,7 @@
         
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.OutboundItemVOList" />
+            type="com.arpa.wms.hly.bean.GoodsItemVO" />
     </data>
     
     <!--TODO: 有两个字段待填充 @lyf 2021-05-20 01:17:58 -->

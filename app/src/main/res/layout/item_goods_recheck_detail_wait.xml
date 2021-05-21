@@ -10,7 +10,7 @@
         
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.OutboundItemVOList" />
+            type="com.arpa.wms.hly.bean.GoodsItemVO" />
         
         <variable
             name="listener"
