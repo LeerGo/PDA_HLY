@@ -31,29 +31,6 @@ public class GoodsItemVO {
     private String location; // 库位
     private String tempInventoryCode; // 收货确认使用，临时库存code
 
-    // ---------------- 在 databind 中输入暂时只能接受 String 类型，复制出来俩字段接受数据，赋值给对应的 int 字段
-    // ---------------- 勿删 add by @lyf 2021-05-20 16:56:56
-    private String supportNumS; // 码托数量
-    private String receivedQuantityS; //  收货数量（收货确认用）
-
-    public String getSupportNumS() {
-        return supportNumS;
-    }
-
-    public void setSupportNumS(String supportNumS) {
-        setSupportNum(Integer.parseInt(supportNumS));
-        this.supportNumS = supportNumS;
-    }
-
-    public String getReceivedQuantityS() {
-        return receivedQuantityS;
-    }
-
-    public void setReceivedQuantityS(String receivedQuantityS) {
-        setReceivedQuantity(Integer.parseInt(receivedQuantityS));
-        this.receivedQuantityS = receivedQuantityS;
-    }
-
     public int getReceivedQuantity() {
         return receivedQuantity;
     }

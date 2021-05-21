@@ -40,6 +40,7 @@ import androidx.databinding.InverseBindingListener;
  * 控件：属性输入条目
  * </p>
  */
+// FIXME: 在列表（收货登记页面的批次）中输入，光标应该放置最后 @lyf 2021-05-21 01:58:39
 public class WidgetInputItem extends RelativeLayout {
     private static final String DIGITS_NUMBER = "1234567890";
 
@@ -70,43 +71,6 @@ public class WidgetInputItem extends RelativeLayout {
         tvTitle = findViewById(R.id.tv_title);
         etInput = findViewById(R.id.et_input);
         ivIcon = findViewById(R.id.iv_icon);
-    }
-
-    private void addFocusListener() {
-        etInput.setOnFocusChangeListener((v, hasFocus) -> {
-            if (hasFocus) {
-                addTextWatcher();
-                setInputDigits(digits);
-                if (inputType == EditorInfo.TYPE_CLASS_NUMBER) {
-                    setInputDigits(DIGITS_NUMBER);
-
-                    if (maxValue != -1)
-                        etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
-                }
-            }
-        });
-    }
-
-    private void addTextWatcher() {
-        etInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (null != onTextChanged) onTextChanged.transfer(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
-    }
-
-    private void setInputDigits(String digits) {
-        if (!TextUtils.isEmpty(digits))
-            etInput.setKeyListener(DigitsKeyListener.getInstance(digits));
     }
 
     private void initAttrs(Context context, AttributeSet attrs) {
@@ -154,18 +118,62 @@ public class WidgetInputItem extends RelativeLayout {
         etInput.setHint(hint);
     }
 
-    @BindingAdapter("inputMax")
-    public static void setInputMax(WidgetInputItem view, int maxValue) {
-        view.setMaxValue(maxValue);
+    private void addFocusListener() {
+        etInput.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus) {
+                // etInput.setSelection(etInput.getText().length());
+                addTextWatcher();
+                setInputDigits(digits);
+                if (inputType == EditorInfo.TYPE_CLASS_NUMBER) {
+                    setInputDigits(DIGITS_NUMBER);
+                    setMaxValue(Integer.MAX_VALUE);
+
+                    if (maxValue != -1)
+                        etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
+                }
+            }
+        });
+    }
+
+    private void addTextWatcher() {
+        etInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (null != onTextChanged) onTextChanged.transfer(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+    }
+
+    private void setInputDigits(String digits) {
+        if (!TextUtils.isEmpty(digits))
+            etInput.setKeyListener(DigitsKeyListener.getInstance(digits));
     }
 
     public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
     }
 
-    @BindingAdapter({"inputText"})
+    @BindingAdapter("inputMax")
+    public static void setInputMax(WidgetInputItem view, int maxValue) {
+        view.setMaxValue(maxValue);
+    }
+
+    @BindingAdapter("inputText")
     public static void setInputText(WidgetInputItem view, String text) {
         view.setInputText(text);
+    }
+
+    @BindingAdapter("inputValue")
+    public static void setInputValue(WidgetInputItem view, int value) {
+        view.setInputText(value == 0 ? "" : String.valueOf(value));
     }
 
     @InverseBindingAdapter(attribute = "inputText")
@@ -181,13 +189,24 @@ public class WidgetInputItem extends RelativeLayout {
         etInput.setText(text);
     }
 
-    @BindingAdapter("inputTextAttrChanged")
-    public static void setOnAttrsChangeList(WidgetInputItem view, InverseBindingListener listener) {
+    @InverseBindingAdapter(attribute = "inputValue")
+    public static int getInputValue(WidgetInputItem view) {
+        if (TextUtils.isEmpty(view.getInputText())) return 0;
+        return Integer.parseInt(view.getInputText());
+    }
+
+    @BindingAdapter({"inputTextAttrChanged"})
+    public static void setInputTextAttrChanged(WidgetInputItem view, InverseBindingListener listener) {
         view.setOnTextChanged(data -> listener.onChange());
     }
 
     public void setOnTextChanged(ViewListener.DataTransCallback<String> onTextChanged) {
         this.onTextChanged = onTextChanged;
+    }
+
+    @BindingAdapter({"inputValueAttrChanged"})
+    public static void setInputValueAttrChanged(WidgetInputItem view, InverseBindingListener listener) {
+        view.setOnTextChanged(data -> listener.onChange());
     }
 
     @Override

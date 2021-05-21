@@ -1,6 +1,7 @@
 package com.arpa.wms.hly.logic.home.goods.take.vm;
 
 import android.app.Application;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.arpa.and.wms.arch.base.BaseModel;
@@ -12,7 +13,6 @@ import com.arpa.wms.hly.base.WrapBindingRVAdapter;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.GoodsTakeBatchHeader;
-import com.arpa.wms.hly.bean.req.ReqGoodTakeConfirm;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeDetail;
 import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
 import com.arpa.wms.hly.net.callback.ResultCallback;
@@ -25,7 +25,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableList;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -42,7 +41,7 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
  */
 @HiltViewModel
 public class VMGoodsTakeConfirm extends WrapDataViewModel {
-    public final ObservableList<Object> items = new ObservableArrayList<>();
+    public final ObservableArrayList<Object> items = new ObservableArrayList<>();
     public final BindingRecyclerViewAdapter<Object> adapter = new WrapBindingRVAdapter<>();
     public final ReqGoodTakeDetail request = new ReqGoodTakeDetail();
     // adapter 相关
@@ -56,7 +55,6 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
             };
     public final ItemBinding<Object> itemBinding = ItemBinding.of(onItemBind);
     public ResGoodTakeConfirm detail;
-    public ReqGoodTakeConfirm requestConfirm;
 
     @Inject
     public VMGoodsTakeConfirm(@NonNull Application application, BaseModel model) {
@@ -121,8 +119,11 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      * 添加一个新的批次录入
      */
     public void addBatchItem() {
-        if (check((GoodsItemVO) items.get(items.size() - 1)))
-            items.add(new GoodsItemVO());
+        if (validateInput()) {
+            GoodsItemVO batchItem = new GoodsItemVO();
+            items.add(batchItem);
+            detail.getReceiveItemWithRegisterVOList().add(batchItem);
+        }
     }
 
     /**
@@ -130,7 +131,40 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      * 1. 当前所有录入批次的收货数量 < 应收数量
      * 2. 上一条录入批次的所有参数都不得为空，全部录入了
      */
-    private boolean check(GoodsItemVO item) {
+    private boolean validateInput() {
+        int batchGoodsCount = 0;// 批次数量计数
+        boolean result = true;
+
+        for (int i = 1; i < items.size(); i++) {
+            GoodsItemVO data = (GoodsItemVO) items.get(i);
+            batchGoodsCount += data.getReceivedQuantity();
+            // 条件#1
+            if (batchGoodsCount >= detail.getPlanQuantity()) {
+                ToastUtils.showShort("已录入批次收货数量超过应收数量");
+                result = false;
+                break;
+            }
+            // 条件#2
+            if (!validateItem(data)) {
+                ToastUtils.showShort("请完整录入第" + i + "条收货批次数据");
+                result = false;
+                break;
+            }
+        }
+        return result;
+    }
+
+    /**
+     * 验证每一条的数据是否都完整录入
+     */
+    private boolean validateItem(GoodsItemVO item) {
+        if (TextUtils.isEmpty(item.getGoodsStatus())) return false;
+        if (item.getReceivedQuantity() == 0) return false;
+        if (TextUtils.isEmpty(item.getGmtManufacture())) return false;
+        if (TextUtils.isEmpty(item.getExtendOne())) return false;
+        if (item.getSupportNum() == 0) return false;
+        if (TextUtils.isEmpty(item.getExtendTwo())) return false;
+        if (TextUtils.isEmpty(item.getLocation())) return false;
         return true;
     }
 
@@ -141,8 +175,6 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      *         true - 整单确认
      */
     public void orderConfirm(boolean isWholeConfirm) {
-        requestConfirm = detail;
-        Log.e("@@@@ L112", "VMGoodsTakeConfirm:orderConfirm() -> request json = " + GsonUtils.getInstance().pojo2Map(requestConfirm));
         Log.e("@@@@ L112", "VMGoodsTakeConfirm:orderConfirm() -> request json = " + GsonUtils.getInstance().pojo2Map(detail));
         /*updateStatus(StatusEvent.Status.LOADING);
         ResultCallback<Object> callback = new ResultCallback<Object>() {

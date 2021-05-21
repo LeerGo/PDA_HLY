@@ -52,7 +52,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             app:inputHint="请输入收货数量"
-            app:inputText="@={data.receivedQuantityS}"
+            app:inputValue="@={data.receivedQuantity}"
             app:inputTitle="收货数量"
             app:inputType="number" />
         
@@ -80,7 +80,7 @@
             android:layout_height="50dp"
             android:gravity="center_vertical"
             app:inputHint="请输入码托数量"
-            app:inputText="@={data.supportNumS}"
+            app:inputValue="@={data.supportNum}"
             app:inputTitle="码托数量"
             app:inputType="number" />
         
