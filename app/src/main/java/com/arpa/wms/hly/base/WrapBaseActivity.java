@@ -19,7 +19,8 @@ import androidx.databinding.ViewDataBinding;
  * 基础：上下拉刷刷新页面
  * </p>
  */
-public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends ViewDataBinding> extends com.arpa.and.wms.arch.base.BaseActivity<VM, VDB> {
+public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends ViewDataBinding>
+        extends com.arpa.and.wms.arch.base.BaseActivity<VM, VDB> {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         registerMessageEvent(ToastUtils::showShort);

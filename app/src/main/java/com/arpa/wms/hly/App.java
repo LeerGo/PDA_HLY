@@ -15,7 +15,6 @@ import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import dagger.hilt.android.HiltAndroidApp;
-import me.jessyan.autosize.AutoSizeConfig;
 import timber.log.Timber;
 
 /**
@@ -52,7 +51,6 @@ public class App extends Application {
         Utils.init(this);
         setApiURL();
         initLogger();
-        setAutoSize();
     }
 
     private void setApiURL() {
@@ -75,11 +73,5 @@ public class App extends Application {
                 }
             }
         });
-    }
-
-    private void setAutoSize() {
-        AutoSizeConfig.getInstance()
-                .setLog(BuildConfig.DEBUG)
-                .setBaseOnWidth(true);
     }
 }
