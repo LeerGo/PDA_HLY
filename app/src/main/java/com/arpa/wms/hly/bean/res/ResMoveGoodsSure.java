@@ -60,7 +60,16 @@ public class ResMoveGoodsSure {
     private String movedQuantity;
     private String needQuantity;
     private String putDownQuantity;
-    private String unPutawayQuantity;;
+    private int supportNum; // 码托数量
+    private String unPutawayQuantity;
+
+    public int getSupportNum() {
+        return supportNum;
+    }
+
+    public void setSupportNum(int supportNum) {
+        this.supportNum = supportNum;
+    }
 
     public BatchRuleBean getBatchRule() {
         return batchRule;

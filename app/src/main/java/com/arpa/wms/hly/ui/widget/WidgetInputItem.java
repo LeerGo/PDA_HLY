@@ -17,7 +17,6 @@ import android.widget.RelativeLayout;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.filter.InputFilterMinMax;
-import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 
 import java.util.Objects;
@@ -53,6 +52,20 @@ public class WidgetInputItem extends RelativeLayout {
     private String digits;
     private boolean isEnable = true;
     private DataTransCallback<String> onTextChanged;
+    private final TextWatcher watcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            if (null != onTextChanged) onTextChanged.transfer(s.toString());
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+        }
+    };
 
     public WidgetInputItem(@NonNull Context context) {
         super(context);
@@ -121,33 +134,19 @@ public class WidgetInputItem extends RelativeLayout {
     private void addFocusListener() {
         etInput.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
-                // etInput.setSelection(etInput.getText().length());
-                addTextWatcher();
-                setInputDigits(digits);
+                etInput.addTextChangedListener(watcher);
                 if (inputType == EditorInfo.TYPE_CLASS_NUMBER) {
                     setInputDigits(DIGITS_NUMBER);
-                    setMaxValue(Integer.MAX_VALUE);
 
                     if (maxValue != -1)
                         etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
+                    else
+                        etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.MAX_VALUE)});
+                } else {
+                    setInputDigits(digits);
                 }
-            }
-        });
-    }
-
-    private void addTextWatcher() {
-        etInput.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (null != onTextChanged) onTextChanged.transfer(s.toString());
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            } else {
+                etInput.removeTextChangedListener(watcher);
             }
         });
     }
@@ -157,18 +156,13 @@ public class WidgetInputItem extends RelativeLayout {
             etInput.setKeyListener(DigitsKeyListener.getInstance(digits));
     }
 
-    public void setMaxValue(int maxValue) {
-        this.maxValue = maxValue;
-    }
-
     @BindingAdapter("inputMax")
     public static void setInputMax(WidgetInputItem view, int maxValue) {
         view.setMaxValue(maxValue);
     }
 
-    @BindingAdapter("inputText")
-    public static void setInputText(WidgetInputItem view, String text) {
-        view.setInputText(text);
+    public void setMaxValue(int maxValue) {
+        this.maxValue = maxValue;
     }
 
     @BindingAdapter("inputValue")
@@ -186,7 +180,11 @@ public class WidgetInputItem extends RelativeLayout {
     }
 
     public void setInputText(String text) {
+        if (null != text && text.equals(etInput.getText().toString()))
+            return;
         etInput.setText(text);
+        if (!TextUtils.isEmpty(text))
+            etInput.setSelection(text.length());
     }
 
     @InverseBindingAdapter(attribute = "inputValue")
@@ -200,7 +198,7 @@ public class WidgetInputItem extends RelativeLayout {
         view.setOnTextChanged(data -> listener.onChange());
     }
 
-    public void setOnTextChanged(ViewListener.DataTransCallback<String> onTextChanged) {
+    public void setOnTextChanged(DataTransCallback<String> onTextChanged) {
         this.onTextChanged = onTextChanged;
     }
 

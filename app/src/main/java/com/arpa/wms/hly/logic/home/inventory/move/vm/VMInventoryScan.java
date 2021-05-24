@@ -57,7 +57,7 @@ public class VMInventoryScan extends WrapDataViewModel {
                         } else {
                             Bundle bundle = new Bundle();
                             bundle.putString(IntentKey.LOCATION_NAME, locationName);
-                            // TODO: wms2 里传的就是空值 @lyf 2021-05-11 10:49:38
+                            // wms2 里传的就是空值 @lyf 2021-05-11 10:49:38
                             bundle.putString(IntentKey.CONTAINER_CODE, "");
                             startActivity(ScanGoodsActivity.class, bundle);
                         }
@@ -72,9 +72,12 @@ public class VMInventoryScan extends WrapDataViewModel {
                 });
     }
 
+    /**
+     * 无计划扫描移位商品
+     */
     public void scanGoods(String goodsBarCode, String locationName, String container) {
         updateStatus(StatusEvent.Status.LOADING);
-        // relskw 01010115
+        // SHLSKW 111
         ReqMoveGoods reqMoveGoods = new ReqMoveGoods();
         reqMoveGoods.setContainerBarCode(container);
         reqMoveGoods.setGoodsBarCode(goodsBarCode);

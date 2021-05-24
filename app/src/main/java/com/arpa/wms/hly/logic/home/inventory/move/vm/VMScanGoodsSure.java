@@ -35,7 +35,7 @@ import retrofit2.Call;
 @HiltViewModel
 public class VMScanGoodsSure extends WrapDataViewModel {
     public ObservableField<ResMoveGoodsSure> liveData = new ObservableField<>();
-    public ObservableField<String> moveQuantity = new ObservableField<>();
+    public ObservableField<Integer> moveQuantity = new ObservableField<>();
     public ObservableField<String> moveLocation = new ObservableField<>();
 
     @Inject
@@ -68,7 +68,7 @@ public class VMScanGoodsSure extends WrapDataViewModel {
      * 移位确认
      */
     public void moveConfirm() {
-        if (TextUtils.isEmpty(moveQuantity.get())) {
+        if (null == moveQuantity.get()) {
             ToastUtils.showShort("请输入移位数量");
             return;
         }
@@ -86,7 +86,7 @@ public class VMScanGoodsSure extends WrapDataViewModel {
         reqMoveSure.setCode(liveData.get().getCode());
         reqMoveSure.setContainerBarCode(liveData.get().getContainerBarCode());
         reqMoveSure.setMoveLocation(moveLocation.get());
-        reqMoveSure.setMoveQuantity(moveQuantity.get());
+        reqMoveSure.setMoveQuantity(moveQuantity.get().toString());
         apiService.scanGoodsSure(reqMoveSure)
                 .enqueue(new ResultCallback<ResMoveGoods>() {
                     @Override
@@ -96,15 +96,15 @@ public class VMScanGoodsSure extends WrapDataViewModel {
                     }
 
                     @Override
-                    public void onSuccess(ResMoveGoods data) {
-                        updateStatus(StatusEvent.Status.SUCCESS);
-                        finish();
-                    }
-
-                    @Override
                     public void onFailed(ResultError error) {
                         sendMessage(error.getMessage(), true);
                         updateStatus(StatusEvent.Status.ERROR);
+                    }
+
+                    @Override
+                    public void onSuccess(ResMoveGoods data) {
+                        updateStatus(StatusEvent.Status.SUCCESS);
+                        finish();
                     }
                 });
     }

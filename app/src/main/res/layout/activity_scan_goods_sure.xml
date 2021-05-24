@@ -76,6 +76,7 @@
                 android:text="@{'/'+viewModel.liveData.lockName}"
                 android:textColor="@color/color_434c67"
                 android:textSize="14sp"
+                android:visibility="gone"
                 tools:text="/未锁定" />
         </androidx.appcompat.widget.LinearLayoutCompat>
         
@@ -89,12 +90,14 @@
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
             app:propsKey="产        地"
+            app:propsValue="@{viewModel.liveData.extendOne}"
             app:propsValueGravity="end"
             tools:propsValue="A7" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
             app:propsKey="特殊品项"
+            app:propsValue="@{viewModel.liveData.extendTwo}"
             app:propsValueGravity="end"
             tools:propsValue="常规" />
         
@@ -103,6 +106,7 @@
             android:layout_marginBottom="10dp"
             android:paddingBottom="10dp"
             app:propsKey="码托数量"
+            app:propsValue="@{viewModel.liveData.supportNum}"
             app:propsValueGravity="end"
             tools:propsValue="100" />
         
@@ -120,9 +124,10 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 app:inputHint="请扫描/输入移位数量"
-                app:inputText="@={viewModel.moveQuantity}"
+                app:inputMax="@{viewModel.liveData.quantity}"
                 app:inputTitle="移位数量"
-                app:inputType="number" />
+                app:inputType="number"
+                app:inputValue="@={viewModel.moveQuantity}" />
             
             <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:layout_width="match_parent"
@@ -130,6 +135,7 @@
                 android:gravity="center_vertical"
                 app:inputHint="请扫描/输入移入库位"
                 app:inputIcon="@mipmap/ic_scan"
+                app:inputText="@={viewModel.moveLocation}"
                 app:inputTitle="移入库位" />
         </androidx.appcompat.widget.LinearLayoutCompat>
         

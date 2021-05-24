@@ -58,16 +58,17 @@
                     android:text="@{'/'+data.lockName}"
                     android:textColor="@color/color_434c67"
                     android:textSize="14sp"
+                    android:visibility="gone"
                     tools:text="/未锁定" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
+            <!--app:visible="@{data.batchRule.gmtManufacture == 0}"-->
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
                 app:propsKey="生产日期："
                 app:propsValue="@{data.gmtManufacture}"
-                app:visible="@{data.batchRule.gmtManufacture == 1}"
                 tools:propsValue="2021-05-11" />
             
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -80,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:propsKey="产        地："
+                    app:propsValue="@{data.extendOne}"
                     tools:propsValue="A-1001" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -87,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:propsKey="特殊品项："
+                    app:propsValue="@{data.extendTwo}"
                     tools:propsValue="常规" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
@@ -100,6 +103,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:propsKey="码托数量："
+                    app:propsValue="@{data.supportNum}"
                     tools:propsValue="101" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -107,6 +111,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     app:propsKey="整托数量："
+                    app:propsValue="@{data.traysNum}"
                     tools:propsValue="1" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>

@@ -186,6 +186,24 @@ public class ResMoveGoods {
         private String inventoryContainerBarCode;
         private BatchRuleBean batchRule;
         private int canUseQuantity;
+        private int supportNum;
+        private int traysNum;
+
+        public int getSupportNum() {
+            return supportNum;
+        }
+
+        public void setSupportNum(int supportNum) {
+            this.supportNum = supportNum;
+        }
+
+        public int getTraysNum() {
+            return traysNum;
+        }
+
+        public void setTraysNum(int traysNum) {
+            this.traysNum = traysNum;
+        }
 
         public BatchRuleBean getBatchRule() {
             return batchRule;
