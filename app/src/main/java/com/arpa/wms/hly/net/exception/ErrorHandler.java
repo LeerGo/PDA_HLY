@@ -41,15 +41,17 @@ public class ErrorHandler {
         } else if (e instanceof ServerProtocolException) {
             ServerProtocolException exp = (ServerProtocolException) e;
             error.setInfo(exp.getCode(), exp.getMsg());
+            if (null == exp.getMsg())
+                error.setMessage("服务器内部异常");
         } else if (e instanceof JSONException || e instanceof JsonParseException || e instanceof ParseException) {
             error.setInfo(ErrorCode.JSON_ERROR, "JSON 解析异常");
         } else if (e instanceof TimeoutException || e instanceof SocketTimeoutException) {
             error.setInfo(ErrorCode.HTTP_ERROR, "请求超时");
         } else if (e instanceof ConnectException) {
             error.setInfo(ErrorCode.HTTP_ERROR, "请求异常");
-        } else if (e instanceof IOException){
+        } else if (e instanceof IOException) {
             error = new ResultError(ErrorCode.SERVER_ERROR, "服务器无响应");
-        }else {
+        } else {
             error = new ResultError(ErrorCode.UNKNOWN, "未知错误");
         }
         return error;

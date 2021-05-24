@@ -30,6 +30,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
@@ -69,6 +70,17 @@ public interface ApiService {
      */
     @GET("wms/pda/tasks")
     Call<ResultPage<ResTaskAssign>> pdaTasks(@QueryMap Map<String, Object> data);
+
+    /**
+     * 拣货单-拣货任务详情
+     */
+    @GET("wms/pda/picking/{sourceCode}")
+    Call<Result<List<GoodsItemVO>>> pickingDetail(@Path("sourceCode") String sourceCode);
+    /**
+     * 拣货单-拣货任务详情
+     */
+    @GET("wms/pda/picking/pickingConfirm/{code}")
+    Call<Result<Object>> pickingConfirm(@Path("code") String code);
 
     /**
      * PDA分配装卸工、叉车工、保管员

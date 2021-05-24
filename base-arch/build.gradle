@@ -75,6 +75,7 @@ dependencies {
     // 列表刷新
     api "com.scwang.smart:refresh-layout-kernel:2.0.3"
     api "com.scwang.smart:refresh-header-classics:2.0.3"
+    api "com.scwang.smart:refresh-header-material:2.0.3"
     // 列表绑定（MVVM）
     api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter:4.0.0'
     api 'me.tatarka.bindingcollectionadapter2:bindingcollectionadapter-recyclerview:4.0.0'

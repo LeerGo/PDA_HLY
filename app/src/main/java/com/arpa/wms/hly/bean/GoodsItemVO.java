@@ -18,6 +18,7 @@ public class GoodsItemVO {
     private String extendOne; // 产地
     private String extendTwo; // 特殊品项
     private int traysNum; // (整)托数
+    private int pickingTraysNum; // (整)托数 - 已捡
     private int supportNum; // 码托数量
     private int recheckQuantity; // 复核数量
     private int receivedQuantity; //  收货数量（收货确认用）
@@ -30,6 +31,23 @@ public class GoodsItemVO {
     private String goodsStatusName; // 商品状态名称
     private String location; // 库位
     private String tempInventoryCode; // 收货确认使用，临时库存code
+    private String oldLocationName;// 拣货库位
+
+    public int getPickingTraysNum() {
+        return pickingTraysNum;
+    }
+
+    public void setPickingTraysNum(int pickingTraysNum) {
+        this.pickingTraysNum = pickingTraysNum;
+    }
+
+    public String getOldLocationName() {
+        return oldLocationName;
+    }
+
+    public void setOldLocationName(String oldLocationName) {
+        this.oldLocationName = oldLocationName;
+    }
 
     public int getReceivedQuantity() {
         return receivedQuantity;
@@ -189,5 +207,9 @@ public class GoodsItemVO {
 
     public void setPlanQuantity(int planQuantity) {
         this.planQuantity = planQuantity;
+    }
+
+    public boolean isPickFinish() {
+        return pickingTraysNum == traysNum;
     }
 }

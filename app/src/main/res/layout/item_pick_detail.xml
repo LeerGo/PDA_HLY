@@ -1,77 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minHeight="24dp"
-    android:layout_marginTop="-1px"
-    android:orientation="horizontal">
+    xmlns:tools="http://schemas.android.com/tools">
     
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="7"
-        android:textColor="@color/black"
-        tools:text="1001" />
+    <data>
+        
+        <variable
+            name="position"
+            type="Integer" />
+        
+        <variable
+            name="positionSel"
+            type="Integer" />
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.GoodsItemVO" />
+        
+        <variable
+            name="onOperate"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener" />
+    </data>
     
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="8.35"
-        android:textColor="@color/black"
-        tools:text="优酸乳" />
-    
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="6"
-        android:textColor="@color/black"
-        tools:text="箱" />
-    
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="8.33"
-        android:textColor="@color/black"
-        tools:text="2020-11-01" />
-    
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_width="wrap_content"
-        android:layout_weight="6.9"
-        android:textColor="@color/black"
-        tools:text="A1" />
-    
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="8.33"
-        android:textColor="@color/black"
-        tools:text="常规" />
-    
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="8.33"
-        android:textColor="@color/black"
-        tools:text="1000" />
-    
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="8.33"
-        android:textColor="@color/black"
-        tools:text="200" />
-    
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="8.33"
-        android:textColor="@color/black"
-        tools:text="5" />
-    
-    <TextView
-        style="@style/TableTextStyle"
-        android:layout_weight="8.33"
-        android:textColor="@color/black"
-        tools:text="1" />
-    
-    <ImageView
-        style="@style/TableTextStyle"
-        android:layout_weight="8.33"
-        android:scaleType="center"
-        android:src="@mipmap/ic_pick_add" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="-1px"
+        android:background="@{position==positionSel ? @color/color_f3f6ff : @color/white}"
+        android:minHeight="24dp"
+        android:orientation="horizontal">
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="7"
+            android:text="@{data.oldLocationName}"
+            android:textColor="@color/black"
+            tools:text="1001" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="8.35"
+            android:text="@{data.goodsName}"
+            android:textColor="@color/black"
+            tools:text="优酸乳" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="6"
+            android:text="@{data.goodsUnitName}"
+            android:textColor="@color/black"
+            tools:text="箱" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="8.33"
+            android:text="@{data.gmtManufacture}"
+            android:textColor="@color/black"
+            tools:text="2020-11-01" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_width="wrap_content"
+            android:layout_weight="6.9"
+            android:text="@{data.extendOne}"
+            android:textColor="@color/black"
+            tools:text="A1" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="8.33"
+            android:text="@{data.extendTwo}"
+            android:textColor="@color/black"
+            tools:text="常规" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="8.33"
+            android:text="@{String.valueOf(data.planQuantity)}"
+            android:textColor="@color/black"
+            tools:text="1000" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="8.33"
+            android:text="@{String.valueOf(data.supportNum)}"
+            android:textColor="@color/black"
+            tools:text="200" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="8.33"
+            android:text="@{String.valueOf(data.traysNum)}"
+            android:textColor="@color/black"
+            tools:text="5" />
+        
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_weight="8.33"
+            android:text="@{String.valueOf(data.pickingTraysNum)}"
+            android:textColor="@color/black"
+            tools:text="1" />
+        
+        <ImageView
+            style="@style/TableTextStyle"
+            android:layout_weight="8.33"
+            android:onClick="@{v -> onOperate.onItemClick(v, position, data)}"
+            android:scaleType="center"
+            android:src="@mipmap/ic_pick_add" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

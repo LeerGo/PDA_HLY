@@ -6,7 +6,8 @@ import android.os.Parcelable;
 import com.arpa.wms.hly.bean.SelectItem;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -28,6 +29,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
 
     private String carQueueNumber;
     private String code;
+    private String sourceCode;
     private String custodian;
     private String driverName;
     private String driverPhone;
@@ -39,9 +41,18 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private String stevedore;
     private int receivedQuantity;
     private int totalQuantity;
-    private List<?> receiveItemVOList;
+    private BigDecimal volume;// 方量
+    private BigDecimal weight;// 重量
 
     public ResTaskAssign() {
+    }
+
+    public String getSourceCode() {
+        return sourceCode;
+    }
+
+    public void setSourceCode(String sourceCode) {
+        this.sourceCode = sourceCode;
     }
 
     protected ResTaskAssign(Parcel in) {
@@ -60,6 +71,22 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.totalQuantity = in.readInt();
     }
 
+    public String getVolume() {
+        return new DecimalFormat("0.00").format(volume);
+    }
+
+    public void setVolume(BigDecimal volume) {
+        this.volume = volume;
+    }
+
+    public String getWeight() {
+        return new DecimalFormat("0.00").format(weight);
+    }
+
+    public void setWeight(BigDecimal weight) {
+        this.weight = weight;
+    }
+
     public int getReceivedQuantity() {
         return receivedQuantity;
     }
@@ -74,14 +101,6 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
 
     public void setTotalQuantity(int totalQuantity) {
         this.totalQuantity = totalQuantity;
-    }
-
-    public List<?> getReceiveItemVOList() {
-        return receiveItemVOList;
-    }
-
-    public void setReceiveItemVOList(List<?> receiveItemVOList) {
-        this.receiveItemVOList = receiveItemVOList;
     }
 
     public String getStevedore() {
@@ -192,7 +211,6 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         dest.writeString(this.stevedore);
         dest.writeInt(this.receivedQuantity);
         dest.writeInt(this.totalQuantity);
-        dest.writeList(this.receiveItemVOList);
     }
 
     public void readFromParcel(Parcel source) {

@@ -19,6 +19,7 @@
     <color name="color_e4e9ed">#E4E9ED</color>
     <color name="color_b6bed2">#FFB6BED2</color>
     <color name="color_d4dbf4">#D4DBF4</color>
+    <color name="color_f3f6ff">#F3F6FF</color>
     
     <color name="color_hint_text">@color/color_b6bed2</color>
 </resources>

@@ -1,51 +1,78 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat
+<layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:background="@drawable/shape_rrect_border_grey"
-    android:gravity="center"
-    android:orientation="vertical"
-    android:paddingVertical="8dp">
+    xmlns:tools="http://schemas.android.com/tools">
     
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        tools:text="豫HM8983" />
+    <data>
+        
+        <variable
+            name="position"
+            type="Integer" />
+        
+        <variable
+            name="positionSel"
+            type="Integer" />
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
+        
+        <variable
+            name="onTaskClick"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener" />
+    </data>
     
-    <TextView
-        android:layout_width="wrap_content"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        tools:text="客户一" />
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        tools:text="数量：1000" />
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        tools:text="重量：0.01" />
-    
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
-        android:textColor="@color/black"
-        android:textSize="10sp"
-        tools:text="方量：0.01" />
-
-</androidx.appcompat.widget.LinearLayoutCompat>
+        android:background="@{positionSel==position? @drawable/shape_rrect_border_grey_sel : @drawable/shape_rrect_border_grey}"
+        android:gravity="center"
+        android:onClick="@{v -> onTaskClick.onItemClick(v, position, data)}"
+        android:orientation="vertical"
+        android:paddingVertical="8dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.licensePlateNumber}"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            tools:text="豫HM8983" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{data.customerName}"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            tools:text="客户一" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{`数量：` + data.goodsQuantity}"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            tools:text="数量：1000" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{`重量：`+data.weight}"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            tools:text="重量：0.01" />
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="@{`方量：` + data.volume}"
+            android:textColor="@color/black"
+            android:textSize="10sp"
+            tools:text="方量：0.01" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

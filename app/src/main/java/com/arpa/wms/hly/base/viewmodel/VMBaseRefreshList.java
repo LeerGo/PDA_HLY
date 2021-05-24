@@ -106,7 +106,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
 
                     @Override
                     public void onFinish() {
-                        refreshComplete();
+                        refreshComplete(isRefresh);
                         isAutoRefresh.set(false);
                     }
 
@@ -115,12 +115,12 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
                         updateStatus(StatusEvent.Status.ERROR, true);
                         sendMessage(error.getMessage(), true);
                     }
-
-                    private void refreshComplete() {
-                        if (isRefresh) refreshing.set(false);
-                        else moreLoading.set(false);
-                    }
                 });
+    }
+
+    protected void refreshComplete(boolean isRefresh) {
+        if (isRefresh) refreshing.set(false);
+        else moreLoading.set(false);
     }
 
     public abstract Call<ResultPage<T>> getCall(Map<String, Object> params);
