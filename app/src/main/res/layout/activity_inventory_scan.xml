@@ -22,17 +22,18 @@
             app:wtbTitle="@{vmInventory.title}" />
         
         <FrameLayout
+            android:background="#2E7FF6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:scaleType="fitXY"
+                android:layout_gravity="center_horizontal"
                 app:srcCompat="@mipmap/back_inventory" />
             
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 app:srcCompat="@mipmap/ic_inventory_scan" />
