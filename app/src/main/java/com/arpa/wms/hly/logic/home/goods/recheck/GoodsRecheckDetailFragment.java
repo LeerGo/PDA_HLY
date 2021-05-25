@@ -2,8 +2,8 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseLazyFragment;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheckDetailList, FragmentGoodsRecheckDetailBinding> {
+public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRecheckDetailList, FragmentGoodsRecheckDetailBinding> {
 
     public static GoodsRecheckDetailFragment newInstance(int outboundStatus, String outboundCode) {
         GoodsRecheckDetailFragment fragment = new GoodsRecheckDetailFragment();
@@ -40,6 +40,8 @@ public class GoodsRecheckDetailFragment extends BaseLazyFragment<VMGoodsRecheckD
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
         viewBind.setViewModel(viewModel);
         viewModel.request.setParams(requireArguments().getInt(Const.IntentKey.STATUS), requireArguments().getString(Const.IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());

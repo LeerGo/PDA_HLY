@@ -2,8 +2,8 @@ package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseLazyFragment;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentGoodsTakeDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailList;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
@@ -22,7 +22,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTakeDetailList, FragmentGoodsTakeDetailBinding> {
+public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDetailList, FragmentGoodsTakeDetailBinding> {
 
     public static GoodsTakeDetailFragment newInstance(int receiveStatus, String receiveCode) {
         GoodsTakeDetailFragment fragment = new GoodsTakeDetailFragment();
@@ -45,6 +45,8 @@ public class GoodsTakeDetailFragment extends BaseLazyFragment<VMGoodsTakeDetailL
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+
         viewBind.setViewModel(viewModel);
         viewModel.request.setParams(requireArguments().getInt(IntentKey.STATUS), requireArguments().getString(IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
