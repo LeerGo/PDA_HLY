@@ -48,7 +48,7 @@ public class ErrorHandler {
         } else if (e instanceof TimeoutException || e instanceof SocketTimeoutException) {
             error.setInfo(ErrorCode.HTTP_ERROR, "请求超时");
         } else if (e instanceof ConnectException) {
-            error.setInfo(ErrorCode.HTTP_ERROR, "请求异常");
+            error.setInfo(ErrorCode.HTTP_ERROR, "服务器失去连接");
         } else if (e instanceof IOException) {
             error = new ResultError(ErrorCode.SERVER_ERROR, "服务器无响应");
         } else {

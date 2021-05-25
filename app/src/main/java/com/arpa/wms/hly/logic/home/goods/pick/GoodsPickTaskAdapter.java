@@ -24,11 +24,24 @@ public class GoodsPickTaskAdapter <T> extends WrapBindingRVAdapter<T> {
         binding.setVariable(BR.positionSel, positionSel);
     }
 
+    public int getPositionSel() {
+        return positionSel;
+    }
+
     public void setPositionSel(int positionSel) {
         this.positionSel = positionSel;
     }
 
+    /**
+     * 重置选中条目索引
+     */
     public void resetPositionSel() {
         this.positionSel = -1;
+    }
+
+    public T getItemSel() {
+        if (positionSel != -1)
+            return getAdapterItem(positionSel);
+        return null;
     }
 }

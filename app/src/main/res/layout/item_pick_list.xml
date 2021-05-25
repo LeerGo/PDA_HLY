@@ -10,10 +10,6 @@
             type="Integer" />
         
         <variable
-            name="positionSel"
-            type="Integer" />
-        
-        <variable
             name="data"
             type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
         
@@ -25,7 +21,7 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{positionSel==position? @drawable/shape_rrect_border_grey_sel : @drawable/shape_rrect_border_grey}"
+        android:background="@{data.select ? @drawable/shape_rrect_border_grey_sel : @drawable/shape_rrect_border_grey}"
         android:gravity="center"
         android:onClick="@{v -> onTaskClick.onItemClick(v, position, data)}"
         android:orientation="vertical"

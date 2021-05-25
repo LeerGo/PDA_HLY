@@ -66,7 +66,7 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
         // 任务单刷新完成后，自动定位到第一个条目，然后刷新任务详情
         if (isRefresh && !getItems().isEmpty()) {
             adapter.setPositionSel(0);
-            adapter.notifyItemChanged(0);
+            getItems().get(0).setSelect(true);
             sourceCode = getItems().get(0).getSourceCode();
             requestDetail();
         }
@@ -92,11 +92,15 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
     @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
         taskBinding.bindExtra(BR.onTaskClick, (ViewListener.OnItemClickListener<ResTaskAssign>) (view, position, data) -> {
-            adapter.setPositionSel(position);
-            adapter.notifyDataSetChanged();
-            taskDetailAdapter.resetPositionSel();
-            sourceCode = data.getSourceCode();
-            requestDetail();
+            // 方式重复点击导致多次详情请求
+            if (position != adapter.getPositionSel()) {
+                getItems().get(position).setSelect(true);
+                getItems().get(adapter.getPositionSel()).setSelect(false);
+                adapter.setPositionSel(position);
+                adapter.notifyDataSetChanged();
+                sourceCode = data.getSourceCode();
+                requestDetail();
+            }
         });
         return taskBinding;
     }
@@ -120,7 +124,6 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
                     public void onFinish() {
                         super.onFinish();
                         detailRefreshing.set(false);
-
                     }
 
                     @Override
@@ -153,13 +156,22 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
                     public void onSuccess(Object data) {
                         updateStatus(Status.SUCCESS);
                         ToastUtils.showShort(R.string.request_success);
+                        // TODO: 现阶段数据不足，数据联通需要测试交互 @lyf 2021-05-25 01:50:59
                         if (isAllPickFinish()) {// 如果全都拣货完成，刷新拣货单列表
+                            taskDetailAdapter.resetPositionSel();
                             autoRefresh();
                         } else {// 否则刷新当前任务详情列表
+                            // 如果当前选中的条目已经拣货完成，重置选中索引
+                            if (taskDetailAdapter.getItemSel() != null && taskDetailAdapter.getItemSel().isPickFinish())
+                                taskDetailAdapter.resetPositionSel();
                             requestDetail();
                         }
                     }
 
+                    /**
+                     * 拣货单下单据是否全部拣货完成
+                     * @return true - 完成
+                     */
                     private boolean isAllPickFinish() {
                         boolean result = true;
                         for (GoodsItemVO taskItem : taskItems) {

@@ -43,8 +43,9 @@ public class VMMine extends VMWarehouse {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
+    public void onStart() {
+        super.onStart();
+
         initInfo();
     }
 
