@@ -16,6 +16,7 @@ import com.arpa.wms.hly.bean.req.ReqTaskList;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import java.util.List;
 import java.util.Map;
@@ -55,9 +56,34 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
 
     @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
+        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
+            // TODO: 跳转详情 @lyf 2021-05-06 10:09:04
+        }).bindExtra(BR.select, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
+            // 多选
+            data.setSelect(!data.isSelect());
+            inverseSelectAll();
+            getAdapter().notifyDataSetChanged();
+        });
         return itemBinding;
     }
 
+    /**
+     * 反向全选（每一条目选中后，反向判断是否全选）
+     */
+    private void inverseSelectAll() {
+        boolean isItemAllSelect = true;
+        for (ResTaskAssign item : getItems()) {
+            if (!item.isSelect()) {
+                isItemAllSelect = false;
+                break;
+            }
+        }
+        isSelectAll.set(isItemAllSelect);
+    }
+
+    /**
+     * 正向全选（全选后，选中每一条）
+     */
     @SuppressLint("NotifyDataSetChanged")
     public void selectAll() {
         isSelectAll.set(!isSelectAll.get());
