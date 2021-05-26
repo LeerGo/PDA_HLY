@@ -3,7 +3,7 @@ package com.arpa.wms.hly.base.viewmodel;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.wms.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
@@ -51,14 +51,16 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
         adapter = new BindingRecyclerViewAdapter<>();
     }
 
-    public BindingRecyclerViewAdapter<T> getAdapter() {
-        return adapter;
-    }
-
     @Override
     public void onStart() {
         super.onStart();
-        autoRefresh();
+        if (setAutoRefresh()) {
+            autoRefresh();
+        }
+    }
+
+    protected boolean setAutoRefresh() {
+        return true;
     }
 
     /**
@@ -79,7 +81,7 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
 
     private void requestData() {
         if (!isAutoRefresh.get())
-            updateStatus(StatusEvent.Status.LOADING);
+            updateStatus(Status.LOADING);
 
         getCall(getParams().toParams())
                 .enqueue(new ResultCallback<List<T>>() {
@@ -87,14 +89,14 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
                     public void onSuccess(List<T> data) {
                         if (null == data) {
                             sendMessage(R.string.failure_result_common, true);
-                            updateStatus(StatusEvent.Status.FAILURE, true);
+                            updateStatus(Status.FAILURE, true);
                             return;
                         }
                         getItems().clear();
                         if (data.isEmpty()) sendMessage(R.string.data_empty);
                         else getItems().addAll(data);
 
-                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                        updateStatus(Status.SUCCESS, true);
                     }
 
                     @Override
@@ -106,7 +108,7 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
 
                     @Override
                     public void onFailed(ResultError error) {
-                        updateStatus(StatusEvent.Status.ERROR, true);
+                        updateStatus(Status.ERROR, true);
                         sendMessage(error.getMessage(), true);
                     }
                 });
@@ -122,6 +124,10 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
     public abstract Call<Result<List<T>>> getCall(Map<String, Object> params);
 
     public abstract ReqBase getParams();
+
+    public BindingRecyclerViewAdapter<T> getAdapter() {
+        return adapter;
+    }
 
     public abstract ItemBinding<T> getItemBinding();
 }

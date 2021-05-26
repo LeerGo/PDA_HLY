@@ -3,7 +3,7 @@ package com.arpa.wms.hly.base.viewmodel;
 import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.wms.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
@@ -56,7 +56,13 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
     @Override
     public void onStart() {
         super.onStart();
-        autoRefresh();
+        if (setAutoRefresh()) {
+            autoRefresh();
+        }
+    }
+
+    protected boolean setAutoRefresh() {
+        return true;
     }
 
     /**
@@ -78,7 +84,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
 
     private void requestData(boolean isRefresh) {
         if (!isAutoRefresh.get())
-            updateStatus(StatusEvent.Status.LOADING);
+            updateStatus(Status.LOADING);
 
         getCall(getParams().toParams())
                 .enqueue(new ResultPageCallback<T>() {
@@ -86,7 +92,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
                     public void onSuccess(List<T> data) {
                         if (null == data) {
                             sendMessage(R.string.failure_result_common, true);
-                            updateStatus(StatusEvent.Status.FAILURE, true);
+                            updateStatus(Status.FAILURE, true);
                             return;
                         }
 
@@ -101,7 +107,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
                         }
                         hasMore.set(listSize == PAGE_SIZE);
                         getItems().addAll(data);
-                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                        updateStatus(Status.SUCCESS, true);
                     }
 
                     @Override
@@ -112,7 +118,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
 
                     @Override
                     public void onFailed(ResultError error) {
-                        updateStatus(StatusEvent.Status.ERROR, true);
+                        updateStatus(Status.ERROR, true);
                         sendMessage(error.getMessage(), true);
                     }
                 });

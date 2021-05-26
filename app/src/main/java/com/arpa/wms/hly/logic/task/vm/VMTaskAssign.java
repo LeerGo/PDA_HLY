@@ -55,6 +55,11 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     }
 
     @Override
+    protected boolean setAutoRefresh() {
+        return false;
+    }
+
+    @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
         itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
             // TODO: 跳转详情 @lyf 2021-05-06 10:09:04

@@ -50,6 +50,11 @@ public class VMGoodsRecheckDetailList extends VMBaseList<GoodsItemVO> {
     }
 
     @Override
+    protected boolean setAutoRefresh() {
+        return false;
+    }
+
+    @Override
     public ReqBase getParams() {
         return request;
     }

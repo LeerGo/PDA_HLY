@@ -2,7 +2,7 @@ package com.arpa.wms.hly.base;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseLazyFragment;
+import com.arpa.and.wms.arch.base.BaseFragment;
 import com.arpa.and.wms.arch.base.BaseViewModel;
 import com.arpa.and.wms.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.R;
@@ -17,11 +17,23 @@ import androidx.databinding.ViewDataBinding;
  * since: 2021-04-25 1:24 PM
  *
  * <p>
- * 基础：BaseLazyFragment 包装
+ * 基础：BaseLazyFragment 针对 ViewPager2 的懒加载包装
  * </p>
  */
-public abstract class WrapBaseLazyFragment <VM extends BaseViewModel, VDB extends ViewDataBinding>
-        extends BaseLazyFragment<VM, VDB> {
+public abstract class WrapBaseLazyFragment <VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseFragment<VM, VDB> {
+    private boolean isFirstLoad = true;
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isFirstLoad) {
+            isFirstLoad = false;
+            onLazyLoad();
+        }
+    }
+
+    protected abstract void onLazyLoad();
+
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         registerMessageEvent(ToastUtils::showShort);

@@ -57,5 +57,6 @@ public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, Fragm
 
     @Override
     public void onLazyLoad() {
+        viewModel.autoRefresh();
     }
 }

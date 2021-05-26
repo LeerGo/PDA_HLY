@@ -32,7 +32,7 @@ import retrofit2.Call;
  * since: 2021-05-06 15:08
  *
  * <p>
- * 内容描述区域
+ * ViewModel: 收货详情列表
  * </p>
  */
 @HiltViewModel
@@ -42,6 +42,11 @@ public class VMGoodsTakeDetailList extends VMBaseList<GoodsItemVO> {
     @Inject
     public VMGoodsTakeDetailList(@NonNull Application application, BaseModel model) {
         super(application, model);
+    }
+
+    @Override
+    protected boolean setAutoRefresh() {
+        return false;
     }
 
     @Override

@@ -82,7 +82,7 @@
                 android:layout_height="match_parent"
                 app:fragments="@{viewModel.fragments}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                app:pageLimit="1"
+                app:pageLimit="@{viewModel.titles.size()}"
                 app:tab="@{tablayout}"
                 app:titles="@{viewModel.titles}" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>

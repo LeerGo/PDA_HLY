@@ -49,6 +49,6 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
 
     @Override
     public void onLazyLoad() {
-
+        viewModel.autoRefresh();
     }
 }

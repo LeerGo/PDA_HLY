@@ -38,7 +38,7 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
 
     @Override
     public void onLazyLoad() {
-
+        viewModel.autoRefresh();
     }
 
     @Override
