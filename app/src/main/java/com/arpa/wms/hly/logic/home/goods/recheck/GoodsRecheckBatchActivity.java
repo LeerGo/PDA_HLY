@@ -68,7 +68,9 @@ public class GoodsRecheckBatchActivity
     private void restoreCodes() {
         ArrayList<String> codeList = getIntent().getStringArrayListExtra(IntentKey.DATA);
         if (!codeList.isEmpty()) {
-            for (String code : codeList) addTagView(code);
+            for (int i = codeList.size() - 1; i >= 0; i--) {
+                addTagView(codeList.get(i));
+            }
         }
     }
 
