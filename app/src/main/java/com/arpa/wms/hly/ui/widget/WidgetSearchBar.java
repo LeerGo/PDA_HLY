@@ -54,7 +54,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         ivClear.setOnClickListener(v -> {
             etKey.setText("");
             doSearch(v);
-            onClearClick.onClick(v);
+            if (null != onClearClick) onClearClick.onClick(v);
         });
         findViewById(R.id.ib_search).setOnClickListener(this::doSearch);
     }

@@ -4,6 +4,7 @@ import android.app.Application;
 
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
+import com.arpa.wms.hly.bean.SearchInfo;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,7 @@ import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableList;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.MutableLiveData;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -26,6 +28,8 @@ public abstract class VMPdaTaskDetail extends WrapDataViewModel {
     public final ObservableField<ResTaskAssign> headerData = new ObservableField<>();
     public final ObservableList<Fragment> fragments = new ObservableArrayList<>();
     public final ObservableList<String> titles = new ObservableArrayList<>();
+    public final SearchInfo searchInfo = new SearchInfo();
+    public final MutableLiveData<SearchInfo> searchLiveData = new MutableLiveData<>();
 
     public VMPdaTaskDetail(@NonNull Application application, BaseModel model) {
         super(application, model);
@@ -46,4 +50,7 @@ public abstract class VMPdaTaskDetail extends WrapDataViewModel {
 
     protected abstract void refreshHeader();
 
+    public void sendSearchAction(){
+        searchLiveData.postValue(searchInfo);
+    }
 }

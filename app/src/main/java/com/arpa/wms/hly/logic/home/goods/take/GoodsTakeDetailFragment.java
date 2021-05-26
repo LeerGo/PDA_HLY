@@ -1,7 +1,7 @@
 package com.arpa.wms.hly.logic.home.goods.take;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
@@ -46,13 +46,22 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
         return R.layout.fragment_goods_take_detail;
     }
 
+    @SuppressLint("LogNotTimber")
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
-        viewModel.request.setParams(requireArguments().getInt(IntentKey.STATUS), requireArguments().getString(IntentKey.CODE));
+        int receiveStatus = requireArguments().getInt(IntentKey.STATUS);
+        viewModel.request.setParams(receiveStatus, requireArguments().getString(IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
-        VMGoodsTakeDetail model = new ViewModelProvider(requireActivity()).get(VMGoodsTakeDetail.class);
-        model.data.observe(requireActivity(), s -> Log.e("@@@@ L56", "GoodsTakeDetailFragment:onChanged() -> data from act = " + s));
+        VMGoodsTakeDetail parentModel = new ViewModelProvider(requireActivity()).get(VMGoodsTakeDetail.class);
+        parentModel.searchLiveData.observe(requireActivity(),
+                searchInfo -> {
+                    if (receiveStatus == searchInfo.getStatus()) {
+                        viewModel.request.setGoodsBarCode(searchInfo.getKeyWord());
+                        viewModel.autoRefresh();
+                    }
+                }
+        );
     }
 }

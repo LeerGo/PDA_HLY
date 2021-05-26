@@ -11,6 +11,7 @@ public class ReqGoodTakeDetail extends ReqBase {
     private int receiveStatus;
     private String receiveCode;
     private String receiveItemCode;
+    private String goodsBarCode;
 
     public void setParams(String receiveCode, String receiveItemCode) {
         this.receiveCode = receiveCode;
@@ -20,6 +21,18 @@ public class ReqGoodTakeDetail extends ReqBase {
     public void setParams(int receiveStatus, String receiveCode) {
         this.receiveCode = receiveCode;
         this.receiveStatus = receiveStatus;
+    }
+
+    public void resetFilter() {
+        setGoodsBarCode(null);
+    }
+
+    public String getGoodsBarCode() {
+        return goodsBarCode;
+    }
+
+    public void setGoodsBarCode(String goodsBarCode) {
+        this.goodsBarCode = goodsBarCode;
     }
 
     public String getReceiveItemCode() {

@@ -8,11 +8,13 @@ import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetail;
 import com.arpa.wms.hly.utils.Const;
-import com.arpa.wms.hly.utils.Const.TASK_STATUS;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.arpa.wms.hly.utils.Const.TASK_STATUS.TAKE_WAIT;
+import static com.arpa.wms.hly.utils.Const.TASK_STATUS.TAKE_YET;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -30,7 +32,7 @@ public class GoodsTakeDetailActivity extends WrapBaseActivity<VMGoodsTakeDetail,
         @Override
         public void onPageSelected(int position) {
             super.onPageSelected(position);
-//            viewModel.data.postValue(viewBind.wsbSearch.geT);
+            viewModel.searchInfo.setStatus(position == 0 ? TAKE_WAIT : TAKE_YET);
         }
     };
 
@@ -46,9 +48,12 @@ public class GoodsTakeDetailActivity extends WrapBaseActivity<VMGoodsTakeDetail,
         viewBind.viewpager.registerOnPageChangeCallback(pageChangeCallback);
         ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
         viewModel.headerData.set(data);
-        viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(TASK_STATUS.TAKE_WAIT, data.getCode()));
-        viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(TASK_STATUS.TAKE_YET, data.getCode()));
-        viewBind.wsbSearch.setOnSearchClick(keyWord -> viewModel.data.postValue(keyWord));
+        viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(TAKE_WAIT, data.getCode()));
+        viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(TAKE_YET, data.getCode()));
+        viewBind.wsbSearch.setOnSearchClick(keyWord -> {
+            viewModel.searchInfo.setKeyWord(keyWord);
+            viewModel.sendSearchAction();
+        });
 
     }
 

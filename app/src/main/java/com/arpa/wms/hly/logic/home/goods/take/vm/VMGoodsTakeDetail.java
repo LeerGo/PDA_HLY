@@ -14,7 +14,6 @@ import java.util.Arrays;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.MutableLiveData;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
@@ -28,7 +27,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMGoodsTakeDetail extends VMPdaTaskDetail {
-    public MutableLiveData<String> data = new MutableLiveData<>();
 
     @Inject
     public VMGoodsTakeDetail(@NonNull Application application, BaseModel model) {
