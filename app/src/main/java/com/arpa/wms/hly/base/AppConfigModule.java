@@ -12,7 +12,7 @@ import com.arpa.wms.hly.net.interceptor.HeaderInterceptor;
  * since: 2021-04-29 10:39
  *
  * <p>
- * 内容描述区域
+ * App 基础设置模块
  * </p>
  */
 public class AppConfigModule extends FrameConfigModule {

@@ -18,7 +18,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  * since: 2021-04-27 10:24 AM
  *
  * <p>
- * 内容描述区域
+ * base：基础数据请求的 ViewModel 封装
  * </p>
  */
 @HiltViewModel

@@ -13,7 +13,7 @@ import com.arpa.wms.hly.R;
  * since: 2021-05-13 16:40
  *
  * <p>
- * 内容描述区域
+ * Base: 针对底部弹窗的基础封装
  * </p>
  */
 public abstract class BaseBottomDialogFragment extends BaseDialogFragment {

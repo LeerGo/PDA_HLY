@@ -12,7 +12,7 @@ import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
  * since: 2021-05-14 08:23
  *
  * <p>
- * 适配器：二次包装的适配器（MVVM）
+ * base: 针对 RecyclerView 二次包装的适配器，把当前数据的 position 注册进去（图省事）
  * </p>
  */
 public class WrapBindingRVAdapter <T> extends BindingRecyclerViewAdapter<T> {

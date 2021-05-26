@@ -16,7 +16,7 @@ import androidx.databinding.ViewDataBinding;
  * since: 2021-04-25 1:24 PM
  *
  * <p>
- * 基础：上下拉刷刷新页面
+ * base：基础 activity 的封装，注册消息、状态事件，调整 loading 动画
  * </p>
  */
 public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends ViewDataBinding>

@@ -26,7 +26,7 @@ import retrofit2.Call;
  * since: 2021-04-26 9:35 AM
  *
  * <p>
- * 基础架构-ViewModel：分页加载
+ * base: 基础分页加载 ViewModel
  * </p>
  */
 public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {

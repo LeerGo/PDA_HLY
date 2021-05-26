@@ -17,7 +17,7 @@ import androidx.databinding.ViewDataBinding;
  * since: 2021-04-25 1:24 PM
  *
  * <p>
- * 基础：BaseLazyFragment 针对 ViewPager2 的懒加载包装
+ * base：针对 ViewPager2 的 Fragment 懒加载封装
  * </p>
  */
 public abstract class WrapBaseLazyFragment <VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseFragment<VM, VDB> {

@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 /**
  * ViewHolder基类
  */
+@Deprecated
 public class BaseViewHolder extends RecyclerView.ViewHolder {
 
     private SparseArray<View> views;
