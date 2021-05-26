@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.arpa.and.wms.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.base.WrapBindingRVAdapter;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
@@ -34,7 +35,7 @@ import retrofit2.Call;
  */
 @HiltViewModel
 public class VMGoodsRecheck extends VMBaseRefreshList<ResTaskAssign> {
-    private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take);
+    private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck);
     private final ReqPage reqPage = new ReqPage(PAGE_SIZE);
 
     @Inject
@@ -52,9 +53,14 @@ public class VMGoodsRecheck extends VMBaseRefreshList<ResTaskAssign> {
         return reqPage;
     }
 
+    @Override
+    public void configAdapter() {
+        setAdapter(new WrapBindingRVAdapter<>());
+    }
 
     @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
+        itemBinding.bindExtra(BR.showOrder, true);
         itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
             Bundle bundle = new Bundle();
             bundle.putParcelable(Const.IntentKey.DATA, data);

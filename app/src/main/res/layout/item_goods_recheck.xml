@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--TODO: 待删除 @lyf 2021-05-19 01:30:04 -->
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -9,13 +8,19 @@
         
         <import type="android.text.TextUtils" />
         
+        <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
+        
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
+            type="ResTaskAssign" />
         
         <variable
             name="position"
             type="Integer" />
+        
+        <variable
+            name="showOrder"
+            type="Boolean" />
         
         <variable
             name="listener"
@@ -26,6 +31,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="1dp"
+        android:clickable="@{showOrder}"
         android:onClick="@{()->listener.transfer(data)}"
         app:cardBackgroundColor="@color/white"
         tools:layout_marginBottom="10dp">
@@ -37,74 +44,81 @@
             android:paddingBottom="12dp">
             
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvTaskOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBaseline="@id/tvCarNumber"
+                android:background="@drawable/shape_rrect_blue_gradient_border_r5"
+                android:gravity="center"
+                android:minWidth="18dp"
+                android:paddingHorizontal="2.5dp"
+                android:text="@{String.valueOf(position+1)}"
+                android:textColor="@color/colorPrimary"
+                android:textSize="14sp"
+                app:visible="@{showOrder}"
+                tools:text="1" />
+            
+            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvCarNumber"
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@id/tvTaskOrder"
                 android:gravity="center_vertical"
-                android:text='@{@string/task_number_goods_take(data.code)}'
+                android:text="@{@string/car_number(data.licensePlateNumber)}"
                 android:textColor="@color/color_434c67"
-                tools:text="收货任务号：SH2020092300008" />
+                tools:text="车牌号：豫HM8983" />
             
             <View
                 android:id="@+id/line"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_below="@id/tvCarNumber"
-                android:background="@color/grey" />
+                android:background="@color/color_ececec" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_queue"
+                android:id="@+id/wpi_customer"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
-                app:propsKey="种    数："
-                app:propsValue="10"
-                tools:propsValue="10" />
-            
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/line"
-                android:layout_alignParentEnd="true"
-                android:layout_marginTop="12dp">
-                
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="件   数："
-                    android:textColor="@color/grey_96a0b9"
-                    android:textSize="14sp" />
-                
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="14sp"
-                    android:text="200"
-                    tools:text="0" />
-                
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="/"
-                    android:textColor="@color/color_434c67"
-                    android:textSize="14sp" />
-                
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="100"
-                    android:textColor="@color/color_434c67"
-                    android:textSize="14sp"
-                    tools:text="1000" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_driver"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_queue"
                 app:propsKey="客    户："
                 app:propsValue="@{data.customerName}"
-                tools:propsValue="测试货主" />
+                tools:propsValue="测试客户" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/line"
+                android:layout_alignParentEnd="true"
+                app:wqiCount="@{data.receivedQuantity}"
+                app:wqiName="件数："
+                app:wqiSum="@{data.totalQuantity}"
+                tools:wqiCount="100"
+                tools:wqiSum="10000" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_keeper"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_customer"
+                app:propsKey="保管员："
+                app:propsValue="@{data.custodian}"
+                app:visible="@{!TextUtils.isEmpty(data.custodian)}"
+                tools:propsValue="张三，李四" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_stevedore"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_keeper"
+                app:propsKey="装卸工："
+                app:propsValue="@{data.stevedore}"
+                app:visible="@{!TextUtils.isEmpty(data.stevedore)}"
+                tools:propsValue="装卸工一，装卸工一" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_stevedore"
+                app:propsKey="叉车工："
+                app:propsValue="@{data.forklift}"
+                app:visible="@{!TextUtils.isEmpty(data.forklift)}"
+                tools:propsValue="叉车工一" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

@@ -34,7 +34,8 @@
         android:layout_marginBottom="1dp"
         android:clickable="@{showOrder}"
         android:onClick="@{()->listener.transfer(data)}"
-        app:cardBackgroundColor="@color/white">
+        app:cardBackgroundColor="@color/white"
+        tools:layout_marginBottom="10dp">
         
         <RelativeLayout
             android:layout_width="match_parent"
@@ -82,7 +83,7 @@
                 app:propsKey="排队号："
                 app:propsValue="@{data.carQueueNumber}"
                 tools:propsValue="10" />
-    
+            
             <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
