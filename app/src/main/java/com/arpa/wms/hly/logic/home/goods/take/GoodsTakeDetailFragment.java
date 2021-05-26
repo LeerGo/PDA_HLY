@@ -1,15 +1,18 @@
 package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
+import android.util.Log;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentGoodsTakeDetailBinding;
+import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetail;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailList;
 import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProvider;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -46,9 +49,10 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-
         viewBind.setViewModel(viewModel);
         viewModel.request.setParams(requireArguments().getInt(IntentKey.STATUS), requireArguments().getString(IntentKey.CODE));
         viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
+        VMGoodsTakeDetail model = new ViewModelProvider(requireActivity()).get(VMGoodsTakeDetail.class);
+        model.data.observe(requireActivity(), s -> Log.e("@@@@ L56", "GoodsTakeDetailFragment:onChanged() -> data from act = " + s));
     }
 }

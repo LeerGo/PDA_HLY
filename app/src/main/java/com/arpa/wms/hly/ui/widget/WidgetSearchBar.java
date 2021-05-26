@@ -53,6 +53,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         etKey.setOnFocusChangeListener((v, hasFocus) -> ivClear.setVisibility(hasFocus ? VISIBLE : GONE));
         ivClear.setOnClickListener(v -> {
             etKey.setText("");
+            doSearch(v);
             onClearClick.onClick(v);
         });
         findViewById(R.id.ib_search).setOnClickListener(this::doSearch);
