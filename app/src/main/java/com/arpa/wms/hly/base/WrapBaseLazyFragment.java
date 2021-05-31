@@ -2,9 +2,9 @@ package com.arpa.wms.hly.base;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseFragment;
-import com.arpa.and.wms.arch.base.BaseViewModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.arch.base.BaseFragment;
+import com.arpa.and.arch.base.BaseViewModel;
+import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.utils.ToastUtils;
 

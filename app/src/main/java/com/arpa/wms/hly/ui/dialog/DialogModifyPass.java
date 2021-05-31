@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.Toast;
 
-import com.arpa.and.wms.arch.base.BaseDialogFragment;
+import com.arpa.and.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;

@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.arpa.and.wms.arch.base.BaseDialogFragment;
+import com.arpa.and.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.ViewListener.VoidCallback;
 

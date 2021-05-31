@@ -2,7 +2,7 @@ package com.arpa.wms.hly.logic.home.goods.take.vm;
 
 import android.app.Application;
 
-import com.arpa.and.wms.arch.base.BaseModel;
+import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.logic.common.vm.VMPdaTaskDetail;
 import com.arpa.wms.hly.net.callback.ResultCallback;

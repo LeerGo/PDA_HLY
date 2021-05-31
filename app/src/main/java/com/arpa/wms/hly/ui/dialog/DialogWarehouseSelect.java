@@ -3,7 +3,7 @@ package com.arpa.wms.hly.ui.dialog;
 import android.os.Bundle;
 import android.widget.ImageView;
 
-import com.arpa.and.wms.arch.base.BaseDialogFragment;
+import com.arpa.and.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.ui.adapter.DialogWarehouseSelectAdapter;

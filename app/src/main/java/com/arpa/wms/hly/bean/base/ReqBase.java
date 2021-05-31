@@ -1,6 +1,6 @@
 package com.arpa.wms.hly.bean.base;
 
-import com.arpa.and.wms.arch.util.GsonUtils;
+import com.arpa.and.arch.util.GsonUtils;
 
 import java.util.Map;
 

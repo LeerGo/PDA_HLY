@@ -3,8 +3,8 @@ package com.arpa.wms.hly.logic.home.inventory.move.vm;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;

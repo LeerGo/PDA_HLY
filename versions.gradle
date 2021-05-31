@@ -18,12 +18,3 @@ build_versions.compileSdk = 29
 build_versions.buildTools = "29.0.3"
 ext.build_versions = build_versions
 
-def addRepos(RepositoryHandler handler) {
-    handler.google()
-    handler.jcenter()
-    handler.mavenCentral()
-    handler.maven { url "https://jitpack.io" }
-}
-
-ext.addRepos = this.&addRepos
-

@@ -3,8 +3,8 @@ package com.arpa.wms.hly.logic.mine;
 import android.app.Application;
 import android.content.Intent;
 
-import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.bean.req.ReqChangeWarehouse;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;

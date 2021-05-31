@@ -4,9 +4,9 @@ import android.app.Application;
 import android.text.TextUtils;
 import android.util.Log;
 
-import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
-import com.arpa.and.wms.arch.util.GsonUtils;
+import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.StatusEvent;
+import com.arpa.and.arch.util.GsonUtils;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBindingRVAdapter;

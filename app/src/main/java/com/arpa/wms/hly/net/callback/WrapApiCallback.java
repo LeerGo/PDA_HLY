@@ -1,6 +1,6 @@
 package com.arpa.wms.hly.net.callback;
 
-import com.arpa.and.wms.arch.http.callback.ApiCallback;
+import com.arpa.and.arch.http.callback.ApiCallback;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.net.exception.ErrorCode;
 import com.arpa.wms.hly.net.exception.ErrorHandler;

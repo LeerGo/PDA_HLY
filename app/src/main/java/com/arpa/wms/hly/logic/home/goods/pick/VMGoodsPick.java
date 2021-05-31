@@ -2,8 +2,8 @@ package com.arpa.wms.hly.logic.home.goods.pick;
 
 import android.app.Application;
 
-import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent.Status;
+import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;

@@ -2,8 +2,8 @@ package com.arpa.wms.hly.base.viewmodel;
 
 import android.app.Application;
 
-import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent.Status;
+import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;

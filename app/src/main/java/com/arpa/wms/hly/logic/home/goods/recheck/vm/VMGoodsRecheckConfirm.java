@@ -2,8 +2,8 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 
 import android.app.Application;
 
-import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent.Status;
+import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;

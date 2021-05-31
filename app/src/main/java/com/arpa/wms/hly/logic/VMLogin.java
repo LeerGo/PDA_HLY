@@ -3,8 +3,8 @@ package com.arpa.wms.hly.logic;
 import android.app.Application;
 import android.text.TextUtils;
 
-import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.bean.req.ReqLogin;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResWarehouse;

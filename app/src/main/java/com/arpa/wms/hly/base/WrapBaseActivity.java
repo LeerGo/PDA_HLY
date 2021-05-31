@@ -2,8 +2,8 @@ package com.arpa.wms.hly.base;
 
 import android.os.Bundle;
 
-import com.arpa.and.wms.arch.base.BaseViewModel;
-import com.arpa.and.wms.arch.base.livedata.StatusEvent;
+import com.arpa.and.arch.base.BaseViewModel;
+import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.utils.ToastUtils;
 
@@ -20,7 +20,7 @@ import androidx.databinding.ViewDataBinding;
  * </p>
  */
 public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends ViewDataBinding>
-        extends com.arpa.and.wms.arch.base.BaseActivity<VM, VDB> {
+        extends com.arpa.and.arch.base.BaseActivity<VM, VDB> {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         registerMessageEvent(ToastUtils::showShort);

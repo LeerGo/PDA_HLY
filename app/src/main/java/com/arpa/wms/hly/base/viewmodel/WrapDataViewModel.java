@@ -2,8 +2,8 @@ package com.arpa.wms.hly.base.viewmodel;
 
 import android.app.Application;
 
-import com.arpa.and.wms.arch.base.BaseModel;
-import com.arpa.and.wms.arch.base.DataViewModel;
+import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.DataViewModel;
 import com.arpa.wms.hly.net.ApiService;
 import com.arpa.wms.hly.utils.SPUtils;
 

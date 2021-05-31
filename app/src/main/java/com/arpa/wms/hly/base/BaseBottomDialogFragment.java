@@ -4,7 +4,7 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.arpa.and.wms.arch.base.BaseDialogFragment;
+import com.arpa.and.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
 
 /**

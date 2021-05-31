@@ -2,7 +2,7 @@ package com.arpa.wms.hly.logic.task.vm;
 
 import android.app.Application;
 
-import com.arpa.and.wms.arch.base.BaseModel;
+import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.logic.task.TaskAssignFragment;
 import com.arpa.wms.hly.utils.Const.ASSIGN_WORK;

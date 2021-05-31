@@ -2,7 +2,7 @@ package com.arpa.wms.hly.logic.common.vm;
 
 import android.app.Application;
 
-import com.arpa.and.wms.arch.base.BaseModel;
+import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.SearchInfo;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
