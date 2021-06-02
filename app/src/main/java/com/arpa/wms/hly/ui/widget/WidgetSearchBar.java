@@ -3,6 +3,7 @@ package com.arpa.wms.hly.ui.widget;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -45,7 +46,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         ivClear = findViewById(R.id.iv_clear);
         etKey = findViewById(R.id.et_key);
         etKey.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 doSearch(v);
             }
             return false;
