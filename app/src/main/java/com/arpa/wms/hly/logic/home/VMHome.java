@@ -17,7 +17,6 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
@@ -34,7 +33,6 @@ public class VMHome extends WrapDataViewModel {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
 
-    private final BindingRecyclerViewAdapter<MenuBean> adapter = new BindingRecyclerViewAdapter<>();
     private final ObservableArrayList<MenuBean> items = new ObservableArrayList<>();
     private final ItemBinding<MenuBean> itemBinding = ItemBinding.of(BR.data, R.layout.item_home_menu);
 
@@ -98,9 +96,5 @@ public class VMHome extends WrapDataViewModel {
 
     public ItemBinding<MenuBean> getItemBinding() {
         return itemBinding;
-    }
-
-    public BindingRecyclerViewAdapter<MenuBean> getAdapter() {
-        return adapter;
     }
 }

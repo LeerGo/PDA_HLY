@@ -75,7 +75,6 @@
             android:id="@+id/rvMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:adapter="@{vmHome.adapter}"
             app:itemBinding="@{vmHome.itemBinding}"
             app:items="@{vmHome.items}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
