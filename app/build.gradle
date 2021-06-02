@@ -71,7 +71,7 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.3.0"
 
     // 自有封装框架
-    implementation 'com.arpa.and:arpa-arch:1.0.1'
+    implementation 'com.arpa.and:arpa-arch:1.0.3'
 
     // 官方
     implementation "androidx.appcompat:appcompat:1.3.0"

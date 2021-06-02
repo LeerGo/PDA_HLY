@@ -7,7 +7,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentTaskAssignBinding;
 import com.arpa.wms.hly.logic.task.vm.VMTaskAssign;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.utils.Const.ASSIGN_WORK;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
@@ -43,7 +43,7 @@ public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, Fragm
         super.initData(savedInstanceState);
 
         viewBind.setVariable(BR.viewModel, viewModel);
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration());
         viewModel.type.set(getArguments() != null ? getArguments().getInt(IntentKey.INDEX, ASSIGN_WORK.ASSIGN_NOT) : ASSIGN_WORK.ASSIGN_NOT);
         viewBind.btnAssignKeeper.setOnClickListener(view -> showStaffDialog(ASSIGN_WORK.WORK_CUSTODIAN));
         viewBind.btnAssignStevedore.setOnClickListener(view -> showStaffDialog(ASSIGN_WORK.WORK_STEVEDORE));

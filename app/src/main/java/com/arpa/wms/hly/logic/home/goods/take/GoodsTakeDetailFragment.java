@@ -8,7 +8,7 @@ import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentGoodsTakeDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetail;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailList;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
@@ -53,7 +53,7 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
         viewBind.setViewModel(viewModel);
         int receiveStatus = requireArguments().getInt(IntentKey.STATUS);
         viewModel.request.setParams(receiveStatus, requireArguments().getString(IntentKey.CODE));
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration());
         VMGoodsTakeDetail parentModel = new ViewModelProvider(requireActivity()).get(VMGoodsTakeDetail.class);
         parentModel.searchLiveData.observe(requireActivity(),
                 searchInfo -> {

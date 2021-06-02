@@ -6,7 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityTruckLoadDetailBinding;
 import com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoadDetail;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
@@ -34,6 +34,6 @@ public class TruckLoadDetailActivity extends WrapBaseActivity<VMTruckLoadDetail,
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
         viewModel.truckLoadHeader.set(getIntent().getParcelableExtra(IntentKey.DATA));
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration());
     }
 }

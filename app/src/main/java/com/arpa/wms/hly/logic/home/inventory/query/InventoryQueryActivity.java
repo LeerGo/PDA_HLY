@@ -5,7 +5,7 @@ import android.os.Bundle;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityInventoryQueryBinding;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -31,7 +31,7 @@ public class InventoryQueryActivity extends WrapBaseActivity<VMInventoryQuery, A
         super.initData(savedInstanceState);
 
         viewBind.setViewModel(viewModel);
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration());
         // TODO: 先临时这样，后面改为 xml 映射 @lyf 2021-05-08 07:51:32
         viewBind.wsbGoodbar.setOnSearchClick(data -> viewModel.filter(data, false));
         viewBind.wsbGoodbar.setOnClearClick(v -> viewModel.filter("", false));

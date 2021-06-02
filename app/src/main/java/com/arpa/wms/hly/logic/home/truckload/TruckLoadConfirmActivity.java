@@ -6,7 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityTruckLoadConfirmBinding;
 import com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoadConfirm;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
@@ -34,6 +34,6 @@ public class TruckLoadConfirmActivity extends WrapBaseActivity<VMTruckLoadConfir
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
         viewModel.headerData = getIntent().getParcelableExtra(IntentKey.DATA);
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
     }
 }

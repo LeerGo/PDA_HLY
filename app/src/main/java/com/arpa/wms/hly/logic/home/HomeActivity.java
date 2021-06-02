@@ -11,7 +11,6 @@ import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.databinding.ActivityHomeBinding;
 import com.arpa.wms.hly.ui.decoration.GridItemDecoration;
 import com.arpa.wms.hly.ui.listener.ViewListener;
-import com.arpa.wms.hly.utils.DensityUtils;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -38,7 +37,7 @@ public class HomeActivity extends WrapBaseActivity<VMHome, ActivityHomeBinding> 
         super.initData(savedInstanceState);
 
         viewBind.setVariable(BR.vmHome, viewModel);
-        viewBind.rvMenu.addItemDecoration(new GridItemDecoration(DensityUtils.dip2px(10)));
+        viewBind.rvMenu.addItemDecoration(new GridItemDecoration(10));
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<MenuBean>) data -> {
             if (!TextUtils.isEmpty(data.getPath())) {
                 Intent intent = new Intent();

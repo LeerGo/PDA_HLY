@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
+        android:text="收货状态"
         android:textColor="@color/color_434c67"
-        android:textSize="17sp"
-        android:text="收货状态" />
+        android:textSize="17sp" />
     
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_assign"
@@ -25,6 +25,7 @@
         android:layout_marginTop="15dp"
         android:fadeScrollbars="true"
         android:overScrollMode="never"
+        android:paddingHorizontal="15dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:itemCount="5"
         tools:listitem="@layout/item_dialog_select" />

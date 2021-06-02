@@ -6,7 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
@@ -44,7 +44,7 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
 
         viewBind.setViewModel(viewModel);
         viewModel.request.setParams(requireArguments().getInt(Const.IntentKey.STATUS), requireArguments().getString(Const.IntentKey.CODE));
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerTop10DP());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration());
     }
 
     @Override

@@ -62,7 +62,7 @@
             android:gravity="center_vertical"
             android:onClick="@{v -> onDateClick.onItemClick(v, position, data)}"
             app:inputEnable="false"
-            app:inputHint="请输入生产日期，格式yyyymmdd"
+            app:inputHint="请输入生产日期"
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
             app:inputText="@={data.gmtManufacture}"
             app:inputTitle="生产日期" />

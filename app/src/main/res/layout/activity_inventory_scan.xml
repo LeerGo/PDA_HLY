@@ -24,7 +24,7 @@
         <FrameLayout
             android:background="#2E7FF6"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="160dp">
             
             <androidx.appcompat.widget.AppCompatImageView
                 android:layout_width="wrap_content"
@@ -33,8 +33,8 @@
                 app:srcCompat="@mipmap/back_inventory" />
             
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="110dp"
+                android:layout_height="110dp"
                 android:layout_gravity="center"
                 app:srcCompat="@mipmap/ic_inventory_scan" />
         </FrameLayout>

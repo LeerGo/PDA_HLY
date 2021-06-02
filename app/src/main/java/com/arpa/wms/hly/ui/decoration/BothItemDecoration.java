@@ -13,25 +13,28 @@ import androidx.recyclerview.widget.RecyclerView;
  * version: 1.0.0<br/>
  * since: 2021-04-21 4:35 PM
  */
-public class GridItemDecoration extends RecyclerView.ItemDecoration {
+public class BothItemDecoration extends RecyclerView.ItemDecoration {
     private final int interval;
+    private final boolean isBoth;
 
-    public GridItemDecoration(int interval) {
+    public BothItemDecoration() {
+        this(10, false);
+    }
+
+    public BothItemDecoration(int interval, boolean isBoth) {
         this.interval = DensityUtils.dip2px(interval);
+        this.isBoth = isBoth;
+    }
+
+    public BothItemDecoration(boolean isBoth) {
+        this(10, isBoth);
     }
 
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         outRect.top = interval;
-        if (parent.getChildAdapterPosition(view) % 2 == 0) {
-            outRect.left = interval;
-            outRect.right = interval;
-        } else if (parent.getChildAdapterPosition(view) % 2 == 1) {
-            outRect.left = 0;
-            outRect.right = interval;
-        }
-        if (parent.getChildAdapterPosition(view) == state.getItemCount() - 1) {
+        if (parent.getChildAdapterPosition(view) == state.getItemCount() - 1 && isBoth) {
             outRect.bottom = interval;
         }
     }

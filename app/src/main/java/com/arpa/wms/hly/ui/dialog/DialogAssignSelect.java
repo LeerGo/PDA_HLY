@@ -11,7 +11,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.ui.adapter.DialogAssignSelectAdapter;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.DrawableItemDecoration;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.ToastUtils;
 
@@ -103,9 +103,9 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
     private void setSelectItem() {
         RecyclerView rvAssign = (RecyclerView) findViewById(R.id.rv_assign);
 
-        DialogAssignSelectAdapter adapter = new DialogAssignSelectAdapter(getContext());
+        DialogAssignSelectAdapter adapter = new DialogAssignSelectAdapter(requireContext());
         adapter.setOnItemClickListener((view, position, data) -> result = data);
-        rvAssign.addItemDecoration(ItemDecorationUtil.getDividerBottom(R.drawable.divider_line_horizontal));
+        rvAssign.addItemDecoration(DrawableItemDecoration.getDivider(requireContext()));
         rvAssign.setAdapter(adapter);
         adapter.addAll(staffList);
     }

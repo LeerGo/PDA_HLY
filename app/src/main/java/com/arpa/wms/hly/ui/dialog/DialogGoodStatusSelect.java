@@ -7,7 +7,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.bean.InventoryStatus;
 import com.arpa.wms.hly.ui.adapter.DialogGoodStatusAdapter;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.DrawableItemDecoration;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.ToastUtils;
 
@@ -54,9 +54,9 @@ public class DialogGoodStatusSelect extends BaseBottomDialogFragment {
     private void setSelectItem() {
         RecyclerView rvAssign = (RecyclerView) findViewById(R.id.rv_assign);
 
-        DialogGoodStatusAdapter adapter = new DialogGoodStatusAdapter(getContext(), staffList.indexOf(result));
+        DialogGoodStatusAdapter adapter = new DialogGoodStatusAdapter(requireContext(), staffList.indexOf(result));
         adapter.setOnItemClickListener((view, position, data) -> result = data);
-        rvAssign.addItemDecoration(ItemDecorationUtil.getDividerBottom(R.drawable.divider_line_horizontal));
+        rvAssign.addItemDecoration(DrawableItemDecoration.getDivider(requireContext()));
         rvAssign.setAdapter(adapter);
         adapter.addAll(staffList);
     }

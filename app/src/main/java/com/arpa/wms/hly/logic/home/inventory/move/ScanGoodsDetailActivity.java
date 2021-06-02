@@ -6,7 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityScanGoodsDetailBinding;
 import com.arpa.wms.hly.logic.home.inventory.move.vm.VMScanGoodsDetail;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
@@ -33,7 +33,7 @@ public class ScanGoodsDetailActivity extends WrapBaseActivity<VMScanGoodsDetail,
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
 
         String container = getIntent().getStringExtra(Const.IntentKey.CONTAINER_CODE);
         String location = getIntent().getStringExtra(Const.IntentKey.LOCATION_NAME);

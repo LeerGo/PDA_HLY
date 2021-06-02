@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.arpa.and.arch.config.FrameConfigModule;
 import com.arpa.and.arch.di.module.ConfigModule;
+import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.net.interceptor.HeaderInterceptor;
 
 /**
@@ -18,12 +19,7 @@ import com.arpa.wms.hly.net.interceptor.HeaderInterceptor;
 public class AppConfigModule extends FrameConfigModule {
     @Override
     public void applyOptions(Context context, ConfigModule.Builder builder) {
-        builder.okHttpClientOptions(okHttpBuilder ->
-                okHttpBuilder.addInterceptor(new HeaderInterceptor())
-        )./*gsonOptions(gsonBuilder ->
-                gsonBuilder.registerTypeAdapterFactory(ObjectDeserializerDoubleAsIntFix.FACTORY)
-        ).*/interceptorConfigOptions(interceptorBuilder ->
-                interceptorBuilder.addGsonConverterFactory(true)
-        );
+        builder.okHttpClientOptions(okHttpBuilder -> okHttpBuilder.addInterceptor(new HeaderInterceptor()))
+                .interceptorConfigOptions(interceptorBuilder -> interceptorBuilder.addGsonConverterFactory(true).addLog(BuildConfig.DEBUG));
     }
 }

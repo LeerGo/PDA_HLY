@@ -8,7 +8,7 @@ import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.databinding.ActivityGoodsTakeConfirmBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeConfirm;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.ui.dialog.DialogDateSelect;
 import com.arpa.wms.hly.ui.dialog.DialogGoodStatusSelect;
 import com.arpa.wms.hly.ui.dialog.DialogTips;
@@ -39,7 +39,7 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
         super.initData(savedInstanceState);
 
         viewBind.setViewModel(viewModel);
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
         viewBind.acbWholeConfirm.setOnClickListener(v ->
                 showDialogFragment(new DialogTips(
                         "整单确认",

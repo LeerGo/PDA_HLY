@@ -69,6 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
                     android:background="@color/color_f3f8ff"
+                    android:elevation="4dp"
                     app:tabDivider="@{(@drawable/divider_line_vertical)}"
                     app:tabIndicatorFullWidth="false"
                     app:tabSelectedTextColor="@color/colorPrimary"

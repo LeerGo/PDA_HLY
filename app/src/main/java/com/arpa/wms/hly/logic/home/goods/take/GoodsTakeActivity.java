@@ -6,7 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityPdataskTakeBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake;
-import com.arpa.wms.hly.ui.decoration.ItemDecorationUtil;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -32,7 +32,7 @@ public class GoodsTakeActivity extends WrapBaseActivity<VMGoodsTake, ActivityPda
         super.initData(savedInstanceState);
 
         viewBind.setViewModel(viewModel);
-//        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
-        viewBind.rvList.addItemDecoration(ItemDecorationUtil.getDividerBottom10DP());
+        //        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
+        viewBind.rvList.addItemDecoration(new BothItemDecoration());
     }
 }
