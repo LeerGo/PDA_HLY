@@ -45,7 +45,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         ivClear = findViewById(R.id.iv_clear);
         etKey = findViewById(R.id.et_key);
         etKey.setOnEditorActionListener((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
                 doSearch(v);
             }
             return false;

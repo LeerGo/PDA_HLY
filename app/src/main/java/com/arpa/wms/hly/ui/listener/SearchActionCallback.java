@@ -26,7 +26,8 @@ public class SearchActionCallback implements TextView.OnEditorActionListener {
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+        // EditorInfo.IME_ACTION_UNSPECIFIED 兼容恒利源的 PDA enter 键
+        if (actionId == EditorInfo.IME_ACTION_SEARCH || actionId == EditorInfo.IME_ACTION_UNSPECIFIED) {
             KeyboardUtils.hideSoftInput(v);
             String data = v.getText().toString().trim();
             if (!TextUtils.isEmpty(data)) onSearchListener.transfer(data);
