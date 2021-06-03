@@ -11,6 +11,15 @@ public class ReqGoodRecheckDetail extends ReqBase {
     private int recheckStatus;
     private String outboundCode;
     private String outboundItemCode;
+    private String goodsBarCode;
+
+    public String getGoodsBarCode() {
+        return goodsBarCode;
+    }
+
+    public void setGoodsBarCode(String goodsBarCode) {
+        this.goodsBarCode = goodsBarCode;
+    }
 
     public void setParams(String outboundCode, String outboundItemCode) {
         this.outboundCode = outboundCode;

@@ -54,7 +54,6 @@ public class GoodsTakeDetailActivity extends WrapBaseActivity<VMGoodsTakeDetail,
             viewModel.searchInfo.setKeyWord(keyWord);
             viewModel.sendSearchAction();
         });
-
     }
 
     @Override

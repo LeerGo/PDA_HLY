@@ -11,7 +11,11 @@ import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
 import com.arpa.wms.hly.utils.Const;
 
 import androidx.annotation.Nullable;
+import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.arpa.wms.hly.utils.Const.TASK_STATUS.TAKE_WAIT;
+import static com.arpa.wms.hly.utils.Const.TASK_STATUS.TAKE_YET;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -24,6 +28,14 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 @AndroidEntryPoint
 public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckDetail, ActivityPdataskRecheckDetailBinding> {
+    private final ViewPager2.OnPageChangeCallback pageChangeCallback = new ViewPager2.OnPageChangeCallback() {
+        @Override
+        public void onPageSelected(int position) {
+            super.onPageSelected(position);
+            viewModel.searchInfo.setStatus(position == 0 ? TAKE_WAIT : TAKE_YET);
+        }
+    };
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_pdatask_recheck_detail;
@@ -33,11 +45,20 @@ public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckD
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setVariable(BR.viewModel, viewModel);
-
+        viewBind.viewpager.registerOnPageChangeCallback(pageChangeCallback);
         ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
-        String outboundCode = data.getCode();
         viewModel.headerData.set(data);
-        viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_WAIT, outboundCode));
-        viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_YET, outboundCode));
+        viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_WAIT, data.getCode()));
+        viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_YET, data.getCode()));
+        viewBind.wsbSearch.setOnSearchClick(keyWord -> {
+            viewModel.searchInfo.setKeyWord(keyWord);
+            viewModel.sendSearchAction();
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        viewBind.viewpager.unregisterOnPageChangeCallback(pageChangeCallback);
+        super.onDestroy();
     }
 }

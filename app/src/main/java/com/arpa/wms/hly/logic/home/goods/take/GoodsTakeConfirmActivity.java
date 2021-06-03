@@ -48,24 +48,22 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
         );
         viewModel.request.setParams(
                 getIntent().getStringExtra(Const.IntentKey.RECEIVE_CODE),
-                getIntent().getStringExtra(Const.IntentKey.RECEIVE_ITEM_CODE));
-        viewModel.itemBinding
-                .bindExtra(BR.onStatusClick,
-                        (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
-                                showDialogFragment(new DialogGoodStatusSelect(
-                                        raw.getGoodsStatus(),
-                                        viewModel.detail.getInventoryStatusList(),
-                                        data -> {
-                                            raw.setGoodsStatus(data.getCode());
-                                            raw.setGoodsStatusName(data.getName());
-                                            viewModel.update(position, raw);
-                                        }))
-                ).bindExtra(BR.onDateClick,
-                (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) ->
-                        showDialogFragment(new DialogDateSelect(date -> {
-                            data.setGmtManufacture(date);
-                            viewModel.update(position, data);
-                        }))
+                getIntent().getStringExtra(Const.IntentKey.RECEIVE_ITEM_CODE)
         );
+        viewModel.itemBinding
+                .bindExtra(BR.onStatusClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
+                        showDialogFragment(new DialogGoodStatusSelect(raw.getGoodsStatus(), viewModel.detail.getInventoryStatusList(),
+                                data -> {
+                                    raw.setGoodsStatus(data.getCode());
+                                    raw.setGoodsStatusName(data.getName());
+                                    viewModel.update(position, raw);
+                                }))
+                )
+                .bindExtra(BR.onDateClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
+                        showDialogFragment(new DialogDateSelect(date -> {
+                            raw.setGmtManufacture(date);
+                            viewModel.update(position, raw);
+                        }))
+                );
     }
 }
