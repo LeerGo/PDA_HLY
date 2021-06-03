@@ -57,6 +57,7 @@ public class ReqTruckLoadConfirm {
 
         public OutboundItemDTOS(String code, String loadingCarQuantity) {
             this.code = code;
+            // FIXME: loadingCarQuantity == null @lyf 2021-06-03 03:20:38
             this.loadingCarQuantity = Integer.parseInt(loadingCarQuantity);
         }
 

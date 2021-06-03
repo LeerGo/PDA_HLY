@@ -14,28 +14,44 @@ import androidx.recyclerview.widget.RecyclerView;
  * since: 2021-04-21 4:35 PM
  */
 public class BothItemDecoration extends RecyclerView.ItemDecoration {
+    public static final int TOP = 0;
+    public static final int BOTTOM = 1;
+
     private final int interval;
     private final boolean isBoth;
+    private final int position;
 
     public BothItemDecoration() {
-        this(10, false);
+        this(10, TOP, false);
     }
 
-    public BothItemDecoration(int interval, boolean isBoth) {
+    public BothItemDecoration(int interval, int position, boolean isBoth) {
         this.interval = DensityUtils.dip2px(interval);
         this.isBoth = isBoth;
+        this.position = position;
+    }
+
+    public BothItemDecoration(int position, boolean isBoth) {
+        this(10, position, isBoth);
     }
 
     public BothItemDecoration(boolean isBoth) {
-        this(10, isBoth);
+        this(10, TOP, isBoth);
     }
 
     @Override
     public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
-        outRect.top = interval;
-        if (parent.getChildAdapterPosition(view) == state.getItemCount() - 1 && isBoth) {
+        if (position == TOP) {
+            outRect.top = interval;
+            if (parent.getChildAdapterPosition(view) == state.getItemCount() - 1 && isBoth) {
+                outRect.bottom = interval;
+            }
+        } else {
             outRect.bottom = interval;
+            if (parent.getChildAdapterPosition(view) == 0 && isBoth) {
+                outRect.top = interval;
+            }
         }
     }
 }

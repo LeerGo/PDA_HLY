@@ -34,6 +34,6 @@ public class TruckLoadDetailActivity extends WrapBaseActivity<VMTruckLoadDetail,
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
         viewModel.truckLoadHeader.set(getIntent().getParcelableExtra(IntentKey.DATA));
-        viewBind.rvList.addItemDecoration(new BothItemDecoration());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration(BothItemDecoration.BOTTOM, false));
     }
 }
