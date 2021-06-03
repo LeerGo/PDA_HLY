@@ -29,6 +29,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
     private AppCompatImageView ivClear;
     private DataTransCallback<String> onSearchClick;
     private View.OnClickListener onClearClick;
+    private boolean doClear = true;
 
     public WidgetSearchBar(Context context) {
         super(context);
@@ -54,7 +55,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
         etKey.setOnFocusChangeListener((v, hasFocus) -> ivClear.setVisibility(hasFocus ? VISIBLE : GONE));
         ivClear.setOnClickListener(v -> {
             etKey.setText("");
-            doSearch(v);
+            if (doClear) doSearch(v);
             if (null != onClearClick) onClearClick.onClick(v);
         });
         findViewById(R.id.ib_search).setOnClickListener(this::doSearch);
@@ -87,5 +88,13 @@ public class WidgetSearchBar extends LinearLayoutCompat {
 
     public void setOnClearClick(OnClickListener onClearClick) {
         this.onClearClick = onClearClick;
+    }
+
+    public boolean isDoClear() {
+        return doClear;
+    }
+
+    public void setDoClear(boolean doClear) {
+        this.doClear = doClear;
     }
 }

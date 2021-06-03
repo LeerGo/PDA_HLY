@@ -6,7 +6,6 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityInventoryScanBinding;
 import com.arpa.wms.hly.logic.home.inventory.move.vm.VMInventoryScan;
-import com.arpa.wms.hly.ui.listener.SearchActionCallback;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import androidx.annotation.Nullable;
@@ -32,6 +31,6 @@ public abstract class InventoryScanActivity extends WrapBaseActivity<VMInventory
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setVmInventory(viewModel);
-        viewBind.etScan.setOnEditorActionListener(new SearchActionCallback(this));
+        viewBind.etScan.setOnSearchClick(this);
     }
 }
