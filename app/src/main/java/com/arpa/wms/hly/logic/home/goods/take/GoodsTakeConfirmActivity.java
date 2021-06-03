@@ -39,12 +39,9 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
         super.initData(savedInstanceState);
 
         viewBind.setViewModel(viewModel);
-        viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
+        viewBind.rvList.addItemDecoration(new BothItemDecoration(BothItemDecoration.BOTTOM, false));
         viewBind.acbWholeConfirm.setOnClickListener(v ->
-                showDialogFragment(new DialogTips(
-                        "整单确认",
-                        "当前订单存在未收货商品，整单确认后未收货商品不能继续收货。",
-                        () -> viewModel.orderConfirm(false)))
+                showDialogFragment(new DialogTips("整单确认", "当前订单存在未收货商品，整单确认后未收货商品不能继续收货。", () -> viewModel.orderConfirm(false)))
         );
         viewModel.request.setParams(
                 getIntent().getStringExtra(Const.IntentKey.RECEIVE_CODE),
