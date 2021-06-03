@@ -47,7 +47,7 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
     public final ObservableArrayList<Object> items = new ObservableArrayList<>();
     public final ItemBinding<Object> itemBinding = ItemBinding.of((itemBinding, position, item) -> {
         if (position == 0) {
-            itemBinding.set(BR.data, R.layout.header_truck_load_confirm);
+            itemBinding.set(BR.header, R.layout.header_truck_load_confirm);
         } else {
             itemBinding.set(BR.data, R.layout.item_truck_load_confirm);
         }

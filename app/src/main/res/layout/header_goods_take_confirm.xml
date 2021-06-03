@@ -4,7 +4,7 @@
     <data>
         
         <variable
-            name="data"
+            name="header"
             type="com.arpa.wms.hly.bean.GoodsTakeBatchHeader" />
     </data>
     
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:propsKey="车牌号"
-            app:propsValue="@{data.licensePlateNumber}"
+            app:propsValue="@{header.licensePlateNumber}"
             app:propsValueGravity="end"
             tools:propsValue="豫HM8983" />
         
@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:propsKey="商品名称"
-            app:propsValue="@{data.goodsName}"
+            app:propsValue="@{header.goodsName}"
             app:propsValueGravity="end"
             tools:propsValue="金典有机奶" />
         
@@ -41,7 +41,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:propsKey="单位"
-            app:propsValue="@{data.goodsUnitName}"
+            app:propsValue="@{header.goodsUnitName}"
             app:propsValueGravity="end"
             tools:propsValue="箱" />
         
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:propsKey="应收数量"
-            app:propsValue="@{data.planQuantity}"
+            app:propsValue="@{header.planQuantity}"
             app:propsValueColor="@color/colorPrimary"
             app:propsValueGravity="end"
             tools:propsValue="1000" />
