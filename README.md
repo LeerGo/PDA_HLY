@@ -28,7 +28,7 @@
 蓝湖：
 
 1. 恒利源 PDA: https://lanhuapp.com/web/#/item/project/board?pid=2da812df-972b-4855-9336-c0aeb7d58fb8
-   PDA: https://lanhuapp.com/web/#/item/project/stage?tid=7161f3f1-b56d-4e23-9c02-d951b841e9cd&pid=8cf95f96-d40b-4352-98fc-540c9f727287
+   标准仓 PDA: https://lanhuapp.com/web/#/item/project/stage?tid=7161f3f1-b56d-4e23-9c02-d951b841e9cd&pid=8cf95f96-d40b-4352-98fc-540c9f727287
 
 2. API：http://yanqy.oicp.vip/wms/doc.html
 
