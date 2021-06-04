@@ -10,7 +10,6 @@ import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
 import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
 import com.arpa.wms.hly.bean.res.ResInventory;
-import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
@@ -18,7 +17,6 @@ import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.bean.res.ResTruckLoad;
 import com.arpa.wms.hly.bean.res.ResTruckLoadConfirm;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
-import com.arpa.wms.hly.utils.Const.AppConfig;
 import com.king.retrofit.retrofithelper.annotation.DomainName;
 
 import java.util.List;
@@ -29,20 +27,23 @@ import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface ApiService {
+    /**
+     * 获取仓库 SSO
+     */
+    @GET(API.API_WAREHOUSE_SSO)
+    Call<Result<List<ResWarehouse>>> getWarehouseWithSSO();
 
     /**
-     * 获取仓库
+     * 绑定仓库 SSO
      */
-    @Headers({"client_id: " + AppConfig.clientID, "client_secret: " + AppConfig.clientSecret})
-    @GET(API.API_WAREHOUSE_AUTHORIZATION)
-    Call<Result<List<ResWarehouse>>> getWarehouseWithoutAuth(@Query("userLoginId") String loginID);
+    @GET(API.API_BIND_WAREHOUSE)
+    Call<Result<Object>> bindWarehouse(@Query("sourceCode") String warehouseCode);
 
     /**
      * 单点登录 获取认证
@@ -59,22 +60,6 @@ public interface ApiService {
     @POST(API.API_SSO_LOGOUT)
     @FormUrlEncoded
     Call<Result<String>> ssoLogout(@FieldMap Map<String, Object> data);
-
-    /**
-     * WMS 获取认证
-     */
-    // FIXME: 切换 SSO 登陆后删除 @lyf 2021-06-04 10:18:16
-    @Deprecated
-    @POST(API.API_AUTHORIZATION)
-    @FormUrlEncoded
-    Call<Result<ResLogin>> authorize(@FieldMap Map<String, Object> data);
-
-    /**
-     * 切换登录信息
-     */
-    @POST("arpa-basic-api/changeLogin")
-    @FormUrlEncoded
-    Call<Result<Object>> changeLogin(@FieldMap Map<String, Object> data);
 
     /**
      * 切换登录信息
@@ -232,8 +217,6 @@ public interface ApiService {
      */
     interface API {
         String KEY_SSO = "API-SSO-AUTH";
-        // FIXME: 初期测试多用 wms-api，后期干掉这里 @lyf 2021-06-04 09:29:17
-        boolean isSSOMode = true;
 
         /**
          * 仓储服务 API 服务地址
@@ -250,15 +233,6 @@ public interface ApiService {
         String URL_SSO = "http://test.sso.sarpa.cn/";
 
         /**
-         * API：获取仓库
-         */
-        String API_WAREHOUSE_AUTHORIZATION = "wms/warehouse/warehouseAuthorization";
-
-        /**
-         * API：获取认证
-         */
-        String API_AUTHORIZATION = "arpa-basic-api/authorize";
-        /**
          * API：SSO 单点登录获取 token
          */
         String API_SSO_LOGIN = "sso-server/app/doLogin";
@@ -266,5 +240,15 @@ public interface ApiService {
          * API：SSO 单点退出登录
          */
         String API_SSO_LOGOUT = "sso-server/app/logout";
+
+        /**
+         * API：获取仓库，以中台 SSO 认证的方式
+         */
+        String API_WAREHOUSE_SSO = "wms/authWarehouse/warehouse";
+
+        /**
+         * API：绑定仓库
+         */
+        String API_BIND_WAREHOUSE = "wms/SSOAuth/bind";
     }
 }

@@ -7,7 +7,6 @@ import android.os.Message;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.logic.home.HomeActivity;
 import com.arpa.wms.hly.utils.Const.SPKEY;
-import com.arpa.wms.hly.utils.MacUtils;
 import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.WeakHandler;
 
@@ -34,21 +33,8 @@ public class SplashActivity extends AppCompatActivity implements WeakHandler.Mes
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        initDeviceID();
         sHandler = new WeakHandler<>(this);
         postEmptyMsgDelayed(msgJump, 1000);
-    }
-
-    /**
-     * 设置设备 ID（MAC 地址加密而来）
-     */
-    // FIXME: 切换 SSO 登陆后删除 @lyf 2021-06-04 10:18:16
-    @Deprecated
-    private void initDeviceID() {
-        if (SPUtils.getInstance().getString(SPKEY.DEVICE_ID).isEmpty()) {
-            String mac = MacUtils.getMacOnly(this);
-            SPUtils.getInstance().put(SPKEY.DEVICE_ID, mac);
-        }
     }
 
     private void postEmptyMsgDelayed(int msgType, long delay) {

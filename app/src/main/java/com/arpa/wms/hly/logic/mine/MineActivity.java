@@ -10,7 +10,6 @@ import com.arpa.wms.hly.databinding.ActivityMineBinding;
 import com.arpa.wms.hly.ui.dialog.DialogModifyPass;
 import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
-import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.Nullable;
@@ -53,9 +52,7 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding>
 
     @Override
     public void transfer(ResWarehouse data) {
-        viewModel.spPut(Const.SPKEY.WAREHOUSE_CODE, data.getCode());
-        viewModel.spPut(Const.SPKEY.WAREHOUSE_NAME, data.getName());
         viewModel.getWarehouse().set(data.getName());
-        viewModel.warehouseChange(data.getCode());
+        viewModel.bindWarehouse(data, false);
     }
 }

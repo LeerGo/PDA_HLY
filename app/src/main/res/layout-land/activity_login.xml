@@ -193,7 +193,7 @@
             android:layout_marginTop="50dp"
             android:background="@drawable/shape_rrect_blue_gradient_r5"
             android:gravity="center"
-            android:onClick="@{()->vmLogin.doLogin()}"
+            android:onClick="@{()->vmLogin.loginSSO()}"
             android:text="@string/login"
             android:textColor="@color/white"
             android:textSize="14dp" />

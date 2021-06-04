@@ -104,8 +104,6 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
-        <!--测试页面-->
-        <activity android:name=".DemoActivity" />
         
         <!-- App 全局配置 -->
         <meta-data

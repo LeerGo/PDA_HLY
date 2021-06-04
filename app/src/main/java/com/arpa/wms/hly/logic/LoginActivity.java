@@ -37,7 +37,7 @@ public class LoginActivity extends WrapBaseActivity<VMLogin, ActivityLoginBindin
         viewBind.setVariable(BR.vmLogin, viewModel);
         viewModel.getWarehouseLiveData().observe(this, list -> {
             if (list.size() == 1) {
-                viewModel.login(list.get(0));
+                viewModel.bindWarehouse(list.get(0), true);
             } else {
                 showDialogFragment(new DialogWarehouseSelect(list, this));
             }
@@ -46,6 +46,6 @@ public class LoginActivity extends WrapBaseActivity<VMLogin, ActivityLoginBindin
 
     @Override
     public void transfer(ResWarehouse data) {
-        viewModel.login(data);
+        viewModel.bindWarehouse(data, true);
     }
 }

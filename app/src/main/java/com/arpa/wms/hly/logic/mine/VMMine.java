@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BuildConfig;
-import com.arpa.wms.hly.bean.req.ReqChangeWarehouse;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
@@ -92,28 +91,8 @@ public class VMMine extends VMWarehouse {
      * 切换仓库
      */
     public void getWarehouseList() {
-        getWarehouseWithoutAuth(spGetString(Const.SPKEY.USER_NAME));
+        super.getWarehouseWithSSO();
     }
-
-    public void warehouseChange(String authorizeDataCode) {
-        updateStatus(StatusEvent.Status.LOADING);
-        ReqChangeWarehouse reqChangeWarehouse = new ReqChangeWarehouse(authorizeDataCode);
-        apiService.changeLogin(reqChangeWarehouse.toParams())
-                .enqueue(new ResultCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object data) {
-                        sendMessage("仓库修改成功");
-                        updateStatus(StatusEvent.Status.SUCCESS, true);
-                    }
-
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage(), true);
-                        updateStatus(StatusEvent.Status.ERROR, true);
-                    }
-                });
-    }
-
 
     public ObservableField<String> getAccount() {
         return account;

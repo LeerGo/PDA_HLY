@@ -136,35 +136,10 @@ public interface Const {
         String WAREHOUSE_NAME = "warehouseName";
         // 是否为新用户，登陆后 false
         String IS_NEW_USER = "isNewUser";
-        // 用户 SSO Token
-        String TOKEN_SSO = "tokenSSO";
         // 登录账号
         String USER_NAME = "userName";
-
-        // FIXME: 以下部分切换 SSO 登陆后删除 @lyf 2021-06-04 10:18:16
-        // 用户 Bearer auth 信息，来自 WMS
-        @Deprecated
-        String TOKEN_WMS = "tokenWMS";
-        // 设备 ID
-        @Deprecated
-        String DEVICE_ID = "deviceID";
-        // 操作人 ID
-        @Deprecated
-        String OPERATOR_CODE = "operatorCode";
-        // 操作人昵称
-        @Deprecated
-        String OPERATOR_NAME = "operatorName";
-        // 操作人权限类型
-        @Deprecated
-        String PARTY_TYPE = "partyType";
-    }
-
-    /**
-     * APP 设置
-     */
-    interface AppConfig {
-        String clientID = "1e069e240a163e9d2a18f4111ewecpda";
-        String clientSecret = "e7957728041b11ea97dffa163e9d2pda";
+        // 登录账号
+        String COOKIE = "cookie";
     }
 
     /**
