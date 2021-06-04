@@ -22,6 +22,8 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
+import static com.arpa.wms.hly.net.ApiService.API.isSSOMode;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -33,8 +35,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMLogin extends VMWarehouse {
-    // FIXME: 初期测试多用 wms-api，后期干掉这里 @lyf 2021-06-04 09:29:17
-    private boolean isSSOMode = true;
     // TODO: 这里的默认值记得干掉 @lyf 2021-04-27 03:41:59
     private final ObservableField<String> userName = new ObservableField<>("admin");
     private final ObservableField<String> userPass = new ObservableField<>("abcd1234");
@@ -73,6 +73,7 @@ public class VMLogin extends VMWarehouse {
     /**
      * SSO 单点登录
      */
+    // TODO: 调整为先登录后获取仓库 @宝新 处理接口 @lyf 2021-06-04 10:20:46
     private void loginSSO() {
         ReqLoginSSO sso = new ReqLoginSSO(userName.get(), userPass.get());
         if (checkInput(userName.get(), userPass.get())) return;
@@ -81,7 +82,8 @@ public class VMLogin extends VMWarehouse {
                 .enqueue(new ResultCallback<String>() {
                     @Override
                     public void onSuccess(String data) {
-                        sendMessage(data);
+                        spPut(SPKEY.IS_NEW_USER, false);
+                        spPut(SPKEY.TOKEN_SSO, data);
                         updateStatus(StatusEvent.Status.SUCCESS, true);
                     }
 
@@ -128,6 +130,8 @@ public class VMLogin extends VMWarehouse {
      * @param warehouseSelect
      *         选择的仓库
      */
+    // FIXME: 切换 SSO 登陆后删除 @lyf 2021-06-04 10:18:16
+    @Deprecated
     public void login(ResWarehouse warehouseSelect) {
         updateStatus(StatusEvent.Status.LOADING);
         ReqLogin reqLogin = new ReqLogin();
@@ -143,7 +147,7 @@ public class VMLogin extends VMWarehouse {
                         spPut(SPKEY.USER_NAME, userName.get());
                         spPut(SPKEY.WAREHOUSE_CODE, warehouseSelect.getCode());
                         spPut(SPKEY.WAREHOUSE_NAME, warehouseSelect.getName());
-                        spPut(SPKEY.USER_TOKEN, data.getAccessToken());
+                        spPut(SPKEY.TOKEN_WMS, data.getAccessToken());
                         spPut(SPKEY.PARTY_TYPE, data.getParty().getPartyType());
                         spPut(SPKEY.OPERATOR_NAME, data.getParty().getName());
                         spPut(SPKEY.OPERATOR_CODE, data.getParty().getCode());

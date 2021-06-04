@@ -42,6 +42,8 @@ public class SplashActivity extends AppCompatActivity implements WeakHandler.Mes
     /**
      * 设置设备 ID（MAC 地址加密而来）
      */
+    // FIXME: 切换 SSO 登陆后删除 @lyf 2021-06-04 10:18:16
+    @Deprecated
     private void initDeviceID() {
         if (SPUtils.getInstance().getString(SPKEY.DEVICE_ID).isEmpty()) {
             String mac = MacUtils.getMacOnly(this);

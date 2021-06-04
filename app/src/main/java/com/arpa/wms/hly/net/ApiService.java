@@ -46,10 +46,7 @@ public interface ApiService {
 
     /**
      * 单点登录 获取认证
-     * 前端请求后端，header里需要加上自己的标示code：
-     *       比如是 android，需要传入source-id=2
      */
-    @Headers("source-id: 2")
     @DomainName(API.KEY_SSO)
     @POST(API.API_SSO_LOGIN)
     @FormUrlEncoded
@@ -58,7 +55,6 @@ public interface ApiService {
     /**
      * 单点登录 退出登录
      */
-    @Headers("source-id: 2")
     @DomainName(API.KEY_SSO)
     @POST(API.API_SSO_LOGOUT)
     @FormUrlEncoded
@@ -67,6 +63,7 @@ public interface ApiService {
     /**
      * WMS 获取认证
      */
+    // FIXME: 切换 SSO 登陆后删除 @lyf 2021-06-04 10:18:16
     @Deprecated
     @POST(API.API_AUTHORIZATION)
     @FormUrlEncoded
@@ -235,6 +232,8 @@ public interface ApiService {
      */
     interface API {
         String KEY_SSO = "API-SSO-AUTH";
+        // FIXME: 初期测试多用 wms-api，后期干掉这里 @lyf 2021-06-04 09:29:17
+        boolean isSSOMode = true;
 
         /**
          * 仓储服务 API 服务地址

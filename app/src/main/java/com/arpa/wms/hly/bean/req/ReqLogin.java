@@ -22,6 +22,8 @@ import java.util.Date;
  * 请求：登录
  * </p>
  */
+// FIXME: 切换 SSO 登陆后删除 @lyf 2021-06-04 10:18:16
+@Deprecated
 public class ReqLogin extends ReqBase {
     @SerializedName("client_id")
     public String clientID;
