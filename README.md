@@ -34,7 +34,9 @@
 
 3. 原型: file:///Users/Xoder/Company/Arpa/3.WMS/4%20%E6%81%92%E5%88%A9%E6%BA%90/%E8%BF%AD%E4%BB%A3%23210415/%E6%81%92%E5%88%A9%E6%BA%90PDA%E5%8E%9F%E5%9E%8B/index.html#id=jb9e44&p=%E4%BB%BB%E5%8A%A1%E4%B8%AD%E5%BF%83_wms%E4%B8%80%E6%9C%9F_&g=12
 
+4. SSO 登录：https://dreamer192.yuque.com/docs/share/0efdc117-a195-49e9-84a6-effe8e57fbfe?#（密码：sz8f）
+
 #### 原型问题
 
-1. 任务中心(wms一期)，pda 没有拣货功能，为啥跳转拣货详情？ 2021年04月22日14:32:27
+暂无
 
