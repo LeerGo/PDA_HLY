@@ -19,6 +19,7 @@ import com.arpa.wms.hly.bean.res.ResTruckLoad;
 import com.arpa.wms.hly.bean.res.ResTruckLoadConfirm;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.utils.Const.AppConfig;
+import com.king.retrofit.retrofithelper.annotation.DomainName;
 
 import java.util.List;
 import java.util.Map;
@@ -44,9 +45,29 @@ public interface ApiService {
     Call<Result<List<ResWarehouse>>> getWarehouseWithoutAuth(@Query("userLoginId") String loginID);
 
     /**
-     * 获取认证
+     * 单点登录 获取认证
+     * 前端请求后端，header里需要加上自己的标示code：
+     *       比如是 android，需要传入source-id=2
      */
-    // @DomainName(API.URL_KEY)
+    @Headers("source-id: 2")
+    @DomainName(API.KEY_SSO)
+    @POST(API.API_SSO_LOGIN)
+    @FormUrlEncoded
+    Call<Result<String>> loginSSO(@FieldMap Map<String, Object> data);
+
+    /**
+     * 单点登录 退出登录
+     */
+    @Headers("source-id: 2")
+    @DomainName(API.KEY_SSO)
+    @POST(API.API_SSO_LOGOUT)
+    @FormUrlEncoded
+    Call<Result<String>> ssoLogout(@FieldMap Map<String, Object> data);
+
+    /**
+     * WMS 获取认证
+     */
+    @Deprecated
     @POST(API.API_AUTHORIZATION)
     @FormUrlEncoded
     Call<Result<ResLogin>> authorize(@FieldMap Map<String, Object> data);
@@ -213,7 +234,7 @@ public interface ApiService {
      * API 请求地址、一些参数
      */
     interface API {
-        String URL_KEY = "API-AUTH";
+        String KEY_SSO = "API-SSO-AUTH";
 
         /**
          * 仓储服务 API 服务地址
@@ -225,12 +246,26 @@ public interface ApiService {
         //  String URL_WMS = "http://192.168.31.144/"; // 508 内部服务器（原徐杨）
 
         /**
+         * 单点登录
+         */
+        String URL_SSO = "http://test.sso.sarpa.cn/";
+
+        /**
          * API：获取仓库
          */
         String API_WAREHOUSE_AUTHORIZATION = "wms/warehouse/warehouseAuthorization";
+
         /**
          * API：获取认证
          */
         String API_AUTHORIZATION = "arpa-basic-api/authorize";
+        /**
+         * API：SSO 单点登录获取 token
+         */
+        String API_SSO_LOGIN = "sso-server/app/doLogin";
+        /**
+         * API：SSO 单点退出登录
+         */
+        String API_SSO_LOGOUT = "sso-server/app/logout";
     }
 }

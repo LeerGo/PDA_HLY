@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.bean.req.ReqLogin;
+import com.arpa.wms.hly.bean.req.ReqLoginSSO;
 import com.arpa.wms.hly.bean.res.ResLogin;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
@@ -32,6 +33,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMLogin extends VMWarehouse {
+    // FIXME: 初期测试多用 wms-api，后期干掉这里 @lyf 2021-06-04 09:29:17
+    private boolean isSSOMode = true;
     // TODO: 这里的默认值记得干掉 @lyf 2021-04-27 03:41:59
     private final ObservableField<String> userName = new ObservableField<>("admin");
     private final ObservableField<String> userPass = new ObservableField<>("abcd1234");
@@ -56,17 +59,62 @@ public class VMLogin extends VMWarehouse {
         }
     }
 
-    public void getWarehouseWithoutAuth() {
-        String loginID = userName.get();
-        String password = userPass.get();
+    /**
+     * 登录逻辑
+     */
+    public void doLogin() {
+        if (isSSOMode) {
+            loginSSO();
+        } else {
+            getWarehouseWithoutAuth();
+        }
+    }
+
+    /**
+     * SSO 单点登录
+     */
+    private void loginSSO() {
+        ReqLoginSSO sso = new ReqLoginSSO(userName.get(), userPass.get());
+        if (checkInput(userName.get(), userPass.get())) return;
+        updateStatus(StatusEvent.Status.LOADING);
+        apiService.loginSSO(sso.toParams())
+                .enqueue(new ResultCallback<String>() {
+                    @Override
+                    public void onSuccess(String data) {
+                        sendMessage(data);
+                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        sendMessage(error.getMessage());
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                    }
+                });
+    }
+
+    /**
+     * 检查输入
+     */
+    private boolean checkInput(String loginID, String password) {
         if (TextUtils.isEmpty(loginID)) {
             ToastUtils.showShort("请填写账号信息");
-            return;
+            return true;
         }
         if (TextUtils.isEmpty(password)) {
             ToastUtils.showShort("请填写密码");
-            return;
+            return true;
         }
+        return false;
+    }
+
+    /**
+     * 获取仓库
+     */
+    public void getWarehouseWithoutAuth() {
+        String loginID = userName.get();
+        String password = userPass.get();
+        if (checkInput(loginID, password)) return;
         super.getWarehouseWithoutAuth(loginID);
     }
 

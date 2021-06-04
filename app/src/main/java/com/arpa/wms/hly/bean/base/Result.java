@@ -10,9 +10,20 @@ package com.arpa.wms.hly.bean.base;
  * </p>
  */
 public class Result <T> {
-    private int status;
+    // sso 用 code 表示状态
+    private int code = 200;
+    // wms 用 status 表示状态
+    private int status = 0;
     private String msg;
     private T data;
+
+    public int getCode() {
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
 
     public int getStatus() {
         return status;
@@ -39,7 +50,7 @@ public class Result <T> {
     }
 
     public boolean isSuccess() {
-        return status == 0;
+        return status == 0 && code == 200;
     }
 
     @Override

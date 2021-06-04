@@ -23,7 +23,7 @@ public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends Vi
         extends com.arpa.and.arch.base.BaseActivity<VM, VDB> {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        registerMessageEvent(ToastUtils::showShort);
+        registerMessageEvent(ToastUtils::showShortSafe);
         registerStatusEvent(status -> {
             if (status == StatusEvent.Status.LOADING) {
                 showLoading();
