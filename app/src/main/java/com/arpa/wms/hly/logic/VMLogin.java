@@ -64,6 +64,7 @@ public class VMLogin extends VMWarehouse {
                 .enqueue(new ResultCallback<String>() {
                     @Override
                     public void onSuccess(String data) {
+                        spPut(SPKEY.TOKEN_SSO, data);
                         spPut(SPKEY.USER_NAME, userName.get());
                         // 以 SSO 形式获仓库列表
                         VMLogin.super.getWarehouseWithSSO();

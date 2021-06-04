@@ -138,8 +138,8 @@ public interface Const {
         String IS_NEW_USER = "isNewUser";
         // 登录账号
         String USER_NAME = "userName";
-        // 登录账号
-        String COOKIE = "cookie";
+        // 登录token
+        String TOKEN_SSO = "tokenSSO";
     }
 
     /**

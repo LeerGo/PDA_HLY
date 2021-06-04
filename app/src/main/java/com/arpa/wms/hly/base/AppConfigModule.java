@@ -5,8 +5,7 @@ import android.content.Context;
 import com.arpa.and.arch.config.FrameConfigModule;
 import com.arpa.and.arch.di.module.ConfigModule;
 import com.arpa.wms.hly.BuildConfig;
-import com.arpa.wms.hly.net.interceptor.AddCookiesInterceptor;
-import com.arpa.wms.hly.net.interceptor.ReceivedCookiesInterceptor;
+import com.arpa.wms.hly.net.interceptor.HeaderInterceptor;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -20,8 +19,7 @@ import com.arpa.wms.hly.net.interceptor.ReceivedCookiesInterceptor;
 public class AppConfigModule extends FrameConfigModule {
     @Override
     public void applyOptions(Context context, ConfigModule.Builder builder) {
-        builder.okHttpClientOptions(okHttpBuilder ->
-                okHttpBuilder.addInterceptor(new ReceivedCookiesInterceptor()).addInterceptor(new AddCookiesInterceptor())
-        ).interceptorConfigOptions(interceptorBuilder -> interceptorBuilder.addGsonConverterFactory(true).addLog(BuildConfig.DEBUG));
+        builder.okHttpClientOptions(okHttpBuilder -> okHttpBuilder.addInterceptor(new HeaderInterceptor()))
+                .interceptorConfigOptions(interceptorBuilder -> interceptorBuilder.addGsonConverterFactory(true).addLog(BuildConfig.DEBUG));
     }
 }
