@@ -15,6 +15,18 @@ public interface Const {
      */
     String LOG_TAG = "Arpa-Logger";
 
+    interface Header {
+        /**
+         * SSO 令牌
+         */
+        String TOKEN = "token";
+        /**
+         * 登录渠道：android = 2
+         */
+        String SOURCE_ID = "source-id";
+        String SOURCE_ANDROID = "2";
+    }
+
     /**
      * Intent 常量
      */

@@ -9,8 +9,10 @@ import com.arpa.wms.hly.bean.req.ReqLoginSSO;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.utils.Const.Header;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 import com.arpa.wms.hly.utils.ToastUtils;
+import com.king.retrofit.retrofithelper.RetrofitHelper;
 
 import javax.inject.Inject;
 
@@ -66,6 +68,7 @@ public class VMLogin extends VMWarehouse {
                     public void onSuccess(String data) {
                         spPut(SPKEY.TOKEN_SSO, data);
                         spPut(SPKEY.USER_NAME, userName.get());
+                        RetrofitHelper.getInstance().addHeader(Header.TOKEN, data);
                         // 以 SSO 形式获仓库列表
                         VMLogin.super.getWarehouseWithSSO();
                     }

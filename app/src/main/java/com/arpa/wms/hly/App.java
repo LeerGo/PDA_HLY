@@ -4,6 +4,8 @@ import android.app.Application;
 
 import com.arpa.wms.hly.net.ApiService.API;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.Const.Header;
+import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.Utils;
 import com.king.retrofit.retrofithelper.RetrofitHelper;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -49,13 +51,16 @@ public class App extends Application {
         super.onCreate();
 
         Utils.init(this);
-        setApiURL();
+        setRetrofit();
         initLogger();
     }
 
-    private void setApiURL() {
+    private void setRetrofit() {
         RetrofitHelper.getInstance().setBaseUrl(API.URL_WMS);
         RetrofitHelper.getInstance().putDomain(API.KEY_SSO, API.URL_SSO);
+        RetrofitHelper.getInstance().setAddHeader(true);
+        RetrofitHelper.getInstance().addHeader(Header.SOURCE_ID, Header.SOURCE_ANDROID);
+        RetrofitHelper.getInstance().addHeader(Header.TOKEN, SPUtils.getInstance().getString(Const.SPKEY.TOKEN_SSO));
     }
 
     private void initLogger() {
