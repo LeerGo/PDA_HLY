@@ -50,7 +50,7 @@ public abstract class VMPdaTaskDetail extends WrapDataViewModel {
 
     protected abstract void refreshHeader();
 
-    public void sendSearchAction(){
+    public void sendSearchAction() {
         searchLiveData.postValue(searchInfo);
     }
 }

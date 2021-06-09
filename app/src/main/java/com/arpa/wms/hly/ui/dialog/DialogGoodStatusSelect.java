@@ -35,7 +35,7 @@ public class DialogGoodStatusSelect extends BaseBottomDialogFragment {
     public DialogGoodStatusSelect(String currentStatusCode, List<InventoryStatus> staffList, DataTransCallback<InventoryStatus> listener) {
         this.staffList = staffList;
         this.listener = listener;
-        if (!TextUtils.isEmpty(currentStatusCode)){
+        if (!TextUtils.isEmpty(currentStatusCode)) {
             result = new InventoryStatus(currentStatusCode);
         }
     }

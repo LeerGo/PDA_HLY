@@ -47,14 +47,6 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     public ResTaskAssign() {
     }
 
-    public String getSourceCode() {
-        return sourceCode;
-    }
-
-    public void setSourceCode(String sourceCode) {
-        this.sourceCode = sourceCode;
-    }
-
     protected ResTaskAssign(Parcel in) {
         this.carQueueNumber = in.readString();
         this.code = in.readString();
@@ -69,6 +61,14 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.stevedore = in.readString();
         this.receivedQuantity = in.readInt();
         this.totalQuantity = in.readInt();
+    }
+
+    public String getSourceCode() {
+        return sourceCode;
+    }
+
+    public void setSourceCode(String sourceCode) {
+        this.sourceCode = sourceCode;
     }
 
     public String getVolume() {

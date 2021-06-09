@@ -4,8 +4,9 @@ import android.app.Application;
 import android.content.Intent;
 
 import com.arpa.and.arch.base.BaseModel;
-import com.arpa.and.arch.base.livedata.StatusEvent;
+import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.BuildConfig;
+import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
@@ -31,7 +32,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  * </p>
  */
 @HiltViewModel
-public class VMMine extends VMWarehouse {
+public class VMMine extends WrapDataViewModel {
+    public final VMWarehouse vmWarehouse;
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
     private final ObservableField<String> version = new ObservableField<>();
@@ -39,6 +41,7 @@ public class VMMine extends VMWarehouse {
     @Inject
     public VMMine(@NonNull Application application, BaseModel model) {
         super(application, model);
+        vmWarehouse = new VMWarehouse(application, model);
     }
 
     @Override
@@ -67,12 +70,12 @@ public class VMMine extends VMWarehouse {
      * 修改密码
      */
     public void modifyPassword(ReqModifyPass data) {
-        updateStatus(StatusEvent.Status.LOADING);
+        updateStatus(Status.LOADING);
         apiService.updatePass(data.toParams())
                 .enqueue(new ResultCallback<Object>() {
                     @Override
                     public void onSuccess(Object data) {
-                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                        updateStatus(Status.SUCCESS, true);
                         sendMessage("修改密码成功");
                         Intent intent = new Intent(Utils.getContext(), LoginActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -82,7 +85,7 @@ public class VMMine extends VMWarehouse {
                     @Override
                     public void onFailed(ResultError error) {
                         sendMessage(error.getMessage(), true);
-                        updateStatus(StatusEvent.Status.ERROR, true);
+                        updateStatus(Status.ERROR, true);
                     }
                 });
     }
@@ -91,7 +94,8 @@ public class VMMine extends VMWarehouse {
      * 切换仓库
      */
     public void getWarehouseList() {
-        super.getWarehouseWithSSO();
+        updateStatus(Status.LOADING);
+        vmWarehouse.getWarehouseWithSSO();
     }
 
     public ObservableField<String> getAccount() {

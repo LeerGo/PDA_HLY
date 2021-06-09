@@ -23,7 +23,7 @@ import androidx.lifecycle.MutableLiveData;
  * since: 2021-04-28 11:11
  *
  * <p>
- * 内容描述区域
+ * ViewModel: 仓库相关操作
  * </p>
  */
 public class VMWarehouse extends WrapDataViewModel {
@@ -42,7 +42,11 @@ public class VMWarehouse extends WrapDataViewModel {
 
                     @Override
                     public void onSuccess(List<ResWarehouse> data) {
-                        warehouseLiveData.postValue(data);
+                        if (data.isEmpty()) {
+                            sendMessage("未获取到仓库列表");
+                        } else {
+                            warehouseLiveData.postValue(data);
+                        }
                         updateStatus(Status.SUCCESS, true);
                     }
 
@@ -61,6 +65,7 @@ public class VMWarehouse extends WrapDataViewModel {
      *         true - 第一次绑定仓库（登陆）
      */
     public void bindWarehouse(ResWarehouse warehouseSelect, boolean isFirstBind) {
+        updateStatus(Status.LOADING);
         apiService.bindWarehouse(warehouseSelect.getCode())
                 .enqueue(new ResultCallback<Object>() {
                     @Override
@@ -69,7 +74,7 @@ public class VMWarehouse extends WrapDataViewModel {
                         spPut(Const.SPKEY.WAREHOUSE_NAME, warehouseSelect.getName());
                         updateStatus(Status.SUCCESS);
 
-                        if (isFirstBind){
+                        if (isFirstBind) {
                             spPut(Const.SPKEY.IS_NEW_USER, false);
                             sendMessage(R.string.request_success);
                             startActivity(HomeActivity.class);

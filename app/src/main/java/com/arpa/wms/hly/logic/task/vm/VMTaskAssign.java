@@ -44,6 +44,11 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     }
 
     @Override
+    protected boolean setAutoRefresh() {
+        return false;
+    }
+
+    @Override
     public Call<ResultPage<ResTaskAssign>> getCall(Map<String, Object> params) {
         return apiService.pdaTasks(params);
     }
@@ -52,11 +57,6 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     public ReqPage getParams() {
         reqTaskList.setAssign(type.get());
         return reqTaskList;
-    }
-
-    @Override
-    protected boolean setAutoRefresh() {
-        return false;
     }
 
     @Override

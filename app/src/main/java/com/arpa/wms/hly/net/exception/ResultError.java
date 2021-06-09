@@ -22,7 +22,7 @@ public class ResultError extends Exception {
         this.message = message;
     }
 
-    public void setInfo(int code, String message){
+    public void setInfo(int code, String message) {
         this.code = code;
         this.message = message;
     }

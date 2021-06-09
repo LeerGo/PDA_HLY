@@ -9,7 +9,7 @@ package com.arpa.wms.hly.bean.base;
  * 内容描述区域
  * </p>
  */
-public class ReqPage extends ReqBase{
+public class ReqPage extends ReqBase {
     public int pageNum;
     public int pageSize;
 

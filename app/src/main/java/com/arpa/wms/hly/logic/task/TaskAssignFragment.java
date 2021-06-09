@@ -2,7 +2,6 @@ package com.arpa.wms.hly.logic.task;
 
 import android.os.Bundle;
 
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentTaskAssignBinding;
@@ -39,10 +38,15 @@ public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, Fragm
     }
 
     @Override
+    public void onLazyLoad() {
+        viewModel.autoRefresh();
+    }
+
+    @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
 
-        viewBind.setVariable(BR.viewModel, viewModel);
+        viewBind.setViewModel(viewModel);
         viewBind.rvList.addItemDecoration(new BothItemDecoration());
         viewModel.type.set(getArguments() != null ? getArguments().getInt(IntentKey.INDEX, ASSIGN_WORK.ASSIGN_NOT) : ASSIGN_WORK.ASSIGN_NOT);
         viewBind.btnAssignKeeper.setOnClickListener(view -> showStaffDialog(ASSIGN_WORK.WORK_CUSTODIAN));
@@ -53,10 +57,5 @@ public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, Fragm
     private void showStaffDialog(String assignType) {
         // TODO: 获取作业类型、人员的接口还没有 @lyf 2021-05-17 02:54:58
         // showDialogFragment(new DialogAssignSelect());
-    }
-
-    @Override
-    public void onLazyLoad() {
-        viewModel.autoRefresh();
     }
 }

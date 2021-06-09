@@ -9,6 +9,17 @@ import android.os.Parcelable;
  * since: 2021-05-18 09:55
  */
 public class OutboundVOS implements Parcelable {
+    public static final Parcelable.Creator<OutboundVOS> CREATOR = new Parcelable.Creator<OutboundVOS>() {
+        @Override
+        public OutboundVOS createFromParcel(Parcel source) {
+            return new OutboundVOS(source);
+        }
+
+        @Override
+        public OutboundVOS[] newArray(int size) {
+            return new OutboundVOS[size];
+        }
+    };
     private String code;
     private String customerCode;
     private String customerName;
@@ -17,6 +28,20 @@ public class OutboundVOS implements Parcelable {
     private String sendAddress;
     private String warehouseCode;
     private String licensePlateNumber;
+
+    public OutboundVOS() {
+    }
+
+    protected OutboundVOS(Parcel in) {
+        this.code = in.readString();
+        this.customerCode = in.readString();
+        this.customerName = in.readString();
+        this.receiveAddress = in.readString();
+        this.recheckQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
+        this.sendAddress = in.readString();
+        this.warehouseCode = in.readString();
+        this.licensePlateNumber = in.readString();
+    }
 
     public String getLicensePlateNumber() {
         return licensePlateNumber;
@@ -82,7 +107,6 @@ public class OutboundVOS implements Parcelable {
         this.warehouseCode = warehouseCode;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -110,30 +134,4 @@ public class OutboundVOS implements Parcelable {
         this.warehouseCode = source.readString();
         this.licensePlateNumber = source.readString();
     }
-
-    public OutboundVOS() {
-    }
-
-    protected OutboundVOS(Parcel in) {
-        this.code = in.readString();
-        this.customerCode = in.readString();
-        this.customerName = in.readString();
-        this.receiveAddress = in.readString();
-        this.recheckQuantity = (Integer) in.readValue(Integer.class.getClassLoader());
-        this.sendAddress = in.readString();
-        this.warehouseCode = in.readString();
-        this.licensePlateNumber = in.readString();
-    }
-
-    public static final Parcelable.Creator<OutboundVOS> CREATOR = new Parcelable.Creator<OutboundVOS>() {
-        @Override
-        public OutboundVOS createFromParcel(Parcel source) {
-            return new OutboundVOS(source);
-        }
-
-        @Override
-        public OutboundVOS[] newArray(int size) {
-            return new OutboundVOS[size];
-        }
-    };
 }

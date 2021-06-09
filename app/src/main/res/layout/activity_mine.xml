@@ -9,6 +9,10 @@
         <variable
             name="vmMine"
             type="com.arpa.wms.hly.logic.mine.VMMine" />
+        
+        <variable
+            name="vmWarehouse"
+            type="com.arpa.wms.hly.logic.common.vm.VMWarehouse" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat

@@ -2,7 +2,6 @@ package com.arpa.wms.hly.logic;
 
 import android.os.Bundle;
 
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
@@ -34,7 +33,7 @@ public class LoginActivity extends WrapBaseActivity<VMLogin, ActivityLoginBindin
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
 
-        viewBind.setVariable(BR.vmLogin, viewModel);
+        viewBind.setVmLogin(viewModel);
         viewModel.getWarehouseLiveData().observe(this, list -> {
             if (list.size() == 1) {
                 viewModel.bindWarehouse(list.get(0), true);

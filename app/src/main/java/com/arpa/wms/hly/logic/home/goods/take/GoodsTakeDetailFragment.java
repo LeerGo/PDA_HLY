@@ -41,11 +41,6 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
         viewModel.autoRefresh();
     }
 
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_goods_take_detail;
-    }
-
     @SuppressLint("LogNotTimber")
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
@@ -63,5 +58,10 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
                     }
                 }
         );
+    }
+
+    @Override
+    public int getLayoutId() {
+        return R.layout.fragment_goods_take_detail;
     }
 }

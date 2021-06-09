@@ -20,6 +20,6 @@ public class DrawableItemDecoration {
         DividerItemDecoration mDividerItemDecoration = new DividerItemDecoration(context, DividerItemDecoration.VERTICAL);
         Drawable mDrawable = ContextCompat.getDrawable(context, R.drawable.divider_line_horizontal);
         mDividerItemDecoration.setDrawable(Objects.requireNonNull(mDrawable));
-        return  mDividerItemDecoration;
+        return mDividerItemDecoration;
     }
 }

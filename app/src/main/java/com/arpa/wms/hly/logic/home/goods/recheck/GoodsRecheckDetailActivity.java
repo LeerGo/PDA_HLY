@@ -2,7 +2,6 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
 
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
@@ -44,7 +43,8 @@ public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckD
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-        viewBind.setVariable(BR.viewModel, viewModel);
+
+        viewBind.setViewModel(viewModel);
         viewBind.viewpager.registerOnPageChangeCallback(pageChangeCallback);
         ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
         viewModel.headerData.set(data);

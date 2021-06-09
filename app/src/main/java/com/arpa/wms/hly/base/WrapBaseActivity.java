@@ -34,13 +34,13 @@ public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends Vi
     }
 
     @Override
-    protected void showProgressDialog(boolean isCancel) {
-        showProgressDialog(R.layout.dialog_progress_arpa, isCancel);
-    }
-
-    @Override
     protected void onDestroy() {
         super.onDestroy();
         ToastUtils.cancel();
+    }
+
+    @Override
+    protected void showProgressDialog(boolean isCancel) {
+        showProgressDialog(R.layout.dialog_progress_arpa, isCancel);
     }
 }

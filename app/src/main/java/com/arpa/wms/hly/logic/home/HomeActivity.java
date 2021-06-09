@@ -36,7 +36,7 @@ public class HomeActivity extends WrapBaseActivity<VMHome, ActivityHomeBinding> 
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
 
-        viewBind.setVariable(BR.vmHome, viewModel);
+        viewBind.setVmHome(viewModel);
         viewBind.rvMenu.addItemDecoration(new GridItemDecoration(10));
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<MenuBean>) data -> {
             if (!TextUtils.isEmpty(data.getPath())) {

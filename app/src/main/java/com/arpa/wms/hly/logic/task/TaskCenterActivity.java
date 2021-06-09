@@ -2,7 +2,6 @@ package com.arpa.wms.hly.logic.task;
 
 import android.os.Bundle;
 
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityTaskCenterBinding;
@@ -21,7 +20,6 @@ public class TaskCenterActivity extends WrapBaseActivity<VMTaskCenter, ActivityT
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-
-        viewBind.setVariable(BR.viewModel, viewModel);
+        viewBind.setViewModel(viewModel);
     }
 }

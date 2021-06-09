@@ -2,7 +2,6 @@ package com.arpa.wms.hly.logic.mine;
 
 import android.os.Bundle;
 
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
@@ -25,8 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding>
-        implements DataTransCallback<ResWarehouse> {
+public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> implements DataTransCallback<ResWarehouse> {
 
     @Override
     public int getLayoutId() {
@@ -36,9 +34,9 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding>
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
-
-        viewBind.setVariable(BR.vmMine, viewModel);
-        viewModel.getWarehouseLiveData().observe(this, list -> {
+        viewBind.setVmMine(viewModel);
+        viewBind.setVmWarehouse(viewModel.vmWarehouse);
+        viewModel.vmWarehouse.getWarehouseLiveData().observe(this, list -> {
             if (list.size() <= 1) {
                 ToastUtils.showShort("只有一个仓库无法切换");
             } else {
@@ -53,6 +51,6 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding>
     @Override
     public void transfer(ResWarehouse data) {
         viewModel.getWarehouse().set(data.getName());
-        viewModel.bindWarehouse(data, false);
+        viewModel.vmWarehouse.bindWarehouse(data, false);
     }
 }

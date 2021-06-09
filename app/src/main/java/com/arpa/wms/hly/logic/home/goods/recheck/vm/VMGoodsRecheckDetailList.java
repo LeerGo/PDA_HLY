@@ -45,13 +45,13 @@ public class VMGoodsRecheckDetailList extends VMBaseList<GoodsItemVO> {
     }
 
     @Override
-    public Call<Result<List<GoodsItemVO>>> getCall(Map<String, Object> params) {
-        return apiService.recheckItemListBelow(params);
+    protected boolean setAutoRefresh() {
+        return false;
     }
 
     @Override
-    protected boolean setAutoRefresh() {
-        return false;
+    public Call<Result<List<GoodsItemVO>>> getCall(Map<String, Object> params) {
+        return apiService.recheckItemListBelow(params);
     }
 
     @Override

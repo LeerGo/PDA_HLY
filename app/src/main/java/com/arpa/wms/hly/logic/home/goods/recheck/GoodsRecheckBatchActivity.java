@@ -65,15 +65,6 @@ public class GoodsRecheckBatchActivity
         viewBind.wiiInput.setOnTextChanged(this::postMsgDelayed);
     }
 
-    private void restoreCodes() {
-        ArrayList<String> codeList = getIntent().getStringArrayListExtra(IntentKey.DATA);
-        if (!codeList.isEmpty()) {
-            for (int i = codeList.size() - 1; i >= 0; i--) {
-                addTagView(codeList.get(i));
-            }
-        }
-    }
-
     /**
      * 延迟发送消息，通知添加批次号 chip-view
      */
@@ -85,6 +76,15 @@ public class GoodsRecheckBatchActivity
             sHandler.removeMessages(MSG_ADD_TAG);
         }
         sHandler.sendMessageDelayed(message, 500);
+    }
+
+    private void restoreCodes() {
+        ArrayList<String> codeList = getIntent().getStringArrayListExtra(IntentKey.DATA);
+        if (!codeList.isEmpty()) {
+            for (int i = codeList.size() - 1; i >= 0; i--) {
+                addTagView(codeList.get(i));
+            }
+        }
     }
 
     /**
@@ -111,16 +111,16 @@ public class GoodsRecheckBatchActivity
     }
 
     @Override
+    protected void onDestroy() {
+        sHandler.clear();
+        super.onDestroy();
+    }
+
+    @Override
     public void handleMessage(Message msg) {
         if (msg.what == MSG_ADD_TAG) {
             addTagView((String) msg.obj);
             viewBind.wiiInput.setInputText("");
         }
-    }
-
-    @Override
-    protected void onDestroy() {
-        sHandler.clear();
-        super.onDestroy();
     }
 }
