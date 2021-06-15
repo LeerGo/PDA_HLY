@@ -20,20 +20,18 @@ import retrofit2.Call;
  * </p>
  */
 public abstract class WrapApiCallback <T extends Result> extends ApiCallback<T> {
+
     @Override
     public void onResponse(Call<T> call, T result) {
-        if (result.isSuccess()) {
-            onResponse(result);
-        } else {
-            onError(call, innerFailed(result));
-        }
+        if (result.isSuccess()) onResponse(result);
+        else onError(call, innerFailed(result));
         onFinish();
     }
 
     private Exception innerFailed(T result) {
         Exception exception;
-        if (result.getStatus() == ErrorCode.TOKEN_INVALID) {
-            exception = new TokenInvalidException(result.getStatus(), result.getMsg());
+        if (result.getCode() == ErrorCode.TOKEN_INVALID_SSO) {
+            exception = new TokenInvalidException(result.getCode(), result.getMsg());
         } else {
             exception = new ServerProtocolException(result.getStatus(), result.getMsg());
         }
@@ -46,9 +44,10 @@ public abstract class WrapApiCallback <T extends Result> extends ApiCallback<T> 
         onFinish();
     }
 
-    public void onFinish() {}
-
-    public abstract void onResponse(T data);
+    public void onFinish() {
+    }
 
     public abstract void onFailed(ResultError error);
+
+    public abstract void onResponse(T data);
 }

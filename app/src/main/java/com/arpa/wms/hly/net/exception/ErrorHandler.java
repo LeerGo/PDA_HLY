@@ -24,7 +24,7 @@ import retrofit2.HttpException;
  * since: 2021-05-17 09:42
  *
  * <p>
- * 内容描述区域
+ * 网络层：错误统一处理
  * </p>
  */
 public class ErrorHandler {
@@ -61,7 +61,7 @@ public class ErrorHandler {
      * 处理 token 失效，跳转登录
      */
     private static void tokenValid(TokenInvalidException e) {
-        ToastUtils.showShort(e.getMessage());
+        ToastUtils.showShort(e.getMsg());
         Intent intent = new Intent(Utils.getContext(), LoginActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         Utils.getContext().startActivity(intent);

@@ -6,7 +6,7 @@ package com.arpa.wms.hly.net.exception;
  * since: 2021-05-10 14:06
  *
  * <p>
- * 内容描述区域
+ * Bean：错误异常统一
  * </p>
  */
 public class ResultError extends Exception {
