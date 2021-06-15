@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseAdapter;
 import com.arpa.wms.hly.base.BaseViewHolder;
-import com.arpa.wms.hly.bean.res.ResWarehouse;
+import com.arpa.wms.hly.bean.TaskStaff;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -20,7 +20,7 @@ import com.arpa.wms.hly.bean.res.ResWarehouse;
  * Adapter：分配保管员、装卸工、叉车工等
  * </p>
  */
-public class DialogAssignSelectAdapter extends BaseAdapter<ResWarehouse> {
+public class DialogAssignSelectAdapter extends BaseAdapter<TaskStaff> {
 
     public DialogAssignSelectAdapter(Context context) {
         super(context);
@@ -32,7 +32,7 @@ public class DialogAssignSelectAdapter extends BaseAdapter<ResWarehouse> {
         ImageView ivSelect = holder.getView(R.id.iv_check);
         TextView tvWarehouse = holder.getView(R.id.tv_name);
 
-        ResWarehouse data = getDataList().get(position);
+        TaskStaff data = getDataList().get(position);
         ivSelect.setVisibility(data.isSelect() ? View.VISIBLE : View.GONE);
         tvWarehouse.setText(data.getName());
         holder.itemView.setOnClickListener(v -> {

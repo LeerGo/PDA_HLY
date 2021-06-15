@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp"
-    tools:background="@color/white"
-    tools:paddingStart="15dp">
+    tools:background="@color/white">
     
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/tv_name"

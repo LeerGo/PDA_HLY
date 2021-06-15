@@ -182,9 +182,13 @@ public interface Const {
         int ASSIGN_YET = 1;
         int ASSIGN_IN = 2;
 
-        //工种（CUSTODIAN：保管员，STEVEDORE：装卸工，FORKLIFT：叉车工）
-        String WORK_CUSTODIAN = "CUSTODIAN";
-        String WORK_STEVEDORE = "STEVEDORE";
-        String WORK_FORKLIFT = "FORKLIFT";
+        // 保管员
+        int CUSTODIAN = 1;
+        // 叉车工
+        int FORKLIFT = 2;
+        // 装卸工
+        int STEVEDORE = 3;
     }
+
+
 }

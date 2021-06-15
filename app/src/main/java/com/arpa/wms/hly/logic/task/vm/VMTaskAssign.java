@@ -13,7 +13,9 @@ import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
+import com.arpa.wms.hly.bean.req.ReqWorkStaff;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
+import com.arpa.wms.hly.bean.res.ResTaskWorker;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener;
@@ -26,6 +28,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -33,10 +36,14 @@ import retrofit2.Call;
 @HiltViewModel
 public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     public final ObservableInt type = new ObservableInt();
-    private final ObservableBoolean isSelectAll = new ObservableBoolean();
-    private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
+    public final MutableLiveData<ResTaskWorker> resTaskWorker = new MutableLiveData<>();
+
     private final ReqTaskAssign reqTaskAssign = new ReqTaskAssign();
+    private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
+    private final ObservableBoolean isSelectAll = new ObservableBoolean();
     private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_task_list);
+
+    public int workType = -1;
 
     @Inject
     public VMTaskAssign(@NonNull Application application, BaseModel model) {
@@ -154,6 +161,35 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                     public void onSuccess(Object data) {
                         sendMessage("取消分配成功");
                         updateStatus(StatusEvent.Status.SUCCESS, true);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+                        sendMessage(error.getMessage(), true);
+                        updateStatus(StatusEvent.Status.ERROR, true);
+                    }
+                });
+    }
+
+    /**
+     * 获取仓库作业员列表
+     */
+    public void getWorkStaff(int assignType) {
+        workType = assignType;
+        showLoading();
+        ReqWorkStaff reqWorkStaff = new ReqWorkStaff(assignType);
+        apiService.getWorkStaff(reqWorkStaff.toParams())
+                .enqueue(new ResultCallback<ResTaskWorker>() {
+                    @Override
+                    public void onSuccess(ResTaskWorker data) {
+                        resTaskWorker.postValue(data);
+                        updateStatus(StatusEvent.Status.SUCCESS, true);
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        hideLoading();
                     }
 
                     @Override

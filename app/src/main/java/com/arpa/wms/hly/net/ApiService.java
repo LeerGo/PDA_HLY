@@ -14,6 +14,7 @@ import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
+import com.arpa.wms.hly.bean.res.ResTaskWorker;
 import com.arpa.wms.hly.bean.res.ResTruckLoad;
 import com.arpa.wms.hly.bean.res.ResTruckLoadConfirm;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
@@ -211,6 +212,12 @@ public interface ApiService {
      */
     @POST("wms/pda/outbound/loadingCarConfirm")
     Call<Result<Object>> confirmTruckLoad(@Body ReqTruckLoadConfirm reqTruckLoadConfirm);
+
+    /**
+     * 获取仓库作业员列表
+     */
+    @GET("wms/pda/WorkStaff/getWorkStaff")
+    Call<Result<ResTaskWorker>> getWorkStaff(@QueryMap Map<String, Object> data);
 
     /**
      * API 请求地址、一些参数
