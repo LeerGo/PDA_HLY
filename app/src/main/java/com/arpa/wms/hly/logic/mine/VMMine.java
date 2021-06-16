@@ -6,7 +6,6 @@ import android.content.Intent;
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.BuildConfig;
-import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
@@ -32,8 +31,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  * </p>
  */
 @HiltViewModel
-public class VMMine extends WrapDataViewModel {
-    public final VMWarehouse vmWarehouse;
+public class VMMine extends VMWarehouse {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
     private final ObservableField<String> version = new ObservableField<>();
@@ -41,7 +39,6 @@ public class VMMine extends WrapDataViewModel {
     @Inject
     public VMMine(@NonNull Application application, BaseModel model) {
         super(application, model);
-        vmWarehouse = new VMWarehouse(application, model);
     }
 
     @Override
@@ -95,7 +92,7 @@ public class VMMine extends WrapDataViewModel {
      */
     public void getWarehouseList() {
         updateStatus(Status.LOADING);
-        vmWarehouse.getWarehouseWithSSO();
+        super.getWarehouseWithSSO();
     }
 
     public ObservableField<String> getAccount() {

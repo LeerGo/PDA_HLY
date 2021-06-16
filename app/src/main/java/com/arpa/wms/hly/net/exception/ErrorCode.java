@@ -14,7 +14,7 @@ public interface ErrorCode {
     int JSON_ERROR = -200;
     int HTTP_ERROR = -300;
     int SERVER_ERROR = -400;
-    // 业务 - token 失效(中台返回的 501， WMS 是21332)
-    int TOKEN_INVALID_SSO = 501;
+    // 业务 - token 失效(中台返回的 700， WMS 是21332)
+    int TOKEN_INVALID_SSO = 700;
     int TOKEN_INVALID_WMS = 21332;
 }

@@ -1,6 +1,7 @@
 package com.arpa.wms.hly.net.exception;
 
 import com.google.gson.JsonParseException;
+import com.google.gson.stream.MalformedJsonException;
 
 import android.content.Intent;
 
@@ -43,7 +44,7 @@ public class ErrorHandler {
             error.setInfo(exp.getCode(), exp.getMsg());
             if (null == exp.getMsg())
                 error.setMessage("服务器内部异常");
-        } else if (e instanceof JSONException || e instanceof JsonParseException || e instanceof ParseException) {
+        } else if (e instanceof JSONException || e instanceof JsonParseException || e instanceof ParseException | e instanceof MalformedJsonException) {
             error.setInfo(ErrorCode.JSON_ERROR, "JSON 解析异常");
         } else if (e instanceof TimeoutException || e instanceof SocketTimeoutException) {
             error.setInfo(ErrorCode.HTTP_ERROR, "请求超时");

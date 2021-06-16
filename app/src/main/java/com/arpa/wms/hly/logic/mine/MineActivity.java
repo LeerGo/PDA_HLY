@@ -35,8 +35,7 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> 
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setVmMine(viewModel);
-        viewBind.setVmWarehouse(viewModel.vmWarehouse);
-        viewModel.vmWarehouse.getWarehouseLiveData().observe(this, list -> {
+        viewModel.getWarehouseLiveData().observe(this, list -> {
             if (list.size() <= 1) {
                 ToastUtils.showShort("只有一个仓库无法切换");
             } else {
@@ -51,6 +50,6 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> 
     @Override
     public void transfer(ResWarehouse data) {
         viewModel.getWarehouse().set(data.getName());
-        viewModel.vmWarehouse.bindWarehouse(data, false);
+        viewModel.bindWarehouse(data, false);
     }
 }
