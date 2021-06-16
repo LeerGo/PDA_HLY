@@ -189,6 +189,4 @@ public interface Const {
         // 装卸工
         int STEVEDORE = 3;
     }
-
-
 }
