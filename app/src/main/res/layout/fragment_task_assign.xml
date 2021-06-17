@@ -76,14 +76,14 @@
             
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnAssignKeeper"
-                style="@style/TaskButtonStyle"
+                style="@style/TaskButtonLeftStyle"
                 android:text="@{viewModel.type==0 ? @string/btn_assign_keeper : @string/btn_unassign_keeper}"
                 tools:ignore="HardcodedText"
                 tools:text="分配保管员" />
             
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnAssignStevedore"
-                style="@style/TaskButtonStyle"
+                style="@style/TaskButtonLeftStyle"
                 android:layout_marginStart="6dp"
                 android:text="@{viewModel.type==0 ? @string/btn_assign_stevedore : @string/btn_unassign_stevedore}"
                 tools:ignore="HardcodedText"

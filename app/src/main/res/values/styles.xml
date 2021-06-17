@@ -56,6 +56,11 @@
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">12sp</item>
     </style>
+    <style name="TaskButtonLeftStyle"
+           parent="TaskButtonStyle">
+        <item name="android:textColor">@color/colorPrimary</item>
+        <item name="android:background">@drawable/shape_rrect_blue_border_r5</item>
+    </style>
     <style name="TaskPropsStyle"
            parent="WWrapHWrap">
         <item name="android:layout_marginTop">8dp</item>
