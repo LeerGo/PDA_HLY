@@ -37,9 +37,8 @@ public class LogicViewBinding {
                 case GOODS_PICK:
                     imageView.setImageResource(R.mipmap.ic_task_goods_pick);
                     break;
-                // TODO: 还少一个装车类型 @lyf 2021-06-17 09:22:03
                 case GOODS_LOADING:
-                    imageView.setImageResource(R.mipmap.ic_task_goods_pick);
+                    imageView.setImageResource(R.mipmap.ic_task_goods_load);
                     break;
             }
     }

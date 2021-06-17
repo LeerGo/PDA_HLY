@@ -63,21 +63,21 @@
                 app:propsKey="商品名称："
                 app:propsValue="@{data.goodsName}"
                 tools:propsValue="伊利优酸乳" />
-            
+    
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll1"
                 style="@style/WMatchHWrap"
                 android:layout_below="@id/wpi1">
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="基本单位："
                     app:propsValue="@{data.goodsUnitName}"
                     tools:propsValue="件" />
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
                     style="@style/TaskPropsWeightStyle"
-                    app:wqiName="收货数量：" />
+                    app:wqiName="拣货数量：" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
             <androidx.appcompat.widget.LinearLayoutCompat

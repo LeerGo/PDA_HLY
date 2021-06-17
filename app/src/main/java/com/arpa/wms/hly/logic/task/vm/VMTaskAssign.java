@@ -38,7 +38,7 @@ import retrofit2.Call;
 
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_PICK;
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_TAKE;
-import static com.arpa.wms.hly.utils.Const.IntentKey.RECEIVE_CODE;
+import static com.arpa.wms.hly.utils.Const.IntentKey.DATA;
 
 @HiltViewModel
 public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
@@ -78,13 +78,13 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
         itemBinding.bindExtra(BR.listener, (DataTransCallback<ResTaskAssign>) data -> {
             if (GOODS_TAKE.equals(data.getTaskTypeDes())) { // 跳转收货详情 @lyf 2021-05-06 10:09:04
                 Bundle bundle = new Bundle();
-                bundle.putString(RECEIVE_CODE, data.getSourceCode());
+                data.toTaskGoodTake();
+                bundle.putParcelable(DATA, data);
                 startActivity(TaskGoodsTakeActivity.class, bundle);
             } else if (GOODS_PICK.equals(data.getTaskTypeDes())) { // TODO: 跳转拣货详情 @lyf 2021-05-06 10:09:04
                 startActivity(TaskGoodsPickActivity.class);
             }
-        }).bindExtra(BR.select, (DataTransCallback<ResTaskAssign>) data -> {
-            // 多选
+        }).bindExtra(BR.select, (DataTransCallback<ResTaskAssign>) data -> { // 多选
             data.setSelect(!data.isSelect());
             inverseSelectAll();
             getAdapter().notifyDataSetChanged();

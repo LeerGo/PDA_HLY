@@ -3,24 +3,23 @@ package com.arpa.wms.hly.logic.task.vm;
 import android.app.Application;
 
 import com.arpa.and.arch.base.BaseModel;
-import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
-import com.arpa.wms.hly.logic.task.TaskAssignFragment;
-import com.arpa.wms.hly.utils.Const.ASSIGN_WORK;
+import com.arpa.wms.hly.base.viewmodel.VMBaseList;
+import com.arpa.wms.hly.bean.GoodsItemVO;
+import com.arpa.wms.hly.bean.base.ReqBase;
+import com.arpa.wms.hly.bean.base.Result;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableList;
-import androidx.fragment.app.Fragment;
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
+import retrofit2.Call;
 
 @HiltViewModel
-public class VMTaskGoodsPick extends WrapDataViewModel {
-    private final ObservableList<Fragment> fragments = new ObservableArrayList<>();
-    private final ObservableList<String> titles = new ObservableArrayList<>();
+public class VMTaskGoodsPick extends VMBaseList<GoodsItemVO> {
 
     @Inject
     public VMTaskGoodsPick(@NonNull Application application, BaseModel model) {
@@ -28,19 +27,17 @@ public class VMTaskGoodsPick extends WrapDataViewModel {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-
-        fragments.add(TaskAssignFragment.newInstance(ASSIGN_WORK.ASSIGN_NOT));
-        fragments.add(TaskAssignFragment.newInstance(ASSIGN_WORK.ASSIGN_YET));
-        titles.addAll(Arrays.asList("待指派", "已指派"));
+    public Call<Result<List<GoodsItemVO>>> getCall(Map<String, Object> params) {
+        return null;
     }
 
-    public ObservableList<Fragment> getFragments() {
-        return fragments;
+    @Override
+    public ReqBase getParams() {
+        return null;
     }
 
-    public ObservableList<String> getTitles() {
-        return titles;
+    @Override
+    public ItemBinding<GoodsItemVO> getItemBinding() {
+        return null;
     }
 }

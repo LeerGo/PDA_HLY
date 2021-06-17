@@ -26,13 +26,13 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
             return new ResTaskAssign[size];
         }
     };
-
     private String carQueueNumber;
     private String code;
     private String sourceCode;
     private String custodian;
     private String driverName;
     private String driverPhone;
+    private int jobQuantity;
     private int goodsQuantity;
     private String licensePlateNumber;
     private String taskTypeDes;
@@ -50,9 +50,11 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     protected ResTaskAssign(Parcel in) {
         this.carQueueNumber = in.readString();
         this.code = in.readString();
+        this.sourceCode = in.readString();
         this.custodian = in.readString();
         this.driverName = in.readString();
         this.driverPhone = in.readString();
+        this.jobQuantity = in.readInt();
         this.goodsQuantity = in.readInt();
         this.licensePlateNumber = in.readString();
         this.taskTypeDes = in.readString();
@@ -61,6 +63,8 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.stevedore = in.readString();
         this.receivedQuantity = in.readInt();
         this.totalQuantity = in.readInt();
+        this.volume = (BigDecimal) in.readSerializable();
+        this.weight = (BigDecimal) in.readSerializable();
     }
 
     public String getSourceCode() {
@@ -191,6 +195,26 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.taskTypeDes = taskTypeDes;
     }
 
+    public int getJobQuantity() {
+        return jobQuantity;
+    }
+
+    public void setJobQuantity(int jobQuantity) {
+        this.jobQuantity = jobQuantity;
+    }
+
+    public ReqTruckLoadDetail convert() {
+        return new ReqTruckLoadDetail(licensePlateNumber, driverName, driverPhone);
+    }
+
+    /**
+     * 任务中心跳转详情，需要转换一下字段赋值
+     */
+    public void toTaskGoodTake() {
+        this.receivedQuantity = this.jobQuantity;
+        this.totalQuantity = this.goodsQuantity;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -200,9 +224,11 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.carQueueNumber);
         dest.writeString(this.code);
+        dest.writeString(this.sourceCode);
         dest.writeString(this.custodian);
         dest.writeString(this.driverName);
         dest.writeString(this.driverPhone);
+        dest.writeInt(this.jobQuantity);
         dest.writeInt(this.goodsQuantity);
         dest.writeString(this.licensePlateNumber);
         dest.writeString(this.taskTypeDes);
@@ -211,14 +237,18 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         dest.writeString(this.stevedore);
         dest.writeInt(this.receivedQuantity);
         dest.writeInt(this.totalQuantity);
+        dest.writeSerializable(this.volume);
+        dest.writeSerializable(this.weight);
     }
 
     public void readFromParcel(Parcel source) {
         this.carQueueNumber = source.readString();
         this.code = source.readString();
+        this.sourceCode = source.readString();
         this.custodian = source.readString();
         this.driverName = source.readString();
         this.driverPhone = source.readString();
+        this.jobQuantity = source.readInt();
         this.goodsQuantity = source.readInt();
         this.licensePlateNumber = source.readString();
         this.taskTypeDes = source.readString();
@@ -227,9 +257,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.stevedore = source.readString();
         this.receivedQuantity = source.readInt();
         this.totalQuantity = source.readInt();
-    }
-
-    public ReqTruckLoadDetail convert() {
-        return new ReqTruckLoadDetail(licensePlateNumber, driverName, driverPhone);
+        this.volume = (BigDecimal) source.readSerializable();
+        this.weight = (BigDecimal) source.readSerializable();
     }
 }

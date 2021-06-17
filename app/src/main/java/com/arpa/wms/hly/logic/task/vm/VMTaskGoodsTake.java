@@ -11,9 +11,6 @@ import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeDetail;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
-import com.arpa.wms.hly.net.callback.ResultCallback;
-import com.arpa.wms.hly.net.exception.ResultError;
-import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.List;
 import java.util.Map;
@@ -22,42 +19,20 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
 
 @HiltViewModel
 public class VMTaskGoodsTake extends VMBaseList<GoodsItemVO> {
+    public ObservableField<ResTaskAssign> headerData = new ObservableField<>();
+    public MutableLiveData<ResTaskAssign> header = new MutableLiveData<>();
     public ReqGoodTakeDetail request = new ReqGoodTakeDetail();
-    public final ObservableField<ResTaskAssign> headerData = new ObservableField<>();
 
     @Inject
     public VMTaskGoodsTake(@NonNull Application application, BaseModel model) {
         super(application, model);
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        refreshHeader();
-    }
-
-    /**
-     * 刷新头部
-     */
-    private void refreshHeader() {
-        apiService.receiveDetailsAbove(request.getReceiveCode())
-                .enqueue(new ResultCallback<ResTaskAssign>() {
-                    @Override
-                    public void onSuccess(ResTaskAssign data) {
-                        headerData.set(data);
-                    }
-
-                    @Override
-                    public void onFailed(ResultError error) {
-                        ToastUtils.showShort(error.getMessage());
-                    }
-                });
     }
 
     @Override
@@ -74,5 +49,4 @@ public class VMTaskGoodsTake extends VMBaseList<GoodsItemVO> {
     public ItemBinding<GoodsItemVO> getItemBinding() {
         return ItemBinding.of(BR.data, R.layout.item_goods_take_detail_wait);
     }
-
 }

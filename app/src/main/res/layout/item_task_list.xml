@@ -74,7 +74,7 @@
                 android:layout_below="@id/ll_header"
                 android:layout_marginHorizontal="12dp"
                 android:background="@color/grey" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_custom"
                 style="@style/TaskPropsRightStyle"
@@ -82,7 +82,7 @@
                 app:propsKey="@string/custom"
                 app:propsValue="@{data.customerName}"
                 app:visible="@{!TextUtils.isEmpty(data.customerName)}"
-                tools:propsValue="张三    13200000000" />
+                tools:propsValue="张三" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_queue"
@@ -102,7 +102,7 @@
                 app:propsKey="@string/number_of_units"
                 app:propsValue="@{String.valueOf(data.goodsQuantity)}"
                 tools:propsValue="1000" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_custodian"
                 style="@style/TaskPropsRightStyle"
@@ -110,16 +110,16 @@
                 app:propsKey="@string/custodian"
                 app:propsValue="@{data.custodian}"
                 app:visible="@{!TextUtils.isEmpty(data.custodian)}"
-                tools:propsValue="张三    13200000000" />
-            
+                tools:propsValue="张三" />
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_driver"
                 style="@style/TaskPropsRightStyle"
                 android:layout_below="@id/wpi_custodian"
                 app:propsKey="@string/driver"
-                app:propsValue="@{data.driverName+`    `+data.driverPhone}"
+                app:propsValue="@{data.driverName+`/`+data.driverPhone}"
                 app:visible="@{!TextUtils.isEmpty(data.driverName)}"
-                tools:propsValue="张三    13200000000" />
+                tools:propsValue="张三/13333333333" />
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_stevedore"
@@ -129,7 +129,7 @@
                 app:propsValue="@{data.stevedore}"
                 app:visible="@{!TextUtils.isEmpty(data.stevedore)}"
                 tools:propsValue="装卸工一，装卸工一" />
-    
+            
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_forklift"
                 style="@style/TaskPropsRightStyle"

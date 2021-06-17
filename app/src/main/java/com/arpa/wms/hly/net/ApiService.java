@@ -44,7 +44,7 @@ public interface ApiService {
      * 绑定仓库 SSO
      */
     @GET(API.API_BIND_WAREHOUSE)
-    Call<Result<Object>> bindWarehouse(@Query("sourceCode") String warehouseCode);
+    Call<Result<Object>> bindWarehouse(@Query("warehouseCode") String warehouseCode);
 
     /**
      * 单点登录 获取认证

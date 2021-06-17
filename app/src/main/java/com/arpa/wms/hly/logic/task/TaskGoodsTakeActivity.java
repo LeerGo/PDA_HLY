@@ -4,12 +4,17 @@ import android.os.Bundle;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.ActivityTaskGoodsTakeBinding;
 import com.arpa.wms.hly.logic.task.vm.VMTaskGoodsTake;
-import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
+
+import java.util.Objects;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
+
+import static com.arpa.wms.hly.utils.Const.IntentKey.DATA;
 
 @AndroidEntryPoint
 public class TaskGoodsTakeActivity extends WrapBaseActivity<VMTaskGoodsTake, ActivityTaskGoodsTakeBinding> {
@@ -22,7 +27,12 @@ public class TaskGoodsTakeActivity extends WrapBaseActivity<VMTaskGoodsTake, Act
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
-        viewModel.request.setParams((Integer) null, getIntent().getStringExtra(Const.IntentKey.RECEIVE_CODE));
+
+        ResTaskAssign data = getIntent().getParcelableExtra(DATA);
+        viewModel.headerData.set(data);
+        viewModel.request.setParams(3, Objects.requireNonNull(data).getSourceCode());
+
+        viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
         viewBind.wsbSearch.setOnSearchClick(keyWord -> {
             viewModel.request.setGoodsBarCode(keyWord);
             viewModel.refresh();
