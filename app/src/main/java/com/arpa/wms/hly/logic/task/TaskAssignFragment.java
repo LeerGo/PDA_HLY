@@ -37,6 +37,8 @@ import dagger.hilt.android.AndroidEntryPoint;
  * 不再跳转，只到收货详情、拣货详情页，可以查看就行
  * 3. 【任务列表】里，“待指派、已指派”两个列表是都需要点击条目跳转对应详情的嘛？
  * 都需要
+ *
+ * 任务列表，右上角显示状态还有【装车】@夏宝新 沟通
  */
 @AndroidEntryPoint
 public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, FragmentTaskAssignBinding> implements DataTransCallback<TaskStaffSelect> {

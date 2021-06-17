@@ -45,15 +45,29 @@
         
         <include
             layout="@layout/item_goods_take"
+            app:data="@{viewModel.headerData}"
             app:showOrder="@{false}" />
         
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvList"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="20"
-            tools:listitem="@layout/item_goods_take_detail_wait" />
+            app:autoRefresh="@{viewModel.isAutoRefresh}"
+            app:onRefreshListener="@{()->viewModel.refresh()}"
+            app:refreshing="@{viewModel.refreshing}"
+            app:srlEnableFooterFollowWhenNoMoreData="false"
+            app:srlEnableLoadMore="false"
+            app:srlEnablePreviewInEditMode="true">
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{viewModel.adapter}"
+                app:itemBinding="@{viewModel.itemBinding}"
+                app:items="@{viewModel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="20"
+                tools:listitem="@layout/item_goods_take_detail_wait" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

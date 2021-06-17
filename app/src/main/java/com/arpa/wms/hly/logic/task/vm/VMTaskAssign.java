@@ -2,6 +2,7 @@ package com.arpa.wms.hly.logic.task.vm;
 
 import android.annotation.SuppressLint;
 import android.app.Application;
+import android.os.Bundle;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
@@ -37,6 +38,7 @@ import retrofit2.Call;
 
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_PICK;
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_TAKE;
+import static com.arpa.wms.hly.utils.Const.IntentKey.RECEIVE_CODE;
 
 @HiltViewModel
 public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
@@ -74,11 +76,11 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
         itemBinding.bindExtra(BR.listener, (DataTransCallback<ResTaskAssign>) data -> {
-            if (GOODS_TAKE.equals(data.getTaskTypeDes())) {
-                // TODO: 跳转收货详情 @lyf 2021-05-06 10:09:04
-                startActivity(TaskGoodsTakeActivity.class);
-            } else if (GOODS_PICK.equals(data.getTaskTypeDes())) {
-                // TODO: 跳转拣货详情 @lyf 2021-05-06 10:09:04
+            if (GOODS_TAKE.equals(data.getTaskTypeDes())) { // 跳转收货详情 @lyf 2021-05-06 10:09:04
+                Bundle bundle = new Bundle();
+                bundle.putString(RECEIVE_CODE, data.getSourceCode());
+                startActivity(TaskGoodsTakeActivity.class, bundle);
+            } else if (GOODS_PICK.equals(data.getTaskTypeDes())) { // TODO: 跳转拣货详情 @lyf 2021-05-06 10:09:04
                 startActivity(TaskGoodsPickActivity.class);
             }
         }).bindExtra(BR.select, (DataTransCallback<ResTaskAssign>) data -> {

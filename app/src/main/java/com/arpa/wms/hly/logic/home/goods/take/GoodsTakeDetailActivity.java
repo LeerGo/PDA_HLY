@@ -25,7 +25,6 @@ import static com.arpa.wms.hly.utils.Const.TASK_STATUS.TAKE_YET;
  * 页面：商品收货详情
  * </p>
  */
-// TODO: 搜索功能需要完成 @lyf 2021-05-19 10:47:41
 @AndroidEntryPoint
 public class GoodsTakeDetailActivity extends WrapBaseActivity<VMGoodsTakeDetail, ActivityPdataskTakeDetailBinding> {
     private final ViewPager2.OnPageChangeCallback pageChangeCallback = new ViewPager2.OnPageChangeCallback() {

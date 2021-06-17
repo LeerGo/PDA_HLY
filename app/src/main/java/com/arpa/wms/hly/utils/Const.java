@@ -192,5 +192,6 @@ public interface Const {
         String GOODS_TAKE = "收货";
         String GOODS_PICK = "拣货";
         String GOODS_RECHECK = "复核";
+        String GOODS_LOADING = "装车";
     }
 }

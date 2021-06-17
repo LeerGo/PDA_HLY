@@ -9,6 +9,7 @@ import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.BindingAdapter;
 
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_LOADING;
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_PICK;
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_RECHECK;
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_TAKE;
@@ -34,6 +35,10 @@ public class LogicViewBinding {
                     imageView.setImageResource(R.mipmap.ic_task_goods_recheck);
                     break;
                 case GOODS_PICK:
+                    imageView.setImageResource(R.mipmap.ic_task_goods_pick);
+                    break;
+                // TODO: 还少一个装车类型 @lyf 2021-06-17 09:22:03
+                case GOODS_LOADING:
                     imageView.setImageResource(R.mipmap.ic_task_goods_pick);
                     break;
             }
