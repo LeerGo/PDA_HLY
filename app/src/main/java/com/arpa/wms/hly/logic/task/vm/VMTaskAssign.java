@@ -16,9 +16,11 @@ import com.arpa.wms.hly.bean.req.ReqTaskList;
 import com.arpa.wms.hly.bean.req.ReqWorkStaff;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.bean.res.ResTaskWorker;
+import com.arpa.wms.hly.logic.task.TaskGoodsPickActivity;
+import com.arpa.wms.hly.logic.task.TaskGoodsTakeActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
-import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 
 import java.util.List;
 import java.util.Map;
@@ -32,6 +34,9 @@ import androidx.lifecycle.MutableLiveData;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
+
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_PICK;
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_TAKE;
 
 @HiltViewModel
 public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
@@ -68,9 +73,15 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
 
     @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
-        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
-            // TODO: 跳转详情 @lyf 2021-05-06 10:09:04
-        }).bindExtra(BR.select, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
+        itemBinding.bindExtra(BR.listener, (DataTransCallback<ResTaskAssign>) data -> {
+            if (GOODS_TAKE.equals(data.getTaskTypeDes())) {
+                // TODO: 跳转收货详情 @lyf 2021-05-06 10:09:04
+                startActivity(TaskGoodsTakeActivity.class);
+            } else if (GOODS_PICK.equals(data.getTaskTypeDes())) {
+                // TODO: 跳转拣货详情 @lyf 2021-05-06 10:09:04
+                startActivity(TaskGoodsPickActivity.class);
+            }
+        }).bindExtra(BR.select, (DataTransCallback<ResTaskAssign>) data -> {
             // 多选
             data.setSelect(!data.isSelect());
             inverseSelectAll();

@@ -9,6 +9,10 @@ import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.BindingAdapter;
 
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_PICK;
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_RECHECK;
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_TAKE;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -23,13 +27,13 @@ public class LogicViewBinding {
     public static void setTaskType(AppCompatImageView imageView, String taskType) {
         if (!TextUtils.isEmpty(taskType))
             switch (taskType) {
-                case "收货":
+                case GOODS_TAKE:
                     imageView.setImageResource(R.mipmap.ic_task_goods_take);
                     break;
-                case "复核":
+                case GOODS_RECHECK:
                     imageView.setImageResource(R.mipmap.ic_task_goods_recheck);
                     break;
-                case "拣货":
+                case GOODS_PICK:
                     imageView.setImageResource(R.mipmap.ic_task_goods_pick);
                     break;
             }

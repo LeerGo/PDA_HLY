@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.task.vm.VMTaskGoodsTake" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <!--标题栏-->
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/widgetTitleBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:wtbTitle="收货详情" />
+        
+        <!--搜索框-->
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp">
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetSearchBar
+                android:id="@+id/wsbSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="12dp"
+                app:wsbHint="请扫描/输入商品条码" />
+        </FrameLayout>
+        
+        <include
+            layout="@layout/item_goods_take"
+            app:showOrder="@{false}" />
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_goods_take_detail_wait" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

@@ -188,5 +188,9 @@ public interface Const {
         int FORKLIFT = 2;
         // 装卸工
         int STEVEDORE = 3;
+
+        String GOODS_TAKE = "收货";
+        String GOODS_PICK = "拣货";
+        String GOODS_RECHECK = "复核";
     }
 }

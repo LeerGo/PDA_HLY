@@ -39,6 +39,8 @@
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
+        <activity android:name=".logic.task.TaskGoodsTakeActivity" />
+        <activity android:name=".logic.task.TaskGoodsPickActivity" />
         <!--收货-->
         <activity android:name=".logic.home.goods.take.GoodsTakeActivity">
             <intent-filter>
