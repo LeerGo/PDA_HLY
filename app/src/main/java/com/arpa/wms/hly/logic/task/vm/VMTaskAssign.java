@@ -10,6 +10,8 @@ import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.PartyCodeList;
+import com.arpa.wms.hly.bean.TaskStaff;
+import com.arpa.wms.hly.bean.TaskStaffSelect;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
@@ -22,8 +24,8 @@ import com.arpa.wms.hly.logic.task.TaskGoodsTakeActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
+import com.arpa.wms.hly.utils.Const;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -50,7 +52,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     private final ObservableBoolean isSelectAll = new ObservableBoolean();
     private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_task_list);
 
-    public int workType = -1;
+    public int workerType = -1;
 
     @Inject
     public VMTaskAssign(@NonNull Application application, BaseModel model) {
@@ -60,6 +62,12 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     @Override
     protected boolean setAutoRefresh() {
         return false;
+    }
+
+    @Override
+    protected void refreshComplete(boolean isRefresh) {
+        super.refreshComplete(isRefresh);
+        isSelectAll.set(false);
     }
 
     @Override
@@ -123,18 +131,19 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
         return isSelectAll;
     }
 
-    // TODO: 分配人员，待完成 @lyf 2021-05-17 02:56:35
-    public void taskAssign(String workType, String workerType, List<PartyCodeList> staffList) {
+    /**
+     * 分配人员
+     */
+    public void taskAssign(TaskStaffSelect data) {
         updateStatus(StatusEvent.Status.LOADING);
-        buildReqParams(workType, workerType);
-        reqTaskAssign.setPartyCodeList(staffList);
-        // TODO: 请求 @lyf 2021-05-17 02:47:03
+        buildReqParams(Const.ASSIGN_WORK.WORKER_TYPE[workerType], data);
         apiService.pdaTasksAssign(reqTaskAssign)
                 .enqueue(new ResultCallback<Object>() {
                     @Override
                     public void onSuccess(Object data) {
                         sendMessage("分配成功");
                         updateStatus(StatusEvent.Status.SUCCESS, true);
+                        autoRefresh();
                     }
 
                     @Override
@@ -147,34 +156,48 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
 
     /**
      * 构建请求参数
-     *
-     * @param workType
-     *         作业类型
-     * @param workerType
-     *         工种类型
      */
-    private void buildReqParams(String workType, String workerType) {
+    private void buildReqParams(String workerType, TaskStaffSelect data) {
+        // 清理参数
         reqTaskAssign.getOrderCodes().clear();
         reqTaskAssign.getPartyCodeList().clear();
 
-        reqTaskAssign.setWorkType(workType);
+        // 拼接参数
         reqTaskAssign.setWorkerType(workerType);
         for (ResTaskAssign item : getItems()) {
             if (item.isSelect()) reqTaskAssign.getOrderCodes().add(item.getCode());
         }
+
+        if (null != data) {
+            for (TaskStaff staff : data.getStaffs()) {
+                reqTaskAssign.getPartyCodeList().add(new PartyCodeList(staff.getId(), staff.getName()));
+            }
+
+            if (null != data.getJobType())
+                reqTaskAssign.setWorkType(data.getJobType().getValue());
+        }
     }
 
-    // TODO: 取消分配人员，待完成 @lyf 2021-05-17 02:56:35
-    public void taskAssignCancel(String workType, String workerType) {
+    /**
+     * 取消分配人员
+     */
+    public void taskAssignCancel(String workerType) {
         updateStatus(StatusEvent.Status.LOADING);
-        buildReqParams(workType, workerType);
-        // TODO: 请求 @lyf 2021-05-17 02:47:03
+        buildReqParams(workerType, null);
         apiService.pdaTasksCancelAssign(reqTaskAssign)
                 .enqueue(new ResultCallback<Object>() {
                     @Override
                     public void onSuccess(Object data) {
                         sendMessage("取消分配成功");
                         updateStatus(StatusEvent.Status.SUCCESS, true);
+                        autoRefresh();
+                    }
+
+                    @Override
+                    public void onFinish() {
+                        super.onFinish();
+                        //                        isSelectAll.set(false);
+                        hideLoading();
                     }
 
                     @Override
@@ -189,7 +212,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
      * 获取仓库作业员列表
      */
     public void getWorkStaff(int assignType) {
-        workType = assignType;
+        workerType = assignType;
         showLoading();
         ReqWorkStaff reqWorkStaff = new ReqWorkStaff(assignType);
         apiService.getWorkStaff(reqWorkStaff.toParams())
@@ -203,6 +226,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                     @Override
                     public void onFinish() {
                         super.onFinish();
+                        //                        isSelectAll.set(false);
                         hideLoading();
                     }
 

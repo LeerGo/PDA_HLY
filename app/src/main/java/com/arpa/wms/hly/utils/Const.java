@@ -190,6 +190,9 @@ public interface Const {
         // 装卸工
         int STEVEDORE = 3;
 
+        String[] WORKER_TYPE = new String[]{null, "CUSTODIAN", "FORKLIFT", "STEVEDORE"};
+        String[] WORKER_TYPE_NAME = new String[]{null, "保管员", "叉车工", "装卸工"};
+
         String GOODS_TAKE = "收货";
         String GOODS_PICK = "拣货";
         String GOODS_RECHECK = "复核";

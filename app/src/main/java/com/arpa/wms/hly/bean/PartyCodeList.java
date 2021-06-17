@@ -9,6 +9,11 @@ public class PartyCodeList {
     private String partyCode;
     private String partyName;
 
+    public PartyCodeList(String partyCode, String partyName) {
+        this.partyCode = partyCode;
+        this.partyName = partyName;
+    }
+
     public String getPartyCode() {
         return partyCode;
     }
