@@ -21,6 +21,7 @@ public class GoodsItemVO {
     private int pickingTraysNum; // (整)托数 - 已捡
     private int supportNum; // 码托数量
     private int recheckQuantity; // 复核数量
+    private int pickingQuantity; // 拣货数量
     private int receivedQuantity; //  收货数量（收货确认用）
     private int itemReceivedQuantity; // 收货数量（收货详情列表用）
     private int planQuantity; // 计划数量，在复核里是拣货数量
@@ -211,5 +212,13 @@ public class GoodsItemVO {
 
     public boolean isPickFinish() {
         return pickingTraysNum == traysNum;
+    }
+
+    public int getPickingQuantity() {
+        return pickingQuantity;
+    }
+
+    public void setPickingQuantity(int pickingQuantity) {
+        this.pickingQuantity = pickingQuantity;
     }
 }

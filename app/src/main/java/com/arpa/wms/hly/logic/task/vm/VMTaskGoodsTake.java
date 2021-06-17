@@ -19,7 +19,6 @@ import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
-import androidx.lifecycle.MutableLiveData;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -27,7 +26,6 @@ import retrofit2.Call;
 @HiltViewModel
 public class VMTaskGoodsTake extends VMBaseList<GoodsItemVO> {
     public ObservableField<ResTaskAssign> headerData = new ObservableField<>();
-    public MutableLiveData<ResTaskAssign> header = new MutableLiveData<>();
     public ReqGoodTakeDetail request = new ReqGoodTakeDetail();
 
     @Inject

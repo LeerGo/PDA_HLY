@@ -210,7 +210,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     /**
      * 任务中心跳转详情，需要转换一下字段赋值
      */
-    public void toTaskGoodTake() {
+    public void toTaskGoodDetail() {
         this.receivedQuantity = this.jobQuantity;
         this.totalQuantity = this.goodsQuantity;
     }
