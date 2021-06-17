@@ -1,6 +1,5 @@
 package com.arpa.wms.hly.logic.home.goods.take;
 
-import android.annotation.SuppressLint;
 import android.os.Bundle;
 
 import com.arpa.wms.hly.R;
@@ -37,14 +36,19 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
     }
 
     @Override
+    public int getLayoutId() {
+        return R.layout.fragment_goods_take_detail;
+    }
+
+    @Override
     public void onLazyLoad() {
         viewModel.autoRefresh();
     }
 
-    @SuppressLint("LogNotTimber")
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
+
         viewBind.setViewModel(viewModel);
         int receiveStatus = requireArguments().getInt(IntentKey.STATUS);
         viewModel.request.setParams(receiveStatus, requireArguments().getString(IntentKey.CODE));
@@ -58,10 +62,5 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
                     }
                 }
         );
-    }
-
-    @Override
-    public int getLayoutId() {
-        return R.layout.fragment_goods_take_detail;
     }
 }

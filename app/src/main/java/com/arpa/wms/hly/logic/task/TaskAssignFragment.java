@@ -28,9 +28,19 @@ import dagger.hilt.android.AndroidEntryPoint;
  * <p>
  * Fragment：任务指派
  * </p>
+ *
+ * TODO: 注意一下特性，@李普芝 已经答复 @lyf 2021-06-16 05:23:15
+ * 从【任务列表】跳转到【收货详情】、【拣货详情】，有几个小问题需要确认一下：
+ * 1. 跳转到的【收货详情】、【拣货详情】是不是都不在区分“已收货/待收货”的两种状态？
+ *    不区分，显示所有的
+ * 2. 跳转到的【收货详情】、【拣货详情】列表里条目点击还需要跳转对应详情页面嘛？特别是拣货
+ *    不再跳转，只到收货详情、拣货详情页，可以查看就行
+ * 3. 【任务列表】里，“待指派、已指派”两个列表是都需要点击条目跳转对应详情的嘛？
+ *    都需要
  */
 @AndroidEntryPoint
 public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, FragmentTaskAssignBinding> implements ViewListener.DataTransCallback<TaskStaffSelect> {
+
     public static TaskAssignFragment newInstance(int index) {
         TaskAssignFragment fragment = new TaskAssignFragment();
         Bundle args = new Bundle();

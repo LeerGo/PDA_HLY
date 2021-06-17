@@ -47,10 +47,6 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
         configAdapter();
     }
 
-    public void configAdapter() {
-        adapter = new BindingRecyclerViewAdapter<>();
-    }
-
     @Override
     public void onStart() {
         super.onStart();
@@ -124,6 +120,10 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
     public abstract Call<Result<List<T>>> getCall(Map<String, Object> params);
 
     public abstract ReqBase getParams();
+
+    public void configAdapter() {
+        adapter = new BindingRecyclerViewAdapter<>();
+    }
 
     public BindingRecyclerViewAdapter<T> getAdapter() {
         return adapter;
