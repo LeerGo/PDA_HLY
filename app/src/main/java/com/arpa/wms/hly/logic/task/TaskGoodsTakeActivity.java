@@ -9,6 +9,8 @@ import com.arpa.wms.hly.databinding.ActivityTaskGoodsTakeBinding;
 import com.arpa.wms.hly.logic.task.vm.VMTaskGoodsTake;
 import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 
+import java.util.Objects;
+
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -28,6 +30,7 @@ public class TaskGoodsTakeActivity extends WrapBaseActivity<VMTaskGoodsTake, Act
 
         ResTaskAssign data = getIntent().getParcelableExtra(DATA);
         viewModel.headerData.set(data);
+        viewModel.request.setParams(3, Objects.requireNonNull(data).getSourceCode());
 
         viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
         viewBind.wsbSearch.setOnSearchClick(keyWord -> {
