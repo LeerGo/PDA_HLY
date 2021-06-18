@@ -13,7 +13,6 @@
             type="com.arpa.wms.hly.bean.GoodsItemVO" />
     </data>
     
-    <!--TODO: 有两个字段待填充 @lyf 2021-05-20 01:17:58 -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -33,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
                 android:src="@mipmap/ic_goods" />
-            
+    
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvCarNumber"
                 android:layout_width="wrap_content"
@@ -44,7 +43,7 @@
                 android:text='@{@string/goods_take_number(data.goodCode)}'
                 android:textColor="@color/color_434c67"
                 tools:text="商品编码：SH2020092300008" />
-            
+    
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -60,7 +59,7 @@
                 android:layout_height="1px"
                 android:layout_below="@id/tvCarNumber"
                 android:background="@color/color_ececec" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_place"
                 style="@style/TaskPropsStyle"
@@ -68,26 +67,26 @@
                 app:propsKey="商品名称："
                 app:propsValue="@{data.goodsName}"
                 tools:propsValue="测试商品" />
-            
-            
+    
+    
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll1"
                 style="@style/WMatchHWrap"
                 android:layout_below="@id/wpi_place">
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="基本单位："
                     app:propsValue="@{data.goodsUnitName}"
                     tools:propsValue="箱" />
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="收货数量："
                     app:propsValue="@{data.itemReceivedQuantity}"
                     tools:propsValue="100" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_date"
                 style="@style/TaskPropsStyle"
@@ -95,18 +94,18 @@
                 app:propsKey="生产日期："
                 app:propsValue="@{data.gmtManufacture}"
                 tools:propsValue="2021-05-06" />
-            
+    
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll2"
                 style="@style/WMatchHWrap"
                 android:layout_below="@id/wpi_date">
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="产        地："
                     app:propsValue="@{data.extendOne}"
                     tools:propsValue="A7" />
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="特殊品项："
@@ -121,7 +120,7 @@
                 app:propsKey="码托数量："
                 app:propsValue="@{data.supportNum}"
                 tools:propsValue="100" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_yards"

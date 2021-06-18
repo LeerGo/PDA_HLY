@@ -1,5 +1,7 @@
 package com.arpa.wms.hly.bean.req;
 
+import android.text.TextUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -58,7 +60,7 @@ public class ReqTruckLoadConfirm {
         public OutboundItemDTOS(String code, String loadingCarQuantity) {
             this.code = code;
             // FIXME: loadingCarQuantity == null @lyf 2021-06-03 03:20:38
-            this.loadingCarQuantity = Integer.parseInt(loadingCarQuantity);
+            this.loadingCarQuantity = TextUtils.isEmpty(loadingCarQuantity) ? 0 : Integer.parseInt(loadingCarQuantity);
         }
 
         public String getCode() {

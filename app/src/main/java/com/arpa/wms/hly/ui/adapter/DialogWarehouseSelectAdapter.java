@@ -35,7 +35,6 @@ public class DialogWarehouseSelectAdapter extends BaseAdapter<ResWarehouse> {
         ResWarehouse data = getDataList().get(position);
         ivSelect.setSelected(curSelect == position);
         tvWarehouse.setText(data.getName());
-        // TODO: 存下来 warehouseCode @lyf 2021-04-25 04:56:34
         holder.itemView.setOnClickListener(v -> {
             curSelect = position;
             onItemClickListener.onItemClick(v, position, data);

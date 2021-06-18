@@ -20,7 +20,7 @@ public class ReqLoginSSO extends ReqBase {
         this.username = username;
         this.password = password;
         // 登录类型： 1用户名登录，2手机号登录，3验证所有
-        // FIXME: 暂时默认为用户名登录，实际场景要判断是否为手机号 @lyf 2021-06-04 08:52:15
+        // FIX: 暂时默认为用户名登录，实际场景要判断是否为手机号 @lyf 2021-06-04 08:52:15
         this.loginType = LOGIN_TYPE_USERNAME;
     }
 

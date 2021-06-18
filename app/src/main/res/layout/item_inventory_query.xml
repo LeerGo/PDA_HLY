@@ -11,7 +11,6 @@
             type="com.arpa.wms.hly.bean.res.ResInventory" />
     </data>
     
-    <!--TODO: 数据填充 @lyf 2021-05-08 07:51:55 -->
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

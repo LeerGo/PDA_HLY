@@ -1,9 +1,6 @@
 package com.arpa.wms.hly.logic.task;
 
-import com.google.gson.Gson;
-
 import android.os.Bundle;
-import android.util.Log;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
@@ -77,11 +74,7 @@ public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, Fragm
         viewBind.btnAssignStevedore.setOnClickListener(view -> showDialog(type, ASSIGN_WORK.STEVEDORE));
         viewBind.btnAssignForklift.setOnClickListener(view -> showDialog(type, ASSIGN_WORK.FORKLIFT));
         viewModel.resTaskWorker.observe(this, resTaskWorker ->
-                showDialogFragment(new DialogAssignSelect(viewModel.workerType, resTaskWorker, data -> {
-                    // TODO: 分配工作人员完毕，进行后续上报操作 @lyf 2021-06-15 02:26:44
-                    Log.e("@@@@ L70", "TaskAssignFragment:() -> data:" + new Gson().toJson(data));
-                    viewModel.taskAssign(data);
-                }))
+                showDialogFragment(new DialogAssignSelect(viewModel.workerType, resTaskWorker, data -> viewModel.taskAssign(data)))
         );
     }
 

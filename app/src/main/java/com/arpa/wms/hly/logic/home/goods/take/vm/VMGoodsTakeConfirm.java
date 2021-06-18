@@ -48,7 +48,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     private final OnItemBind<Object> onItemBind =
             (itemBinding, position, data) -> {
                 if (position == 0) {
-                    // FIXME: 这里如果 variableId 相同，会出现 class cast exception @lyf 2021-06-03 08:22:22
+                    // FIX: 这里如果 variableId 相同，会出现 class cast exception @lyf 2021-06-03 08:22:22
                     itemBinding.set(BR.header, R.layout.header_goods_take_confirm);
                 } else {
                     itemBinding.set(BR.data, R.layout.item_goods_take_confirm);

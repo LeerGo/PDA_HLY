@@ -22,13 +22,6 @@
             android:layout_height="wrap_content"
             app:wtbTitle="装车确认" />
         
-        <!--TODO: include 部分，作为 header 放入 recyclerview @lyf 2021-05-12 02:55:45 -->
-        <!--TODO: 最后要删除 @lyf 2021-05-12 02:55:58 -->
-        <!--<include
-            android:id="@+id/include"
-            layout="@layout/header_truck_load_confirm"
-            app:data="@{viewModel.headerData}" />-->
-        
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvList"
             android:layout_width="match_parent"
