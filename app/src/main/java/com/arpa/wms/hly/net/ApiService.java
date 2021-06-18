@@ -13,6 +13,7 @@ import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
+import com.arpa.wms.hly.bean.res.ResRole;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.bean.res.ResTaskWorker;
 import com.arpa.wms.hly.bean.res.ResTruckLoad;
@@ -220,6 +221,12 @@ public interface ApiService {
     Call<Result<ResTaskWorker>> getWorkStaff(@QueryMap Map<String, Object> data);
 
     /**
+     * 获取用户权限
+     */
+    @GET("wms/auth/user/already")
+    Call<Result<List<ResRole>>> getRole();
+
+    /**
      * API 请求地址、一些参数
      */
     interface API {
@@ -228,8 +235,8 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        //        String URL_WMS = "http://192.168.31.166/"; // 夏宝新
-        String URL_WMS = "http://192.168.30.178/"; // 邵朱尧
+        String URL_WMS = "http://192.168.31.166/"; // 夏宝新
+        //  String URL_WMS = "http://192.168.30.178/"; // 邵朱尧
         //  String URL_WMS = "http://192.168.30.61/"; // 李一方
         //  String URL_WMS = "http://49.4.71.215/"; // 标准版开发测试
         //  String URL_WMS = "http://192.168.31.144/"; // 508 内部服务器（原徐杨）

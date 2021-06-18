@@ -45,6 +45,11 @@ public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
     }
 
     @Override
+    protected boolean setAutoRefresh() {
+        return false;
+    }
+
+    @Override
     public Call<ResultPage<ResInventory>> getCall(Map<String, Object> params) {
         return apiService.inventoryQuery(params);
     }
@@ -68,10 +73,8 @@ public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
      *         true - 库位；false - 商品条码
      */
     public void filter(String keyWord, boolean isLocation) {
-        if (isLocation)
-            reqInventory.setLocationName(keyWord);
-        else
-            reqInventory.setGoodsBarCode(keyWord);
+        if (isLocation) reqInventory.setLocationName(keyWord);
+        else reqInventory.setGoodsBarCode(keyWord);
         refresh();
     }
 }

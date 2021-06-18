@@ -7,9 +7,14 @@ import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.MenuBean;
+import com.arpa.wms.hly.bean.res.ResRole;
 import com.arpa.wms.hly.logic.mine.MineActivity;
+import com.arpa.wms.hly.net.callback.ResultCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const.HOME_MENU;
 import com.arpa.wms.hly.utils.Const.SPKEY;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -18,6 +23,10 @@ import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
+
+import static com.arpa.and.arch.base.livedata.StatusEvent.Status.ERROR;
+import static com.arpa.and.arch.base.livedata.StatusEvent.Status.LOADING;
+import static com.arpa.and.arch.base.livedata.StatusEvent.Status.SUCCESS;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -44,7 +53,58 @@ public class VMHome extends WrapDataViewModel {
     @Override
     public void onCreate() {
         super.onCreate();
-        createMenu();
+        getRole();
+    }
+
+    private void getRole() {
+        updateStatus(LOADING);
+        apiService.getRole().enqueue(new ResultCallback<List<ResRole>>() {
+            @Override
+            public void onSuccess(List<ResRole> data) {
+                createMenu(checkRole(data));
+                updateStatus(SUCCESS);
+            }
+
+            /**
+             * 检查权限，如果角色集合中出现一个仅允许拣货的权限，则只显示拣货菜单
+             */
+            private boolean checkRole(List<ResRole> data) {
+                boolean isOnlyPick = false;
+                if (null != data && !data.isEmpty()) {
+                    for (ResRole role : data) {
+                        isOnlyPick = role.isOnlyPick();
+                        if (isOnlyPick) break;
+                    }
+                }
+                return isOnlyPick;
+            }
+
+            @Override
+            public void onFailed(ResultError error) {
+                updateStatus(ERROR);
+                sendMessage(error.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 创建菜单
+     */
+    private void createMenu(boolean isOnlyPick) {
+        // 切换横竖屏会重新执行 onCreate，懒得配置了，判空好了
+        if (items.isEmpty()) {
+            if (isOnlyPick) {
+                items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", HOME_MENU.GOODS_PICK));
+            } else {
+                items.add(new MenuBean(R.mipmap.ic_home_task_center, "任务中心", "Task Center", HOME_MENU.TASK_CENTER));
+                items.add(new MenuBean(R.mipmap.ic_home_goods_take, "收货", "Receiving Goods", HOME_MENU.GOODS_TAKE));
+                items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", HOME_MENU.GOODS_PICK));
+                items.add(new MenuBean(R.mipmap.ic_home_goods_recheck, "复核", "To Review", HOME_MENU.GOODS_RECHECK));
+                items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", HOME_MENU.TRUCK_LOAD));
+                items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", HOME_MENU.INVENTORY_MOVE));
+                items.add(new MenuBean(R.mipmap.ic_home_inventory_query, "库存查询", "Inventory Query", HOME_MENU.INVENTORY_QUERY));
+            }
+        }
     }
 
     @Override
@@ -59,22 +119,6 @@ public class VMHome extends WrapDataViewModel {
     private void initHeader() {
         account.set("账号：" + spGetString(SPKEY.USER_NAME));
         warehouse.set("仓库：" + spGetString(SPKEY.WAREHOUSE_NAME));
-    }
-
-    /**
-     * 创建菜单
-     */
-    private void createMenu() {
-        // 切换横竖屏会重新执行 onCreate，懒得配置了，判空好了
-        if (items.isEmpty()) {
-            items.add(new MenuBean(R.mipmap.ic_home_task_center, "任务中心", "Task Center", HOME_MENU.TASK_CENTER));
-            items.add(new MenuBean(R.mipmap.ic_home_goods_take, "收货", "Receiving Goods", HOME_MENU.GOODS_TAKE));
-            items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", HOME_MENU.GOODS_PICK));
-            items.add(new MenuBean(R.mipmap.ic_home_goods_recheck, "复核", "To Review", HOME_MENU.GOODS_RECHECK));
-            items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", HOME_MENU.TRUCK_LOAD));
-            items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", HOME_MENU.INVENTORY_MOVE));
-            items.add(new MenuBean(R.mipmap.ic_home_inventory_query, "库存查询", "Inventory Query", HOME_MENU.INVENTORY_QUERY));
-        }
     }
 
     public void jumpMine() {
