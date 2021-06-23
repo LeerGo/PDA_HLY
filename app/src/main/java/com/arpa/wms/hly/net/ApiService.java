@@ -244,7 +244,7 @@ public interface ApiService {
         /**
          * 单点登录
          */
-        String URL_SSO = "http://dev.gateway.sarpa.cn/";
+        String URL_SSO = " http://test.sso.sarpa.cn/";
 
         /**
          * API：SSO 单点登录获取 token
