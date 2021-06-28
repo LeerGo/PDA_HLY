@@ -1,10 +1,8 @@
 package com.arpa.wms.hly.logic.home.truckload.vm;
 
-import com.google.gson.Gson;
-
 import android.annotation.SuppressLint;
 import android.app.Application;
-import android.util.Log;
+import android.text.TextUtils;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
@@ -90,7 +88,12 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
                 });
     }
 
+    /**
+     * 装车确认
+     */
     public void confirm() {
+        if (!validateInput()) return;
+
         showLoading();
         buildRequest();
         apiService.confirmTruckLoad(request.get())
@@ -121,6 +124,17 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
             GoodsItemVO data = (GoodsItemVO) items.get(i);
             request.get().getOutboundItemDTOS().add(new OutboundItemDTOS(data.getCode(), data.getLoadQuantity()));
         }
-        Log.e("@@@@ L98", "VMTruckLoadConfirm:buildRequest() -> " + new Gson().toJson(request.get()));
+    }
+
+    private boolean validateInput() {
+        boolean result = true;
+        for (int i = 1; i < items.size(); i++) {
+            if (TextUtils.isEmpty(((GoodsItemVO) items.get(i)).getLoadQuantity())) {
+                ToastUtils.showShort("请输入第" + i + "条装车数量");
+                result = false;
+                break;
+            }
+        }
+        return result;
     }
 }
