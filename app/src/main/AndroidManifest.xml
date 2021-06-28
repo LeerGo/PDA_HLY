@@ -57,7 +57,8 @@
         <!--拣货-->
         <activity
             android:name=".logic.home.goods.pick.GoodsPickActivity"
-            android:configChanges="orientation|screenSize">
+            android:configChanges="orientation|screenSize"
+            android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="arpa.wms.GOODS_PICK" />
                 
