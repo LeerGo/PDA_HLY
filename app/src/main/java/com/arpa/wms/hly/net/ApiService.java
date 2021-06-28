@@ -127,13 +127,13 @@ public interface ApiService {
     /**
      * PDA收货登记确认
      */
-    @GET("wms/pda/receive/confirm")
+    @POST("wms/pda/receive/confirm")
     Call<Result<Object>> takeSingleConfirm(@Body ReqGoodTakeConfirm reqGoodTakeConfirm);
 
     /**
      * PDA收货登记整单确认
      */
-    @GET("wms/pda/receive/wholeConfirm")
+    @POST("wms/pda/receive/wholeConfirm")
     Call<Result<Object>> takeWholeConfirm(@Body ReqGoodTakeConfirm reqGoodTakeConfirm);
 
     /**
@@ -235,8 +235,8 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://192.168.31.166/"; // 夏宝新
-        //  String URL_WMS = "http://192.168.30.178/"; // 邵朱尧
+        //        String URL_WMS = "http://192.168.31.166/"; // 夏宝新
+        String URL_WMS = "http://192.168.30.181/"; // 邵朱尧
         //  String URL_WMS = "http://192.168.30.61/"; // 李一方
         //  String URL_WMS = "http://49.4.71.215/"; // 标准版开发测试
         //  String URL_WMS = "http://192.168.31.144/"; // 508 内部服务器（原徐杨）
@@ -258,7 +258,7 @@ public interface ApiService {
         /**
          * API：获取仓库，以中台 SSO 认证的方式
          */
-        String API_WAREHOUSE_SSO = "wms/authWarehouse/warehouse";
+        String API_WAREHOUSE_SSO = "wms/warehouse/auth";
 
         /**
          * API：绑定仓库

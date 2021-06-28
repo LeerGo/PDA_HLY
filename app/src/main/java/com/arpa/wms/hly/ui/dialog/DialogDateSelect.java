@@ -1,5 +1,6 @@
 package com.arpa.wms.hly.ui.dialog;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.util.TypedValue;
 
@@ -7,8 +8,13 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.zyyoona7.picker.DatePickerView;
+import com.zyyoona7.picker.ex.DayWheelView;
+import com.zyyoona7.picker.ex.MonthWheelView;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Objects;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
@@ -47,6 +53,13 @@ public class DialogDateSelect extends BaseBottomDialogFragment {
         Calendar cal = Calendar.getInstance();
 
         datePicker = (DatePickerView) findViewById(R.id.dpv_date);
+        //获取月日 WheelView
+        MonthWheelView monthWv3 = datePicker.getMonthWv();
+        DayWheelView dayWv3 = datePicker.getDayWv();
+        //注意：setIntegerNeedFormat(String integerFormat)方法 integerFormat 中必须包含并且只能包含一个格式说明符（format specifier）
+        //更多请查看该方法参数说明
+        monthWv3.setIntegerNeedFormat("%02d");
+        dayWv3.setIntegerNeedFormat("%02d");
         datePicker.setShowDivider(true);
         datePicker.setTextSize(24, true);
         datePicker.setDividerType(DIVIDER_TYPE_FILL);
@@ -63,13 +76,21 @@ public class DialogDateSelect extends BaseBottomDialogFragment {
         datePicker.setSelectedYear(cal.get(Calendar.YEAR));
     }
 
+    @SuppressLint("SimpleDateFormat")
     private void setOptArea() {
         AppCompatButton btnCancel = (AppCompatButton) findViewById(R.id.apt_cancel);
         AppCompatButton btnSure = (AppCompatButton) findViewById(R.id.apt_sure);
 
         btnCancel.setOnClickListener(v -> dismiss());
+
         btnSure.setOnClickListener(v -> {
-            listener.transfer(datePicker.getSelectedDate());
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-M-d");
+            SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
+            try {
+                listener.transfer(format2.format(Objects.requireNonNull(format.parse(datePicker.getSelectedDate()))));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
             dismiss();
         });
     }

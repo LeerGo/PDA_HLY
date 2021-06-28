@@ -82,7 +82,7 @@
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="产        地："
-                    app:propsValue="@{data.goodsName}"
+                    app:propsValue="@{data.extendOne}"
                     tools:propsValue="A7" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem

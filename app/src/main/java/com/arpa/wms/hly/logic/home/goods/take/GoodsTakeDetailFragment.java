@@ -52,7 +52,7 @@ public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDet
         viewBind.setViewModel(viewModel);
         int receiveStatus = requireArguments().getInt(IntentKey.STATUS);
         viewModel.request.setParams(receiveStatus, requireArguments().getString(IntentKey.CODE));
-        viewBind.rvList.addItemDecoration(new BothItemDecoration());
+        viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
         VMGoodsTakeDetail parentModel = new ViewModelProvider(requireActivity()).get(VMGoodsTakeDetail.class);
         parentModel.searchLiveData.observe(requireActivity(),
                 searchInfo -> {

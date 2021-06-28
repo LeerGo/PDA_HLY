@@ -1,3 +1,4 @@
+
 package com.arpa.wms.hly.bean.base;
 
 /**

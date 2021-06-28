@@ -2,6 +2,7 @@ package com.arpa.wms.hly.bean.req;
 
 import com.arpa.wms.hly.bean.GoodsItemVO;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,11 @@ import java.util.List;
 public class ReqGoodTakeConfirm {
     private String code;
     private String receiveCode;
-    private List<GoodsItemVO> receiveRegisterVOList;
+    private List<GoodsItemVO> receiveItemWithRegisterVOList;
+
+    public ReqGoodTakeConfirm() {
+        this.receiveItemWithRegisterVOList = new ArrayList<>();
+    }
 
     public String getReceiveCode() {
         return receiveCode;
@@ -31,10 +36,10 @@ public class ReqGoodTakeConfirm {
     }
 
     public List<GoodsItemVO> getReceiveItemWithRegisterVOList() {
-        return receiveRegisterVOList;
+        return receiveItemWithRegisterVOList;
     }
 
-    public void setReceiveItemWithRegisterVOList(List<GoodsItemVO> receiveRegisterVOList) {
-        this.receiveRegisterVOList = receiveRegisterVOList;
+    public void setReceiveItemWithRegisterVOList(List<GoodsItemVO> receiveItemWithRegisterVOList) {
+        this.receiveItemWithRegisterVOList = receiveItemWithRegisterVOList;
     }
 }

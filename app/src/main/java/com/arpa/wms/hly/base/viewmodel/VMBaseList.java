@@ -37,6 +37,7 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
     private ObservableArrayList<T> items;
     private BindingRecyclerViewAdapter<T> adapter;
 
+
     public VMBaseList(@NonNull Application application, BaseModel model) {
         super(application, model);
     }
