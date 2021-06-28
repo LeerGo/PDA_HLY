@@ -14,6 +14,7 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
+import com.tencent.bugly.crashreport.CrashReport;
 
 import dagger.hilt.android.HiltAndroidApp;
 import timber.log.Timber;
@@ -52,6 +53,11 @@ public class App extends Application {
         Utils.init(this);
         setRetrofit();
         initLogger();
+        initBugly();
+    }
+
+    private void initBugly() {
+        CrashReport.initCrashReport(getApplicationContext(), "3c20ee1d4c", false);
     }
 
     private void setRetrofit() {
