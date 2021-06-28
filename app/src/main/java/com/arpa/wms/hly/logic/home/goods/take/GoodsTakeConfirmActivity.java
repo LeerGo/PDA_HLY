@@ -13,7 +13,7 @@ import com.arpa.wms.hly.ui.dialog.DialogDateSelect;
 import com.arpa.wms.hly.ui.dialog.DialogGoodStatusSelect;
 import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.ui.listener.ViewListener;
-import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -41,12 +41,9 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
         viewBind.setViewModel(viewModel);
         viewBind.rvList.addItemDecoration(new BothItemDecoration(BothItemDecoration.BOTTOM, false));
         viewBind.acbWholeConfirm.setOnClickListener(v ->
-                showDialogFragment(new DialogTips("整单确认", "当前订单存在未收货商品，整单确认后未收货商品不能继续收货。", () -> viewModel.orderConfirm(false)))
+                showDialogFragment(new DialogTips("整单确认", "当前订单存在未收货商品，整单确认后未收货商品不能继续收货。", () -> viewModel.orderConfirm(true)))
         );
-        viewModel.request.setParams(
-                getIntent().getStringExtra(Const.IntentKey.RECEIVE_CODE),
-                getIntent().getStringExtra(Const.IntentKey.RECEIVE_ITEM_CODE)
-        );
+        viewModel.request.setParams(getIntent().getStringExtra(IntentKey.CODE), getIntent().getStringExtra(IntentKey.RECEIVE_CODE));
         viewModel.itemBinding
                 .bindExtra(BR.onStatusClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
                         showDialogFragment(new DialogGoodStatusSelect(raw.getGoodsStatus(), viewModel.detail.getInventoryStatusList(),

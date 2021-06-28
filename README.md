@@ -2,11 +2,71 @@
 
 #### 联调问题
 
-1. 列表页面刷新问题
+1. 公共
+   
+   - 列表页面刷新问题
+     
+     - 确认后返回上一页的数据同步，考虑使用 diffutils
 
-  - 确认后返回上一页的数据同步，考虑使用 diffutils
+2. 问题模块
+   
+   - [ ] 收货
+     
+     - 收货确认，传入的 code 和返回数据的 code 不一致 @szy
+       
+       ```
+       http://192.168.30.181/wms/pda/receive/register?receiveCode=SH202106260016&receiveItemCode=1ed04ed330814408a9eaadd11e5b7544
+       1ed04ed330814408a9eaadd11e5b7544 对应的是学生巧克力奶，返回的确实黑谷牛奶
+       ```
+     
+     - 待续  
+   
+   - [ ] 装车
+     
+     - 装车确认，服务器 500 @xbx
+       
+       ```json
+       URL: http://192.168.30.181/wms/pda/outbound/loadingCarConfirm
+       请求：
+       {
+          "code": "CK202106280002",
+          "outboundItemDTOS": [
+             {
+                "code": "ffe4b0349e1d4a2a91f06a3575fbd5a5",
+                "loadingCarQuantity": 2
+             }
+          ]
+       }
+       响应：
+       {
+          "status": 500
+       }
+       ```
+     
+     - 待续
+   
+   - [ ] 移位
+     
+     - 没有有效库位 解决
+
+3. 待测试模块
+   
+   - [ ] 修改密码
+   
+   - [ ] 任务中心
+   
+   - [ ] 拣货
+   
+   - [ ] 复核
+
+4. 通过模块
+   
+   - [x] 登录
+   
+   - [x] 选择仓库
 
 #### 资料
+
 蓝湖：
 
 1. 恒利源 PDA: https://lanhuapp.com/web/#/item/project/board?pid=2da812df-972b-4855-9336-c0aeb7d58fb8
@@ -18,7 +78,10 @@
 
 4. SSO 登录：https://dreamer192.yuque.com/docs/share/0efdc117-a195-49e9-84a6-effe8e57fbfe?#（密码：sz8f）
 
-#### 原型问题
+#### 后台地址
 
-暂无
+[中台登录](http://test.58arpa.com:8090/pages/viewpage.action?pageId=30051285)
 
+[WMS 后台登录](http://test.sso.sarpa.cn/sso-server/login?redirect_url=http://192.168.31.24/&source-id=4)
+
+- 账号：test02/test02

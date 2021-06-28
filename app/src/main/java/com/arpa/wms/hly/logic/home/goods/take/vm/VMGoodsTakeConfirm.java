@@ -66,6 +66,9 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
         requestData();
     }
 
+    /**
+     * 请求数据
+     */
     private void requestData() {
         updateStatus(StatusEvent.Status.LOADING);
         apiService.takeRegisterDetail(request.toParams())
@@ -171,6 +174,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      *         true - 整单确认
      */
     public void orderConfirm(boolean isWholeConfirm) {
+        if (!validateInput()) return;
+
         updateStatus(StatusEvent.Status.LOADING);
 
         for (int i = 1; i < items.size(); i++) {

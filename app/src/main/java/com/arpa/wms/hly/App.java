@@ -57,7 +57,7 @@ public class App extends Application {
     }
 
     private void initBugly() {
-        CrashReport.initCrashReport(getApplicationContext(), "3c20ee1d4c", false);
+        CrashReport.initCrashReport(getApplicationContext(), "3c20ee1d4c", BuildConfig.DEBUG);
     }
 
     private void setRetrofit() {

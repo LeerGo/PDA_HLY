@@ -8,14 +8,22 @@ import com.arpa.wms.hly.bean.base.ReqBase;
  * since: 2021-05-18 17:11
  */
 public class ReqGoodTakeDetail extends ReqBase {
+    private String code;
     private String receiveCode;
-    private String receiveItemCode;
     private String goodsBarCode;
     private Integer receiveStatus;
 
-    public void setParams(String receiveCode, String receiveItemCode) {
+    public void setParams(String code, String receiveCode) {
         this.receiveCode = receiveCode;
-        this.receiveItemCode = receiveItemCode;
+        this.code = code;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public void setParams(Integer receiveStatus, String receiveCode) {
@@ -33,14 +41,6 @@ public class ReqGoodTakeDetail extends ReqBase {
 
     public void setGoodsBarCode(String goodsBarCode) {
         this.goodsBarCode = goodsBarCode;
-    }
-
-    public String getReceiveItemCode() {
-        return receiveItemCode;
-    }
-
-    public void setReceiveItemCode(String receiveItemCode) {
-        this.receiveItemCode = receiveItemCode;
     }
 
     public Integer getReceiveStatus() {

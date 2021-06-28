@@ -66,8 +66,8 @@ public class VMGoodsTakeDetailList extends VMBaseList<GoodsItemVO> {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take_detail_wait);
             itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsItemVO>) data -> {
                 Bundle bundle = new Bundle();
+                bundle.putString(IntentKey.CODE, data.getCode());
                 bundle.putString(IntentKey.RECEIVE_CODE, data.getReceiveCode());
-                bundle.putString(IntentKey.RECEIVE_ITEM_CODE, data.getCode());
                 startActivity(GoodsTakeConfirmActivity.class, bundle);
             });
         } else {
