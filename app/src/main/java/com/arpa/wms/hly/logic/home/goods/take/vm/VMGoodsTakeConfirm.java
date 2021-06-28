@@ -178,6 +178,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
 
         updateStatus(StatusEvent.Status.LOADING);
 
+        if (!detail.getReceiveItemWithRegisterVOList().isEmpty())
+            detail.getReceiveItemWithRegisterVOList().clear();
         for (int i = 1; i < items.size(); i++) {
             detail.getReceiveItemWithRegisterVOList().add((GoodsItemVO) items.get(i));
         }

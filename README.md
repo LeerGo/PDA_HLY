@@ -23,7 +23,7 @@
    
    - [ ] 装车
      
-     - 装车确认，服务器 500 @xbx
+     - 装车确认，服务器 500 @xbx 解决
        
        ```json
        URL: http://192.168.30.181/wms/pda/outbound/loadingCarConfirm
@@ -47,13 +47,36 @@
    
    - [ ] 移位
      
-     - 没有有效库位 解决
+     - A1 库位没有商品 @xbx
+   
+   - [ ] 任务中心
+     
+     - 无法分配
+       
+       ```json
+       分配保管员：
+       http://192.168.31.166/wms/pda/tasks/assignPDA
+       请求:
+       {
+          "orderCodes": [
+             "SH20210626002501"
+          ],
+          "partyCodeList": [
+             {
+                "partyCode": "1",
+                "partyName": "保管员1"
+             }
+          ],
+          "workerType": "CUSTODIAN"
+       }
+       响应："msg": "数据库操作异常，请联系管理员",
+       ```
+     
+     - 待续
 
 3. 待测试模块
    
    - [ ] 修改密码
-   
-   - [ ] 任务中心
    
    - [ ] 拣货
    
