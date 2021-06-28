@@ -40,6 +40,8 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private String forklift;
     private String stevedore;
     private int receivedQuantity;
+    private int recheckQuantity;
+    private int planQuantity;
     private int totalQuantity;
     private BigDecimal volume;// 方量
     private BigDecimal weight;// 重量
@@ -62,6 +64,8 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.forklift = in.readString();
         this.stevedore = in.readString();
         this.receivedQuantity = in.readInt();
+        this.recheckQuantity = in.readInt();
+        this.planQuantity = in.readInt();
         this.totalQuantity = in.readInt();
         this.volume = (BigDecimal) in.readSerializable();
         this.weight = (BigDecimal) in.readSerializable();
@@ -215,6 +219,24 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.totalQuantity = this.goodsQuantity;
     }
 
+    public int getRecheckQuantity() {
+        return recheckQuantity;
+    }
+
+    public void setRecheckQuantity(int recheckQuantity) {
+        this.recheckQuantity = recheckQuantity;
+        this.receivedQuantity = recheckQuantity;
+    }
+
+    public int getPlanQuantity() {
+        return planQuantity;
+    }
+
+    public void setPlanQuantity(int planQuantity) {
+        this.planQuantity = planQuantity;
+        this.totalQuantity = planQuantity;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -236,6 +258,8 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         dest.writeString(this.forklift);
         dest.writeString(this.stevedore);
         dest.writeInt(this.receivedQuantity);
+        dest.writeInt(this.recheckQuantity);
+        dest.writeInt(this.planQuantity);
         dest.writeInt(this.totalQuantity);
         dest.writeSerializable(this.volume);
         dest.writeSerializable(this.weight);
@@ -256,6 +280,8 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.forklift = source.readString();
         this.stevedore = source.readString();
         this.receivedQuantity = source.readInt();
+        this.recheckQuantity = source.readInt();
+        this.planQuantity = source.readInt();
         this.totalQuantity = source.readInt();
         this.volume = (BigDecimal) source.readSerializable();
         this.weight = (BigDecimal) source.readSerializable();

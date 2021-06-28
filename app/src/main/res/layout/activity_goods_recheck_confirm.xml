@@ -128,7 +128,9 @@
                     <com.arpa.wms.hly.ui.widget.WidgetInputItem
                         style="@style/ItemRecheckBatchStyle"
                         app:inputHint="请输入复核数量"
+                        app:inputText="@={viewModel.recheckQuantity}"
                         app:inputTitle="复核数量"
+                        app:inputMax="@{viewModel.detail.planQuantity}"
                         app:inputType="number" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -142,7 +144,7 @@
                         app:propsValue="@{viewModel.obvBatchCode}"
                         app:propsValueGravity="end"
                         app:propsValueSize="14sp"
-                        tools:propsValue="20201127001，20201127002" />
+                        tools:propsValue="20201127001,20201127002" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
@@ -170,6 +172,7 @@
                 android:layout_height="40dp"
                 android:layout_weight="1"
                 android:background="@drawable/shape_rrect_blue_gradient_r5"
+                android:onClick="@{()->viewModel.confirm()}"
                 android:text="复核确认"
                 android:textColor="@color/white"
                 android:textSize="17sp" />

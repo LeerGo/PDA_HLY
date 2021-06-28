@@ -82,7 +82,7 @@
                 app:propsKey="排队号："
                 app:propsValue="@{data.carQueueNumber}"
                 tools:propsValue="10" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"

@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
                 android:src="@mipmap/ic_goods" />
-    
+            
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvCarNumber"
                 android:layout_width="match_parent"
@@ -55,21 +55,23 @@
                 android:layout_height="1px"
                 android:layout_below="@id/tvCarNumber"
                 android:background="@color/color_ececec" />
-            
+    
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll1"
                 style="@style/WMatchHWrap"
                 android:layout_below="@id/line">
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="基本单位："
                     app:propsValue="@{data.goodsUnitName}"
                     tools:propsValue="件" />
-                
+        
                 <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
                     style="@style/TaskPropsWeightStyle"
-                    app:wqiName="复核数量：" />
+                    app:wqiCount="@{data.recheckQuantity}"
+                    app:wqiName="复核数量："
+                    app:wqiSum="@{data.planQuantity}" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
             <androidx.appcompat.widget.LinearLayoutCompat

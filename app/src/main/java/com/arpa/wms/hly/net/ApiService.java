@@ -161,6 +161,14 @@ public interface ApiService {
     Call<Result<GoodsItemVO>> recheckRegisterDetail(@QueryMap Map<String, Object> data);
 
     /**
+     * 复核却恶人
+     */
+    @GET("wms/pda/outbound/singleRecheck")
+    Call<Result<Object>> recheckConfirm(@QueryMap Map<String, Object> data);
+    //    @POST("wms/pda/outbound/singleRecheck")
+    //    Call<Result<Object>> recheckConfirm(@Body ReqRecheckConfirm data);
+
+    /**
      * 库存查询
      */
     @GET("wms/inventory")

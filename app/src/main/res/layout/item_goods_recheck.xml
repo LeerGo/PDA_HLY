@@ -82,14 +82,14 @@
                 app:propsKey="客    户："
                 app:propsValue="@{data.customerName}"
                 tools:propsValue="测试客户" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
                 android:layout_alignParentEnd="true"
-                app:wqiCount="@{data.receivedQuantity}"
+                app:wqiCount="@{data.recheckQuantity}"
                 app:wqiName="件数："
-                app:wqiSum="@{data.totalQuantity}"
+                app:wqiSum="@{data.planQuantity}"
                 tools:wqiCount="100"
                 tools:wqiSum="10000" />
             

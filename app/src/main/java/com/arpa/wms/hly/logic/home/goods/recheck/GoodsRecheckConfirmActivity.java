@@ -54,7 +54,8 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
         viewBind.setViewModel(viewModel);
         viewModel.request.setParams(
                 getIntent().getStringExtra(IntentKey.OUTBOUND_CODE),
-                getIntent().getStringExtra(IntentKey.OUTBOUND_ITEM_CODE));
+                getIntent().getStringExtra(IntentKey.OUTBOUND_ITEM_CODE)
+        );
         viewBind.acbBatchRegist.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(IntentKey.GOODS_NAME, viewModel.detail.get().getGoodsName());
