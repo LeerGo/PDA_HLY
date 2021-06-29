@@ -92,4 +92,5 @@ dependencies {
     // UI
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'
     implementation 'com.github.zyyoona7:pickerview:1.1.1'
+    implementation "androidx.percentlayout:percentlayout:1.0.0"
 }

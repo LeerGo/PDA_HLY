@@ -120,7 +120,7 @@
                     app:itemBinding="@{viewModel.itemBinding}"
                     app:items="@{viewModel.items}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="20"
+                    tools:itemCount="2"
                     tools:listitem="@layout/item_pick_list" />
                 
                 <com.scwang.smart.refresh.footer.ClassicsFooter

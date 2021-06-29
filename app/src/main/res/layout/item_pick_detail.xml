@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
@@ -22,90 +23,92 @@
             type="com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener" />
     </data>
     
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <com.arpa.wms.hly.ui.widget.PercentLinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-1px"
         android:background="@{position==positionSel ? @color/color_f3f6ff : @color/white}"
+        android:gravity="center_vertical"
         android:minHeight="24dp"
         android:orientation="horizontal">
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="7"
             android:text="@{data.oldLocationName}"
             android:textColor="@color/black"
+            app:layout_widthPercent="8.09%"
             tools:text="1001" />
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="8.35"
+            android:padding="4dp"
             android:text="@{data.goodsName}"
             android:textColor="@color/black"
-            tools:text="优酸乳" />
+            app:layout_widthPercent="9.60%"
+            tools:text="优酸乳优酸乳优酸乳优酸乳113131aadasdfw" />
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="6"
             android:text="@{data.goodsUnitName}"
             android:textColor="@color/black"
+            app:layout_widthPercent="6.8%"
             tools:text="箱" />
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="8.33"
             android:text="@{data.gmtManufacture}"
             android:textColor="@color/black"
+            app:layout_widthPercent="9.60%"
             tools:text="2020-11-01" />
         
         <TextView
             style="@style/TableTextStyle"
             android:layout_width="wrap_content"
-            android:layout_weight="6.9"
             android:text="@{data.extendOne}"
             android:textColor="@color/black"
+            app:layout_widthPercent="9.9%"
             tools:text="A1" />
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="8.33"
             android:text="@{data.extendTwo}"
             android:textColor="@color/black"
+            app:layout_widthPercent="9.62%"
             tools:text="常规" />
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="8.33"
             android:text="@{String.valueOf(data.planQuantity)}"
             android:textColor="@color/black"
+            app:layout_widthPercent="9.50%"
             tools:text="1000" />
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="8.33"
             android:text="@{String.valueOf(data.supportNum)}"
             android:textColor="@color/black"
+            app:layout_widthPercent="9.62%"
             tools:text="200" />
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="8.33"
             android:text="@{String.valueOf(data.traysNum)}"
             android:textColor="@color/black"
+            app:layout_widthPercent="9.50%"
             tools:text="5" />
         
         <TextView
             style="@style/TableTextStyle"
-            android:layout_weight="8.33"
             android:text="@{String.valueOf(data.pickingTraysNum)}"
             android:textColor="@color/black"
+            app:layout_widthPercent="9.62%"
             tools:text="1" />
         
         <ImageView
             style="@style/TableTextStyle"
-            android:layout_weight="8.33"
             android:onClick="@{v -> onOperate.onItemClick(v, position, data)}"
             android:scaleType="center"
-            android:src="@mipmap/ic_pick_add" />
-    </androidx.appcompat.widget.LinearLayoutCompat>
+            android:src="@mipmap/ic_pick_add"
+            app:layout_widthPercent="9.62%" />
+    </com.arpa.wms.hly.ui.widget.PercentLinearLayout>
 </layout>
