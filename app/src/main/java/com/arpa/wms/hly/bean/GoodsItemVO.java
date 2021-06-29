@@ -25,6 +25,8 @@ public class GoodsItemVO {
     private int receivedQuantity; //  收货数量（收货确认用）
     private int itemReceivedQuantity; // 收货数量（收货详情列表用）
     private int planQuantity; // 计划数量，在复核里是拣货数量
+    private int quantity;
+    private String containerBarCode; // 容器号
     private String loadQuantity;
     private String outboundCode; // 出库码，复核用
     private String receiveCode; // 收货码，收货用
@@ -220,5 +222,21 @@ public class GoodsItemVO {
 
     public void setPickingQuantity(int pickingQuantity) {
         this.pickingQuantity = pickingQuantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getContainerBarCode() {
+        return containerBarCode;
+    }
+
+    public void setContainerBarCode(String containerBarCode) {
+        this.containerBarCode = containerBarCode;
     }
 }

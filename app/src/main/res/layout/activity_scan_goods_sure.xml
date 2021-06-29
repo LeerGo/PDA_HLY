@@ -40,14 +40,14 @@
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
             app:propsKey="单        位"
-            app:propsValue="@{viewModel.liveData.unitName}"
+            app:propsValue="@{viewModel.liveData.goodsUnit}"
             app:propsValueGravity="end"
             tools:propsValue="瓶" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
             app:propsKey="库存数量"
-            app:propsValue="@{String.valueOf(viewModel.liveData.quantity)}"
+            app:propsValue="@{String.valueOf(viewModel.liveData.inventoryList.get(0).quantity)}"
             app:propsValueGravity="end"
             tools:propsValue="200" />
         
@@ -65,39 +65,39 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{viewModel.liveData.goodsStatusName}"
+                android:text="@{viewModel.liveData.inventoryList.get(0).goodsStatusName}"
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 tools:text="合格" />
             
-            <androidx.appcompat.widget.AppCompatTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{'/'+viewModel.liveData.lockName}"
-                android:textColor="@color/color_434c67"
-                android:textSize="14sp"
-                android:visibility="gone"
-                tools:text="/未锁定" />
+<!--            <androidx.appcompat.widget.AppCompatTextView-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:text="@{'/'+viewModel.liveData.inventoryList.get(0).lockName}"-->
+<!--                android:textColor="@color/color_434c67"-->
+<!--                android:textSize="14sp"-->
+<!--                android:visibility="gone"-->
+<!--                tools:text="/未锁定" />-->
         </androidx.appcompat.widget.LinearLayoutCompat>
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
             app:propsKey="生产日期"
-            app:propsValue="@{viewModel.liveData.gmtManufacture}"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).gmtManufacture}"
             app:propsValueGravity="end"
             tools:propsValue="2021-05-11" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
             app:propsKey="产        地"
-            app:propsValue="@{viewModel.liveData.extendOne}"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).extendOne}"
             app:propsValueGravity="end"
             tools:propsValue="A7" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
             app:propsKey="特殊品项"
-            app:propsValue="@{viewModel.liveData.extendTwo}"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).extendTwo}"
             app:propsValueGravity="end"
             tools:propsValue="常规" />
         
@@ -106,7 +106,7 @@
             android:layout_marginBottom="10dp"
             android:paddingBottom="10dp"
             app:propsKey="码托数量"
-            app:propsValue="@{viewModel.liveData.supportNum}"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).supportNum}"
             app:propsValueGravity="end"
             tools:propsValue="100" />
         
@@ -124,7 +124,7 @@
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 app:inputHint="请扫描/输入移位数量"
-                app:inputMax="@{viewModel.liveData.quantity}"
+                app:inputMax="@{viewModel.liveData.inventoryList.get(0).quantity}"
                 app:inputTitle="移位数量"
                 app:inputType="number"
                 app:inputValue="@={viewModel.moveQuantity}" />

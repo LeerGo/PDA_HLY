@@ -76,15 +76,15 @@ public class VMScanGoodsSure extends WrapDataViewModel {
             ToastUtils.showShort("请输入移入库位");
             return;
         }
-        if (NumberUtils.isLarger(moveQuantity.get(), liveData.get().getQuantity())) {
+        if (NumberUtils.isLarger(moveQuantity.get(), liveData.get().getInventoryList().get(0).getQuantity())) {
             ToastUtils.showShort("填写数量不能大于移位数量");
             return;
         }
 
         updateStatus(StatusEvent.Status.LOADING);
         ReqMoveSure reqMoveSure = new ReqMoveSure();
-        reqMoveSure.setCode(liveData.get().getCode());
-        reqMoveSure.setContainerBarCode(liveData.get().getContainerBarCode());
+        reqMoveSure.setCode(liveData.get().getInventoryList().get(0).getCode());
+        reqMoveSure.setContainerBarCode(liveData.get().getInventoryList().get(0).getContainerBarCode());
         reqMoveSure.setMoveLocation(moveLocation.get());
         reqMoveSure.setMoveQuantity(moveQuantity.get().toString());
         apiService.scanGoodsSure(reqMoveSure)
