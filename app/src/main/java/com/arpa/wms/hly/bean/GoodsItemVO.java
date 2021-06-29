@@ -32,7 +32,8 @@ public class GoodsItemVO {
     private String receiveCode; // 收货码，收货用
     private String goodsStatus; //  商品状态 ID
     private String goodsStatusName; // 商品状态名称
-    private String location; // 库位
+    private String location; // 库位（有时也用作库位名称）
+    private String locationName; // 库位名称
     private String tempInventoryCode; // 收货确认使用，临时库存code
     private String oldLocationName;// 拣货库位
 
@@ -242,5 +243,13 @@ public class GoodsItemVO {
 
     public void setContainerBarCode(String containerBarCode) {
         this.containerBarCode = containerBarCode;
+    }
+
+    public String getLocationName() {
+        return locationName;
+    }
+
+    public void setLocationName(String locationName) {
+        this.locationName = locationName;
     }
 }

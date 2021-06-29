@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="44dp"
                 android:src="@mipmap/ic_goods" />
-            
+    
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvCarNumber"
                 android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_toEndOf="@id/ivIcon"
                 android:gravity="center_vertical"
-                android:text='@{@string/picking_location(data.location)}'
+                android:text='@{@string/picking_location(data.locationName)}'
                 android:textColor="@color/color_434c67"
                 tools:text="拣货库位：1001" />
             
