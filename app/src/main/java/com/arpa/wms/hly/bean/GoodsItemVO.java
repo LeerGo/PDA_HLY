@@ -212,6 +212,10 @@ public class GoodsItemVO {
         this.planQuantity = planQuantity;
     }
 
+    public int getWaitRecheckQuantity() {
+        return this.planQuantity - this.recheckQuantity;
+    }
+
     public boolean isPickFinish() {
         return pickingTraysNum == traysNum;
     }

@@ -118,10 +118,10 @@
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         style="@style/ItemRecheckBatchStyle"
-                        app:propsKey="拣货数量"
+                        app:propsKey="待复核数量"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
-                        app:propsValue="@{String.valueOf(viewModel.detail.planQuantity)}"
+                        app:propsValue="@{String.valueOf(viewModel.detail.getWaitRecheckQuantity)}"
                         app:propsValueGravity="end"
                         tools:propsValue="300" />
                     
