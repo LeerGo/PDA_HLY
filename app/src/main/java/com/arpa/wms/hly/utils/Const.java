@@ -174,7 +174,7 @@ public interface Const {
         /**
          * 复核 - 已复核
          */
-        int RECHECK_YET = 1;
+        int RECHECK_YET = 2;
     }
 
     interface ASSIGN_WORK {
