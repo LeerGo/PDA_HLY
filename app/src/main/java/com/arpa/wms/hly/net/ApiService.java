@@ -4,6 +4,7 @@ import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeConfirm;
+import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
@@ -66,172 +67,169 @@ public interface ApiService {
     /**
      * 切换登录信息
      */
-    @POST("arpa-basic-api/party/updatePass")
-    @FormUrlEncoded
-    Call<Result<Object>> updatePass(@FieldMap Map<String, Object> data);
+    @POST("/wms/pda/auth/user/updatePassword")
+    Call<Result<Object>> updatePass(@Body ReqModifyPass request);
 
     /**
      * 获取首页的任务任务列表
      */
-    @GET("wms/pda/tasks")
+    @GET("/wms/pda/tasks")
     Call<ResultPage<ResTaskAssign>> pdaTasks(@QueryMap Map<String, Object> data);
 
     /**
      * 拣货单-拣货任务详情
      */
-    @GET("wms/pda/picking/{sourceCode}")
+    @GET("/wms/pda/picking/{sourceCode}")
     Call<Result<List<GoodsItemVO>>> pickingDetail(@Path("sourceCode") String sourceCode);
 
     /**
      * 拣货单-拣货任务详情
      */
-    @GET("wms/pda/picking/pickingConfirm/{code}")
+    @GET("/wms/pda/picking/pickingConfirm/{code}")
     Call<Result<Object>> pickingConfirm(@Path("code") String code);
 
     /**
      * PDA分配装卸工、叉车工、保管员
      */
-    @POST("wms/pda/tasks/assignPDA")
+    @POST("/wms/pda/tasks/assignPDA")
     Call<Result<Object>> pdaTasksAssign(@Body ReqTaskAssign reqTaskAssign);
 
     /**
      * PDA取消分配装卸工、叉车工、保管员
      */
-    @POST("wms/pda/tasks/cancelAssign")
+    @POST("/wms/pda/tasks/cancelAssign")
     Call<Result<Object>> pdaTasksCancelAssign(@Body ReqTaskAssign reqTaskAssign);
 
     /**
      * 收货列表接口
      */
-    @GET("wms/pda/receive/list")
+    @GET("/wms/pda/receive/list")
     Call<ResultPage<ResTaskAssign>> goodsReceiveList(@QueryMap Map<String, Object> data);
 
     /**
      * 收货详情接口上方数据
      */
-    @GET("wms/pda/receive/receiveDetailsAbouve")
+    @GET("/wms/pda/receive/receiveDetailsAbouve")
     Call<Result<ResTaskAssign>> receiveDetailsAbove(@Query("receiveCode") String receiveCode);
 
     /**
      * 收货详情接口下方数据
      */
-    @GET("wms/pda/receive/receiveDetailsBelow")
+    @GET("/wms/pda/receive/receiveDetailsBelow")
     Call<Result<List<GoodsItemVO>>> receiveDetailsBelow(@QueryMap Map<String, Object> data);
 
     /**
      * 收货登记查询明细
      */
-    @GET("wms/pda/receive/register")
+    @GET("/wms/pda/receive/register")
     Call<Result<ResGoodTakeConfirm>> takeRegisterDetail(@QueryMap Map<String, Object> data);
 
     /**
      * PDA收货登记确认
      */
-    @POST("wms/pda/receive/confirm")
+    @POST("/wms/pda/receive/confirm")
     Call<Result<Object>> takeSingleConfirm(@Body ReqGoodTakeConfirm reqGoodTakeConfirm);
 
     /**
      * PDA收货登记整单确认
      */
-    @POST("wms/pda/receive/wholeConfirm")
+    @POST("/wms/pda/receive/wholeConfirm")
     Call<Result<Object>> takeWholeConfirm(@Body ReqGoodTakeConfirm reqGoodTakeConfirm);
 
     /**
      * 复核列表接口
      */
-    @GET("wms/pda/outbound/recheckList")
+    @GET("/wms/pda/outbound/recheckList")
     Call<ResultPage<ResTaskAssign>> goodsRecheckList(@QueryMap Map<String, Object> data);
 
     /**
      * 查询复核列表详情接口上方数据
      */
-    @GET("wms/pda/outbound/recheckItemListAbouve")
+    @GET("/wms/pda/outbound/recheckItemListAbouve")
     Call<Result<ResTaskAssign>> recheckItemList(@Query("outboundCode") String outboundCode);
 
     /**
      * 查询复核列表详情接口下方数据
      */
-    @GET("wms/pda/outbound/recheckItemListBelow")
+    @GET("/wms/pda/outbound/recheckItemListBelow")
     Call<Result<List<GoodsItemVO>>> recheckItemListBelow(@QueryMap Map<String, Object> data);
 
     /**
      * 查询单个商品复核详情
      */
-    @GET("wms/pda/outbound/recheckRegisterDetail")
+    @GET("/wms/pda/outbound/recheckRegisterDetail")
     Call<Result<GoodsItemVO>> recheckRegisterDetail(@QueryMap Map<String, Object> data);
 
     /**
      * 复核确认
      */
-    @GET("wms/pda/outbound/singleRecheck")
+    @GET("/wms/pda/outbound/singleRecheck")
     Call<Result<Object>> recheckConfirm(@QueryMap Map<String, Object> data);
-    //    @POST("wms/pda/outbound/singleRecheck")
-    //    Call<Result<Object>> recheckConfirm(@Body ReqRecheckConfirm data);
 
     /**
      * 库存查询
      */
-    @GET("wms/inventory")
+    @GET("/wms/inventory")
     Call<ResultPage<ResInventory>> inventoryQuery(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描库位
      */
-    @GET("wms/pda/moveTask/scanLocation")
+    @GET("/wms/pda/moveTask/scanLocation")
     Call<Result<ResMoveLocation>> scanLocation(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描商品
      */
-    @GET("wms/pda/moveTask/scanGoods")
+    @GET("/wms/pda/moveTask/scanGoods")
     Call<Result<ResMoveGoods>> scanGoods(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描商品 - 列表
      */
-    @GET("wms/pda/moveTask/goodsListDetail")
+    @GET("/wms/pda/moveTask/goodsListDetail")
     Call<Result<ResMoveGoods>> scanGoodsListDetail(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描商品 - 详情
      */
-    @GET("wms/pda/moveTask/goodsDetail")
+    @GET("/wms/pda/moveTask/goodsDetail")
     Call<Result<ResMoveGoodsSure>> scanGoodsDetail(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描商品 - 详情
      */
-    @POST("wms/pda/moveTask/moveConfirm")
+    @POST("/wms/pda/moveTask/moveConfirm")
     Call<Result<ResMoveGoods>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
 
     /**
      * 获取装车列表
      */
-    @POST("wms/pda/outbound/loadingCarTaskList")
+    @POST("/wms/pda/outbound/loadingCarTaskList")
     Call<Result<ResTruckLoad>> getTruckLoadList(@Body ReqTruckLoadDetail reqTruckLoadDetail);
 
     /**
      * 获取装车确认详情
      */
-    @GET("wms/pda/outbound/loadingCarDetail")
+    @GET("/wms/pda/outbound/loadingCarDetail")
     Call<Result<ResTruckLoadConfirm>> getTruckLoadConfirmDetail(@Query("outboundCode") String outboundCode);
 
     /**
      * 获取装车提交确认
      */
-    @POST("wms/pda/outbound/loadingCarConfirm")
+    @POST("/wms/pda/outbound/loadingCarConfirm")
     Call<Result<Object>> confirmTruckLoad(@Body ReqTruckLoadConfirm reqTruckLoadConfirm);
 
     /**
      * 获取仓库作业员列表
      */
-    @GET("wms/pda/WorkStaff/getWorkStaff")
+    @GET("/wms/pda/WorkStaff/getWorkStaff")
     Call<Result<ResTaskWorker>> getWorkStaff(@QueryMap Map<String, Object> data);
 
     /**
      * 获取用户权限
      */
-    @GET("wms/auth/user/already")
+    @GET("/wms/auth/user/already")
     Call<Result<List<ResRole>>> getRole();
 
     /**
@@ -243,34 +241,34 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://192.168.31.166/"; // 夏宝新
-        //  String URL_WMS = "http://192.168.30.181/"; // 邵朱尧
-        //  String URL_WMS = "http://192.168.30.61/"; // 李一方
-        //  String URL_WMS = "http://49.4.71.215/"; // 标准版开发测试
-        //  String URL_WMS = "http://192.168.31.144/"; // 508 内部服务器（原徐杨）
+        String URL_WMS = "http://192.168.31.166"; // 夏宝新
+        //  String URL_WMS = "http://192.168.30.181"; // 邵朱尧
+        //  String URL_WMS = "http://192.168.30.61"; // 李一方
+        //  String URL_WMS = "http://49.4.71.215"; // 标准版开发测试
+        //  String URL_WMS = "http://192.168.31.144"; // 508 内部服务器（原徐杨）
 
         /**
          * 单点登录
          */
-        String URL_SSO = "http://test.sso.sarpa.cn/";
+        String URL_SSO = "http://test.sso.sarpa.cn";
 
         /**
          * API：SSO 单点登录获取 token
          */
-        String API_SSO_LOGIN = "sso-server/app/doLogin";
+        String API_SSO_LOGIN = "/sso-server/app/doLogin";
         /**
          * API：SSO 单点退出登录
          */
-        String API_SSO_LOGOUT = "sso-server/app/logout";
+        String API_SSO_LOGOUT = "/sso-server/app/logout";
 
         /**
          * API：获取仓库，以中台 SSO 认证的方式
          */
-        String API_WAREHOUSE_SSO = "wms/warehouse/auth";
+        String API_WAREHOUSE_SSO = "/wms/warehouse/auth";
 
         /**
          * API：绑定仓库
          */
-        String API_BIND_WAREHOUSE = "wms/SSOAuth/bind";
+        String API_BIND_WAREHOUSE = "/wms/SSOAuth/bind";
     }
 }

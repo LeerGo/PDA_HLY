@@ -68,7 +68,7 @@ public class VMMine extends VMWarehouse {
      */
     public void modifyPassword(ReqModifyPass data) {
         updateStatus(Status.LOADING);
-        apiService.updatePass(data.toParams())
+        apiService.updatePass(data)
                 .enqueue(new ResultCallback<Object>() {
                     @Override
                     public void onSuccess(Object data) {

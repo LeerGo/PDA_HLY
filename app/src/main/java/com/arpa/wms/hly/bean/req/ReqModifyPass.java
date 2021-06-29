@@ -8,33 +8,33 @@ import com.arpa.wms.hly.bean.base.ReqBase;
  * since: 2021-05-14 13:57
  */
 public class ReqModifyPass extends ReqBase {
-    private String oldPwd;
-    private String newPwd;
+    private String oldPassword;
+    private String newPassword;
     private transient String newRepwd;
 
     @Override
     public String toString() {
         return "ReqModifyPass{" +
-                "oldPass='" + oldPwd + '\'' +
-                ", newPass='" + newPwd + '\'' +
+                "oldPass='" + oldPassword + '\'' +
+                ", newPass='" + newPassword + '\'' +
                 ", newPassRepeat='" + newRepwd + '\'' +
                 '}';
     }
 
-    public String getOldPwd() {
-        return oldPwd;
+    public String getOldPassword() {
+        return oldPassword;
     }
 
-    public void setOldPwd(String oldPwd) {
-        this.oldPwd = oldPwd;
+    public void setOldPassword(String oldPassword) {
+        this.oldPassword = oldPassword;
     }
 
-    public String getNewPwd() {
-        return newPwd;
+    public String getNewPassword() {
+        return newPassword;
     }
 
-    public void setNewPwd(String newPwd) {
-        this.newPwd = newPwd;
+    public void setNewPassword(String newPassword) {
+        this.newPassword = newPassword;
     }
 
     public String getNewRepwd() {
