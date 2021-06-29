@@ -91,7 +91,7 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
                 .enqueue(new ResultCallback<Object>() {
                     @Override
                     public void onSuccess(Object data) {
-
+                        finish();
                     }
 
 

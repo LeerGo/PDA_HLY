@@ -13,7 +13,7 @@ import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckDetailActivity;
 import com.arpa.wms.hly.ui.listener.ViewListener;
-import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import java.util.Map;
 
@@ -63,7 +63,8 @@ public class VMGoodsRecheck extends VMBaseRefreshList<ResTaskAssign> {
         itemBinding.bindExtra(BR.showOrder, true);
         itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<ResTaskAssign>) data -> {
             Bundle bundle = new Bundle();
-            bundle.putParcelable(Const.IntentKey.DATA, data);
+            data.toRecheckDetail();
+            bundle.putParcelable(IntentKey.DATA, data);
             startActivity(GoodsRecheckDetailActivity.class, bundle);
         });
         return itemBinding;

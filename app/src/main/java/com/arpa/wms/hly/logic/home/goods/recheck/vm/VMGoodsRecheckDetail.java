@@ -45,6 +45,7 @@ public class VMGoodsRecheckDetail extends VMPdaTaskDetail {
                 .enqueue(new ResultCallback<ResTaskAssign>() {
                     @Override
                     public void onSuccess(ResTaskAssign data) {
+                        data.toRecheckDetail();
                         headerData.set(data);
                     }
 

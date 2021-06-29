@@ -219,13 +219,20 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.totalQuantity = this.goodsQuantity;
     }
 
+    /**
+     * 跳转符合详情，header 部分 xml 是复用的，字段也重新赋值一下
+     */
+    public void toRecheckDetail() {
+        this.receivedQuantity = this.recheckQuantity;
+        this.totalQuantity = this.planQuantity;
+    }
+
     public int getRecheckQuantity() {
         return recheckQuantity;
     }
 
     public void setRecheckQuantity(int recheckQuantity) {
         this.recheckQuantity = recheckQuantity;
-        this.receivedQuantity = recheckQuantity;
     }
 
     public int getPlanQuantity() {
@@ -234,7 +241,6 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
 
     public void setPlanQuantity(int planQuantity) {
         this.planQuantity = planQuantity;
-        this.totalQuantity = planQuantity;
     }
 
     @Override

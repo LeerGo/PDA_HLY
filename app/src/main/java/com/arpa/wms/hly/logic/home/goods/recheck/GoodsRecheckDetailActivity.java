@@ -8,6 +8,7 @@ import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.databinding.ActivityPdataskRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
 import androidx.viewpager2.widget.ViewPager2;
@@ -46,7 +47,7 @@ public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckD
 
         viewBind.setViewModel(viewModel);
         viewBind.viewpager.registerOnPageChangeCallback(pageChangeCallback);
-        ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
+        ResTaskAssign data = getIntent().getParcelableExtra(IntentKey.DATA);
         viewModel.headerData.set(data);
         viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_WAIT, data.getCode()));
         viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_YET, data.getCode()));
