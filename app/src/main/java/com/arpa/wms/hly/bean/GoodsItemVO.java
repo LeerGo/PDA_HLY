@@ -213,8 +213,18 @@ public class GoodsItemVO extends SelectItem {
         this.planQuantity = planQuantity;
     }
 
+    /**
+     * 获取待复核数量
+     */
     public int getWaitRecheckQuantity() {
         return this.planQuantity - this.recheckQuantity;
+    }
+
+    /**
+     * 获取待拣货数量
+     */
+    public int getWaitPickQuantity() {
+        return this.planQuantity - this.receivedQuantity;
     }
 
     public boolean isPickFinish() {
