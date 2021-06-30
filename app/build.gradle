@@ -20,14 +20,17 @@ android {
 
     applicationVariants.all { variant ->
         variant.outputs.all { output ->
-            def createTime = new Date().format("YYMMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
-            def name = output.outputFile.name, ext = "";
+            def createTime = new Date().format("MMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
+            def name = output.outputFile.name, ext = ""
             def dotIndex = name.indexOf(".")
             if (dotIndex != -1) {
                 ext = name.substring(dotIndex);
             }
 
-            outputFileName = "恒利源 WMS_v" + defaultConfig.versionName + "_" + createTime + "_" + buildType.name + ext;
+            def suffix = ""
+            if (buildType.name == "ceshi") suffix = "测试"
+            else suffix = "生产"
+            outputFileName = "恒利源 WMS_v" + defaultConfig.versionName + "_" + createTime + "_" + suffix + ext;
         }
     }
 
@@ -46,11 +49,14 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
         release {
             signingConfig signingConfigs.config
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        ceshi.initWith(buildTypes.release)
     }
 
     buildFeatures {
