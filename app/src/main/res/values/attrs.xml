@@ -15,7 +15,7 @@
         <attr name="wtbShowBack"
               format="boolean" />
         <attr name="wtbBackPadding"
-              format="integer" />
+              format="dimension" />
     </declare-styleable>
     
     <declare-styleable name="WidgetPropsItem">

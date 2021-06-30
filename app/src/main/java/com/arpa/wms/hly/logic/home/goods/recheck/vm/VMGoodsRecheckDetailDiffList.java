@@ -47,6 +47,12 @@ public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
+    }
+
+    @Override
     protected boolean setAutoRefresh() {
         return false;
     }
@@ -61,7 +67,7 @@ public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
 
             @Override
             public boolean areContentsTheSame(@NonNull GoodsItemVO oldItem, @NonNull GoodsItemVO newItem) {
-                return oldItem.getReceivedQuantity() == newItem.getReceivedQuantity();
+                return oldItem.getRecheckQuantity() == newItem.getRecheckQuantity();
             }
         }).build();
     }

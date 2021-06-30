@@ -12,6 +12,8 @@ import com.arpa.wms.hly.utils.Const;
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
+import static com.arpa.wms.hly.ui.decoration.BothItemDecoration.BOTTOM;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -33,7 +35,7 @@ public class ScanGoodsDetailActivity extends WrapBaseActivity<VMScanGoodsDetail,
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
-        viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
+        viewBind.rvList.addItemDecoration(new BothItemDecoration(BOTTOM, false));
 
         String container = getIntent().getStringExtra(Const.IntentKey.CONTAINER_CODE);
         String location = getIntent().getStringExtra(Const.IntentKey.LOCATION_NAME);
