@@ -27,7 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="-1px"
-        android:background="@{position==positionSel ? @color/color_f3f6ff : @color/white}"
+        android:background="@{data.select ? @color/color_f3f6ff : @color/white}"
         android:gravity="center_vertical"
         android:minHeight="24dp"
         android:orientation="horizontal">

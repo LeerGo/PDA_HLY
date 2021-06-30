@@ -50,7 +50,7 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
     // 拣货单详情
     private final ItemBinding<GoodsItemVO> taskDetailBinding = ItemBinding.of(BR.data, R.layout.item_pick_detail);
     public ObservableBoolean detailRefreshing = new ObservableBoolean();
-    public ObservableArrayList<GoodsItemVO> taskItems = new ObservableArrayList<>();
+    public ObservableArrayList<GoodsItemVO> taskDetailItems = new ObservableArrayList<>();
     public GoodsPickTaskAdapter<GoodsItemVO> taskDetailAdapter = new GoodsPickTaskAdapter<>();
     private String sourceCode;
 
@@ -116,8 +116,10 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
                 .enqueue(new ResultCallback<List<GoodsItemVO>>() {
                     @Override
                     public void onSuccess(List<GoodsItemVO> data) {
-                        taskItems.clear();
-                        taskItems.addAll(data);
+                        if (taskDetailAdapter.getPositionSel() != -1)
+                            data.get(taskDetailAdapter.getPositionSel()).setSelect(true);
+                        taskDetailItems.clear();
+                        taskDetailItems.addAll(data);
                         updateStatus(Status.SUCCESS);
                     }
 
@@ -129,7 +131,7 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
 
                     @Override
                     public void onFailed(ResultError error) {
-                        taskItems.clear();
+                        taskDetailItems.clear();
                         updateStatus(Status.ERROR);
                         sendMessage(error.getMessage());
                     }
@@ -138,10 +140,15 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
 
     public ItemBinding<GoodsItemVO> getTaskDetailBinding() {
         taskDetailBinding.bindExtra(BR.onOperate, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
-            // TODO: 拣货数量同步服务器 @lyf 2021-05-24 03:39:14
-            taskDetailAdapter.setPositionSel(position);
-            taskDetailAdapter.notifyDataSetChanged();
-            pickConfirm(position);
+            if (position != taskDetailAdapter.getPositionSel()) {
+                taskDetailItems.get(position).setSelect(true);
+                if (null != taskDetailAdapter.getItemSel())
+                    taskDetailAdapter.getItemSel().setSelect(false);
+                taskDetailAdapter.setPositionSel(position);
+                taskDetailAdapter.notifyDataSetChanged();
+            }
+            if (data.isPickFinish()) ToastUtils.showShortSafe("当前订单已拣货完成");
+            else pickConfirm(position);
         });
         return taskDetailBinding;
     }
@@ -151,20 +158,25 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
      */
     private void pickConfirm(int position) {
         updateStatus(Status.LOADING);
-        apiService.pickingConfirm(taskItems.get(position).getCode())
+        apiService.pickingConfirm(taskDetailItems.get(position).getCode())
                 .enqueue(new ResultCallback<Object>() {
                     @Override
                     public void onSuccess(Object data) {
                         updateStatus(Status.SUCCESS);
                         ToastUtils.showShort(R.string.request_success);
-                        // TODO: 现阶段数据不足，数据联通需要测试交互 @lyf 2021-05-25 01:50:59
+                        taskDetailAdapter.getItemSel().increasePickingTraysNum();
+                        taskDetailAdapter.notifyItemChanged(position);
+
                         if (isAllPickFinish()) {// 如果全都拣货完成，刷新拣货单列表
                             taskDetailAdapter.resetPositionSel();
                             autoRefresh();
                         } else {// 否则刷新当前任务详情列表
                             // 如果当前选中的条目已经拣货完成，重置选中索引
-                            if (taskDetailAdapter.getItemSel() != null && taskDetailAdapter.getItemSel().isPickFinish())
+                            if (taskDetailAdapter.getItemSel() != null && taskDetailAdapter.getItemSel().isPickFinish()) {
+                                taskDetailAdapter.getItemSel().setSelect(false);
+                                taskDetailAdapter.notifyItemChanged(position);
                                 taskDetailAdapter.resetPositionSel();
+                            }
                             requestDetail();
                         }
                     }
@@ -175,7 +187,7 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
                      */
                     private boolean isAllPickFinish() {
                         boolean result = true;
-                        for (GoodsItemVO taskItem : taskItems) {
+                        for (GoodsItemVO taskItem : taskDetailItems) {
                             if (!taskItem.isPickFinish()) {
                                 result = false;
                                 break;

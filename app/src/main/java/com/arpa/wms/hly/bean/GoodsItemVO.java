@@ -9,7 +9,7 @@ package com.arpa.wms.hly.bean;
  * 内容描述区域
  * </p>
  */
-public class GoodsItemVO {
+public class GoodsItemVO extends SelectItem {
     private String code;
     private String goodCode; // 商品编码
     private String goodsName; // 商品名称
@@ -251,5 +251,9 @@ public class GoodsItemVO {
 
     public void setLocationName(String locationName) {
         this.locationName = locationName;
+    }
+
+    public void increasePickingTraysNum() {
+        this.pickingTraysNum++;
     }
 }

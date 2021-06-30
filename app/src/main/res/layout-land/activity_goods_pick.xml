@@ -143,7 +143,7 @@
                     android:layout_height="match_parent"
                     app:adapter="@{viewModel.taskDetailAdapter}"
                     app:itemBinding="@{viewModel.taskDetailBinding}"
-                    app:items="@{viewModel.taskItems}"
+                    app:items="@{viewModel.taskDetailItems}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="20"
                     tools:listitem="@layout/item_pick_detail" />
