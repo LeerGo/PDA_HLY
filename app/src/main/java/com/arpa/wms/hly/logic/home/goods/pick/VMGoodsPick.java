@@ -99,6 +99,7 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
                 adapter.setPositionSel(position);
                 adapter.notifyDataSetChanged();
                 sourceCode = data.getSourceCode();
+                taskDetailAdapter.resetPositionSel();
                 requestDetail();
             }
         });

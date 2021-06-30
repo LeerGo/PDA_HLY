@@ -36,7 +36,7 @@
             style="@style/TableTextStyle"
             android:text="@{data.oldLocationName}"
             android:textColor="@color/black"
-            app:layout_widthPercent="8.09%"
+            app:layout_widthPercent="8.22%"
             tools:text="1001" />
         
         <TextView
@@ -51,7 +51,7 @@
             style="@style/TableTextStyle"
             android:text="@{data.goodsUnitName}"
             android:textColor="@color/black"
-            app:layout_widthPercent="6.8%"
+            app:layout_widthPercent="6.9%"
             tools:text="箱" />
         
         <TextView
@@ -66,8 +66,8 @@
             android:layout_width="wrap_content"
             android:text="@{data.extendOne}"
             android:textColor="@color/black"
-            app:layout_widthPercent="9.9%"
-            tools:text="A1" />
+            app:layout_widthPercent="9.25%"
+            tools:text="山东" />
         
         <TextView
             style="@style/TableTextStyle"
@@ -76,13 +76,15 @@
             app:layout_widthPercent="9.62%"
             tools:text="常规" />
         
+        <!--计划数量-->
         <TextView
             style="@style/TableTextStyle"
             android:text="@{String.valueOf(data.planQuantity)}"
             android:textColor="@color/black"
-            app:layout_widthPercent="9.50%"
+            app:layout_widthPercent="9.58%"
             tools:text="1000" />
         
+        <!--码托数量-->
         <TextView
             style="@style/TableTextStyle"
             android:text="@{String.valueOf(data.supportNum)}"
@@ -90,18 +92,20 @@
             app:layout_widthPercent="9.62%"
             tools:text="200" />
         
+        <!--计划托数-->
         <TextView
             style="@style/TableTextStyle"
             android:text="@{String.valueOf(data.traysNum)}"
             android:textColor="@color/black"
-            app:layout_widthPercent="9.50%"
+            app:layout_widthPercent="9.58%"
             tools:text="5" />
         
+        <!--已拣托数-->
         <TextView
             style="@style/TableTextStyle"
             android:text="@{String.valueOf(data.pickingTraysNum)}"
             android:textColor="@color/black"
-            app:layout_widthPercent="9.62%"
+            app:layout_widthPercent="9.65%"
             tools:text="1" />
         
         <ImageView

@@ -4,10 +4,6 @@ package com.arpa.wms.hly.utils;
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
  * since: 2021-04-21 4:47 PM
- *
- * <p>
- * 内容描述区域
- * </p>
  */
 public class DensityUtils {
 
@@ -18,5 +14,4 @@ public class DensityUtils {
         final float scale = Utils.getContext().getResources().getDisplayMetrics().density;
         return (int) (dpValue * scale + 0.5f);
     }
-
 }

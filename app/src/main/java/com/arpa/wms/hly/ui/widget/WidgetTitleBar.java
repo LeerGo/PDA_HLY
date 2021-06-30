@@ -43,8 +43,10 @@ public class WidgetTitleBar extends RelativeLayout {
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetTitleBar);
+        int padding = typedArray.getInteger(R.styleable.WidgetTitleBar_wtbBackPadding, 28);
         setWtbTitle(typedArray.getString(R.styleable.WidgetTitleBar_wtbTitle));
         if (typedArray.getBoolean(R.styleable.WidgetTitleBar_wtbShowBack, true)) {
+            ivBack.setPadding(padding, padding, padding, padding);
             ivBack.setVisibility(VISIBLE);
         } else {
             ivBack.setVisibility(GONE);
