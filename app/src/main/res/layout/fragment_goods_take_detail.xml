@@ -8,7 +8,7 @@
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailList" />
+            type="com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailDiffList" />
     </data>
     
     <com.scwang.smart.refresh.layout.SmartRefreshLayout

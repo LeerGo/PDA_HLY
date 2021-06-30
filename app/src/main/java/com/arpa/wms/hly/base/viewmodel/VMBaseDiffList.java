@@ -14,10 +14,11 @@ import java.util.List;
 import java.util.Map;
 
 import androidx.annotation.NonNull;
-import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
+import androidx.recyclerview.widget.AsyncDifferConfig;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
+import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList;
 import retrofit2.Call;
 
 /**
@@ -29,15 +30,15 @@ import retrofit2.Call;
  * base: 普通列表数据加载 ViewModel
  * </p>
  */
-public abstract class VMBaseList <T> extends WrapDataViewModel {
+public abstract class VMBaseDiffList <T> extends WrapDataViewModel {
     public ObservableBoolean refreshing = new ObservableBoolean();
     public ObservableBoolean isAutoRefresh = new ObservableBoolean();
 
     // adapter 相关
-    private ObservableArrayList<T> items;
+    private AsyncDiffObservableList<T> items;
     private BindingRecyclerViewAdapter<T> adapter;
 
-    public VMBaseList(@NonNull Application application, BaseModel model) {
+    public VMBaseDiffList(@NonNull Application application, BaseModel model) {
         super(application, model);
     }
 
@@ -88,9 +89,9 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
                             updateStatus(Status.FAILURE, true);
                             return;
                         }
-                        getItems().clear();
+//                        getItems().clear();
                         if (data.isEmpty()) sendMessage(R.string.data_empty);
-                        else getItems().addAll(data);
+                        else getItems().update(data);
 
                         updateStatus(Status.SUCCESS, true);
                     }
@@ -110,12 +111,14 @@ public abstract class VMBaseList <T> extends WrapDataViewModel {
                 });
     }
 
-    public ObservableArrayList<T> getItems() {
+    public AsyncDiffObservableList<T> getItems() {
         if (null == items) {
-            items = new ObservableArrayList<>();
+            items = new AsyncDiffObservableList<T>(getDiffConfig());
         }
         return items;
     }
+
+    protected abstract AsyncDifferConfig<T> getDiffConfig();
 
     public abstract Call<Result<List<T>>> getCall(Map<String, Object> params);
 

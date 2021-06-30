@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.viewmodel.VMBaseList;
+import com.arpa.wms.hly.base.viewmodel.VMBaseDiffList;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
@@ -22,6 +22,8 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.AsyncDifferConfig;
+import androidx.recyclerview.widget.DiffUtil;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -36,17 +38,38 @@ import retrofit2.Call;
  * </p>
  */
 @HiltViewModel
-public class VMGoodsTakeDetailList extends VMBaseList<GoodsItemVO> {
+public class VMGoodsTakeDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
     public ReqGoodTakeDetail request = new ReqGoodTakeDetail();
 
     @Inject
-    public VMGoodsTakeDetailList(@NonNull Application application, BaseModel model) {
+    public VMGoodsTakeDetailDiffList(@NonNull Application application, BaseModel model) {
         super(application, model);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 
     @Override
     protected boolean setAutoRefresh() {
         return false;
+    }
+
+    @Override
+    protected AsyncDifferConfig<GoodsItemVO> getDiffConfig() {
+        return new AsyncDifferConfig.Builder<>(new DiffUtil.ItemCallback<GoodsItemVO>() {
+            @Override
+            public boolean areItemsTheSame(@NonNull GoodsItemVO oldItem, @NonNull GoodsItemVO newItem) {
+                return oldItem.getGoodCode().equals(newItem.getGoodCode());
+            }
+
+            @Override
+            public boolean areContentsTheSame(@NonNull GoodsItemVO oldItem, @NonNull GoodsItemVO newItem) {
+                return oldItem.getReceivedQuantity() == newItem.getReceivedQuantity();
+            }
+        }).build();
     }
 
     @Override

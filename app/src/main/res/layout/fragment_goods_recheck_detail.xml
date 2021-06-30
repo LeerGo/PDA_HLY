@@ -8,7 +8,7 @@
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList" />
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailDiffList" />
     </data>
     
     <com.scwang.smart.refresh.layout.SmartRefreshLayout

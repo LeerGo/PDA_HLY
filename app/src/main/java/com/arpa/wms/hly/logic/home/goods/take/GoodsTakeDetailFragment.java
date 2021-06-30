@@ -6,7 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentGoodsTakeDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetail;
-import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailList;
+import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailDiffList;
 import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
@@ -24,7 +24,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDetailList, FragmentGoodsTakeDetailBinding> {
+public class GoodsTakeDetailFragment extends WrapBaseLazyFragment<VMGoodsTakeDetailDiffList, FragmentGoodsTakeDetailBinding> {
 
     public static GoodsTakeDetailFragment newInstance(int receiveStatus, String receiveCode) {
         GoodsTakeDetailFragment fragment = new GoodsTakeDetailFragment();
