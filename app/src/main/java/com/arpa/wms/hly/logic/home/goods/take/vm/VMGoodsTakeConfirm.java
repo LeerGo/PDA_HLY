@@ -45,11 +45,11 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     // adapter 相关
     private final OnItemBind<Object> onItemBind =
             (itemBinding, position, data) -> {
-                if (position == 0) {
+                if (data instanceof GoodsItemVO){
+                    itemBinding.set(BR.data, R.layout.item_goods_take_confirm);
+                } else {
                     // FIX: 这里如果 variableId 相同，会出现 class cast exception @lyf 2021-06-03 08:22:22
                     itemBinding.set(BR.header, R.layout.header_goods_take_confirm);
-                } else {
-                    itemBinding.set(BR.data, R.layout.item_goods_take_confirm);
                 }
             };
     public final ItemBinding<Object> itemBinding = ItemBinding.of(onItemBind);
@@ -69,12 +69,14 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     /**
      * 请求数据
      */
-    private void requestData() {
+    public void requestData() {
         updateStatus(StatusEvent.Status.LOADING);
         apiService.takeRegisterDetail(request.toParams())
                 .enqueue(new ResultCallback<ResGoodTakeConfirm>() {
                     @Override
                     public void onSuccess(ResGoodTakeConfirm data) {
+                        items.clear();
+
                         detail = data;
                         detail.setCode(data.getCode());
                         detail.setReceiveCode(request.getReceiveCode());
@@ -110,7 +112,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
                     @Override
                     public void onFailed(ResultError error) {
                         ToastUtils.showShort(error.getMessage());
-                        finish();
+                        if (null == detail) finish();
                     }
                 });
     }

@@ -59,5 +59,9 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
                             viewModel.update(position, raw);
                         }))
                 );
+        viewBind.wsbSearch.setOnSearchClick(data -> {
+            viewModel.request.setGoodsBarCode(data);
+            viewModel.requestData();
+        });
     }
 }

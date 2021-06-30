@@ -32,7 +32,7 @@
                 android:background="@color/colorPrimary" />
             
             <com.arpa.wms.hly.ui.widget.WidgetSearchBar
-                android:id="@+id/wsbLocation"
+                android:id="@+id/wsbSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="10dp"
