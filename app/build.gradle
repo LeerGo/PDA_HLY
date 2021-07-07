@@ -28,7 +28,7 @@ android {
             }
 
             def suffix = ""
-            if (buildType.name == "ceshi") suffix = "测试"
+            if (buildType.name == "debug") suffix = "测试"
             else suffix = "生产"
             outputFileName = "恒利源 WMS_v" + defaultConfig.versionName + "_" + createTime + "_" + suffix + ext;
         }
