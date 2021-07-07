@@ -42,18 +42,19 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     public final ObservableArrayList<Object> items = new ObservableArrayList<>();
     public final BindingRecyclerViewAdapter<Object> adapter = new WrapBindingRVAdapter<>();
     public final ReqGoodTakeDetail request = new ReqGoodTakeDetail();
+    public ResGoodTakeConfirm detail;
     // adapter 相关
     private final OnItemBind<Object> onItemBind =
             (itemBinding, position, data) -> {
-                if (data instanceof GoodsItemVO){
-                    itemBinding.set(BR.data, R.layout.item_goods_take_confirm);
+                if (data instanceof GoodsItemVO) {
+                    itemBinding.set(BR.data, R.layout.item_goods_take_confirm).bindExtra(BR.rule, detail.getBatchRule());
                 } else {
                     // FIX: 这里如果 variableId 相同，会出现 class cast exception @lyf 2021-06-03 08:22:22
                     itemBinding.set(BR.header, R.layout.header_goods_take_confirm);
                 }
             };
     public final ItemBinding<Object> itemBinding = ItemBinding.of(onItemBind);
-    public ResGoodTakeConfirm detail;
+    public String supplier; // 供应商
 
     @Inject
     public VMGoodsTakeConfirm(@NonNull Application application, BaseModel model) {
@@ -99,8 +100,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
                      */
                     private void addBatchData() {
                         List<GoodsItemVO> records = detail.getReceiveItemWithRegisterVOList();
-                        if (null == records || records.isEmpty()) items.add(new GoodsItemVO());
-                        else items.addAll(records);
+                        if (null != records && !records.isEmpty()) items.addAll(records);
+                        addBatchItem();
                     }
 
                     @Override
@@ -118,13 +119,20 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     }
 
     /**
+     * 添加一个新的批次录入条目
+     */
+    private void addBatchItem() {
+        GoodsItemVO batchItem = new GoodsItemVO();
+        if (null != detail && detail.getBatchRule().getSupplier() == 1)
+            batchItem.setSupplier(supplier);
+        items.add(batchItem);
+    }
+
+    /**
      * 添加一个新的批次录入
      */
-    public void addBatchItem() {
-        if (validateInput()) {
-            GoodsItemVO batchItem = new GoodsItemVO();
-            items.add(batchItem);
-        }
+    public void addBatch() {
+        if (validateInput()) addBatchItem();
     }
 
     /**
@@ -161,11 +169,41 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     private boolean validateItem(GoodsItemVO item) {
         if (TextUtils.isEmpty(item.getGoodsStatus())) return false;
         if (item.getReceivedQuantity() == 0) return false;
-        if (TextUtils.isEmpty(item.getGmtManufacture())) return false;
-        if (TextUtils.isEmpty(item.getExtendOne())) return false;
         if (item.getSupportNum() == 0) return false;
-        if (TextUtils.isEmpty(item.getExtendTwo())) return false;
         if (TextUtils.isEmpty(item.getLocation())) return false;
+        if (detail.getBatchRule().getGmtManufacture() == 1) {
+            if (TextUtils.isEmpty(item.getGmtManufacture())) return false;
+        }
+        if (detail.getBatchRule().getGmtStock() == 1) {
+            if (TextUtils.isEmpty(item.getGmtStock())) return false;
+        }
+        if (detail.getBatchRule().getGmtExpire() == 1) {
+            if (TextUtils.isEmpty(item.getGmtExpire())) return false;
+        }
+        if (detail.getBatchRule().getSerialNumber() == 1) {
+            if (TextUtils.isEmpty(item.getSerialNumber())) return false;
+        }
+        if (detail.getBatchRule().getSupplier() == 1) {
+            if (TextUtils.isEmpty(item.getSupplier())) return false;
+        }
+        if (detail.getBatchRule().getExtendOne() == 1) {
+            if (TextUtils.isEmpty(item.getExtendOne())) return false;
+        }
+        if (detail.getBatchRule().getExtendTwo() == 1) {
+            if (TextUtils.isEmpty(item.getExtendTwo())) return false;
+        }
+        if (detail.getBatchRule().getExtendThree() == 1) {
+            if (null == item.getExtendThree()) return false;
+        }
+        if (detail.getBatchRule().getExtendFour() == 1) {
+            if (null == item.getExtendFour()) return false;
+        }
+        if (detail.getBatchRule().getExtendFive() == 1) {
+            if (TextUtils.isEmpty(item.getExtendFive())) return false;
+        }
+        if (detail.getBatchRule().getExtendSix() == 1) {
+            if (TextUtils.isEmpty(item.getExtendSix())) return false;
+        }
         return true;
     }
 

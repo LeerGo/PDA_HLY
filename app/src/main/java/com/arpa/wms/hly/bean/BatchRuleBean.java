@@ -5,18 +5,18 @@ public class BatchRuleBean {
     private String shipmentCode;
     private String shipmentName;
     private String name;
-    private Integer lot;
-    private Integer gmtManufacture;
-    private Integer gmtExpire;
-    private Integer gmtStock;
-    private Integer supplier;
-    private Integer serialNumber;
-    private Integer extendOne;
-    private Integer extendTwo;
-    private Integer extendThree;
-    private Integer extendFour;
-    private Integer extendFive;
-    private Integer extendSix;
+    private int lot;
+    private int gmtManufacture;
+    private int gmtExpire;
+    private int gmtStock;
+    private int supplier;
+    private int serialNumber;
+    private int extendOne;
+    private int extendTwo;
+    private int extendThree;
+    private int extendFour;
+    private int extendFive;
+    private int extendSix;
     private String state;
     private String remarks;
     private String id;
@@ -61,99 +61,99 @@ public class BatchRuleBean {
         this.name = name;
     }
 
-    public Integer getLot() {
+    public int getLot() {
         return lot;
     }
 
-    public void setLot(Integer lot) {
+    public void setLot(int lot) {
         this.lot = lot;
     }
 
-    public Integer getGmtManufacture() {
+    public int getGmtManufacture() {
         return gmtManufacture;
     }
 
-    public void setGmtManufacture(Integer gmtManufacture) {
+    public void setGmtManufacture(int gmtManufacture) {
         this.gmtManufacture = gmtManufacture;
     }
 
-    public Integer getGmtExpire() {
+    public int getGmtExpire() {
         return gmtExpire;
     }
 
-    public void setGmtExpire(Integer gmtExpire) {
+    public void setGmtExpire(int gmtExpire) {
         this.gmtExpire = gmtExpire;
     }
 
-    public Integer getGmtStock() {
+    public int getGmtStock() {
         return gmtStock;
     }
 
-    public void setGmtStock(Integer gmtStock) {
+    public void setGmtStock(int gmtStock) {
         this.gmtStock = gmtStock;
     }
 
-    public Integer getSupplier() {
+    public int getSupplier() {
         return supplier;
     }
 
-    public void setSupplier(Integer supplier) {
+    public void setSupplier(int supplier) {
         this.supplier = supplier;
     }
 
-    public Integer getSerialNumber() {
+    public int getSerialNumber() {
         return serialNumber;
     }
 
-    public void setSerialNumber(Integer serialNumber) {
+    public void setSerialNumber(int serialNumber) {
         this.serialNumber = serialNumber;
     }
 
-    public Integer getExtendOne() {
+    public int getExtendOne() {
         return extendOne;
     }
 
-    public void setExtendOne(Integer extendOne) {
+    public void setExtendOne(int extendOne) {
         this.extendOne = extendOne;
     }
 
-    public Integer getExtendTwo() {
+    public int getExtendTwo() {
         return extendTwo;
     }
 
-    public void setExtendTwo(Integer extendTwo) {
+    public void setExtendTwo(int extendTwo) {
         this.extendTwo = extendTwo;
     }
 
-    public Integer getExtendThree() {
+    public int getExtendThree() {
         return extendThree;
     }
 
-    public void setExtendThree(Integer extendThree) {
+    public void setExtendThree(int extendThree) {
         this.extendThree = extendThree;
     }
 
-    public Integer getExtendFour() {
+    public int getExtendFour() {
         return extendFour;
     }
 
-    public void setExtendFour(Integer extendFour) {
+    public void setExtendFour(int extendFour) {
         this.extendFour = extendFour;
     }
 
-    public Integer getExtendFive() {
+    public int getExtendFive() {
         return extendFive;
     }
 
-    public void setExtendFive(Integer extendFive) {
+    public void setExtendFive(int extendFive) {
         this.extendFive = extendFive;
     }
 
-    public Integer getExtendSix() {
+    public int getExtendSix() {
         return extendSix;
     }
 
-    public void setExtendSix(Integer extendSix) {
+    public void setExtendSix(int extendSix) {
         this.extendSix = extendSix;
     }
 

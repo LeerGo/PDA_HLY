@@ -17,12 +17,16 @@ public class GoodsItemVO extends SelectItem {
     private String gmtManufacture; // 生产日期
     private String extendOne; // 产地
     private String extendTwo; // 特殊品项
+    private Integer extendThree; // 拓展 3
+    private Integer extendFour; // 拓展 4
+    private String extendFive; // 拓展 5
+    private String extendSix; // 拓展 6
     private int traysNum; // (整)托数
     private int pickingTraysNum; // (整)托数 - 已捡
-    private int supportNum; // 码托数量
+    private Integer supportNum; // 码托数量
     private int recheckQuantity; // 复核数量
     private int pickingQuantity; // 拣货数量
-    private int receivedQuantity; //  收货数量（收货确认用）
+    private Integer receivedQuantity; //  收货数量（收货确认用）
     private int itemReceivedQuantity; // 收货数量（收货详情列表用）
     private int planQuantity; // 计划数量，在复核里是拣货数量
     private int quantity;
@@ -36,6 +40,10 @@ public class GoodsItemVO extends SelectItem {
     private String locationName; // 库位名称
     private String tempInventoryCode; // 收货确认使用，临时库存code
     private String oldLocationName;// 拣货库位
+    private String serialNumber; //序列号
+    private String supplier;// 供应商
+    private String gmtStock;// 存货日期
+    private String gmtExpire; // 过期日期
 
     public int getPickingTraysNum() {
         return pickingTraysNum;
@@ -53,11 +61,11 @@ public class GoodsItemVO extends SelectItem {
         this.oldLocationName = oldLocationName;
     }
 
-    public int getReceivedQuantity() {
+    public Integer getReceivedQuantity() {
         return receivedQuantity;
     }
 
-    public void setReceivedQuantity(int receivedQuantity) {
+    public void setReceivedQuantity(Integer receivedQuantity) {
         this.receivedQuantity = receivedQuantity;
     }
 
@@ -125,11 +133,11 @@ public class GoodsItemVO extends SelectItem {
         this.recheckQuantity = recheckQuantity;
     }
 
-    public int getSupportNum() {
+    public Integer getSupportNum() {
         return supportNum;
     }
 
-    public void setSupportNum(int supportNum) {
+    public void setSupportNum(Integer supportNum) {
         this.supportNum = supportNum;
     }
 
@@ -265,5 +273,69 @@ public class GoodsItemVO extends SelectItem {
 
     public void increasePickingTraysNum() {
         this.pickingTraysNum++;
+    }
+
+    public Integer getExtendThree() {
+        return extendThree;
+    }
+
+    public void setExtendThree(Integer extendThree) {
+        this.extendThree = extendThree;
+    }
+
+    public Integer getExtendFour() {
+        return extendFour;
+    }
+
+    public void setExtendFour(Integer extendFour) {
+        this.extendFour = extendFour;
+    }
+
+    public String getExtendFive() {
+        return extendFive;
+    }
+
+    public void setExtendFive(String extendFive) {
+        this.extendFive = extendFive;
+    }
+
+    public String getExtendSix() {
+        return extendSix;
+    }
+
+    public void setExtendSix(String extendSix) {
+        this.extendSix = extendSix;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+    public String getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(String supplier) {
+        this.supplier = supplier;
+    }
+
+    public String getGmtStock() {
+        return gmtStock;
+    }
+
+    public void setGmtStock(String gmtStock) {
+        this.gmtStock = gmtStock;
+    }
+
+    public String getGmtExpire() {
+        return gmtExpire;
+    }
+
+    public void setGmtExpire(String gmtExpire) {
+        this.gmtExpire = gmtExpire;
     }
 }

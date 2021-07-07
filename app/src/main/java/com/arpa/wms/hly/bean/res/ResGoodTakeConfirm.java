@@ -2,6 +2,7 @@ package com.arpa.wms.hly.bean.res;
 
 import com.google.gson.annotations.Expose;
 
+import com.arpa.wms.hly.bean.BatchRuleBean;
 import com.arpa.wms.hly.bean.InventoryStatus;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeConfirm;
 
@@ -23,6 +24,8 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
     private ReceiveBean receive; // 取车牌号
     @Expose(serialize = false)
     private List<InventoryStatus> inventoryStatusList; // 去状态列表
+    @Expose(serialize = false)
+    private BatchRuleBean batchRule; // 规则列表
 
     public ReceiveBean getReceive() {
         return receive;
@@ -62,6 +65,14 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
 
     public void setInventoryStatusList(List<InventoryStatus> inventoryStatusList) {
         this.inventoryStatusList = inventoryStatusList;
+    }
+
+    public BatchRuleBean getBatchRule() {
+        return batchRule;
+    }
+
+    public void setBatchRule(BatchRuleBean batchRule) {
+        this.batchRule = batchRule;
     }
 
     public static class ReceiveBean {

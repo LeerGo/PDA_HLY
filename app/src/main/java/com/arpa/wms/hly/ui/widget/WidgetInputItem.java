@@ -166,8 +166,8 @@ public class WidgetInputItem extends RelativeLayout {
     }
 
     @BindingAdapter("inputValue")
-    public static void setInputValue(WidgetInputItem view, int value) {
-        view.setInputText(value == 0 ? "" : String.valueOf(value));
+    public static void setInputValue(WidgetInputItem view, Integer value) {
+        view.setInputText(null == value ? "" : value.toString());
     }
 
     @InverseBindingAdapter(attribute = "inputText")
@@ -188,8 +188,8 @@ public class WidgetInputItem extends RelativeLayout {
     }
 
     @InverseBindingAdapter(attribute = "inputValue")
-    public static int getInputValue(WidgetInputItem view) {
-        if (TextUtils.isEmpty(view.getInputText())) return 0;
+    public static Integer getInputValue(WidgetInputItem view) {
+        if (TextUtils.isEmpty(view.getInputText())) return null;
         return Integer.parseInt(view.getInputText());
     }
 

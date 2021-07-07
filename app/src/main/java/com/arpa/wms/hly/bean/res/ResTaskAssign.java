@@ -45,6 +45,8 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private int totalQuantity;
     private BigDecimal volume;// 方量
     private BigDecimal weight;// 重量
+    private String supplierCode; // 供应商 code
+    private String supplierName; // 供应商 名称
 
     public ResTaskAssign() {
     }
@@ -69,6 +71,8 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.totalQuantity = in.readInt();
         this.volume = (BigDecimal) in.readSerializable();
         this.weight = (BigDecimal) in.readSerializable();
+        this.supplierCode = in.readString();
+        this.supplierName = in.readString();
     }
 
     public String getSourceCode() {
@@ -243,6 +247,22 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.planQuantity = planQuantity;
     }
 
+    public String getSupplierCode() {
+        return supplierCode;
+    }
+
+    public void setSupplierCode(String supplierCode) {
+        this.supplierCode = supplierCode;
+    }
+
+    public String getSupplierName() {
+        return supplierName;
+    }
+
+    public void setSupplierName(String supplierName) {
+        this.supplierName = supplierName;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -269,6 +289,8 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         dest.writeInt(this.totalQuantity);
         dest.writeSerializable(this.volume);
         dest.writeSerializable(this.weight);
+        dest.writeString(this.supplierCode);
+        dest.writeString(this.supplierName);
     }
 
     public void readFromParcel(Parcel source) {
@@ -291,5 +313,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.totalQuantity = source.readInt();
         this.volume = (BigDecimal) source.readSerializable();
         this.weight = (BigDecimal) source.readSerializable();
+        this.supplierCode = source.readString();
+        this.supplierName = source.readString();
     }
 }

@@ -47,6 +47,7 @@ public interface Const {
         String RECEIVE_ITEM_CODE = "receiveItemCode";
         String GOODS_NAME = "goodName";
         String GOODS_UNIT_NAME = "goodUnitName";
+        String SUPPLIER = "supplier";
     }
 
     /**
@@ -197,5 +198,13 @@ public interface Const {
         String GOODS_PICK = "拣货";
         String GOODS_RECHECK = "复核";
         String GOODS_LOADING = "装车";
+    }
+
+    interface DateType {
+        int gmtManufacture = 0; // 生产日期
+        int gmtExpire = 1;// 过期日期
+        int gmtStock = 2;//存货日期
+        int extendFive = 3; // 拓展 5
+        int extendSix = 4; // 拓展 6
     }
 }

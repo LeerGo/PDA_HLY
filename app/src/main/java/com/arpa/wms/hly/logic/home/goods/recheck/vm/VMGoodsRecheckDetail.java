@@ -41,12 +41,12 @@ public class VMGoodsRecheckDetail extends VMPdaTaskDetail {
 
     @Override
     protected void refreshHeader() {
-        apiService.recheckItemList(headerData.get().getCode())
+        apiService.recheckItemList(headerData.getValue().getCode())
                 .enqueue(new ResultCallback<ResTaskAssign>() {
                     @Override
                     public void onSuccess(ResTaskAssign data) {
                         data.toRecheckDetail();
-                        headerData.set(data);
+                        headerData.postValue(data);
                     }
 
                     @Override

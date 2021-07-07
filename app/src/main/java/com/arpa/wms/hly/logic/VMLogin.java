@@ -30,8 +30,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class VMLogin extends VMWarehouse {
     // TODO: 这里的默认值记得干掉 @lyf 2021-04-27 03:41:59
-    private final ObservableField<String> userName = new ObservableField<>("test02");
-    private final ObservableField<String> userPass = new ObservableField<>("test02");
+    private final ObservableField<String> userName = new ObservableField<>("xiabaoxin");
+    private final ObservableField<String> userPass = new ObservableField<>("xiabaoxin");
     private final ObservableField<Boolean> isShowPass = new ObservableField<>();
 
     @Inject

@@ -13,6 +13,7 @@ import com.arpa.wms.hly.ui.dialog.DialogDateSelect;
 import com.arpa.wms.hly.ui.dialog.DialogGoodStatusSelect;
 import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const.DateType;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
@@ -44,6 +45,8 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
                 showDialogFragment(new DialogTips("整单确认", "当前订单存在未收货商品，整单确认后未收货商品不能继续收货。", () -> viewModel.orderConfirm(true)))
         );
         viewModel.request.setParams(getIntent().getStringExtra(IntentKey.CODE), getIntent().getStringExtra(IntentKey.RECEIVE_CODE));
+        viewModel.supplier = getIntent().getStringExtra(IntentKey.SUPPLIER);
+
         viewModel.itemBinding
                 .bindExtra(BR.onStatusClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
                         showDialogFragment(new DialogGoodStatusSelect(raw.getGoodsStatus(), viewModel.detail.getInventoryStatusList(),
@@ -51,14 +54,16 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
                                     raw.setGoodsStatus(data.getCode());
                                     raw.setGoodsStatusName(data.getName());
                                     viewModel.update(position, raw);
-                                }))
-                )
-                .bindExtra(BR.onDateClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
+                                })))
+                .bindExtra(BR.onDateClick, (ViewListener.OnDateClickListener<GoodsItemVO>) (view, position, dateType, raw) ->
                         showDialogFragment(new DialogDateSelect(date -> {
-                            raw.setGmtManufacture(date);
+                            if (dateType == DateType.gmtManufacture) raw.setGmtManufacture(date);
+                            if (dateType == DateType.gmtExpire) raw.setGmtExpire(date);
+                            if (dateType == DateType.gmtStock) raw.setGmtStock(date);
+                            if (dateType == DateType.extendFive) raw.setExtendFive(date);
+                            if (dateType == DateType.extendSix) raw.setExtendSix(date);
                             viewModel.update(position, raw);
-                        }))
-                );
+                        })));
         viewBind.wsbSearch.setOnSearchClick(data -> {
             viewModel.request.setGoodsBarCode(data);
             viewModel.requestData();

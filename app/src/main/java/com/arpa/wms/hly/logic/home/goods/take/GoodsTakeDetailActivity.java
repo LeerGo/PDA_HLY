@@ -46,7 +46,7 @@ public class GoodsTakeDetailActivity extends WrapBaseActivity<VMGoodsTakeDetail,
         viewBind.setViewModel(viewModel);
         viewBind.viewpager.registerOnPageChangeCallback(pageChangeCallback);
         ResTaskAssign data = getIntent().getParcelableExtra(Const.IntentKey.DATA);
-        viewModel.headerData.set(data);
+        viewModel.headerData.setValue(data);
         viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(TAKE_WAIT, data.getCode()));
         viewModel.fragments.add(GoodsTakeDetailFragment.newInstance(TAKE_YET, data.getCode()));
         viewBind.wsbSearch.setOnSearchClick(keyWord -> {

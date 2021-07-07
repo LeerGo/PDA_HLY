@@ -39,6 +39,7 @@ import retrofit2.Call;
  */
 @HiltViewModel
 public class VMGoodsTakeDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
+    public String supplierName;
     public ReqGoodTakeDetail request = new ReqGoodTakeDetail();
 
     @Inject
@@ -91,6 +92,7 @@ public class VMGoodsTakeDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
                 Bundle bundle = new Bundle();
                 bundle.putString(IntentKey.CODE, data.getCode());
                 bundle.putString(IntentKey.RECEIVE_CODE, data.getReceiveCode());
+                bundle.putString(IntentKey.SUPPLIER, supplierName);
                 startActivity(GoodsTakeConfirmActivity.class, bundle);
             });
         } else {

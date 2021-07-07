@@ -41,11 +41,11 @@ public class VMGoodsTakeDetail extends VMPdaTaskDetail {
 
     @Override
     protected void refreshHeader() {
-        apiService.receiveDetailsAbove(headerData.get().getCode())
+        apiService.receiveDetailsAbove(headerData.getValue().getCode())
                 .enqueue(new ResultCallback<ResTaskAssign>() {
                     @Override
                     public void onSuccess(ResTaskAssign data) {
-                        headerData.set(data);
+                        headerData.postValue(data);
                     }
 
                     @Override

@@ -24,11 +24,11 @@ import androidx.lifecycle.MutableLiveData;
  * </p>
  */
 public abstract class VMPdaTaskDetail extends WrapDataViewModel {
+    public final SearchInfo searchInfo = new SearchInfo();
     public final ObservableField<String> searchHint = new ObservableField<>();
-    public final ObservableField<ResTaskAssign> headerData = new ObservableField<>();
     public final ObservableList<Fragment> fragments = new ObservableArrayList<>();
     public final ObservableList<String> titles = new ObservableArrayList<>();
-    public final SearchInfo searchInfo = new SearchInfo();
+    public final MutableLiveData<ResTaskAssign> headerData = new MutableLiveData<>();
     public final MutableLiveData<SearchInfo> searchLiveData = new MutableLiveData<>();
 
     public VMPdaTaskDetail(@NonNull Application application, BaseModel model) {

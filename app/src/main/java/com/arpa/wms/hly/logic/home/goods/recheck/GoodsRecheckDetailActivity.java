@@ -48,7 +48,7 @@ public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckD
         viewBind.setViewModel(viewModel);
         viewBind.viewpager.registerOnPageChangeCallback(pageChangeCallback);
         ResTaskAssign data = getIntent().getParcelableExtra(IntentKey.DATA);
-        viewModel.headerData.set(data);
+        viewModel.headerData.setValue(data);
         viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_WAIT, data.getCode()));
         viewModel.fragments.add(GoodsRecheckDetailFragment.newInstance(Const.TASK_STATUS.RECHECK_YET, data.getCode()));
         viewBind.wsbSearch.setOnSearchClick(keyWord -> {

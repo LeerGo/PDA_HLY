@@ -24,4 +24,8 @@ public interface ViewListener {
     interface OnItemClickListener <T> {
         void onItemClick(View view, int position, T data);
     }
+
+    interface OnDateClickListener <T> {
+        void onItemClick(View view, int position, int type, T data);
+    }
 }
