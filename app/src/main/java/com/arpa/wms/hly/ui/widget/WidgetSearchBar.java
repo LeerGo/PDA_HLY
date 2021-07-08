@@ -21,7 +21,7 @@ import androidx.appcompat.widget.LinearLayoutCompat;
  * since: 2021-04-22 9:42 AM
  *
  * <p>
- * 内容描述区域
+ * 控件：搜索框封装
  * </p>
  */
 public class WidgetSearchBar extends LinearLayoutCompat {
@@ -30,6 +30,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
     private DataTransCallback<String> onSearchClick;
     private View.OnClickListener onClearClick;
     private boolean doClear = true;
+    private long lastTimestamp = -1;
 
     public WidgetSearchBar(Context context) {
         super(context);
@@ -63,7 +64,16 @@ public class WidgetSearchBar extends LinearLayoutCompat {
 
     private void doSearch(View v) {
         if (null != onSearchClick) {
-            onSearchClick.transfer(etKey.getText().toString().trim());
+            // FIX：时间戳流控，解决一下两个问题  @lyf 2021-07-08 10:39:02
+            //      1. 快速点击右侧搜索按钮时会请求多次，UI 上表现为加载多个页面
+            //      2. 点击软键盘搜索时，出于兼容对 enter、search 两种模式同步监听
+            //         有时就会出先 search 一次随后发出 enter，从而发起两次请求，
+            //         在 UI 上就表现为唤起多个页面的问题
+            long currentTimestamp = System.currentTimeMillis();
+            if (currentTimestamp - lastTimestamp >= 1000) {
+                lastTimestamp = System.currentTimeMillis();
+                onSearchClick.transfer(etKey.getText().toString().trim());
+            }
         }
     }
 

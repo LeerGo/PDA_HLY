@@ -77,7 +77,6 @@ public class VMInventoryScan extends WrapDataViewModel {
      */
     public void scanGoods(String goodsBarCode, String locationName, String container) {
         updateStatus(StatusEvent.Status.LOADING);
-        // SHLSKW 111
         ReqMoveGoods reqMoveGoods = new ReqMoveGoods();
         reqMoveGoods.setContainerBarCode(container);
         reqMoveGoods.setGoodsBarCode(goodsBarCode);
