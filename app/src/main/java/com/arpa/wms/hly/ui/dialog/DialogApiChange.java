@@ -1,13 +1,13 @@
 package com.arpa.wms.hly.ui.dialog;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.net.ApiService.API;
-import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.ToastUtils;
 import com.king.retrofit.retrofithelper.RetrofitHelper;
@@ -17,6 +17,9 @@ import java.util.regex.Pattern;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
+
+import static com.arpa.wms.hly.utils.Const.SPKEY.TEST_SERVER;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -28,7 +31,7 @@ import androidx.appcompat.widget.AppCompatButton;
  * </p>
  */
 public class DialogApiChange extends BaseBottomDialogFragment {
-    private View.OnClickListener onIPChange;
+    private final View.OnClickListener onIPChange;
 
     public DialogApiChange() {
         this(null);
@@ -53,13 +56,16 @@ public class DialogApiChange extends BaseBottomDialogFragment {
         AppCompatButton btnCancel = (AppCompatButton) findViewById(R.id.apt_cancel);
         AppCompatButton btnSure = (AppCompatButton) findViewById(R.id.apt_sure);
         EditText etIP = (EditText) findViewById(R.id.et_ip);
+        AppCompatTextView tvIP = (AppCompatTextView) findViewById(R.id.tv_current);
+        String cip = SPUtils.getInstance().getString(TEST_SERVER);
+        tvIP.setText(TextUtils.isEmpty(cip) ? API.URL_WMS : cip);
 
         btnCancel.setOnClickListener(v -> dismiss());
         btnSure.setOnClickListener(v -> {
             String ip = "http://" + etIP.getText().toString();
             if (validIP(ip)) {
                 RetrofitHelper.getInstance().putDomain(API.KEY_WMS, ip);
-                SPUtils.getInstance().put(Const.SPKEY.TEST_SERVER, ip);
+                SPUtils.getInstance().put(TEST_SERVER, ip);
                 ToastUtils.showShortSafe("新 IP 已即时生效，请进行后续操作");
                 if (null != onIPChange) onIPChange.onClick(v);
                 dismiss();

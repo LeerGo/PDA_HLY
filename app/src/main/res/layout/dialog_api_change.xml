@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.appcompat.widget.LinearLayoutCompat
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
@@ -12,9 +13,19 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
-        android:text="更换测环服务器 IP"
+        android:text="更换测试服务器 IP"
         android:textColor="@color/color_434c67"
         android:textSize="17sp" />
+    
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/tv_current"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="15dp"
+        android:textColor="@color/grey"
+        android:textSize="14sp"
+        tools:text="当前 IP: 192.168.31.166" />
     
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
