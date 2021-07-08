@@ -1,5 +1,6 @@
 package com.arpa.wms.hly.ui.dialog;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -52,13 +53,14 @@ public class DialogApiChange extends BaseBottomDialogFragment {
     }
 
 
+    @SuppressLint("SetTextI18n")
     private void setOptArea() {
         AppCompatButton btnCancel = (AppCompatButton) findViewById(R.id.apt_cancel);
         AppCompatButton btnSure = (AppCompatButton) findViewById(R.id.apt_sure);
         EditText etIP = (EditText) findViewById(R.id.et_ip);
         AppCompatTextView tvIP = (AppCompatTextView) findViewById(R.id.tv_current);
         String cip = SPUtils.getInstance().getString(TEST_SERVER);
-        tvIP.setText(TextUtils.isEmpty(cip) ? API.URL_WMS : cip);
+        tvIP.setText("当前环境：" + (TextUtils.isEmpty(cip) ? API.URL_WMS : cip));
 
         btnCancel.setOnClickListener(v -> dismiss());
         btnSure.setOnClickListener(v -> {
