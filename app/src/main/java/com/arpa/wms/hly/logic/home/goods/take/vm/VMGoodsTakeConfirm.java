@@ -149,7 +149,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
             GoodsItemVO data = (GoodsItemVO) items.get(i);
             batchGoodsCount += NumberUtils.parseInteger(data.getReceivedQuantity());
             // 条件#1
-            if (batchGoodsCount >= detail.getPlanQuantity()) {
+            if (batchGoodsCount > detail.getPlanQuantity()) {
                 ToastUtils.showShort("已录入批次收货数量超过应收数量");
                 result = false;
                 break;
