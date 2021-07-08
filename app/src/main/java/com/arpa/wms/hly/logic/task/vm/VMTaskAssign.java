@@ -170,7 +170,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
 
         if (null != data) {
             for (TaskStaff staff : data.getStaffs()) {
-                reqTaskAssign.getPartyCodeList().add(new PartyCodeList(staff.getId(), staff.getName()));
+                reqTaskAssign.getPartyCodeList().add(new PartyCodeList(staff.getCode(), staff.getName()));
             }
 
             if (null != data.getJobType())
