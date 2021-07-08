@@ -2,6 +2,7 @@ package com.arpa.wms.hly.logic.mine;
 
 import android.app.Application;
 import android.content.Intent;
+import android.text.TextUtils;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent.Status;
@@ -20,6 +21,8 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
+
+import static com.arpa.wms.hly.utils.Const.SPKEY.TEST_SERVER;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -58,9 +61,20 @@ public class VMMine extends VMWarehouse {
      * 退出登录
      */
     public void logout() {
-        SPUtils.getInstance().clear();
+        processLocalStorage();
         startActivity(LoginActivity.class, Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
         finish();
+    }
+
+    /**
+     * 处理本地存储（Shared）
+     */
+    private void processLocalStorage() {
+        String IP = spGetString(TEST_SERVER);
+        SPUtils.getInstance().clear();
+        if (!TextUtils.isEmpty(IP)) {
+            spPut(TEST_SERVER, IP);
+        }
     }
 
     /**

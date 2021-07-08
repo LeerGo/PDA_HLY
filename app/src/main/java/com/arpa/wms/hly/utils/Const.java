@@ -154,6 +154,8 @@ public interface Const {
         String USER_NAME = "userName";
         // 登录token
         String TOKEN_SSO = "tokenSSO";
+        // 服务 IP
+        String TEST_SERVER = "test_server";
     }
 
     /**

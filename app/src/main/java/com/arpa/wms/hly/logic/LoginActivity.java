@@ -2,10 +2,12 @@ package com.arpa.wms.hly.logic;
 
 import android.os.Bundle;
 
+import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityLoginBinding;
+import com.arpa.wms.hly.ui.dialog.DialogApiChange;
 import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 
@@ -39,6 +41,11 @@ public class LoginActivity extends WrapBaseActivity<VMLogin, ActivityLoginBindin
                 viewModel.bindWarehouse(list.get(0), true);
             } else {
                 showDialogFragment(new DialogWarehouseSelect(list, this));
+            }
+        });
+        viewBind.tvWelcome.setOnClickListener(v -> {
+            if (BuildConfig.DEBUG) {
+                showDialogFragment(new DialogApiChange());
             }
         });
     }

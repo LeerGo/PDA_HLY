@@ -2,10 +2,12 @@ package com.arpa.wms.hly.logic.mine;
 
 import android.os.Bundle;
 
+import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.arpa.wms.hly.databinding.ActivityMineBinding;
+import com.arpa.wms.hly.ui.dialog.DialogApiChange;
 import com.arpa.wms.hly.ui.dialog.DialogModifyPass;
 import com.arpa.wms.hly.ui.dialog.DialogWarehouseSelect;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
@@ -45,6 +47,10 @@ public class MineActivity extends WrapBaseActivity<VMMine, ActivityMineBinding> 
         viewBind.acbModifyPass.setOnClickListener(v ->
                 showDialogFragment(new DialogModifyPass(data -> viewModel.modifyPassword(data)))
         );
+        viewBind.ivAvatar.setOnClickListener(v -> {
+            if (BuildConfig.DEBUG)
+                showDialogFragment(new DialogApiChange(view -> viewModel.logout()));
+        });
     }
 
     @Override

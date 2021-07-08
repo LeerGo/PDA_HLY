@@ -5,6 +5,7 @@ import android.app.Application;
 import com.arpa.wms.hly.net.ApiService.API;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.Header;
+import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.Utils;
 import com.king.retrofit.retrofithelper.RetrofitHelper;
 import com.orhanobut.logger.AndroidLogAdapter;
@@ -18,6 +19,8 @@ import com.tencent.bugly.crashreport.CrashReport;
 
 import dagger.hilt.android.HiltAndroidApp;
 import timber.log.Timber;
+
+import static com.arpa.wms.hly.utils.Const.SPKEY.TEST_SERVER;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -65,6 +68,9 @@ public class App extends Application {
         RetrofitHelper.getInstance().putDomain(API.KEY_SSO, API.URL_SSO);
         RetrofitHelper.getInstance().setAddHeader(true);
         RetrofitHelper.getInstance().addHeader(Header.SOURCE_ID, Header.SOURCE_ANDROID);
+        if (SPUtils.getInstance().contains(TEST_SERVER)) {
+            RetrofitHelper.getInstance().putDomain(API.KEY_WMS, SPUtils.getInstance().getString(TEST_SERVER));
+        }
     }
 
     private void initLogger() {

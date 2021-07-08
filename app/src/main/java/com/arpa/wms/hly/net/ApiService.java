@@ -39,12 +39,14 @@ public interface ApiService {
     /**
      * 获取仓库 SSO
      */
+    @DomainName(API.KEY_WMS)
     @GET(API.API_WAREHOUSE_SSO)
     Call<Result<List<ResWarehouse>>> getWarehouseWithSSO();
 
     /**
      * 绑定仓库 SSO
      */
+    @DomainName(API.KEY_WMS)
     @GET(API.API_BIND_WAREHOUSE)
     Call<Result<Object>> bindWarehouse(@Query("warehouseCode") String warehouseCode);
 
@@ -67,24 +69,28 @@ public interface ApiService {
     /**
      * 切换登录信息
      */
+    @DomainName(API.KEY_WMS)
     @POST("/wms/pda/auth/user/updatePassword")
     Call<Result<Object>> updatePass(@Body ReqModifyPass request);
 
     /**
      * 获取首页的任务任务列表
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/tasks")
     Call<ResultPage<ResTaskAssign>> pdaTasks(@QueryMap Map<String, Object> data);
 
     /**
      * 拣货单-拣货任务详情
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/picking/{sourceCode}")
     Call<Result<List<GoodsItemVO>>> pickingDetail(@Path("sourceCode") String sourceCode);
 
     /**
      * 拣货单-拣货任务详情
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/picking/pickingConfirm/{code}")
     Call<Result<Object>> pickingConfirm(@Path("code") String code);
 
@@ -92,35 +98,41 @@ public interface ApiService {
      * PDA分配装卸工、叉车工、保管员
      */
     @POST("/wms/pda/tasks/assignPDA")
+    @DomainName(API.KEY_WMS)
     Call<Result<Object>> pdaTasksAssign(@Body ReqTaskAssign reqTaskAssign);
 
     /**
      * PDA取消分配装卸工、叉车工、保管员
      */
     @POST("/wms/pda/tasks/cancelAssign")
+    @DomainName(API.KEY_WMS)
     Call<Result<Object>> pdaTasksCancelAssign(@Body ReqTaskAssign reqTaskAssign);
 
     /**
      * 收货列表接口
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/receive/list")
     Call<ResultPage<ResTaskAssign>> goodsReceiveList(@QueryMap Map<String, Object> data);
 
     /**
      * 收货详情接口上方数据
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/receive/receiveDetailsAbouve")
     Call<Result<ResTaskAssign>> receiveDetailsAbove(@Query("receiveCode") String receiveCode);
 
     /**
      * 收货详情接口下方数据
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/receive/receiveDetailsBelow")
     Call<Result<List<GoodsItemVO>>> receiveDetailsBelow(@QueryMap Map<String, Object> data);
 
     /**
      * 收货登记查询明细
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/receive/register")
     Call<Result<ResGoodTakeConfirm>> takeRegisterDetail(@QueryMap Map<String, Object> data);
 
@@ -128,71 +140,83 @@ public interface ApiService {
      * PDA收货登记确认
      */
     @POST("/wms/pda/receive/confirm")
+    @DomainName(API.KEY_WMS)
     Call<Result<Object>> takeSingleConfirm(@Body ReqGoodTakeConfirm reqGoodTakeConfirm);
 
     /**
      * PDA收货登记整单确认
      */
     @POST("/wms/pda/receive/wholeConfirm")
+    @DomainName(API.KEY_WMS)
     Call<Result<Object>> takeWholeConfirm(@Body ReqGoodTakeConfirm reqGoodTakeConfirm);
 
     /**
      * 复核列表接口
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/outbound/recheckList")
     Call<ResultPage<ResTaskAssign>> goodsRecheckList(@QueryMap Map<String, Object> data);
 
     /**
      * 查询复核列表详情接口上方数据
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/outbound/recheckItemListAbouve")
     Call<Result<ResTaskAssign>> recheckItemList(@Query("outboundCode") String outboundCode);
 
     /**
      * 查询复核列表详情接口下方数据
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/outbound/recheckItemListBelow")
     Call<Result<List<GoodsItemVO>>> recheckItemListBelow(@QueryMap Map<String, Object> data);
 
     /**
      * 查询单个商品复核详情
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/outbound/recheckRegisterDetail")
     Call<Result<GoodsItemVO>> recheckRegisterDetail(@QueryMap Map<String, Object> data);
 
     /**
      * 复核确认
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/outbound/singleRecheck")
     Call<Result<Object>> recheckConfirm(@QueryMap Map<String, Object> data);
 
     /**
      * 库存查询
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/inventory")
     Call<ResultPage<ResInventory>> inventoryQuery(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描库位
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/moveTask/scanLocation")
     Call<Result<ResMoveLocation>> scanLocation(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描商品
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/moveTask/scanGoods")
     Call<Result<ResMoveGoods>> scanGoods(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描商品 - 列表
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/moveTask/goodsListDetail")
     Call<Result<ResMoveGoods>> scanGoodsListDetail(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描商品 - 详情
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/moveTask/goodsDetail")
     Call<Result<ResMoveGoodsSure>> scanGoodsDetail(@QueryMap Map<String, Object> data);
 
@@ -200,17 +224,20 @@ public interface ApiService {
      * 无计划扫描商品 - 详情
      */
     @POST("/wms/pda/moveTask/moveConfirm")
+    @DomainName(API.KEY_WMS)
     Call<Result<ResMoveGoods>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
 
     /**
      * 获取装车列表
      */
     @POST("/wms/pda/outbound/loadingCarTaskList")
+    @DomainName(API.KEY_WMS)
     Call<Result<ResTruckLoad>> getTruckLoadList(@Body ReqTruckLoadDetail reqTruckLoadDetail);
 
     /**
      * 获取装车确认详情
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/outbound/loadingCarDetail")
     Call<Result<ResTruckLoadConfirm>> getTruckLoadConfirmDetail(@Query("outboundCode") String outboundCode);
 
@@ -218,17 +245,20 @@ public interface ApiService {
      * 获取装车提交确认
      */
     @POST("/wms/pda/outbound/loadingCarConfirm")
+    @DomainName(API.KEY_WMS)
     Call<Result<Object>> confirmTruckLoad(@Body ReqTruckLoadConfirm reqTruckLoadConfirm);
 
     /**
      * 获取仓库作业员列表
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/pda/WorkStaff/getWorkStaff")
     Call<Result<ResTaskWorker>> getWorkStaff(@QueryMap Map<String, Object> data);
 
     /**
      * 获取用户权限
      */
+    @DomainName(API.KEY_WMS)
     @GET("/wms/auth/user/already")
     Call<Result<List<ResRole>>> getRole();
 
@@ -237,15 +267,12 @@ public interface ApiService {
      */
     interface API {
         String KEY_SSO = "API-SSO-AUTH";
+        String KEY_WMS = "API-WMS";
 
         /**
          * 仓储服务 API 服务地址
          */
         String URL_WMS = "http://121.36.109.152"; // 测试服务
-        //        String URL_WMS = "http://192.168.31.166"; // 夏宝新
-        //        String URL_WMS = "http://192.168.30.181"; // 邵朱尧
-        //        String URL_WMS = "http://192.168.30.61";  // 李一方
-        //        String URL_WMS = "http://192.168.31.123"; // 闫庆玉
 
         /**
          * 单点登录
