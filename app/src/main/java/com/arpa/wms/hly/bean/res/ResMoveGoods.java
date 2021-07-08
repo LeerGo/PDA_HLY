@@ -2,6 +2,7 @@ package com.arpa.wms.hly.bean.res;
 
 import com.arpa.wms.hly.bean.BatchRuleBean;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class ResMoveGoods {
@@ -97,50 +98,6 @@ public class ResMoveGoods {
     }
 
     public static class InventoryListBean {
-        /**
-         * code : 195d856e569747ac967e0d432425dfcc
-         * containerBarCode : TP002
-         * createdBy : 7d1c6e44b2934ab39d0a077f5337c182
-         * expirationQuantity : 2
-         * extendFive : 2020-10-04
-         * extendFour : 1
-         * extendOne : 1
-         * extendSix : 2020-10-04
-         * extendThree : 1
-         * extendTwo : 1
-         * gmtCreated : 2020-10-20 09:54:10
-         * gmtExpire : 2020-10-06
-         * gmtManufacture : 2020-10-04
-         * gmtModified : 2020-10-20 09:54:10
-         * gmtStock : 2020-10-20
-         * goodCode : xy01
-         * goodsBarCode : xy01
-         * goodsCode : 01a324349b1d4f41bcef7f5acdea9c8a
-         * goodsName : xy商品01
-         * goodsStatus : 416362839df3487cae9189ac353e6a28
-         * goodsStatusName : 状态名称1
-         * goodsUnit : 98b9733923294c81a245442c172640e2
-         * id : 301
-         * inventoryCode : 195d856e569747ac967e0d432425dfcc
-         * isLock : 0
-         * location : e92125b0811941ee8433539aa732770e
-         * lockName : 未锁定
-         * lot : hz001|xy01|20201004|20201006|20201020|20201020003|xy供应商01|1|1|1|1|20201004|20201004
-         * modifiedBy :
-         * quantity : 15
-         * receiveLot : 20201020003
-         * remarks :
-         * serialNumber : 1
-         * shipmentCode : e3d5590b9a2343628f744b6618df2b66
-         * shipmentName : 梦娇兰
-         * supplier : xy供应商01
-         * tempInventory : 0
-         * unitName : 只
-         * useQuantity : 0
-         * version : 0
-         * warehouseCode : 854e023b9edf4837a391b22030d6e65f
-         * warehouseSpaceCode : 910e784c6d76452294092216d698483c
-         */
         private String code;
         private String containerBarCode;
         private String createdBy;
@@ -185,23 +142,23 @@ public class ResMoveGoods {
         private String warehouseSpaceCode;
         private String inventoryContainerBarCode;
         private BatchRuleBean batchRule;
-        private int canUseQuantity;
-        private int supportNum;
-        private int traysNum;
+        private BigDecimal canUseQuantity;
+        private BigDecimal supportNum;
+        private BigDecimal traysNum;
 
-        public int getSupportNum() {
+        public BigDecimal getSupportNum() {
             return supportNum;
         }
 
-        public void setSupportNum(int supportNum) {
+        public void setSupportNum(BigDecimal supportNum) {
             this.supportNum = supportNum;
         }
 
-        public int getTraysNum() {
+        public BigDecimal getTraysNum() {
             return traysNum;
         }
 
-        public void setTraysNum(int traysNum) {
+        public void setTraysNum(BigDecimal traysNum) {
             this.traysNum = traysNum;
         }
 
@@ -213,11 +170,11 @@ public class ResMoveGoods {
             this.batchRule = batchRule;
         }
 
-        public int getCanUseQuantity() {
+        public BigDecimal getCanUseQuantity() {
             return canUseQuantity;
         }
 
-        public void setCanUseQuantity(int canUseQuantity) {
+        public void setCanUseQuantity(BigDecimal canUseQuantity) {
             this.canUseQuantity = canUseQuantity;
         }
 

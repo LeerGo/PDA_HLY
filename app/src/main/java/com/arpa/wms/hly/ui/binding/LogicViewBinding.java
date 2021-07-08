@@ -4,7 +4,10 @@ import android.text.TextUtils;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.ui.widget.WidgetPropsItem;
 import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
+
+import java.math.BigDecimal;
 
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.databinding.BindingAdapter;
@@ -48,6 +51,13 @@ public class LogicViewBinding {
     public static void setOnSearch(WidgetSearchBar widgetSearchBar, ViewListener.DataTransCallback<String> listener) {
         if (null != listener) {
             widgetSearchBar.setOnSearchClick(data -> listener.transfer(data));
+        }
+    }
+
+    @BindingAdapter(value = "decimalValue")
+    public static void setDecimalValue(WidgetPropsItem widget, BigDecimal value) {
+        if (null != value) {
+            widget.setPropsValue(value.stripTrailingZeros().toPlainString());
         }
     }
 }
