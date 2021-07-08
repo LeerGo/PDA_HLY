@@ -15,6 +15,7 @@ import com.arpa.wms.hly.bean.req.ReqGoodTakeDetail;
 import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.utils.NumberUtils;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.List;
@@ -146,7 +147,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
 
         for (int i = 1; i < items.size(); i++) {
             GoodsItemVO data = (GoodsItemVO) items.get(i);
-            batchGoodsCount += data.getReceivedQuantity();
+            batchGoodsCount += NumberUtils.parseInteger(data.getReceivedQuantity());
             // 条件#1
             if (batchGoodsCount >= detail.getPlanQuantity()) {
                 ToastUtils.showShort("已录入批次收货数量超过应收数量");
