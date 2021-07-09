@@ -59,7 +59,12 @@ public class WidgetInputItem extends RelativeLayout {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {
-            if (null != onTextChanged) onTextChanged.transfer(s.toString());
+            //判断当前的输入第一个数是不是为0
+            if (s.toString().matches("^0")) {
+                etInput.setText("");
+            } else {
+                if (null != onTextChanged) onTextChanged.transfer(s.toString());
+            }
         }
 
         @Override
