@@ -7,6 +7,7 @@ import android.util.TypedValue;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
+import com.arpa.wms.hly.utils.Const.DateType;
 import com.zyyoona7.picker.DatePickerView;
 import com.zyyoona7.picker.ex.DayWheelView;
 import com.zyyoona7.picker.ex.MonthWheelView;
@@ -18,6 +19,7 @@ import java.util.Objects;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatTextView;
 
 import static com.zyyoona7.wheel.WheelView.DIVIDER_TYPE_FILL;
 
@@ -32,10 +34,13 @@ import static com.zyyoona7.wheel.WheelView.DIVIDER_TYPE_FILL;
  */
 public class DialogDateSelect extends BaseBottomDialogFragment {
     private final DataTransCallback<String> listener;
+    private final int dateType;
+
     private DatePickerView datePicker;
 
-    public DialogDateSelect(DataTransCallback<String> listener) {
+    public DialogDateSelect(int dateType, DataTransCallback<String> listener) {
         this.listener = listener;
+        this.dateType = dateType;
     }
 
     @Override
@@ -45,8 +50,17 @@ public class DialogDateSelect extends BaseBottomDialogFragment {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        setTitle();
         setDatePicker();
         setOptArea();
+    }
+
+    private void setTitle() {
+        AppCompatTextView tvTitle = (AppCompatTextView) findViewById(R.id.tv_title);
+        if (dateType == DateType.gmtManufacture) tvTitle.setText("请选择生产日期");
+        else if (dateType == DateType.gmtExpire) tvTitle.setText("请选择过期日期");
+        else if (dateType == DateType.gmtStock) tvTitle.setText("请选择存货日期");
+        else tvTitle.setText("请选择日期");
     }
 
     private void setDatePicker() {

@@ -56,7 +56,7 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
                                     viewModel.update(position, raw);
                                 })))
                 .bindExtra(BR.onDateClick, (ViewListener.OnDateClickListener<GoodsItemVO>) (view, position, dateType, raw) ->
-                        showDialogFragment(new DialogDateSelect(date -> {
+                        showDialogFragment(new DialogDateSelect(dateType, date -> {
                             if (dateType == DateType.gmtManufacture) raw.setGmtManufacture(date);
                             if (dateType == DateType.gmtExpire) raw.setGmtExpire(date);
                             if (dateType == DateType.gmtStock) raw.setGmtStock(date);
