@@ -6,6 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityInventoryQueryBinding;
 import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
+import com.arpa.wms.hly.ui.listener.SimpleTextWatcher;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -32,10 +33,21 @@ public class InventoryQueryActivity extends WrapBaseActivity<VMInventoryQuery, A
 
         viewBind.setViewModel(viewModel);
         viewBind.rvList.addItemDecoration(new BothItemDecoration());
-        // TODO: 先临时这样，后面改为 xml 映射 @lyf 2021-05-08 07:51:32
-        viewBind.wsbGoodbar.setOnSearchClick(data -> viewModel.filter(data, false));
-        viewBind.wsbGoodbar.setOnClearClick(v -> viewModel.filter("", false));
-        viewBind.wsbLocation.setOnSearchClick(data -> viewModel.filter(data, true));
-        viewBind.wsbLocation.setOnClearClick(v -> viewModel.filter("", true));
+        viewBind.wsbGoodbar.setWatcher(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.setKeyWord(s.toString(), false);
+            }
+        });
+        viewBind.wsbLocation.setWatcher(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                viewModel.setKeyWord(s.toString(), true);
+            }
+        });
+        viewBind.wsbGoodbar.setOnSearchClick(data -> viewModel.refresh());
+        viewBind.wsbLocation.setOnSearchClick(data -> viewModel.refresh());
+        viewBind.wsbGoodbar.setOnClearClick(v -> viewModel.refresh());
+        viewBind.wsbLocation.setOnClearClick(v -> viewModel.refresh());
     }
 }

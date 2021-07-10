@@ -2,6 +2,7 @@ package com.arpa.wms.hly.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -28,6 +29,7 @@ public class WidgetSearchBar extends LinearLayoutCompat {
     private EditText etKey;
     private AppCompatImageView ivClear;
     private DataTransCallback<String> onSearchClick;
+    private TextWatcher watcher;
     private View.OnClickListener onClearClick;
     private boolean doClear = true;
     private long lastTimestamp = -1;
@@ -53,7 +55,12 @@ public class WidgetSearchBar extends LinearLayoutCompat {
             }
             return false;
         });
-        etKey.setOnFocusChangeListener((v, hasFocus) -> ivClear.setVisibility(hasFocus ? VISIBLE : GONE));
+        etKey.setOnFocusChangeListener((v, hasFocus) -> {
+            if (hasFocus && null != watcher) {
+                etKey.addTextChangedListener(watcher);
+            }
+            ivClear.setVisibility(hasFocus ? VISIBLE : GONE);
+        });
         ivClear.setOnClickListener(v -> {
             etKey.setText("");
             if (doClear) doSearch(v);
@@ -106,5 +113,9 @@ public class WidgetSearchBar extends LinearLayoutCompat {
 
     public void setDoClear(boolean doClear) {
         this.doClear = doClear;
+    }
+
+    public void setWatcher(TextWatcher watcher) {
+        this.watcher = watcher;
     }
 }

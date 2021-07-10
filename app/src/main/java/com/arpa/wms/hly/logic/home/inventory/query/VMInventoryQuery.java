@@ -72,9 +72,8 @@ public class VMInventoryQuery extends VMBaseRefreshList<ResInventory> {
      * @param isLocation
      *         true - 库位；false - 商品条码
      */
-    public void filter(String keyWord, boolean isLocation) {
+    public void setKeyWord(String keyWord, boolean isLocation) {
         if (isLocation) reqInventory.setLocationName(keyWord);
         else reqInventory.setGoodsBarCode(keyWord);
-        refresh();
     }
 }
