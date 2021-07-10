@@ -23,4 +23,16 @@ public class NumberUtils {
     public static int parseInteger(Integer value) {
         return (null == value) ? 0 : value;
     }
+
+    public static String parseDecimal(BigDecimal value) {
+        if (null != value) {
+            // fix: 在 0.000 或是 0 的情况下 stripTrailingZeros 不生效的问题
+            if (value.compareTo(BigDecimal.ZERO) == 0) {
+                return "0";
+            } else {
+                return value.stripTrailingZeros().toPlainString();
+            }
+        }
+        return "";
+    }
 }

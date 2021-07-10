@@ -6,6 +6,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.widget.WidgetPropsItem;
 import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
+import com.arpa.wms.hly.utils.NumberUtils;
 
 import java.math.BigDecimal;
 
@@ -56,13 +57,6 @@ public class LogicViewBinding {
 
     @BindingAdapter(value = "decimalValue")
     public static void setDecimalValue(WidgetPropsItem widget, BigDecimal value) {
-        if (null != value) {
-            // fix: 在 0.000 或是 0 的情况下 stripTrailingZeros 不生效的问题
-            if (value.compareTo(BigDecimal.ZERO) == 0){
-                widget.setPropsValue("0");
-            } else {
-                widget.setPropsValue(value.stripTrailingZeros().toPlainString());
-            }
-        }
+        widget.setPropsValue(NumberUtils.parseDecimal(value));
     }
 }

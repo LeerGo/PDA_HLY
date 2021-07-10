@@ -2,6 +2,8 @@ package com.arpa.wms.hly.bean.res;
 
 import com.arpa.wms.hly.bean.BatchRuleBean;
 
+import java.math.BigDecimal;
+
 /**
  * author: 李一方(<a href="mailto:a94118@gmail.com">a94118@gmail.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -41,7 +43,7 @@ public class ResInventory {
     private String lot;
     private String modifiedBy;
     private String productCode;
-    private int quantity;
+    private BigDecimal quantity;
     private String receiveLot;
     private String remarks;
     private String serialNumber;
@@ -310,11 +312,11 @@ public class ResInventory {
         this.productCode = productCode;
     }
 
-    public int getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
     }
 

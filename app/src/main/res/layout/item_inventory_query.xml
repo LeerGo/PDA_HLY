@@ -6,6 +6,8 @@
     
     <data>
         
+        <import type="com.arpa.wms.hly.utils.NumberUtils" />
+        
         <variable
             name="data"
             type="com.arpa.wms.hly.bean.res.ResInventory" />
@@ -102,7 +104,7 @@
                 
                 <TextView
                     style="@style/WWrapHWrap"
-                    android:text="@{String.valueOf(data.quantity)}"
+                    android:text="@{NumberUtils.parseDecimal(data.quantity)}"
                     android:textColor="@color/color_434c67"
                     tools:text="/100" />
             </LinearLayout>
