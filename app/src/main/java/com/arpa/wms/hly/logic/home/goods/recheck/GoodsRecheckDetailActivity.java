@@ -55,6 +55,7 @@ public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckD
             viewModel.searchInfo.setKeyWord(keyWord);
             viewModel.sendSearchAction();
         });
+        viewModel.headerData.observe(this, resTaskAssign -> viewBind.incHeader.setData(resTaskAssign));
     }
 
     @Override

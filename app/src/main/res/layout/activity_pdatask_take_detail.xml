@@ -59,6 +59,7 @@
                     app:layout_scrollFlags="scroll">
                     
                     <include
+                        android:id="@+id/inc_header"
                         layout="@layout/item_goods_take"
                         app:data="@{viewModel.headerData}"
                         app:showOrder="@{false}" />

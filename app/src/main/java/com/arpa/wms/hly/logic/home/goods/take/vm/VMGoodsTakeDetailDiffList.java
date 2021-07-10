@@ -68,7 +68,7 @@ public class VMGoodsTakeDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
 
             @Override
             public boolean areContentsTheSame(@NonNull GoodsItemVO oldItem, @NonNull GoodsItemVO newItem) {
-                return oldItem.getReceivedQuantity() == newItem.getReceivedQuantity();
+                return oldItem.getReceivedQuantity().equals(newItem.getReceivedQuantity());
             }
         }).build();
     }
