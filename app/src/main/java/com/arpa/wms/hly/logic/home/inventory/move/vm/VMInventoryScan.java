@@ -90,6 +90,11 @@ public class VMInventoryScan extends WrapDataViewModel {
                         Bundle bundle = new Bundle();
                         if (data.getToPage() == 0) {
                             // 跳转移位确认
+                            ReqMoveGoods reqMoveGoods = new ReqMoveGoods();
+                            reqMoveGoods.setContainerBarCode(container);
+                            reqMoveGoods.setGoodsBarCode(goodsBarCode);
+                            reqMoveGoods.setLocation(locationName);
+                            bundle.putParcelable(IntentKey.DATA, reqMoveGoods);
                             startActivity(ScanGoodsSureActivity.class, bundle);
                         } else {
                             // 跳转移位详情
