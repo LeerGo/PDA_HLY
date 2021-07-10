@@ -57,7 +57,12 @@ public class LogicViewBinding {
     @BindingAdapter(value = "decimalValue")
     public static void setDecimalValue(WidgetPropsItem widget, BigDecimal value) {
         if (null != value) {
-            widget.setPropsValue(value.stripTrailingZeros().toPlainString());
+            // fix: 在 0.000 或是 0 的情况下 stripTrailingZeros 不生效的问题
+            if (value.compareTo(BigDecimal.ZERO) == 0){
+                widget.setPropsValue("0");
+            } else {
+                widget.setPropsValue(value.stripTrailingZeros().toPlainString());
+            }
         }
     }
 }
