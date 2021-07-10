@@ -26,8 +26,7 @@ public class GoodsItemVO extends SelectItem {
     private Integer supportNum; // 码托数量
     private int recheckQuantity; // 复核数量
     private int pickingQuantity; // 拣货数量
-    private Integer receivedQuantity; //  收货数量（收货确认用）
-    private int itemReceivedQuantity; // 收货数量（收货详情列表用）
+    private Integer receivedQuantity; //  收货数量
     private int planQuantity; // 计划数量，在复核里是拣货数量
     private int quantity;
     private String containerBarCode; // 容器号
@@ -91,14 +90,6 @@ public class GoodsItemVO extends SelectItem {
 
     public void setReceiveCode(String receiveCode) {
         this.receiveCode = receiveCode;
-    }
-
-    public int getItemReceivedQuantity() {
-        return itemReceivedQuantity;
-    }
-
-    public void setItemReceivedQuantity(int itemReceivedQuantity) {
-        this.itemReceivedQuantity = itemReceivedQuantity;
     }
 
     public String getLocation() {

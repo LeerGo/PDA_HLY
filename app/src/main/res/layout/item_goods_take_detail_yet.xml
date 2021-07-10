@@ -83,7 +83,7 @@
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="收货数量："
-                    app:propsValue="@{data.itemReceivedQuantity}"
+                    app:propsValue="@{data.receivedQuantity}"
                     tools:propsValue="100" />
             </androidx.appcompat.widget.LinearLayoutCompat>
     
