@@ -124,6 +124,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      */
     private void addBatchItem() {
         GoodsItemVO batchItem = new GoodsItemVO();
+        batchItem.setExpirationQuantity(detail.getExpirationQuantity());
         if (null != detail && detail.getBatchRule().getSupplier() == 1)
             batchItem.setSupplier(supplier);
         items.add(batchItem);

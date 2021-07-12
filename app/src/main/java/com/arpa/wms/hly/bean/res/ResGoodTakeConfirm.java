@@ -26,6 +26,8 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
     private List<InventoryStatus> inventoryStatusList; // 去状态列表
     @Expose(serialize = false)
     private BatchRuleBean batchRule; // 规则列表
+    @Expose(serialize = false)
+    private int expirationQuantity; // 保质期
 
     public ReceiveBean getReceive() {
         return receive;
@@ -73,6 +75,14 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
 
     public void setBatchRule(BatchRuleBean batchRule) {
         this.batchRule = batchRule;
+    }
+
+    public int getExpirationQuantity() {
+        return expirationQuantity;
+    }
+
+    public void setExpirationQuantity(int expirationQuantity) {
+        this.expirationQuantity = expirationQuantity;
     }
 
     public static class ReceiveBean {

@@ -2,6 +2,7 @@ package com.arpa.wms.hly.ui.dialog;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.TypedValue;
 
 import com.arpa.wms.hly.R;
@@ -30,17 +31,28 @@ import static com.zyyoona7.wheel.WheelView.DIVIDER_TYPE_FILL;
  *
  * <p>
  * Dialog: 选择日期
+ * 过期时间需要传入生产日期和过期时长动态计算，如果生产日期的话，就默认当前日期 @lyf 2021-07-12 10:18:02
  * </p>
  */
 public class DialogDateSelect extends BaseBottomDialogFragment {
     private final DataTransCallback<String> listener;
     private final int dateType;
+    private final Calendar cal = Calendar.getInstance();
+    private final SimpleDateFormat defaultFormat = new SimpleDateFormat("yyyy-MM-dd");
 
+    private String startDate; //起始日期
+    private int expire;// 过期时长
     private DatePickerView datePicker;
 
     public DialogDateSelect(int dateType, DataTransCallback<String> listener) {
+        this(dateType, null, -1, listener);
+    }
+
+    public DialogDateSelect(int dateType, String startDate, int expire, DataTransCallback<String> listener) {
         this.listener = listener;
         this.dateType = dateType;
+        this.startDate = startDate;
+        this.expire = expire;
     }
 
     @Override
@@ -64,8 +76,6 @@ public class DialogDateSelect extends BaseBottomDialogFragment {
     }
 
     private void setDatePicker() {
-        Calendar cal = Calendar.getInstance();
-
         datePicker = (DatePickerView) findViewById(R.id.dpv_date);
         //获取月日 WheelView
         MonthWheelView monthWv3 = datePicker.getMonthWv();
@@ -85,8 +95,24 @@ public class DialogDateSelect extends BaseBottomDialogFragment {
         datePicker.setCurved(false);
         datePicker.setAutoFitTextSize(true);
         datePicker.setLabelTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        initDate();
+    }
+
+    /**
+     * 初始化时间
+     */
+    private void initDate() {
+        // 修正过期时间的显示 @lyf 2021年07月12日
+        if (dateType == DateType.gmtExpire && !TextUtils.isEmpty(startDate)) {
+            try {
+                cal.setTime(Objects.requireNonNull(defaultFormat.parse(startDate)));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            cal.set(Calendar.DAY_OF_MONTH, cal.get(Calendar.DAY_OF_MONTH) + expire);
+        }
         datePicker.setSelectedDay(cal.get(Calendar.DAY_OF_MONTH));
-        datePicker.setSelectedMonth(cal.get(Calendar.MONTH));
+        datePicker.setSelectedMonth(cal.get(Calendar.MONTH) + 1);
         datePicker.setSelectedYear(cal.get(Calendar.YEAR));
     }
 
@@ -99,9 +125,8 @@ public class DialogDateSelect extends BaseBottomDialogFragment {
 
         btnSure.setOnClickListener(v -> {
             SimpleDateFormat format = new SimpleDateFormat("yyyy-M-d");
-            SimpleDateFormat format2 = new SimpleDateFormat("yyyy-MM-dd");
             try {
-                listener.transfer(format2.format(Objects.requireNonNull(format.parse(datePicker.getSelectedDate()))));
+                listener.transfer(defaultFormat.format(Objects.requireNonNull(format.parse(datePicker.getSelectedDate()))));
             } catch (ParseException e) {
                 e.printStackTrace();
             }

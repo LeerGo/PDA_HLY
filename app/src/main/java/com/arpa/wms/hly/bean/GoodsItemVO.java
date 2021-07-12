@@ -43,6 +43,7 @@ public class GoodsItemVO extends SelectItem {
     private String supplier;// 供应商
     private String gmtStock;// 存货日期
     private String gmtExpire; // 过期日期
+    private int expirationQuantity; // 保质期
 
     public int getPickingTraysNum() {
         return pickingTraysNum;
@@ -328,5 +329,13 @@ public class GoodsItemVO extends SelectItem {
 
     public void setGmtExpire(String gmtExpire) {
         this.gmtExpire = gmtExpire;
+    }
+
+    public int getExpirationQuantity() {
+        return expirationQuantity;
+    }
+
+    public void setExpirationQuantity(int expirationQuantity) {
+        this.expirationQuantity = expirationQuantity;
     }
 }
