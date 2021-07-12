@@ -89,9 +89,9 @@ public abstract class VMBaseDiffList <T> extends WrapDataViewModel {
                             updateStatus(Status.FAILURE, true);
                             return;
                         }
-//                        getItems().clear();
+
                         if (data.isEmpty()) sendMessage(R.string.data_empty);
-                        else getItems().update(data);
+                        getItems().update(data);
 
                         updateStatus(Status.SUCCESS, true);
                     }
