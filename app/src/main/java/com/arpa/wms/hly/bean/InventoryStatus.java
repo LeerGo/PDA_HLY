@@ -3,6 +3,8 @@ package com.arpa.wms.hly.bean;
 public class InventoryStatus {
     private String code;
     private String name;
+    private String defaultLocationCode;
+    private String defaultLocationName;
 
     public InventoryStatus(String code) {
         this.code = code;
@@ -22,6 +24,22 @@ public class InventoryStatus {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDefaultLocationCode() {
+        return defaultLocationCode;
+    }
+
+    public void setDefaultLocationCode(String defaultLocationCode) {
+        this.defaultLocationCode = defaultLocationCode;
+    }
+
+    public String getDefaultLocationName() {
+        return defaultLocationName;
+    }
+
+    public void setDefaultLocationName(String defaultLocationName) {
+        this.defaultLocationName = defaultLocationName;
     }
 
     @Override

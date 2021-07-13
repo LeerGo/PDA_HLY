@@ -53,6 +53,7 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
                                 data -> {
                                     raw.setGoodsStatus(data.getCode());
                                     raw.setGoodsStatusName(data.getName());
+                                    raw.setLocation(data.getDefaultLocationName());
                                     viewModel.update(position, raw);
                                 })))
                 .bindExtra(BR.onDateClick, (ViewListener.OnDateClickListener<GoodsItemVO>) (view, position, dateType, raw) -> {
