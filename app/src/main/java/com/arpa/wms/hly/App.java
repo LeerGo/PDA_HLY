@@ -5,6 +5,7 @@ import android.app.Application;
 import com.arpa.wms.hly.net.ApiService.API;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.Header;
+import com.arpa.wms.hly.utils.Md5Utils;
 import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.Utils;
 import com.king.retrofit.retrofithelper.RetrofitHelper;
@@ -17,9 +18,13 @@ import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import java.util.Date;
+import java.util.UUID;
+
 import dagger.hilt.android.HiltAndroidApp;
 import timber.log.Timber;
 
+import static com.arpa.wms.hly.utils.Const.Header.EQUIPMENT_CODE;
 import static com.arpa.wms.hly.utils.Const.SPKEY.TEST_SERVER;
 
 /**
@@ -60,7 +65,7 @@ public class App extends Application {
     }
 
     private void initBugly() {
-        CrashReport.initCrashReport(getApplicationContext(), "3c20ee1d4c", BuildConfig.DEBUG);
+        CrashReport.initCrashReport(getApplicationContext(), Const.BUGLY_ID, BuildConfig.DEBUG);
     }
 
     private void setRetrofit() {
@@ -71,6 +76,11 @@ public class App extends Application {
         if (SPUtils.getInstance().contains(TEST_SERVER)) {
             RetrofitHelper.getInstance().putDomain(API.KEY_WMS, SPUtils.getInstance().getString(TEST_SERVER));
         }
+        if (!SPUtils.getInstance().contains(EQUIPMENT_CODE)) {
+            String uuid = Md5Utils.md5(new Date().getTime() + "_ARPA_ANDROID_" + UUID.randomUUID().toString());
+            SPUtils.getInstance().put(EQUIPMENT_CODE, uuid);
+        }
+        RetrofitHelper.getInstance().addHeader(EQUIPMENT_CODE, SPUtils.getInstance().getString(EQUIPMENT_CODE));
     }
 
     private void initLogger() {

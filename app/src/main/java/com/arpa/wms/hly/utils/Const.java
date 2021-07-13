@@ -15,16 +15,25 @@ public interface Const {
      */
     String LOG_TAG = "Arpa-Logger";
 
+    /**
+     * Bugly ID
+     */
+    String BUGLY_ID = "3c20ee1d4c";
+
     interface Header {
         /**
          * SSO 令牌
          */
         String TOKEN = "token";
         /**
-         * 登录渠道：android = 2
+         * 登录渠道：android = 2，单点登录使用：9
          */
         String SOURCE_ID = "source-id";
-        String SOURCE_ANDROID = "2";
+        String SOURCE_ANDROID = "9";
+        /**
+         * 设备 ID
+         */
+        String EQUIPMENT_CODE="equipment-code";
     }
 
     /**

@@ -22,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
+import static com.arpa.wms.hly.utils.Const.Header.EQUIPMENT_CODE;
 import static com.arpa.wms.hly.utils.Const.SPKEY.TEST_SERVER;
 
 /**
@@ -71,7 +72,10 @@ public class VMMine extends VMWarehouse {
      */
     private void processLocalStorage() {
         String IP = spGetString(TEST_SERVER);
+        String equipmentCode = spGetString(EQUIPMENT_CODE);
+
         SPUtils.getInstance().clear();
+        spPut(EQUIPMENT_CODE, equipmentCode);
         if (!TextUtils.isEmpty(IP)) {
             spPut(TEST_SERVER, IP);
         }
