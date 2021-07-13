@@ -7,6 +7,7 @@ import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.ui.widget.WidgetPropsItem;
 import com.arpa.wms.hly.ui.widget.WidgetSearchBar;
 import com.arpa.wms.hly.utils.NumberUtils;
+import com.scwang.smart.refresh.layout.SmartRefreshLayout;
 
 import java.math.BigDecimal;
 
@@ -58,5 +59,12 @@ public class LogicViewBinding {
     @BindingAdapter(value = "decimalValue")
     public static void setDecimalValue(WidgetPropsItem widget, BigDecimal value) {
         widget.setPropsValue(NumberUtils.parseDecimal(value));
+    }
+
+    @BindingAdapter(value = "srlEnableRefresh")
+    public static void bindSmartRefreshLayoutEnable(SmartRefreshLayout refreshLayout, Boolean isEnableRefresh) {
+        if (null != isEnableRefresh) {
+            refreshLayout.setEnableRefresh(isEnableRefresh);
+        }
     }
 }
