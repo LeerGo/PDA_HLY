@@ -28,6 +28,12 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
     private BatchRuleBean batchRule; // 规则列表
     @Expose(serialize = false)
     private int expirationQuantity; // 保质期
+    // @Expose(serialize = false)
+    private String extendOne; // 产地
+    // @Expose(serialize = false)
+    private String extendTwo; // 特殊品项
+    // @Expose(serialize = false)
+    private String gmtManufacture; // 生产日期
 
     public ReceiveBean getReceive() {
         return receive;
@@ -83,6 +89,30 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
 
     public void setExpirationQuantity(int expirationQuantity) {
         this.expirationQuantity = expirationQuantity;
+    }
+
+    public String getExtendOne() {
+        return extendOne;
+    }
+
+    public void setExtendOne(String extendOne) {
+        this.extendOne = extendOne;
+    }
+
+    public String getExtendTwo() {
+        return extendTwo;
+    }
+
+    public void setExtendTwo(String extendTwo) {
+        this.extendTwo = extendTwo;
+    }
+
+    public String getGmtManufacture() {
+        return gmtManufacture;
+    }
+
+    public void setGmtManufacture(String gmtManufacture) {
+        this.gmtManufacture = gmtManufacture;
     }
 
     public static class ReceiveBean {

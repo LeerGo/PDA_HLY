@@ -1,5 +1,7 @@
 package com.arpa.wms.hly.bean;
 
+import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -337,5 +339,23 @@ public class GoodsItemVO extends SelectItem {
 
     public void setExpirationQuantity(int expirationQuantity) {
         this.expirationQuantity = expirationQuantity;
+    }
+
+    /**
+     * fix: http://112.6.75.17:801/zentao/bug-view-26003.html
+     * bug 描述只有三个字段，接口也只返回了三个，如果后面有需要其他字段，去掉注释协同接口即可 @lyf 2021-07-13 17:21:01
+     */
+    public void fromDetail(ResGoodTakeConfirm data) {
+        this.setGmtManufacture(data.getGmtManufacture());
+        this.setExtendOne(data.getExtendOne());
+        this.setExtendTwo(data.getExtendTwo());
+        //        this.setGmtExpire();
+        //        this.setGmtStock();
+        //        this.setSerialNumber();
+        //        this.setSupplier();
+        //        this.setExtendThree();
+        //        this.setExtendFour();
+        //        this.setExtendFive();
+        //        this.setExtendSix();
     }
 }
