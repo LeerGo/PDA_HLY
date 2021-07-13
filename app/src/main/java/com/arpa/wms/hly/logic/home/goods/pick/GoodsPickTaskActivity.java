@@ -17,7 +17,6 @@ import dagger.hilt.android.AndroidEntryPoint;
  *
  * <p>
  * 页面：拣货
- * 使用表格布局重新作一遍
  * </p>
  */
 @AndroidEntryPoint

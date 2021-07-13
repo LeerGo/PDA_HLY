@@ -64,6 +64,7 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
     public ObservableArrayList<GoodsItemVO> taskDetailItems = new ObservableArrayList<>();
 
     public ObservableBoolean detailRefreshing = new ObservableBoolean();
+    public ObservableBoolean detailEnable = new ObservableBoolean(true);
     private String sourceCode;
 
     @Inject
@@ -77,6 +78,7 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
 
         // 任务单刷新完成后，自动定位到第一个条目，然后刷新任务详情
         if (isRefresh && !getItems().isEmpty()) {
+            detailEnable.set(true);
             adapter.setPositionSel(0);
             getItems().get(0).setSelect(true);
             sourceCode = getItems().get(0).getSourceCode();
@@ -84,8 +86,10 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
         }
         // 如果任务单没有，则详情也要清空
         // fix: http://112.6.75.17:801/zentao/bug-view-26075.html
-        if (getItems().isEmpty()){
+        if (getItems().isEmpty()) {
             taskDetailItems.clear();
+            sourceCode = null;
+            detailEnable.set(false);
         }
     }
 
