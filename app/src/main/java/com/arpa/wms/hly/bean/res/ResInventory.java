@@ -1,7 +1,5 @@
 package com.arpa.wms.hly.bean.res;
 
-import com.arpa.wms.hly.bean.BatchRuleBean;
-
 import java.math.BigDecimal;
 
 /**
@@ -19,9 +17,6 @@ public class ResInventory {
     private String createdBy;
     private String createdByName;
     private int expirationQuantity;
-    private String extendFive;
-    private String extendOne;
-    private String extendThree;
     private String gmtCreated;
     private String gmtExpire;
     private String gmtManufacture;
@@ -58,27 +53,13 @@ public class ResInventory {
     private String warehouseName;
     private String warehouseSpaceCode;
     private String warehouseSpaceName;
-    private String extendFour;
-    private String extendSix;
+    private String extendOne;
     private String extendTwo;
+    private BigDecimal extendThree;
+    private BigDecimal extendFour;
+    private BigDecimal extendFive;
+    private BigDecimal extendSix;
     private String inventoryContainerBarCode;
-    private BatchRuleBean batchRule;
-
-    public BatchRuleBean getBatchRule() {
-        return batchRule;
-    }
-
-    public void setBatchRule(BatchRuleBean batchRule) {
-        this.batchRule = batchRule;
-    }
-
-    public String getInventoryContainerBarCode() {
-        return inventoryContainerBarCode;
-    }
-
-    public void setInventoryContainerBarCode(String inventoryContainerBarCode) {
-        this.inventoryContainerBarCode = inventoryContainerBarCode;
-    }
 
     public String getCode() {
         return code;
@@ -118,30 +99,6 @@ public class ResInventory {
 
     public void setExpirationQuantity(int expirationQuantity) {
         this.expirationQuantity = expirationQuantity;
-    }
-
-    public String getExtendFive() {
-        return extendFive;
-    }
-
-    public void setExtendFive(String extendFive) {
-        this.extendFive = extendFive;
-    }
-
-    public String getExtendOne() {
-        return extendOne;
-    }
-
-    public void setExtendOne(String extendOne) {
-        this.extendOne = extendOne;
-    }
-
-    public String getExtendThree() {
-        return extendThree;
-    }
-
-    public void setExtendThree(String extendThree) {
-        this.extendThree = extendThree;
     }
 
     public String getGmtCreated() {
@@ -432,20 +389,12 @@ public class ResInventory {
         this.warehouseSpaceName = warehouseSpaceName;
     }
 
-    public String getExtendFour() {
-        return extendFour;
+    public String getExtendOne() {
+        return extendOne;
     }
 
-    public void setExtendFour(String extendFour) {
-        this.extendFour = extendFour;
-    }
-
-    public String getExtendSix() {
-        return extendSix;
-    }
-
-    public void setExtendSix(String extendSix) {
-        this.extendSix = extendSix;
+    public void setExtendOne(String extendOne) {
+        this.extendOne = extendOne;
     }
 
     public String getExtendTwo() {
@@ -454,5 +403,45 @@ public class ResInventory {
 
     public void setExtendTwo(String extendTwo) {
         this.extendTwo = extendTwo;
+    }
+
+    public BigDecimal getExtendThree() {
+        return extendThree;
+    }
+
+    public void setExtendThree(BigDecimal extendThree) {
+        this.extendThree = extendThree;
+    }
+
+    public BigDecimal getExtendFour() {
+        return extendFour;
+    }
+
+    public void setExtendFour(BigDecimal extendFour) {
+        this.extendFour = extendFour;
+    }
+
+    public BigDecimal getExtendFive() {
+        return extendFive;
+    }
+
+    public void setExtendFive(BigDecimal extendFive) {
+        this.extendFive = extendFive;
+    }
+
+    public BigDecimal getExtendSix() {
+        return extendSix;
+    }
+
+    public void setExtendSix(BigDecimal extendSix) {
+        this.extendSix = extendSix;
+    }
+
+    public String getInventoryContainerBarCode() {
+        return inventoryContainerBarCode;
+    }
+
+    public void setInventoryContainerBarCode(String inventoryContainerBarCode) {
+        this.inventoryContainerBarCode = inventoryContainerBarCode;
     }
 }
