@@ -5,9 +5,9 @@ import android.os.Parcelable;
 
 import com.arpa.wms.hly.bean.SelectItem;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
+import com.arpa.wms.hly.utils.NumberUtils;
 
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -84,7 +84,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     }
 
     public String getVolume() {
-        return new DecimalFormat("0.00").format(volume);
+        return NumberUtils.parseDecimal(volume);
     }
 
     public void setVolume(BigDecimal volume) {
@@ -92,7 +92,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     }
 
     public String getWeight() {
-        return new DecimalFormat("0.00").format(weight);
+        return NumberUtils.parseDecimal(weight);
     }
 
     public void setWeight(BigDecimal weight) {

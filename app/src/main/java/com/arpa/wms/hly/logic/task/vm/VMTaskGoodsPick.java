@@ -36,7 +36,7 @@ public class VMTaskGoodsPick extends VMBaseList<GoodsItemVO> {
 
     @Override
     public Call<Result<List<GoodsItemVO>>> getCall(Map<String, Object> params) {
-        return apiService.pickingDetail((String) params.get(Const.IntentKey.SOURCE_CODE));
+        return apiService.pickingDetailTask((String) params.get(Const.IntentKey.SOURCE_CODE));
     }
 
     @Override

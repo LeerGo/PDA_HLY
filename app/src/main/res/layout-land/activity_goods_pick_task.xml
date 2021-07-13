@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="HardcodedText">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.goods.pick.VMGoodsPickTask" />
+    </data>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/wtb_title"
+            android:layout_width="match_parent"
+            android:layout_height="32dp"
+            app:wtbBackPadding="6dp"
+            app:wtbTitle="拣货确认" />
+        
+        <TextView
+            android:id="@+id/tv_label_pick"
+            style="@style/TableTextStyleCP"
+            android:layout_width="92dp"
+            android:layout_below="@+id/wtb_title"
+            android:text="拣货单" />
+        
+        <TextView
+            android:id="@+id/tv_label_operate"
+            style="@style/TableTextStyleCP"
+            android:layout_width="60dp"
+            android:layout_height="24dp"
+            android:layout_below="@id/wtb_title"
+            android:layout_alignParentEnd="true"
+            android:text="操作" />
+        
+        <com.arpa.wms.hly.ui.form.ObservableScrollView
+            android:id="@+id/osv_title"
+            android:layout_width="match_parent"
+            android:layout_height="24dp"
+            android:layout_below="@id/wtb_title"
+            android:layout_toStartOf="@id/tv_label_operate"
+            android:layout_toEndOf="@id/tv_label_pick"
+            android:scrollbars="none">
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="wrap_content"
+                android:layout_height="24dp">
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:layout_width="80dp"
+                    android:text="拣货货位" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:layout_width="160dp"
+                    android:text="商品名称" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="单位" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="生产日期"
+                    app:visibleState="@{viewModel.rule.gmtManufacture}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="过期日期"
+                    app:visibleState="@{viewModel.rule.gmtExpire}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="存货日期"
+                    app:visibleState="@{viewModel.rule.gmtStock}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="供应商"
+                    app:visibleState="@{viewModel.rule.supplier}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="序列号"
+                    app:visibleState="@{viewModel.rule.serialNumber}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="产地"
+                    app:visibleState="@{viewModel.rule.extendOne}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="特殊品项"
+                    app:visibleState="@{viewModel.rule.extendTwo}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="扩展 3"
+                    app:visibleState="@{viewModel.rule.extendThree}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="扩展 4"
+                    app:visibleState="@{viewModel.rule.extendFour}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="扩展 5"
+                    app:visibleState="@{viewModel.rule.extendFive}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:text="扩展 6"
+                    app:visibleState="@{viewModel.rule.extendSix}" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:layout_width="80dp"
+                    android:text="计划数量" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:layout_width="80dp"
+                    android:text="码托数量" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:layout_width="80dp"
+                    android:text="计划托数" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
+                    android:layout_width="80dp"
+                    android:text="已捡托数" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </com.arpa.wms.hly.ui.form.ObservableScrollView>
+        
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_pick_orders"
+            android:layout_width="92dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_label_pick"
+            android:background="@drawable/shape_rrect_border_grey"
+            app:autoRefresh="@{viewModel.isAutoRefresh}"
+            app:hasMore="@{viewModel.hasMore}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label_pick"
+            app:moreLoading="@{viewModel.moreLoading}"
+            app:onLoadMoreListener="@{()->viewModel.loadMore()}"
+            app:onRefreshListener="@{()->viewModel.refresh()}"
+            app:refreshing="@{viewModel.refreshing}"
+            app:srlEnableFooterFollowWhenNoMoreData="true"
+            app:srlEnableLoadMore="true">
+            
+            <com.scwang.smart.refresh.header.MaterialHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_pick_orders"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{viewModel.adapter}"
+                app:itemBinding="@{viewModel.itemBinding}"
+                app:items="@{viewModel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_pick_list" />
+            
+            <com.scwang.smart.refresh.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="32dp" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:id="@+id/srl_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/osv_title"
+            android:layout_toStartOf="@id/rv_operate"
+            android:layout_toEndOf="@id/srl_pick_orders">
+            
+            <com.arpa.wms.hly.ui.form.ObservableScrollView
+                android:id="@+id/osv_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_content"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:adapter="@{viewModel.taskDetailAdapter}"
+                    app:itemBinding="@{viewModel.taskDetailBinding}"
+                    app:items="@{viewModel.taskDetailItems}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="20"
+                    tools:listitem="@layout/item_pick_detail" />
+            </com.arpa.wms.hly.ui.form.ObservableScrollView>
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_operate"
+            android:layout_width="60dp"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tv_label_operate"
+            android:layout_alignParentEnd="true"
+            app:adapter="@{viewModel.taskOperateAdapter}"
+            app:itemBinding="@{viewModel.taskOperateBinding}"
+            app:items="@{viewModel.taskDetailItems}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_pick_operation" />
+    </RelativeLayout>
+</layout>

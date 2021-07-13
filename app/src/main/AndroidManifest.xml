@@ -56,7 +56,7 @@
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <!--拣货-->
         <activity
-            android:name=".logic.home.goods.pick.GoodsPickActivity"
+            android:name=".logic.home.goods.pick.GoodsPickTaskActivity"
             android:configChanges="orientation|screenSize"
             android:screenOrientation="landscape">
             <intent-filter>

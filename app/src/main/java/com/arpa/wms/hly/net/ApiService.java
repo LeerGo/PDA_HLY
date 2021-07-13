@@ -14,6 +14,7 @@ import com.arpa.wms.hly.bean.res.ResInventory;
 import com.arpa.wms.hly.bean.res.ResMoveGoods;
 import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.bean.res.ResMoveLocation;
+import com.arpa.wms.hly.bean.res.ResPickDetail;
 import com.arpa.wms.hly.bean.res.ResRole;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.bean.res.ResTaskWorker;
@@ -85,7 +86,14 @@ public interface ApiService {
      */
     @DomainName(API.KEY_WMS)
     @GET("/wms/pda/picking/{sourceCode}")
-    Call<Result<List<GoodsItemVO>>> pickingDetail(@Path("sourceCode") String sourceCode);
+    Call<Result<ResPickDetail>> pickingDetail(@Path("sourceCode") String sourceCode);
+
+    /**
+     * 任务中心-拣货任务详情
+     */
+    @DomainName(API.KEY_WMS)
+    @GET("/wms/pda/picking/detail/{sourceCode}")
+    Call<Result<List<GoodsItemVO>>> pickingDetailTask(@Path("sourceCode") String sourceCode);
 
     /**
      * 拣货单-拣货任务详情

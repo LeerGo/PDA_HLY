@@ -7,10 +7,12 @@ import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
+import com.arpa.wms.hly.bean.BatchRuleBean;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
+import com.arpa.wms.hly.bean.res.ResPickDetail;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
@@ -19,7 +21,6 @@ import com.arpa.wms.hly.utils.Const.JOB_STATUS;
 import com.arpa.wms.hly.utils.Const.TASK_TYPE;
 import com.arpa.wms.hly.utils.ToastUtils;
 
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -27,6 +28,7 @@ import javax.inject.Inject;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -41,21 +43,31 @@ import retrofit2.Call;
  * </p>
  */
 @HiltViewModel
-public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
+public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
+    private final ReqTaskList taskRequest = new ReqTaskList(PAGE_SIZE);
     // 拣货单
     private final GoodsPickTaskAdapter<ResTaskAssign> adapter = new GoodsPickTaskAdapter<>();
-    private final ReqTaskList taskRequest = new ReqTaskList(PAGE_SIZE);
+    // 任务列表
     private final ItemBinding<ResTaskAssign> taskBinding = ItemBinding.of(BR.data, R.layout.item_pick_list);
-
     // 拣货单详情
     private final ItemBinding<GoodsItemVO> taskDetailBinding = ItemBinding.of(BR.data, R.layout.item_pick_detail);
-    public ObservableBoolean detailRefreshing = new ObservableBoolean();
-    public ObservableArrayList<GoodsItemVO> taskDetailItems = new ObservableArrayList<>();
+    // 拣货单详情 - 操作
+    private final ItemBinding<GoodsItemVO> taskOperateBinding = ItemBinding.of(BR.data, R.layout.item_pick_operation);
+    // 拣货单 - 详情
     public GoodsPickTaskAdapter<GoodsItemVO> taskDetailAdapter = new GoodsPickTaskAdapter<>();
+    // 拣货单 - 操作
+    public GoodsPickTaskAdapter<GoodsItemVO> taskOperateAdapter = new GoodsPickTaskAdapter<>();
+    // 批次规则
+    public BatchRuleBean batchRule = new BatchRuleBean();
+    public ObservableField<BatchRuleBean> rule = new ObservableField<>();
+    // 任务清单商品列表
+    public ObservableArrayList<GoodsItemVO> taskDetailItems = new ObservableArrayList<>();
+
+    public ObservableBoolean detailRefreshing = new ObservableBoolean();
     private String sourceCode;
 
     @Inject
-    public VMGoodsPick(@NonNull Application application, BaseModel model) {
+    public VMGoodsPickTask(@NonNull Application application, BaseModel model) {
         super(application, model);
     }
 
@@ -69,6 +81,11 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
             getItems().get(0).setSelect(true);
             sourceCode = getItems().get(0).getSourceCode();
             requestDetail();
+        }
+        // 如果任务单没有，则详情也要清空
+        // fix: http://112.6.75.17:801/zentao/bug-view-26075.html
+        if (getItems().isEmpty()){
+            taskDetailItems.clear();
         }
     }
 
@@ -113,13 +130,15 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
         updateStatus(Status.LOADING);
         detailRefreshing.set(true);
         apiService.pickingDetail(sourceCode)
-                .enqueue(new ResultCallback<List<GoodsItemVO>>() {
+                .enqueue(new ResultCallback<ResPickDetail>() {
                     @Override
-                    public void onSuccess(List<GoodsItemVO> data) {
+                    public void onSuccess(ResPickDetail data) {
+                        batchRule = data.getBatchRule();
+                        rule.set(batchRule);
                         if (taskDetailAdapter.getPositionSel() != -1)
-                            data.get(taskDetailAdapter.getPositionSel()).setSelect(true);
+                            data.getGoods().get(taskDetailAdapter.getPositionSel()).setSelect(true);
                         taskDetailItems.clear();
-                        taskDetailItems.addAll(data);
+                        taskDetailItems.addAll(data.getGoods());
                         updateStatus(Status.SUCCESS);
                     }
 
@@ -139,18 +158,27 @@ public class VMGoodsPick extends VMBaseRefreshList<ResTaskAssign> {
     }
 
     public ItemBinding<GoodsItemVO> getTaskDetailBinding() {
-        taskDetailBinding.bindExtra(BR.onOperate, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
+        taskDetailBinding.bindExtra(BR.rule, batchRule);
+        return taskDetailBinding;
+    }
+
+    public ItemBinding<GoodsItemVO> getTaskOperateBinding() {
+        taskOperateBinding.bindExtra(BR.onOperate, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
             if (position != taskDetailAdapter.getPositionSel()) {
                 taskDetailItems.get(position).setSelect(true);
-                if (null != taskDetailAdapter.getItemSel())
+                if (null != taskDetailAdapter.getItemSel()) {
                     taskDetailAdapter.getItemSel().setSelect(false);
+                    taskOperateAdapter.getItemSel().setSelect(false);
+                }
                 taskDetailAdapter.setPositionSel(position);
+                taskOperateAdapter.setPositionSel(position);
                 taskDetailAdapter.notifyDataSetChanged();
+                taskOperateAdapter.notifyDataSetChanged();
             }
             if (data.isPickFinish()) ToastUtils.showShortSafe("当前订单已拣货完成");
             else pickConfirm(position);
         });
-        return taskDetailBinding;
+        return taskOperateBinding;
     }
 
     /**

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     
     <data>
         
@@ -21,11 +22,11 @@
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@{data.select ? @drawable/shape_rrect_border_grey_sel : @drawable/shape_rrect_border_grey}"
-        android:gravity="center"
+        android:background="@{data.select ? @color/color_f3f6ff : @color/white}"
+        android:gravity="center_horizontal"
         android:onClick="@{v -> onTaskClick.onItemClick(v, position, data)}"
         android:orientation="vertical"
-        android:paddingVertical="8dp">
+        android:paddingTop="8dp">
         
         <TextView
             android:layout_width="wrap_content"
@@ -70,5 +71,11 @@
             android:textColor="@color/black"
             android:textSize="10sp"
             tools:text="方量：0.01" />
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_marginTop="8dp"
+            android:background="#C9D0E8" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
