@@ -104,7 +104,6 @@ public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, Fragm
 
         // 存在选中的才能分配
         if (isSelect) {
-            // 获取作业类型、人员的接口还没有 @lyf 2021-05-17 02:54:58
             viewModel.getWorkStaff(assignType);
         } else {
             ToastUtils.showShortSafe("尚未选择任务");
