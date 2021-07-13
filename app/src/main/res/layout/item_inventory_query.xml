@@ -65,13 +65,13 @@
                     android:textSize="14sp"
                     tools:text="合格" />
                 
-                <androidx.appcompat.widget.AppCompatTextView
+                <!--<androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@{data.isLock==0 ? @string/status_lock : @string/status_unlock}"
                     android:textColor="@color/color_434c67"
                     android:textSize="14sp"
-                    tools:text="/未锁定" />
+                    tools:text="/未锁定" />-->
             </androidx.appcompat.widget.LinearLayoutCompat>
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -108,12 +108,12 @@
                     android:textColor="@color/color_434c67"
                     tools:text="/100" />
             </LinearLayout>
-            
-            <!--            <com.arpa.wms.hly.ui.widget.WidgetPropsItem-->
-            <!--                style="@style/InventoryQueryItem"-->
-            <!--                android:visibility="gone"-->
-            <!--                app:propsKey="托  盘  号："-->
-            <!--                tools:propsValue="NO12312441" />-->
+    
+            <!--<com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                android:visibility="gone"
+                app:propsKey="托  盘  号："
+                tools:propsValue="NO12312441" />-->
             
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
