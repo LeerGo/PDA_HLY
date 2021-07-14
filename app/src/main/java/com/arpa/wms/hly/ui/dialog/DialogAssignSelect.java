@@ -54,6 +54,9 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
+        // 默认选中第一个 fix:http://192.168.31.42:801//zentao/bug-view-26065.html
+        result.setJobType(data.getJobType().get(0));
+
         setTitles();
         setSelectItem();
         setOptArea();
@@ -108,6 +111,9 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
         });
     }
 
+    /**
+     * 设置选中数据
+     */
     private void setSelectItem() {
         RecyclerView rvAssign = (RecyclerView) findViewById(R.id.rv_assign);
 
