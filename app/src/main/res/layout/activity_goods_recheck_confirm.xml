@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools">
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     
     <data>
         
@@ -71,6 +72,47 @@
                         app:propsKeySize="15sp"
                         app:propsValue="@{viewModel.detail.gmtManufacture}"
                         app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.gmtManufacture}"
+                        tools:propsValue="2021-05-13" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="过期日期"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.gmtExpire}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.gmtExpire}"
+                        tools:propsValue="2021-05-13" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="存货日期"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.gmtStock}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.gmtStock}"
+                        tools:propsValue="2021-05-13" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="供应商"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.supplier}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.supplier}"
+                        tools:propsValue="2021-05-13" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="供应商"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.serialNumber}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.serialNumber}"
                         tools:propsValue="2021-05-13" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -80,6 +122,47 @@
                         app:propsKeySize="15sp"
                         app:propsValue="@{viewModel.detail.extendOne}"
                         app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendOne}"
+                        tools:propsValue="A7" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拓展 3"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendThree}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendThree}"
+                        tools:propsValue="A7" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拓展 4"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendFour}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendFour}"
+                        tools:propsValue="A7" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拓展 5"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendFive}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendFive}"
+                        tools:propsValue="A7" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拓展 6"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendSix}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendSix}"
                         tools:propsValue="A7" />
                 
                 </androidx.appcompat.widget.LinearLayoutCompat>
@@ -96,6 +179,7 @@
                         app:propsKeySize="15sp"
                         app:propsValue="@{viewModel.detail.extendTwo}"
                         app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendTwo}"
                         tools:propsValue="常规" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -128,9 +212,9 @@
                     <com.arpa.wms.hly.ui.widget.WidgetInputItem
                         style="@style/ItemRecheckBatchStyle"
                         app:inputHint="请输入复核数量"
+                        app:inputMax="@{viewModel.detail.planQuantity}"
                         app:inputText="@={viewModel.recheckQuantity}"
                         app:inputTitle="复核数量"
-                        app:inputMax="@{viewModel.detail.planQuantity}"
                         app:inputType="number" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
