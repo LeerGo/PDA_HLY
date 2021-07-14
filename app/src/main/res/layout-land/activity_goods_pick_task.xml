@@ -140,6 +140,10 @@
                     style="@style/TableTextStyleCP"
                     android:layout_width="80dp"
                     android:text="已捡托数" />
+                
+                <View
+                    style="@style/TableTextStyleCP"
+                    android:layout_width="150dp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </com.arpa.wms.hly.ui.form.ObservableScrollView>
         
@@ -180,7 +184,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="32dp" />
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-    
+        
         <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:id="@+id/srl_content"
             android:layout_width="match_parent"
@@ -188,17 +192,17 @@
             android:layout_below="@id/osv_title"
             android:layout_toStartOf="@id/rv_operate"
             android:layout_toEndOf="@id/srl_pick_orders"
-            app:srlEnableRefresh="@{viewModel.detailEnable}"
             app:onRefreshListener="@{()->viewModel.requestDetail()}"
             app:refreshing="@{viewModel.detailRefreshing}"
             app:srlEnableFooterFollowWhenNoMoreData="false"
-            app:srlEnableLoadMore="false">
-        
+            app:srlEnableLoadMore="false"
+            app:srlEnableRefresh="@{viewModel.detailEnable}">
+            
             <com.arpa.wms.hly.ui.form.ObservableScrollView
                 android:id="@+id/osv_content"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-            
+                
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rv_content"
                     android:layout_width="match_parent"

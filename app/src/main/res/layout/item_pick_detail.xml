@@ -174,5 +174,10 @@
             android:text="@{String.valueOf(data.pickingTraysNum)}"
             android:textColor="@color/black"
             tools:text="1" />
+        
+        <!--占位-->
+        <View
+            style="@style/TableTextStyle"
+            android:layout_width="150dp"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
