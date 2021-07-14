@@ -25,6 +25,7 @@ import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.Map;
 
@@ -219,7 +220,11 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                 .enqueue(new ResultCallback<ResTaskWorker>() {
                     @Override
                     public void onSuccess(ResTaskWorker data) {
-                        resTaskWorker.postValue(data);
+                        if (data.getStaff().isEmpty()) {
+                            ToastUtils.showShortSafe("未获取到可用作业人员");
+                        } else {
+                            resTaskWorker.postValue(data);
+                        }
                         updateStatus(StatusEvent.Status.SUCCESS, true);
                     }
 

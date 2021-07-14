@@ -16,7 +16,6 @@ import com.arpa.wms.hly.bean.res.ResTaskWorker;
 import com.arpa.wms.hly.ui.adapter.DialogAssignSelectAdapter;
 import com.arpa.wms.hly.ui.decoration.DrawableItemDecoration;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
-import com.arpa.wms.hly.utils.Const.ASSIGN_WORK;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import androidx.annotation.Nullable;
@@ -25,6 +24,10 @@ import androidx.appcompat.widget.AppCompatSpinner;
 import androidx.appcompat.widget.AppCompatTextView;
 import androidx.appcompat.widget.LinearLayoutCompat;
 import androidx.recyclerview.widget.RecyclerView;
+
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.CUSTODIAN;
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.FORKLIFT;
+import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.STEVEDORE;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -54,9 +57,10 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        // 默认选中第一个 fix:http://192.168.31.42:801//zentao/bug-view-26065.html
-        result.setJobType(data.getJobType().get(0));
-
+        if (workType == FORKLIFT && !data.getJobType().isEmpty()) {
+            // 默认选中第一个 fix:http://192.168.31.42:801//zentao/bug-view-26065.html
+            result.setJobType(data.getJobType().get(0));
+        }
         setTitles();
         setSelectItem();
         setOptArea();
@@ -69,15 +73,17 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
         LinearLayoutCompat llType = (LinearLayoutCompat) findViewById(R.id.ll_type);
         AppCompatTextView tvTitle = (AppCompatTextView) findViewById(R.id.tv_title);
         switch (workType) {
-            case ASSIGN_WORK.CUSTODIAN:
+            case CUSTODIAN:
                 tvTitle.setText("分配保管员");
                 llType.setVisibility(View.GONE);
                 break;
-            case ASSIGN_WORK.FORKLIFT:
+            case FORKLIFT:
                 tvTitle.setText("分配叉车工");
                 llType.setVisibility(View.GONE);
+                // 默认选中第一个 fix:http://192.168.31.42:801//zentao/bug-view-26065.html
+                result.setJobType(data.getJobType().get(0));
                 break;
-            case ASSIGN_WORK.STEVEDORE:
+            case STEVEDORE:
                 tvTitle.setText("分配装卸工");
                 llType.setVisibility(View.VISIBLE);
                 setWorkType();
@@ -133,7 +139,7 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
 
         btnCancel.setOnClickListener(v -> dismiss());
         btnSure.setOnClickListener(v -> {
-            if (workType == ASSIGN_WORK.STEVEDORE && null == result.getJobType()) {
+            if (workType == STEVEDORE && null == result.getJobType()) {
                 ToastUtils.showShort("请选择作业类型");
             }
             if (result.getStaffs().isEmpty()) {
