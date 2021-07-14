@@ -28,12 +28,26 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
     private BatchRuleBean batchRule; // 规则列表
     @Expose(serialize = false)
     private int expirationQuantity; // 保质期
-    // @Expose(serialize = false)
+    @Expose(serialize = false)
     private String extendOne; // 产地
-    // @Expose(serialize = false)
+    @Expose(serialize = false)
     private String extendTwo; // 特殊品项
-    // @Expose(serialize = false)
+    @Expose(serialize = false)
+    private Integer extendThree; // 拓展 3
+    @Expose(serialize = false)
+    private Integer extendFour; // 拓展 4
+    @Expose(serialize = false)
+    private String extendFive; // 拓展 5
+    @Expose(serialize = false)
+    private String extendSix; // 拓展 6
+    @Expose(serialize = false)
     private String gmtManufacture; // 生产日期
+    @Expose(serialize = false)
+    private String gmtExpire; // 过期日期
+    @Expose(serialize = false)
+    private String gmtStock; // 存货日期
+    @Expose(serialize = false)
+    private String serialNumber; // 序列号
 
     public ReceiveBean getReceive() {
         return receive;
@@ -113,6 +127,63 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
 
     public void setGmtManufacture(String gmtManufacture) {
         this.gmtManufacture = gmtManufacture;
+    }
+
+    public String getGmtExpire() {
+        return gmtExpire;
+    }
+
+    public void setGmtExpire(String gmtExpire) {
+        this.gmtExpire = gmtExpire;
+    }
+
+    public String getGmtStock() {
+        return gmtStock;
+    }
+
+    public void setGmtStock(String gmtStock) {
+        this.gmtStock = gmtStock;
+    }
+
+    public String getSerialNumber() {
+        return serialNumber;
+    }
+
+    public void setSerialNumber(String serialNumber) {
+        this.serialNumber = serialNumber;
+    }
+
+
+    public Integer getExtendThree() {
+        return extendThree;
+    }
+
+    public void setExtendThree(Integer extendThree) {
+        this.extendThree = extendThree;
+    }
+
+    public Integer getExtendFour() {
+        return extendFour;
+    }
+
+    public void setExtendFour(Integer extendFour) {
+        this.extendFour = extendFour;
+    }
+
+    public String getExtendFive() {
+        return extendFive;
+    }
+
+    public void setExtendFive(String extendFive) {
+        this.extendFive = extendFive;
+    }
+
+    public String getExtendSix() {
+        return extendSix;
+    }
+
+    public void setExtendSix(String extendSix) {
+        this.extendSix = extendSix;
     }
 
     public static class ReceiveBean {

@@ -343,19 +343,17 @@ public class GoodsItemVO extends SelectItem {
 
     /**
      * fix: http://112.6.75.17:801/zentao/bug-view-26003.html
-     * bug 描述只有三个字段，接口也只返回了三个，如果后面有需要其他字段，去掉注释协同接口即可 @lyf 2021-07-13 17:21:01
      */
     public void fromDetail(ResGoodTakeConfirm data) {
         this.setGmtManufacture(data.getGmtManufacture());
         this.setExtendOne(data.getExtendOne());
         this.setExtendTwo(data.getExtendTwo());
-        //        this.setGmtExpire();
-        //        this.setGmtStock();
-        //        this.setSerialNumber();
-        //        this.setSupplier();
-        //        this.setExtendThree();
-        //        this.setExtendFour();
-        //        this.setExtendFive();
-        //        this.setExtendSix();
+        this.setGmtExpire(data.getGmtExpire());
+        this.setGmtStock(data.getGmtStock());
+        this.setSerialNumber(data.getSerialNumber());
+        this.setExtendThree(data.getExtendThree());
+        this.setExtendFour(data.getExtendFour());
+        this.setExtendFive(data.getExtendFive());
+        this.setExtendSix(data.getExtendSix());
     }
 }
