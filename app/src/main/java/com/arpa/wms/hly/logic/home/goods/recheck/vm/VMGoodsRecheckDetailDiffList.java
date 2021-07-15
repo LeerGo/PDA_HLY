@@ -39,6 +39,7 @@ import retrofit2.Call;
  */
 @HiltViewModel
 public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
+    public String supplierName;
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
 
     @Inject
@@ -87,14 +88,17 @@ public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
         ItemBinding<GoodsItemVO> itemBinding;
         if (request.getRecheckStatus() == TASK_STATUS.RECHECK_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_wait);
-            itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsItemVO>) data -> {
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentKey.OUTBOUND_CODE, data.getOutboundCode());
-                bundle.putString(IntentKey.OUTBOUND_ITEM_CODE, data.getCode());
-                startActivity(GoodsRecheckConfirmActivity.class, bundle);
-            });
+            itemBinding
+                    .bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsItemVO>) data -> {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(IntentKey.OUTBOUND_CODE, data.getOutboundCode());
+                        bundle.putString(IntentKey.OUTBOUND_ITEM_CODE, data.getCode());
+                        startActivity(GoodsRecheckConfirmActivity.class, bundle);
+                    })
+                    .bindExtra(BR.supplier, supplierName);
         } else {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_yet);
+            itemBinding.bindExtra(BR.supplier, supplierName);
         }
 
         return itemBinding;

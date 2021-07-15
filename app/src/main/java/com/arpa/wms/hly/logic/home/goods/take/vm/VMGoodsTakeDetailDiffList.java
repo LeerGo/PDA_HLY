@@ -88,15 +88,18 @@ public class VMGoodsTakeDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
         ItemBinding<GoodsItemVO> itemBinding;
         if (request.getReceiveStatus() == TASK_STATUS.TAKE_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take_detail_wait);
-            itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsItemVO>) data -> {
-                Bundle bundle = new Bundle();
-                bundle.putString(IntentKey.CODE, data.getCode());
-                bundle.putString(IntentKey.RECEIVE_CODE, data.getReceiveCode());
-                bundle.putString(IntentKey.SUPPLIER, supplierName);
-                startActivity(GoodsTakeConfirmActivity.class, bundle);
-            });
+            itemBinding
+                    .bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsItemVO>) data -> {
+                        Bundle bundle = new Bundle();
+                        bundle.putString(IntentKey.CODE, data.getCode());
+                        bundle.putString(IntentKey.RECEIVE_CODE, data.getReceiveCode());
+                        bundle.putString(IntentKey.SUPPLIER, supplierName);
+                        startActivity(GoodsTakeConfirmActivity.class, bundle);
+                    })
+                    .bindExtra(BR.supplier, supplierName);
         } else {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take_detail_yet);
+            itemBinding.bindExtra(BR.supplier, supplierName);
         }
 
         return itemBinding;

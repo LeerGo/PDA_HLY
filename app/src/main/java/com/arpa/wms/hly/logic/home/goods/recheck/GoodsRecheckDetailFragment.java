@@ -54,6 +54,7 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
         viewModel.request.setParams(recheckStatus, requireArguments().getString(Const.IntentKey.CODE));
         viewBind.rvList.addItemDecoration(new BothItemDecoration());
         VMGoodsRecheckDetail parentModel = new ViewModelProvider(requireActivity()).get(VMGoodsRecheckDetail.class);
+        parentModel.headerData.observe(requireActivity(), headerData -> viewModel.supplierName = headerData.getSupplierName());
         parentModel.searchLiveData.observe(requireActivity(),
                 searchInfo -> {
                     if (recheckStatus == searchInfo.getStatus()) {

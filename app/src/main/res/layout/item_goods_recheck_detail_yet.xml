@@ -86,31 +86,115 @@
                     app:propsValue="@{data.recheckQuantity}"
                     tools:propsValue="100" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-            
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_date"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/ll1"
-                app:propsKey="生产日期："
-                app:propsValue="@{data.gmtManufacture}"
-                tools:propsValue="2021-05-06" />
-            
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_place"
-                style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_date"
-                app:propsKey="产        地："
-                app:propsValue="@{data.extendOne}"
-                tools:propsValue="A7" />
-            
-            
+    
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll2"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/ll1">
+        
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="产        地："
+                    app:propsValue="@{data.extendOne}"
+                    app:visibleState="@{data.batchRule.extendOne}"
+                    tools:propsValue="A7" />
+        
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="特殊品项："
+                    app:propsValue="@{data.extendTwo}"
+                    app:visibleState="@{data.batchRule.extendTwo}"
+                    tools:propsValue="常规" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_yards"
                 style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_place"
+                android:layout_below="@id/ll2"
                 app:propsKey="码托数量："
                 app:propsValue="@{data.supportNum}"
                 tools:propsValue="100" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_supplier"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_yards"
+                app:propsKey="供  应  商："
+                app:propsValue="@{data.supplier}"
+                app:visibleState="@{data.batchRule.supplier}"
+                tools:propsValue="测试供应商" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_serial"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_supplier"
+                app:propsKey="序  列  号："
+                app:propsValue="@{data.serialNumber}"
+                app:visibleState="@{data.batchRule.serialNumber}"
+                tools:propsValue="YSWB-VC2P-7FGL" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_date"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_serial"
+                app:propsKey="生产日期："
+                app:propsValue="@{data.gmtManufacture}"
+                app:visibleState="@{data.batchRule.gmtManufacture}"
+                tools:propsValue="2021-05-06" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_date2"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_date"
+                app:propsKey="过期日期："
+                app:propsValue="@{data.gmtExpire}"
+                app:visibleState="@{data.batchRule.gmtExpire}"
+                tools:propsValue="2021-05-06" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_date3"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_date2"
+                app:propsKey="存货日期："
+                app:propsValue="@{data.gmtStock}"
+                app:visibleState="@{data.batchRule.gmtStock}"
+                tools:propsValue="2021-05-06" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_t3"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_date3"
+                app:propsKey="拓  展   3："
+                app:propsValue="@{String.valueOf(data.extendThree)}"
+                app:visibleState="@{data.batchRule.extendThree}"
+                tools:propsValue="T3" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_t4"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_t3"
+                app:propsKey="拓  展   4："
+                app:propsValue="@{String.valueOf(data.extendFour)}"
+                app:visibleState="@{data.batchRule.extendFour}"
+                tools:propsValue="T4" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_t5"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_t4"
+                app:propsKey="拓  展   5："
+                app:propsValue="@{data.extendFive}"
+                app:visibleState="@{data.batchRule.extendFive}"
+                tools:propsValue="2021-05-06" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_t6"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_t5"
+                app:propsKey="拓  展   6："
+                app:propsValue="@{data.extendSix}"
+                app:visibleState="@{data.batchRule.extendSix}"
+                tools:propsValue="2021-05-06" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>
