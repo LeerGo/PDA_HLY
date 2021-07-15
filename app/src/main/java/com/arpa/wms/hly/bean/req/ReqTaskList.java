@@ -19,14 +19,14 @@ public class ReqTaskList extends ReqPage {
     private String jobStatus;
     private String warehouseCode;
     private String code;
-    private int assign;//指派状态：0未指派，1已指派，2指派中
+    private Integer assign;//指派状态：0未指派，1已指派，2指派中
 
-    public ReqTaskList(int pageSize) {
+    public ReqTaskList(Integer pageSize) {
         super(pageSize);
         warehouseCode = SPUtils.getInstance().getString(WAREHOUSE_CODE);
     }
 
-    public int getAssign() {
+    public Integer getAssign() {
         return assign;
     }
 
