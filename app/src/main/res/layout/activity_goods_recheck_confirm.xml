@@ -103,17 +103,17 @@
                         app:propsValue="@{viewModel.detail.supplier}"
                         app:propsValueGravity="end"
                         app:visibleState="@{viewModel.detail.batchRule.supplier}"
-                        tools:propsValue="2021-05-13" />
+                        tools:propsValue="测试供应商" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         style="@style/ItemRecheckBatchStyle"
-                        app:propsKey="供应商"
+                        app:propsKey="序列号"
                         app:propsKeyColor="@color/color_434c67"
                         app:propsKeySize="15sp"
                         app:propsValue="@{viewModel.detail.serialNumber}"
                         app:propsValueGravity="end"
                         app:visibleState="@{viewModel.detail.batchRule.serialNumber}"
-                        tools:propsValue="2021-05-13" />
+                        tools:propsValue="PJEN-D3RJ-XVIU" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         style="@style/ItemRecheckBatchStyle"
@@ -123,7 +123,7 @@
                         app:propsValue="@{viewModel.detail.extendOne}"
                         app:propsValueGravity="end"
                         app:visibleState="@{viewModel.detail.batchRule.extendOne}"
-                        tools:propsValue="A7" />
+                        tools:propsValue="临沂" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         style="@style/ItemRecheckBatchStyle"
@@ -133,7 +133,7 @@
                         app:propsValue="@{viewModel.detail.extendThree}"
                         app:propsValueGravity="end"
                         app:visibleState="@{viewModel.detail.batchRule.extendThree}"
-                        tools:propsValue="A7" />
+                        tools:propsValue="T3" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         style="@style/ItemRecheckBatchStyle"
@@ -143,7 +143,7 @@
                         app:propsValue="@{viewModel.detail.extendFour}"
                         app:propsValueGravity="end"
                         app:visibleState="@{viewModel.detail.batchRule.extendFour}"
-                        tools:propsValue="A7" />
+                        tools:propsValue="T4" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         style="@style/ItemRecheckBatchStyle"
@@ -153,7 +153,7 @@
                         app:propsValue="@{viewModel.detail.extendFive}"
                         app:propsValueGravity="end"
                         app:visibleState="@{viewModel.detail.batchRule.extendFive}"
-                        tools:propsValue="A7" />
+                        tools:propsValue="2021-07-15" />
                     
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         style="@style/ItemRecheckBatchStyle"
@@ -163,8 +163,7 @@
                         app:propsValue="@{viewModel.detail.extendSix}"
                         app:propsValueGravity="end"
                         app:visibleState="@{viewModel.detail.batchRule.extendSix}"
-                        tools:propsValue="A7" />
-                
+                        tools:propsValue="2021-07-15" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
                 
                 <androidx.appcompat.widget.LinearLayoutCompat
