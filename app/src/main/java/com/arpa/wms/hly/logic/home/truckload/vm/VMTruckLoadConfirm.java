@@ -38,10 +38,6 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 @HiltViewModel
 public class VMTruckLoadConfirm extends WrapDataViewModel {
-    // header 独立置顶的操作
-    //    public final ItemBinding<GoodsItemVO> itemBinding = ItemBinding.of(BR.data, R.layout.item_truck_load_confirm);
-    //    public final ObservableField<OutboundVOS> headerData = new ObservableField<>();
-
     public final ObservableArrayList<Object> items = new ObservableArrayList<>();
     public final ItemBinding<Object> itemBinding = ItemBinding.of((itemBinding, position, item) -> {
         if (item instanceof GoodsItemVO) {

@@ -6,6 +6,8 @@
     
     <data>
         
+        <import type="android.text.TextUtils" />
+        
         <variable
             name="data"
             type="com.arpa.wms.hly.bean.GoodsItemVO" />
@@ -22,9 +24,7 @@
         tools:layout_marginBottom="10dp">
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
+            style="@style/TruckItemStyle"
             app:propsKey="商品名称"
             app:propsKeyColor="@color/color_434c67"
             app:propsValue="@{data.goodsName}"
@@ -32,49 +32,114 @@
             tools:propsValue="金典有机奶" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            app:propsKey="单位"
+            style="@style/TruckItemStyle"
+            app:propsKey="单        位"
             app:propsKeyColor="@color/color_434c67"
             app:propsValue="@{data.goodsUnitName}"
             app:propsValueGravity="end"
             tools:propsValue="箱" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            app:propsKey="产地"
+            style="@style/TruckItemStyle"
+            app:propsKey="产        地"
             app:propsKeyColor="@color/color_434c67"
             app:propsValue="@{data.extendOne}"
             app:propsValueGravity="end"
-            tools:propsValue="A7" />
+            app:visible="@{!TextUtils.isEmpty(data.extendOne)}"
+            tools:propsValue="临沂" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
-            app:propsKey="生产日期"
+            style="@style/TruckItemStyle"
+            app:propsKey="供  应  商"
             app:propsKeyColor="@color/color_434c67"
-            app:propsValue="@{data.gmtManufacture}"
+            app:propsValue="@{data.supplier}"
             app:propsValueGravity="end"
-            tools:propsValue="2020-11-20" />
+            app:visible="@{!TextUtils.isEmpty(data.supplier)}"
+            tools:propsValue="测试供应商" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
+            style="@style/TruckItemStyle"
+            app:propsKey="序  列  号"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.serialNumber}"
+            app:propsValueGravity="end"
+            app:visible="@{!TextUtils.isEmpty(data.serialNumber)}"
+            tools:propsValue="C6SX-0R7C-H0W5" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/TruckItemStyle"
             app:propsKey="特殊品项"
             app:propsKeyColor="@color/color_434c67"
             app:propsValue="@{data.extendTwo}"
             app:propsValueGravity="end"
+            app:visible="@{!TextUtils.isEmpty(data.extendTwo)}"
             tools:propsValue="常规" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
+            style="@style/TruckItemStyle"
+            app:propsKey="生产日期"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.gmtManufacture}"
+            app:propsValueGravity="end"
+            app:visible="@{!TextUtils.isEmpty(data.gmtManufacture)}"
+            tools:propsValue="2020-11-20" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/TruckItemStyle"
+            app:propsKey="过期日期"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.gmtExpire}"
+            app:propsValueGravity="end"
+            app:visible="@{!TextUtils.isEmpty(data.gmtExpire)}"
+            tools:propsValue="2020-11-20" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/TruckItemStyle"
+            app:propsKey="存货日期"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.gmtStock}"
+            app:propsValueGravity="end"
+            app:visible="@{!TextUtils.isEmpty(data.gmtStock)}"
+            tools:propsValue="2020-11-20" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/TruckItemStyle"
+            app:propsKey="拓  展   3"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.extendThree.toString()}"
+            app:propsValueGravity="end"
+            app:visible="@{null != data.extendThree}"
+            tools:propsValue="T3" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/TruckItemStyle"
+            app:propsKey="拓  展   4"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.extendFour.toString()}"
+            app:propsValueGravity="end"
+            app:visible="@{null != data.extendFour}"
+            tools:propsValue="T4" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/TruckItemStyle"
+            app:propsKey="拓  展   5"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.extendFive}"
+            app:propsValueGravity="end"
+            app:visible="@{!TextUtils.isEmpty(data.extendFive)}"
+            tools:propsValue="2020-11-20" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/TruckItemStyle"
+            app:propsKey="拓  展   3"
+            app:propsKeyColor="@color/color_434c67"
+            app:propsValue="@{data.extendSix}"
+            app:propsValueGravity="end"
+            app:visible="@{!TextUtils.isEmpty(data.extendSix)}"
+            tools:propsValue="2020-11-20" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/TruckItemStyle"
             app:propsKey="计划数量"
             app:propsKeyColor="@color/color_434c67"
             app:propsValue="@{String.valueOf(data.recheckQuantity)}"
@@ -82,9 +147,7 @@
             tools:propsValue="500" />
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
+            style="@style/TruckItemStyle"
             app:inputHint="请输入装车数量"
             app:inputMax="@{data.recheckQuantity}"
             app:inputText="@={data.loadQuantity}"

@@ -5,6 +5,8 @@
     
     <data>
         
+        <import type="android.text.TextUtils" />
+        
         <import type="com.arpa.wms.hly.bean.res.ResMoveGoods.InventoryListBean" />
         
         <variable
@@ -27,8 +29,7 @@
         tools:layout_marginTop="10dp">
         
         <androidx.appcompat.widget.LinearLayoutCompat
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            style="@style/WMatchHWrap"
             android:orientation="vertical">
             
             <androidx.appcompat.widget.LinearLayoutCompat
@@ -37,9 +38,7 @@
                 android:gravity="center_vertical">
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/WWeightHWrap"
                     app:decimalValue="@{data.canUseQuantity}"
                     app:propsKey="库存数量："
                     tools:propsValue="1001" />
@@ -62,58 +61,103 @@
                     tools:text="/未锁定" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
-            <!--app:visible="@{data.batchRule.gmtManufacture == 0}"-->
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
-                app:propsKey="生产日期："
-                app:propsValue="@{data.gmtManufacture}"
-                tools:propsValue="2021-05-11" />
-            
             <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
+                style="@style/GoodsScanItemStyle">
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:propsKey="产        地："
-                    app:propsValue="@{data.extendOne}"
-                    tools:propsValue="A-1001" />
-                
-                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    app:propsKey="特殊品项："
-                    app:propsValue="@{data.extendTwo}"
-                    tools:propsValue="常规" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="4dp">
-                
-                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/WWeightHWrap"
                     app:decimalValue="@{data.supportNum}"
                     app:propsKey="码托数量："
                     tools:propsValue="101" />
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    style="@style/WWeightHWrap"
                     app:decimalValue="@{data.traysNum}"
                     app:propsKey="整托数量："
                     tools:propsValue="1" />
             </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                style="@style/GoodsScanItemStyle">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/WWeightHWrap"
+                    app:propsKey="产        地："
+                    app:propsValue="@{data.extendOne}"
+                    app:visible="@{!TextUtils.isEmpty(data.extendOne)}"
+                    tools:propsValue="A-1001" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/WWeightHWrap"
+                    app:propsKey="特殊品项："
+                    app:propsValue="@{data.extendTwo}"
+                    app:visible="@{!TextUtils.isEmpty(data.extendTwo)}"
+                    tools:propsValue="常规" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="供  应  商："
+                app:propsValue="@{data.supplier}"
+                app:visible="@{!TextUtils.isEmpty(data.supplier)}"
+                tools:propsValue="供应商" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="序  列  号："
+                app:propsValue="@{data.serialNumber}"
+                app:visible="@{!TextUtils.isEmpty(data.serialNumber)}"
+                tools:propsValue="ZZMU-ALAH-BJD1" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="生产日期："
+                app:propsValue="@{data.gmtManufacture}"
+                app:visible="@{!TextUtils.isEmpty(data.gmtManufacture)}"
+                tools:propsValue="2021-05-11" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="过期日期："
+                app:propsValue="@{data.gmtExpire}"
+                app:visible="@{!TextUtils.isEmpty(data.gmtExpire)}"
+                tools:propsValue="2021-05-11" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="存货日期："
+                app:propsValue="@{data.gmtStock}"
+                app:visible="@{!TextUtils.isEmpty(data.gmtStock)}"
+                tools:propsValue="2021-05-11" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="拓  展   3："
+                app:propsValue="@{data.extendThree}"
+                app:visible="@{!TextUtils.isEmpty(data.extendThree)}"
+                tools:propsValue="T3" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="拓  展   4："
+                app:propsValue="@{data.extendFour}"
+                app:visible="@{!TextUtils.isEmpty(data.extendFour)}"
+                tools:propsValue="T4" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="拓  展   5："
+                app:propsValue="@{data.extendFive}"
+                app:visible="@{!TextUtils.isEmpty(data.extendFive)}"
+                tools:propsValue="2021-05-11" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/GoodsScanItemStyle"
+                app:propsKey="拓  展   6："
+                app:propsValue="@{data.extendSix}"
+                app:visible="@{!TextUtils.isEmpty(data.extendSix)}"
+                tools:propsValue="2021-05-11" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
 </layout>

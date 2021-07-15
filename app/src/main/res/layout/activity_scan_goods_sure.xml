@@ -69,30 +69,28 @@
                 android:textColor="@color/colorPrimary"
                 android:textSize="14sp"
                 tools:text="合格" />
-            
-<!--            <androidx.appcompat.widget.AppCompatTextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:text="@{'/'+viewModel.liveData.inventoryList.get(0).lockName}"-->
-<!--                android:textColor="@color/color_434c67"-->
-<!--                android:textSize="14sp"-->
-<!--                android:visibility="gone"-->
-<!--                tools:text="/未锁定" />-->
         </androidx.appcompat.widget.LinearLayoutCompat>
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
-            app:propsKey="生产日期"
-            app:propsValue="@{viewModel.liveData.inventoryList.get(0).gmtManufacture}"
+            app:propsKey="供  应  商"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).supplier}"
             app:propsValueGravity="end"
-            tools:propsValue="2021-05-11" />
+            tools:propsValue="测试供应商" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="序  列  号"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).serialNumber}"
+            app:propsValueGravity="end"
+            tools:propsValue="RXM1-ZR9O-BUVB" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
             app:propsKey="产        地"
             app:propsValue="@{viewModel.liveData.inventoryList.get(0).extendOne}"
             app:propsValueGravity="end"
-            tools:propsValue="A7" />
+            tools:propsValue="成都" />
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
@@ -103,10 +101,59 @@
         
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ScanGoodSureStyle"
+            app:propsKey="生产日期"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).gmtManufacture}"
+            app:propsValueGravity="end"
+            tools:propsValue="2021-05-11" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="过期日期"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).gmtExpire}"
+            app:propsValueGravity="end"
+            tools:propsValue="2021-05-11" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="存货日期"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).gmtStock}"
+            app:propsValueGravity="end"
+            tools:propsValue="2021-05-11" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="拓  展   3"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).extendThree.toString()}"
+            app:propsValueGravity="end"
+            tools:propsValue="T3" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="拓  展   4"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).extendFour.toString()}"
+            app:propsValueGravity="end"
+            tools:propsValue="T4" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="拓  展   5"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).extendFive}"
+            app:propsValueGravity="end"
+            tools:propsValue="2021-05-11" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
+            app:propsKey="拓  展   6"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).extendSix}"
+            app:propsValueGravity="end"
+            tools:propsValue="2021-05-11" />
+        
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            style="@style/ScanGoodSureStyle"
             android:layout_marginBottom="10dp"
             android:paddingBottom="10dp"
             app:propsKey="码托数量"
-            app:propsValue="@{viewModel.liveData.inventoryList.get(0).supportNum}"
+            app:propsValue="@{viewModel.liveData.inventoryList.get(0).supportNum.toString()}"
             app:propsValueGravity="end"
             tools:propsValue="100" />
         
