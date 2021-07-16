@@ -28,7 +28,8 @@ public class TaskGoodsPickActivity extends WrapBaseActivity<VMTaskGoodsPick, Act
         super.initData(savedInstanceState);
         viewBind.setViewModel(viewModel);
         ResTaskAssign data = getIntent().getParcelableExtra(DATA);
-        viewModel.headerData.set(data);
+        viewModel.headerData.setValue(data);
+        viewModel.headerData.observe(this, resTaskAssign -> viewBind.incHeader.setData(resTaskAssign));
         viewModel.reqPickDetail.setSourceCode(Objects.requireNonNull(data).getSourceCode());
         viewBind.rvList.addItemDecoration(new BothItemDecoration(true));
     }

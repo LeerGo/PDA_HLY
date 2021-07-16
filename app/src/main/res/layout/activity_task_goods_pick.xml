@@ -42,6 +42,7 @@
                     app:layout_scrollFlags="scroll">
                     
                     <include
+                        android:id="@+id/incHeader"
                         layout="@layout/item_goods_recheck"
                         app:data="@{viewModel.headerData}"
                         app:showOrder="@{false}" />
@@ -64,9 +65,8 @@
                     android:id="@+id/rvList"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    app:adapter="@{viewModel.adapter}"
                     app:itemBinding="@{viewModel.itemBinding}"
-                    app:items="@{viewModel.items}"
+                    app:items="@{viewModel.resTaskPick.pickingItemWithRegisterVOList}"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="20"
                     tools:listitem="@layout/item_task_goods_pick" />

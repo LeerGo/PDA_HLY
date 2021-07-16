@@ -45,7 +45,7 @@
                 android:layout_marginStart="4dp"
                 android:layout_toEndOf="@id/ivIcon"
                 android:gravity="center_vertical"
-                android:text='@{@string/picking_location(data.locationName)}'
+                android:text='@{@string/picking_location(data.oldLocationName)}'
                 android:textColor="@color/color_434c67"
                 tools:text="拣货库位：1001" />
             
@@ -89,24 +89,6 @@
                 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
-                    app:propsKey="产        地："
-                    app:propsValue="@{data.extendOne}"
-                    tools:propsValue="A7" />
-                
-                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    style="@style/TaskPropsWeightStyle"
-                    app:propsKey="特殊品项："
-                    app:propsValue="@{data.extendTwo}"
-                    tools:propsValue="常规" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
-            
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:id="@+id/ll3"
-                style="@style/WMatchHWrap"
-                android:layout_below="@id/ll2">
-                
-                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    style="@style/TaskPropsWeightStyle"
                     app:propsKey="码托数量："
                     app:propsValue="@{data.supportNum}"
                     tools:propsValue="100" />
@@ -118,12 +100,103 @@
                     tools:propsValue="200" />
             </androidx.appcompat.widget.LinearLayoutCompat>
             
-            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                style="@style/TaskPropsStyle"
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll3"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/ll2">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="产        地："
+                    app:propsValue="@{data.extendOne}"
+                    app:visible="@{!TextUtils.isEmpty(data.extendOne)}"
+                    tools:propsValue="A7" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="特殊品项："
+                    app:propsValue="@{data.extendTwo}"
+                    app:visible="@{!TextUtils.isEmpty(data.extendTwo)}"
+                    tools:propsValue="常规" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/ll3"
-                app:propsKey="生产日期："
-                app:propsValue="@{data.gmtManufacture}"
-                tools:propsValue="2021-05-14" />
+                android:orientation="vertical">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    app:propsKey="供  应  商："
+                    app:propsValue="@{data.supplier}"
+                    app:visible="@{!TextUtils.isEmpty(data.supplier)}"
+                    tools:propsValue="测试供应商" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    android:layout_below="@id/ll3"
+                    app:propsKey="序  列  号："
+                    app:propsValue="@{data.serialNumber}"
+                    app:visible="@{!TextUtils.isEmpty(data.serialNumber)}"
+                    tools:propsValue="5FQT-OI4F-UXWC" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    android:layout_below="@id/ll3"
+                    app:propsKey="生产日期："
+                    app:propsValue="@{data.gmtManufacture}"
+                    app:visible="@{!TextUtils.isEmpty(data.gmtManufacture)}"
+                    tools:propsValue="2021-05-14" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    android:layout_below="@id/ll3"
+                    app:propsKey="过期日期："
+                    app:propsValue="@{data.gmtExpire}"
+                    app:visible="@{!TextUtils.isEmpty(data.gmtExpire)}"
+                    tools:propsValue="2021-05-14" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    android:layout_below="@id/ll3"
+                    app:propsKey="存货日期："
+                    app:propsValue="@{data.gmtStock}"
+                    app:visible="@{!TextUtils.isEmpty(data.gmtStock)}"
+                    tools:propsValue="2021-05-14" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    android:layout_below="@id/ll3"
+                    app:propsKey="拓  展   3："
+                    app:propsValue="@{data.extendThree}"
+                    app:visible="@{null != data.extendThree}"
+                    tools:propsValue="T3" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    android:layout_below="@id/ll3"
+                    app:propsKey="拓  展   4："
+                    app:propsValue="@{data.extendFour.toString()}"
+                    app:visible="@{null != data.extendFour}"
+                    tools:propsValue="T4" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    android:layout_below="@id/ll3"
+                    app:propsKey="拓  展   5："
+                    app:propsValue="@{data.extendFive}"
+                    app:visible="@{!TextUtils.isEmpty(data.extendFive)}"
+                    tools:propsValue="2021-05-14" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsStyle"
+                    android:layout_below="@id/ll3"
+                    app:propsKey="拓  展   6："
+                    app:propsValue="@{data.extendSix}"
+                    app:visible="@{!TextUtils.isEmpty(data.extendSix)}"
+                    tools:propsValue="2021-05-14" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

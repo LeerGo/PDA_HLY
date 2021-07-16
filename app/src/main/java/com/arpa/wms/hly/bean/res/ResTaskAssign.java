@@ -218,13 +218,19 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     /**
      * 任务中心跳转详情，需要转换一下字段赋值
      */
-    public void toTaskGoodDetail() {
+    public void toTaskTakeDetail() {
         this.receivedQuantity = this.jobQuantity;
         this.totalQuantity = this.goodsQuantity;
     }
+    /**
+     * 任务中心跳转拣货详情，需要转换一下字段赋值
+     */
+    public void toTaskPickDetail() {
+        this.planQuantity = this.goodsQuantity;
+    }
 
     /**
-     * 跳转符合详情，header 部分 xml 是复用的，字段也重新赋值一下
+     * 跳转复核详情，header 部分 xml 是复用的，字段也重新赋值一下
      */
     public void toRecheckDetail() {
         this.receivedQuantity = this.recheckQuantity;

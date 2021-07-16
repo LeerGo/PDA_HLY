@@ -86,12 +86,14 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     public ItemBinding<ResTaskAssign> getItemBinding() {
         itemBinding.bindExtra(BR.listener, (DataTransCallback<ResTaskAssign>) data -> {
             Bundle bundle = new Bundle();
-            data.toTaskGoodDetail();
-            bundle.putParcelable(DATA, data);
 
             if (GOODS_TAKE.equals(data.getTaskTypeDes())) { // 跳转收货详情 @lyf 2021-05-06 10:09:04
+                data.toTaskTakeDetail();
+                bundle.putParcelable(DATA, data);
                 startActivity(TaskGoodsTakeActivity.class, bundle);
             } else if (GOODS_PICK.equals(data.getTaskTypeDes())) { // 跳转拣货详情 @lyf 2021-05-06 10:09:04
+                data.toTaskPickDetail();
+                bundle.putParcelable(DATA, data);
                 startActivity(TaskGoodsPickActivity.class, bundle);
             }
         }).bindExtra(BR.select, (DataTransCallback<ResTaskAssign>) data -> { // 多选
