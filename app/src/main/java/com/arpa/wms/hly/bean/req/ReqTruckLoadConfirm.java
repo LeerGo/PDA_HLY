@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class ReqTruckLoadConfirm {
     private String code;
-    // 序列化为托数，而且会有，先行注释
+    // 序列化为托数，二期会有，先行注释
     // private int trayQuantity;
     // 从 view 接受数据，赋值给 trayQuantity，不需要序列化
     // private transient String trayCount;
