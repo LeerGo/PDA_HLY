@@ -17,6 +17,7 @@ import com.arpa.wms.hly.utils.Const.DateType;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -46,7 +47,7 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
         );
         viewModel.request.setParams(getIntent().getStringExtra(IntentKey.CODE), getIntent().getStringExtra(IntentKey.RECEIVE_CODE));
         viewModel.supplier = getIntent().getStringExtra(IntentKey.SUPPLIER);
-
+        viewModel.dialogMsg.observe(this, (Observer<String>) msg -> showDialogFragment(new DialogTips(msg)));
         viewModel.itemBinding
                 .bindExtra(BR.onStatusClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
                         showDialogFragment(new DialogGoodStatusSelect(raw.getGoodsStatus(), viewModel.detail.getInventoryStatusList(),

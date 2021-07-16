@@ -28,7 +28,6 @@ public class DialogTips extends BaseDialogFragment {
 
     public DialogTips(String content, VoidCallback onSure) {
         this(null, content, onSure);
-
     }
 
     public DialogTips(String title, String content, VoidCallback onSure) {
@@ -40,6 +39,10 @@ public class DialogTips extends BaseDialogFragment {
         this.content = content;
         this.onSure = onSure;
         this.onCancel = onCancel;
+    }
+
+    public DialogTips(String content) {
+        this(null, content, null);
     }
 
     @Override
@@ -72,8 +75,11 @@ public class DialogTips extends BaseDialogFragment {
     }
 
     private void setOptArea() {
-        findViewById(R.id.tv_cancel).setOnClickListener(v -> onOpt(onCancel));
-        findViewById(R.id.tv_sure).setOnClickListener(v -> onOpt(onSure));
+        AppCompatTextView tvCancel = (AppCompatTextView) findViewById(R.id.tv_cancel);
+        AppCompatTextView tvSure = (AppCompatTextView) findViewById(R.id.tv_sure);
+        tvSure.setOnClickListener(v -> onOpt(onSure));
+        tvCancel.setOnClickListener(v -> onOpt(onCancel));
+        if (null == onSure) tvCancel.setVisibility(View.GONE);
     }
 
     private void onOpt(VoidCallback callback) {

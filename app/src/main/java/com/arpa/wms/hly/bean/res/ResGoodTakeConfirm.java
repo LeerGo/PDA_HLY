@@ -48,6 +48,8 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
     private String gmtStock; // 存货日期
     @Expose(serialize = false)
     private String serialNumber; // 序列号
+    @Expose(serialize = false)
+    private int receivedQuantity; // 已收货数量
 
     public ReceiveBean getReceive() {
         return receive;
@@ -184,6 +186,14 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
 
     public void setExtendSix(String extendSix) {
         this.extendSix = extendSix;
+    }
+
+    public int getReceivedQuantity() {
+        return receivedQuantity;
+    }
+
+    public void setReceivedQuantity(int receivedQuantity) {
+        this.receivedQuantity = receivedQuantity;
     }
 
     public static class ReceiveBean {

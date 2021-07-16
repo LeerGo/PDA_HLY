@@ -42,7 +42,9 @@
         
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            app:divider="@drawable/divider_line_vertical_1px"
+            app:showDividers="middle">
             
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_cancel"
@@ -53,11 +55,6 @@
                 android:text="取消"
                 android:textColor="@color/color_434c67"
                 android:textSize="16sp" />
-            
-            <View
-                android:layout_width="1px"
-                android:layout_height="match_parent"
-                android:background="@color/color_ececec" />
             
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tv_sure"

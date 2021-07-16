@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             app:propsKey="应收数量"
-            app:propsValue="@{header.planQuantity}"
+            app:propsValue="@{header.planQuantity-header.receivedQuantity}"
             app:propsValueColor="@color/colorPrimary"
             app:propsValueGravity="end"
             tools:propsValue="1000" />

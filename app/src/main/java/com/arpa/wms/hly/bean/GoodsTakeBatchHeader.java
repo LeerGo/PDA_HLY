@@ -9,11 +9,13 @@ import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
  */
 public class GoodsTakeBatchHeader {
     private int planQuantity; // 应收数量
+    private int receivedQuantity; // 已收数量
     private String goodsName; // 商品名称
     private String goodsUnitName;// 商品单位
     private String licensePlateNumber;// 车牌号
 
     public void convert(ResGoodTakeConfirm raw) {
+        setReceivedQuantity(raw.getReceivedQuantity());
         setGoodsName(raw.getGoodsName());
         setPlanQuantity(raw.getPlanQuantity());
         setGoodsUnitName(raw.getGoodsUnitName());
@@ -50,5 +52,13 @@ public class GoodsTakeBatchHeader {
 
     public void setLicensePlateNumber(String licensePlateNumber) {
         this.licensePlateNumber = licensePlateNumber;
+    }
+
+    public int getReceivedQuantity() {
+        return receivedQuantity;
+    }
+
+    public void setReceivedQuantity(int receivedQuantity) {
+        this.receivedQuantity = receivedQuantity;
     }
 }

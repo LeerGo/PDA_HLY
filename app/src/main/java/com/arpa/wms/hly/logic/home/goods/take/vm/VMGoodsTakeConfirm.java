@@ -4,6 +4,7 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.MessageEvent;
 import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
@@ -43,6 +44,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     public final ObservableArrayList<Object> items = new ObservableArrayList<>();
     public final BindingRecyclerViewAdapter<Object> adapter = new WrapBindingRVAdapter<>();
     public final ReqGoodTakeDetail request = new ReqGoodTakeDetail();
+    // 弹窗通知
+    public final MessageEvent dialogMsg = new MessageEvent();
     public ResGoodTakeConfirm detail;
     // adapter 相关
     private final OnItemBind<Object> onItemBind =
@@ -55,7 +58,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
                 }
             };
     public final ItemBinding<Object> itemBinding = ItemBinding.of(onItemBind);
-    public String supplier; // 供应商
+    // 供应商
+    public String supplier;
 
     @Inject
     public VMGoodsTakeConfirm(@NonNull Application application, BaseModel model) {
@@ -151,12 +155,18 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
             GoodsItemVO data = (GoodsItemVO) items.get(i);
             batchGoodsCount += NumberUtils.parseInteger(data.getReceivedQuantity());
             // 条件#1
-            if (batchGoodsCount > detail.getPlanQuantity()) {
+            if (batchGoodsCount > detail.getPlanQuantity() - detail.getReceivedQuantity()) {
                 ToastUtils.showShort("已录入批次收货数量超过应收数量");
                 result = false;
                 break;
             }
-            // 条件#2
+            // 条件#1
+            if (batchGoodsCount == detail.getPlanQuantity() - detail.getReceivedQuantity()) {
+                dialogMsg.postValue("当前商品已全部收货，不能添加收货批次。");
+                result = false;
+                break;
+            }
+            // 条件#3
             if (!validateItem(data)) {
                 ToastUtils.showShort("请完整录入第" + i + "条收货批次数据");
                 result = false;
@@ -171,8 +181,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      */
     private boolean validateItem(GoodsItemVO item) {
         if (TextUtils.isEmpty(item.getGoodsStatus())) return false;
-        if (item.getReceivedQuantity() == 0) return false;
-        if (item.getSupportNum() == 0) return false;
+        if (null == item.getReceivedQuantity()) return false;
+        if (null == item.getSupportNum()) return false;
         if (TextUtils.isEmpty(item.getLocation())) return false;
         if (detail.getBatchRule().getGmtManufacture() == 1) {
             if (TextUtils.isEmpty(item.getGmtManufacture())) return false;
