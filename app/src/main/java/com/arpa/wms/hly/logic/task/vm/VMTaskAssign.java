@@ -176,6 +176,8 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
 
             if (null != data.getJobType())
                 reqTaskAssign.setWorkType(data.getJobType().getValue());
+            else
+                reqTaskAssign.setWorkType(null);
         }
     }
 

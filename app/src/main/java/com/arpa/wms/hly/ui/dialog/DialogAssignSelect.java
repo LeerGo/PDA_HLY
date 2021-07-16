@@ -57,7 +57,7 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
-        if (workType == FORKLIFT && !data.getJobType().isEmpty()) {
+        if (workType == STEVEDORE && !data.getJobType().isEmpty()) {
             // 默认选中第一个 fix:http://192.168.31.42:801//zentao/bug-view-26065.html
             result.setJobType(data.getJobType().get(0));
         }
