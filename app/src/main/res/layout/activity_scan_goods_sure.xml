@@ -11,12 +11,13 @@
             type="com.arpa.wms.hly.logic.home.inventory.move.vm.VMScanGoodsSure" />
     </data>
     
-    <androidx.appcompat.widget.LinearLayoutCompat
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         
         <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/wtb_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="10dp"
@@ -24,7 +25,9 @@
         
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:layout_above="@+id/ll_operation"
+            android:layout_below="@id/wtb_title">
             
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
@@ -169,6 +172,7 @@
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="40dp"
                     android:background="@color/white"
                     android:orientation="vertical"
                     android:paddingHorizontal="12dp"
@@ -197,14 +201,11 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
         
-        <Space
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1" />
-        
         <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_operation"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:background="@color/white"
             android:paddingHorizontal="12dp"
             android:paddingVertical="16dp">
@@ -228,5 +229,5 @@
                 android:text="确认"
                 android:textColor="@color/white" />
         </androidx.appcompat.widget.LinearLayoutCompat>
-    </androidx.appcompat.widget.LinearLayoutCompat>
+    </RelativeLayout>
 </layout>
