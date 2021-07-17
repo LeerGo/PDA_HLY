@@ -139,7 +139,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      * 添加一个新的批次录入
      */
     public void addBatch() {
-        if (validateInput()) addBatchItem();
+        if (validateInput(true)) addBatchItem();
     }
 
     /**
@@ -147,7 +147,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      * 1. 当前所有录入批次的收货数量 < 应收数量
      * 2. 上一条录入批次的所有参数都不得为空，全部录入了
      */
-    private boolean validateInput() {
+    private boolean validateInput(boolean isAddBatch) {
         int batchGoodsCount = 0;// 批次数量计数
         boolean result = true;
 
@@ -160,8 +160,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
                 result = false;
                 break;
             }
-            // 条件#1
-            if (batchGoodsCount == detail.getPlanQuantity() - detail.getReceivedQuantity()) {
+            // 条件#1#只有在添加批次时才校验
+            if (batchGoodsCount == detail.getPlanQuantity() - detail.getReceivedQuantity() && isAddBatch) {
                 dialogMsg.postValue("当前商品已全部收货，不能添加收货批次。");
                 result = false;
                 break;
@@ -227,7 +227,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
      *         true - 整单确认
      */
     public void orderConfirm(boolean isWholeConfirm) {
-        if (!validateInput()) return;
+        if (!validateInput(false)) return;
 
         updateStatus(StatusEvent.Status.LOADING);
 
