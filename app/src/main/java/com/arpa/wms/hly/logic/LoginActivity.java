@@ -14,7 +14,6 @@ import com.arpa.wms.hly.ui.listener.ViewListener;
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
-
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>

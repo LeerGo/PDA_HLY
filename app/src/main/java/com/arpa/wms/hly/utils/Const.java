@@ -20,6 +20,9 @@ public interface Const {
      */
     String BUGLY_ID = "3c20ee1d4c";
 
+    /**
+     * 全局 Header 常量
+     */
     interface Header {
         /**
          * SSO 令牌

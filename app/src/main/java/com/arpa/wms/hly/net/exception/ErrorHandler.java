@@ -42,8 +42,7 @@ public class ErrorHandler {
         } else if (e instanceof ServerProtocolException) {
             ServerProtocolException exp = (ServerProtocolException) e;
             error.setInfo(exp.getCode(), exp.getMsg());
-            if (null == exp.getMsg())
-                error.setMessage("服务器内部异常");
+            if (null == exp.getMsg()) error.setMessage("服务器内部异常");
         } else if (e instanceof JSONException || e instanceof JsonParseException || e instanceof ParseException | e instanceof MalformedJsonException) {
             error.setInfo(ErrorCode.JSON_ERROR, "JSON 解析异常");
         } else if (e instanceof TimeoutException || e instanceof SocketTimeoutException) {
