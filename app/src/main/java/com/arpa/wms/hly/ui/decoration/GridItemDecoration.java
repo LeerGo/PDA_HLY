@@ -26,12 +26,12 @@ public class GridItemDecoration extends RecyclerView.ItemDecoration {
         outRect.top = interval;
         if (parent.getChildAdapterPosition(view) % 2 == 0) {
             outRect.left = interval;
-            outRect.right = interval;
+            outRect.right = interval / 2;
         } else if (parent.getChildAdapterPosition(view) % 2 == 1) {
-            outRect.left = 0;
+            outRect.left = interval / 2;
             outRect.right = interval;
         }
-        if (parent.getChildAdapterPosition(view) == state.getItemCount() - 1) {
+        if (parent.getChildAdapterPosition(view) == state.getItemCount() - 1 || parent.getChildAdapterPosition(view) == state.getItemCount() - 2) {
             outRect.bottom = interval;
         }
     }
