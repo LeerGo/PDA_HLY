@@ -292,6 +292,7 @@ public interface ApiService {
          * API：SSO 单点登录获取 token
          */
         String API_SSO_LOGIN = "/sso-server/app/doLogin";
+
         /**
          * API：SSO 单点退出登录
          */
