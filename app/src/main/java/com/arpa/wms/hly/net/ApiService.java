@@ -281,7 +281,7 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://121.36.27.6:83"; // 测试服务
+        String URL_WMS = "http://121.36.27.6:83";
 
         /**
          * 单点登录
