@@ -1,119 +1,5 @@
 ### 恒利源 WMS 项目
 
-#### 联调问题
-
-1. 公共
-   
-   - 列表页面刷新问题
-     
-     - 确认后返回上一页的数据同步，考虑使用 diffutils
-       - **解决** 分页模式 - 直接刷新
-       - **解决** 不分页模式
-   
-   - **解决** 解决涉及到检索功能的详情页面
-
-2. 联调问题
-   
-   - [ ] 收货
-     
-     - **解决** 收货确认，传入的 code 和返回数据的 code 不一致 @szy
-       
-       ```
-       http://192.168.30.181/wms/pda/receive/register?receiveCode=SH202106260016&receiveItemCode=1ed04ed330814408a9eaadd11e5b7544
-       1ed04ed330814408a9eaadd11e5b7544 对应的是学生巧克力奶，返回的确实黑谷牛奶
-       ```
-     
-     - 待续  
-   
-   - [ ] 装车
-     
-     - **解决** 装车确认，服务器 500 @xbx 
-       
-       ```json
-       URL: http://192.168.30.181/wms/pda/outbound/loadingCarConfirm
-       请求：
-       {
-          "code": "CK202106280002",
-          "outboundItemDTOS": [
-             {
-                "code": "ffe4b0349e1d4a2a91f06a3575fbd5a5",
-                "loadingCarQuantity": 2
-             }
-          ]
-       }
-       响应：
-       {
-          "status": 500
-       }
-       ```
-     
-     - 待续
-   
-   - [ ] 移位
-     
-     - **解决** A1 库位没有商品 @xbx
-     - **解决** 移位确认详情加载有问题 @szy
-   
-   - [ ] 任务中心
-     
-     - **解决** 无法分配
-       
-       ```json
-       分配保管员：
-       http://192.168.31.166/wms/pda/tasks/assignPDA
-       请求:
-       {
-          "orderCodes": [
-             "SH20210626002501"
-          ],
-          "partyCodeList": [
-             {
-                "partyCode": "1",
-                "partyName": "保管员1"
-             }
-          ],
-          "workerType": "CUSTODIAN"
-       }
-       响应："msg": "数据库操作异常，请联系管理员",
-       ```
-     
-     - **解决**拣货详情，status=3，提示数据库异常 @szy
-     
-     - 选择分配人员，时常获取不到 @xbx
-   
-   - [ ] 复核
-     
-     - **解决** 复核确认没有接入 @szy
-     
-     - **解决** 部分数量复核直接变成了已复核状态 @szy
-     
-     - **解决** 部分复核，比如 10 个复核 1 个，再进入复核详情，应该变成 9 个才对
-       
-       - 本地运算解决
-     
-     - 待续
-   
-   - [ ] 拣货
-     
-     - **解决** UI需要调整
-     
-     - **解决** 拣货后的排排序问题 @xbx
-     
-     - **解决** 部分子单拣货完毕，后续数据下发排序有问题 @xbx
-
-3. 通过模块
-   
-   - [x] 登录
-   
-   - [x] 选择仓库
-   
-   - [x] 库存查询
-   
-   - [x] 修改密码
-     
-     - **解决** 需要对接 UAC 的密码修改接口 @xbx
-       - 接口：/wms/pda/auth/user/updatePassword
-
 #### 资料
 
 蓝湖：
@@ -127,10 +13,16 @@
 
 4. SSO 登录：https://dreamer192.yuque.com/docs/share/0efdc117-a195-49e9-84a6-effe8e57fbfe?#（密码：sz8f）
 
-#### 后台地址
+#### 测试后台地址
 
-[中台登录](http://test.58arpa.com:8090/pages/viewpage.action?pageId=30051285)
+- 单点登录：http://test.sso.sarpa.cn
 
-[WMS 后台登录](http://test.sso.sarpa.cn/sso-server/login?redirect_url=http://192.168.31.24/&source-id=4)
+- WMS后端：http://121.36.109.152
 
-- 账号：test02/test02
+  - 账号：test02/test02
+
+#### 生产后台地址
+
+- 单点登录：http://119.3.248.86:8198
+
+- WMS后端：http://121.36.27.6:83

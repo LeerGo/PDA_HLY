@@ -281,12 +281,12 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://121.36.109.152"; // 测试服务
+        String URL_WMS = "http://121.36.27.6:83"; // 测试服务
 
         /**
          * 单点登录
          */
-        String URL_SSO = "http://test.sso.sarpa.cn";
+        String URL_SSO = "http://119.3.248.86:8198";
 
         /**
          * API：SSO 单点登录获取 token
