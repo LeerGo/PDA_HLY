@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTake" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <!--标题栏-->
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/widgetTitleBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:wtbTitle="待收货列表" />
+        
+        <!--搜索框-->
+        <!--TODO: UI 设计稿上没有搜索模块 @lyf 2021-05-14 10:12:24 -->
+        <!--<FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+            
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:background="@color/colorPrimary" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetSearchBar
+                android:id="@+id/wsbSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:paddingHorizontal="12dp"
+                android:paddingBottom="10dp"
+                app:wsbHint="@{viewModel.searchHint}" />
+        </FrameLayout>-->
+        
+        <!--内容区域-->
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:autoRefresh="@{viewModel.isAutoRefresh}"
+            app:hasMore="@{viewModel.hasMore}"
+            app:moreLoading="@{viewModel.moreLoading}"
+            app:onLoadMoreListener="@{()->viewModel.loadMore()}"
+            app:onRefreshListener="@{()->viewModel.refresh()}"
+            app:refreshing="@{viewModel.refreshing}"
+            app:srlEnableFooterFollowWhenNoMoreData="true"
+            app:srlEnableLoadMore="true">
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{viewModel.adapter}"
+                app:itemBinding="@{viewModel.itemBinding}"
+                app:items="@{viewModel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="20"
+                tools:listitem="@layout/item_goods_take" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

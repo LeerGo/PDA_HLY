@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <import type="android.text.TextUtils" />
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.GoodsItemVO" />
+        
+        <variable
+            name="supplier"
+            type="String" />
+        
+        <variable
+            name="listener"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
+    </data>
+    
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:layout_marginBottom="1dp"
+        android:onClick="@{()->listener.transfer(data)}"
+        app:cardBackgroundColor="@color/white"
+        tools:layout_marginBottom="10dp">
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="12dp"
+            android:paddingBottom="12dp">
+            
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/ivIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="44dp"
+                android:src="@mipmap/ic_goods" />
+            
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvCarNumber"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_marginStart="4dp"
+                android:layout_toEndOf="@id/ivIcon"
+                android:gravity="center_vertical"
+                android:text='@{@string/goods_name(data.goodsName)}'
+                android:textColor="@color/color_434c67"
+                tools:text="商品名称：测试商品" />
+            
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/tvCarNumber"
+                android:background="@color/color_ececec" />
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll1"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/line">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="基本单位："
+                    app:propsValue="@{data.goodsUnitName}"
+                    tools:propsValue="件" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:wqiCount="@{data.receivedQuantity}"
+                    app:wqiName="收货数量："
+                    app:wqiSum="@{data.planQuantity}" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll2"
+                style="@style/WMatchHWrap"
+                android:layout_below="@id/ll1">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="产        地："
+                    app:propsValue="@{data.extendOne}"
+                    app:visible="@{!TextUtils.isEmpty(data.extendOne)}"
+                    tools:propsValue="A7" />
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/TaskPropsWeightStyle"
+                    app:propsKey="特殊品项："
+                    app:propsValue="@{data.extendTwo}"
+                    app:visible="@{!TextUtils.isEmpty(data.extendTwo)}"
+                    tools:propsValue="常规" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi1"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/ll2"
+                app:propsKey="供  应  商："
+                app:propsValue="@{supplier}"
+                app:visible="@{!TextUtils.isEmpty(supplier)}"
+                tools:propsValue="测试供应商" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi2"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi1"
+                app:propsKey="序  列  号："
+                app:propsValue="@{data.serialNumber}"
+                app:visible="@{!TextUtils.isEmpty(data.serialNumber)}"
+                tools:propsValue="h4z1hlT1YFsc" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi3"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi2"
+                app:propsKey="生产日期："
+                app:propsValue="@{data.gmtManufacture}"
+                app:visible="@{!TextUtils.isEmpty(data.gmtManufacture)}"
+                tools:propsValue="2021-05-14" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi4"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi3"
+                app:propsKey="过期日期："
+                app:propsValue="@{data.gmtExpire}"
+                app:visible="@{!TextUtils.isEmpty(data.gmtExpire)}"
+                tools:propsValue="2021-05-14" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi5"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi4"
+                app:propsKey="存货日期："
+                app:propsValue="@{data.gmtStock}"
+                app:visible="@{!TextUtils.isEmpty(data.gmtStock)}"
+                tools:propsValue="2021-05-14" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi6"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi5"
+                app:propsKey="拓  展   3："
+                app:propsValue="@{String.valueOf(data.extendThree)}"
+                app:visible="@{null!=data.extendThree}"
+                tools:propsValue="T3" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi7"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi6"
+                app:propsKey="拓  展   4："
+                app:propsValue="@{String.valueOf(data.extendFour)}"
+                app:visible="@{null!=data.extendFour}"
+                tools:propsValue="T4" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi8"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi7"
+                app:propsKey="拓  展   5："
+                app:propsValue="@{data.extendFive}"
+                app:visible="@{!TextUtils.isEmpty(data.extendFive)}"
+                tools:propsValue="2021-05-14" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi9"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi8"
+                app:propsKey="拓  展   6："
+                app:propsValue="@{data.extendSix}"
+                app:visible="@{!TextUtils.isEmpty(data.extendSix)}"
+                tools:propsValue="2021-05-14" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

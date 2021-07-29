@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="vmMine"
+            type="com.arpa.wms.hly.logic.mine.VMMine" />
+        
+        <variable
+            name="vmWarehouse"
+            type="com.arpa.wms.hly.logic.common.vm.VMWarehouse" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".logic.mine.MineActivity">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:wtbTitle="@string/title_mine" />
+        
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-1dp"
+                    android:background="@mipmap/header_mine">
+                    
+                    <ImageView
+                        android:id="@+id/iv_avatar"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:layout_gravity="center"
+                        android:src="@mipmap/ic_avatar" />
+                </FrameLayout>
+                
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="30dp"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingHorizontal="12dp"
+                    app:divider="@drawable/divider_line_horizontal"
+                    app:showDividers="middle">
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:wmmDesc="@{vmMine.account}"
+                        app:wmmIcon="@mipmap/ic_mine_account"
+                        app:wmmTitle="@string/name_account"
+                        tools:wmmDesc="测试账号" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:wmmDesc="@{vmMine.warehouse}"
+                        app:wmmIcon="@mipmap/ic_mine_warehouse"
+                        app:wmmTitle="@string/name_warehouse"
+                        tools:wmmDesc="测试账号" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetMineMenu
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:wmmDesc="@{vmMine.version}"
+                        app:wmmIcon="@mipmap/ic_mine_version"
+                        app:wmmTitle="@string/name_version" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/MineButtonBaseStyle"
+                    android:background="@drawable/shape_rrect_blue_gradient_r5"
+                    android:onClick="@{()->vmMine.getWarehouseList()}"
+                    android:text="@string/warehouse_change" />
+                
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/acbModifyPass"
+                    style="@style/MineButtonStyle"
+                    android:background="@drawable/shape_rrect_border_grey_r5"
+                    android:text="@string/account_modify_password" />
+                
+                <androidx.appcompat.widget.AppCompatButton
+                    style="@style/MineButtonStyle"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/shape_rrect_border_grey_r5"
+                    android:onClick="@{()->vmMine.logout()}"
+                    android:text="@string/account_logout" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </ScrollView>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

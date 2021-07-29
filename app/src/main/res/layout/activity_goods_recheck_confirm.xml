@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckConfirm" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:wtbTitle="商品复核" />
+        
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+            
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingBottom="10dp">
+                
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/ItemRecheckBatchStyle"
+                    android:paddingHorizontal="@dimen/dp_15"
+                    app:propsKey="商品名称"
+                    app:propsKeyColor="@color/color_434c67"
+                    app:propsKeySize="15sp"
+                    app:propsValue="@{viewModel.detail.goodsName}"
+                    app:propsValueGravity="end"
+                    tools:propsValue="伊利优酸乳" />
+                
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/GoodsRecheckConfirmStyle"
+                    app:divider="@drawable/divider_line_horizontal"
+                    app:showDividers="middle">
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="单位"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.goodsUnitName}"
+                        app:propsValueGravity="end"
+                        tools:propsValue="箱" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="库存状态"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.goodsStatusName}"
+                        app:propsValueGravity="end"
+                        tools:propsValue="合格" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="生产日期"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.gmtManufacture}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.gmtManufacture}"
+                        tools:propsValue="2021-05-13" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="过期日期"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.gmtExpire}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.gmtExpire}"
+                        tools:propsValue="2021-05-13" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="存货日期"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.gmtStock}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.gmtStock}"
+                        tools:propsValue="2021-05-13" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="供应商"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.supplier}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.supplier}"
+                        tools:propsValue="测试供应商" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="序列号"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.serialNumber}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.serialNumber}"
+                        tools:propsValue="PJEN-D3RJ-XVIU" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="产地"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendOne}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendOne}"
+                        tools:propsValue="临沂" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拓展 3"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendThree}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendThree}"
+                        tools:propsValue="T3" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拓展 4"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendFour}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendFour}"
+                        tools:propsValue="T4" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拓展 5"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendFive}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendFive}"
+                        tools:propsValue="2021-07-15" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="拓展 6"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendSix}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendSix}"
+                        tools:propsValue="2021-07-15" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+                
+                <androidx.appcompat.widget.LinearLayoutCompat
+                    style="@style/GoodsRecheckConfirmStyle"
+                    app:divider="@drawable/divider_line_horizontal"
+                    app:showDividers="middle">
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="特殊品项"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.detail.extendTwo}"
+                        app:propsValueGravity="end"
+                        app:visibleState="@{viewModel.detail.batchRule.extendTwo}"
+                        tools:propsValue="常规" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="码托数量"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{String.valueOf(viewModel.detail.supportNum)}"
+                        app:propsValueGravity="end"
+                        tools:propsValue="100" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="整托数"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{String.valueOf(viewModel.detail.traysNum)}"
+                        app:propsValueGravity="end"
+                        tools:propsValue="3" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:propsKey="待复核数量"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{String.valueOf(viewModel.detail.getWaitRecheckQuantity)}"
+                        app:propsValueGravity="end"
+                        tools:propsValue="300" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetInputItem
+                        style="@style/ItemRecheckBatchStyle"
+                        app:inputHint="请输入复核数量"
+                        app:inputMax="@{viewModel.detail.planQuantity}"
+                        app:inputText="@={viewModel.recheckQuantity}"
+                        app:inputTitle="复核数量"
+                        app:inputType="number" />
+                    
+                    <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                        style="@style/ItemRecheckBatchStyle"
+                        android:layout_height="wrap_content"
+                        android:minHeight="50dp"
+                        android:paddingVertical="4dp"
+                        app:propsKey="批次号"
+                        app:propsKeyColor="@color/color_434c67"
+                        app:propsKeySize="15sp"
+                        app:propsValue="@{viewModel.obvBatchCode}"
+                        app:propsValueGravity="end"
+                        app:propsValueSize="14sp"
+                        tools:propsValue="20201127001,20201127002" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
+            </androidx.appcompat.widget.LinearLayoutCompat>
+        </ScrollView>
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="16dp">
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acbBatchRegist"
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="16dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_rrect_blue_border_r5"
+                android:text="批次登记"
+                android:textColor="@color/colorPrimary"
+                android:textSize="17sp" />
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="0dp"
+                android:layout_height="40dp"
+                android:layout_weight="1"
+                android:background="@drawable/shape_rrect_blue_gradient_r5"
+                android:onClick="@{()->viewModel.confirm()}"
+                android:text="复核确认"
+                android:textColor="@color/white"
+                android:textSize="17sp" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

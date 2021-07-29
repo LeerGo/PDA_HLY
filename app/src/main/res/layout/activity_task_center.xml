@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.task.vm.VMTaskCenter" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".logic.task.TaskCenterActivity">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:wtbTitle="@string/title_task_list" />
+        
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tablayout"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:elevation="4dp"
+            app:tabDivider="@{(@drawable/divider_line_vertical)}"
+            app:tabIndicatorFullWidth="false"
+            app:tabSelectedTextColor="@color/colorPrimary"
+            app:tabTextAppearance="@style/TabTextStyle"
+            app:tabTextColor="@color/color_434c67" />
+        
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/vp_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:fragments="@{viewModel.fragments}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:pageLimit="@{viewModel.titles.size()}"
+            app:tab="@{tablayout}"
+            app:titles="@{viewModel.titles}" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

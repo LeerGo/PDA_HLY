@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.task.vm.VMTaskAssign" />
+        
+        <variable
+            name="ASSIGN_WORK"
+            type="com.arpa.wms.hly.utils.Const.ASSIGN_WORK" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:autoRefresh="@{viewModel.isAutoRefresh}"
+            app:hasMore="@{viewModel.hasMore}"
+            app:moreLoading="@{viewModel.moreLoading}"
+            app:onLoadMoreListener="@{()->viewModel.loadMore()}"
+            app:onRefreshListener="@{()->viewModel.refresh()}"
+            app:refreshing="@{viewModel.refreshing}"
+            app:srlEnableFooterFollowWhenNoMoreData="true"
+            app:srlEnableLoadMore="true"
+            app:srlEnablePreviewInEditMode="true">
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:adapter="@{viewModel.adapter}"
+                app:itemBinding="@{viewModel.itemBinding}"
+                app:items="@{viewModel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="20"
+                tools:listitem="@layout/item_task_list" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:id="@+id/ll_assign"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingEnd="10dp"
+            tools:ignore="RtlSymmetry">
+            
+            <ImageButton
+                android:id="@+id/ib_all"
+                android:layout_width="45dp"
+                android:layout_height="match_parent"
+                android:background="@null"
+                android:onClick="@{()->viewModel.selectAll()}"
+                android:src="@drawable/selector_circle"
+                app:select="@{viewModel.isSelectAll}" />
+            
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/select_all"
+                android:textColor="@color/grey_666666"
+                android:textSize="14sp"
+                tools:ignore="HardcodedText" />
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAssignKeeper"
+                style="@style/TaskButtonLeftStyle"
+                android:text="@{viewModel.type==0 ? @string/btn_assign_keeper : @string/btn_unassign_keeper}"
+                tools:ignore="HardcodedText"
+                tools:text="分配保管员" />
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAssignStevedore"
+                style="@style/TaskButtonLeftStyle"
+                android:layout_marginStart="6dp"
+                android:text="@{viewModel.type==0 ? @string/btn_assign_stevedore : @string/btn_unassign_stevedore}"
+                tools:ignore="HardcodedText"
+                tools:text="分配装卸工" />
+            
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnAssignForklift"
+                style="@style/TaskButtonStyle"
+                android:layout_marginStart="6dp"
+                android:text="@{viewModel.type==0 ? @string/btn_assign_forklift : @string/btn_unassign_forklift}"
+                tools:ignore="HardcodedText"
+                tools:text="分配叉车工" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

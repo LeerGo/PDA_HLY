@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.truckload.vm.VMTruckLoadDetail" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/widgetTitleBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:wtbTitle="装车详情" />
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="12dp">
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:propsKey="车牌号"
+                app:propsValue="@{viewModel.truckLoadHeader.licensePlateNumber}"
+                app:propsValueGravity="end"
+                tools:propsValue="鲁A12345" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:propsKey="司机名称"
+                app:propsValue="@{viewModel.truckLoadHeader.driverName}"
+                app:propsValueGravity="end"
+                tools:propsValue="刘二" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:propsKey="司机电话"
+                app:propsValue="@{viewModel.truckLoadHeader.driverPhone}"
+                app:propsValueGravity="end"
+                tools:propsValue="13133333333" />
+            
+            <!--TODO: 等接通了 TMS 才有数据 联系@夏宝新 @lyf 2021-05-18 09:26:40 -->
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:propsKey="预计装车高度"
+                app:propsValue="@{viewModel.truckLoadData.expectHeight}"
+                app:propsValueGravity="end"
+                tools:propsValue="2 m" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:refreshing="@{viewModel.refreshing}"
+            app:onRefreshListener="@{()->viewModel.requestData(true)}"
+            app:srlEnableFooterFollowWhenNoMoreData="false"
+            app:srlEnableLoadMore="false"
+            app:srlEnablePreviewInEditMode="true">
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:itemBinding="@{viewModel.itemBinding}"
+                app:items="@{viewModel.truckLoadData.outboundVOS}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="20"
+                tools:listitem="@layout/item_truck_load_detail" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

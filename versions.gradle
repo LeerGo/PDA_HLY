@@ -1,0 +1,14 @@
+//App
+def app_version = [:]
+app_version.versionCode = 1
+app_version.versionName = "1.0.0"
+ext.app_version = app_version
+
+//build version
+def build_versions = [:]
+build_versions.minSdk = 19
+build_versions.targetSdk = 29
+build_versions.compileSdk = 29
+build_versions.buildTools = "29.0.3"
+ext.build_versions = build_versions
+

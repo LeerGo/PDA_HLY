@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.task.vm.VMTaskGoodsPick" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <!--标题栏-->
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:id="@+id/widgetTitleBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:wtbTitle="拣货详情" />
+        
+        <!--内容区域-->
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_collapseMode="pin">
+            
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/color_f3f8ff"
+                    android:paddingVertical="10dp"
+                    app:layout_scrollFlags="scroll">
+                    
+                    <include
+                        android:id="@+id/incHeader"
+                        layout="@layout/item_goods_recheck"
+                        app:data="@{viewModel.headerData}"
+                        app:showOrder="@{false}" />
+                </FrameLayout>
+            </com.google.android.material.appbar.AppBarLayout>
+            
+            <com.scwang.smart.refresh.layout.SmartRefreshLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:autoRefresh="@{viewModel.isAutoRefresh}"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                app:onRefreshListener="@{()->viewModel.refresh()}"
+                app:refreshing="@{viewModel.refreshing}"
+                app:srlEnableFooterFollowWhenNoMoreData="false"
+                app:srlEnableLoadMore="false"
+                app:srlEnablePreviewInEditMode="true"
+                tools:paddingTop="10dp">
+                
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:itemBinding="@{viewModel.itemBinding}"
+                    app:items="@{viewModel.resTaskPick.pickingItemWithRegisterVOList}"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="20"
+                    tools:listitem="@layout/item_task_goods_pick" />
+            </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

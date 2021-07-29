@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WidgetMineMenu">
+        <attr name="wmmTitle"
+              format="string|reference" />
+        <attr name="wmmDesc"
+              format="string|reference" />
+        <attr name="wmmIcon"
+              format="reference" />
+    </declare-styleable>
+    
+    <declare-styleable name="WidgetTitleBar">
+        <attr name="wtbTitle"
+              format="string|reference" />
+        <attr name="wtbShowBack"
+              format="boolean" />
+        <attr name="wtbBackPadding"
+              format="dimension" />
+    </declare-styleable>
+    
+    <declare-styleable name="WidgetPropsItem">
+        <attr name="propsKey"
+              format="string|reference" />
+        <attr name="propsValue"
+              format="string|reference" />
+        <attr name="propsKeyColor"
+              format="color|reference" />
+        <attr name="propsValueColor"
+              format="color|reference" />
+        <attr name="propsKeySize"
+              format="dimension" />
+        <attr name="propsValueSize"
+              format="dimension" />
+        <attr name="propsValueGravity">
+            <flag name="start"
+                  value="0x00800003" />
+            <flag name="end"
+                  value="0x00800005" />
+        </attr>
+    </declare-styleable>
+    
+    <declare-styleable name="WidgetQuantityItem">
+        <attr name="wqiSum"
+              format="integer" />
+        <attr name="wqiName"
+              format="string|reference" />
+        <attr name="wqiCount"
+              format="string|reference" />
+        <attr name="wqiShowCount"
+              format="boolean" />
+    </declare-styleable>
+    
+    <declare-styleable name="WidgetInputItem">
+        <attr name="inputTitle"
+              format="string|reference" />
+        <attr name="inputText"
+              format="string|reference" />
+        <attr name="inputHint"
+              format="string|reference" />
+        <attr name="inputDigits"
+              format="string|reference" />
+        <attr name="inputIcon"
+              format="reference" />
+        <attr name="inputEnable"
+              format="boolean" />
+        <attr name="inputGravity">
+            <flag name="start"
+                  value="0x00800003" />
+            <flag name="end"
+                  value="0x00800005" />
+        </attr>
+        <attr name="inputType">
+            <flag name="text"
+                  value="0x00000001" />
+            <flag name="number"
+                  value="0x00000002" />
+            <!--<flag name="numberDecimal"
+                  value="0x00002002" />-->
+        </attr>
+    </declare-styleable>
+    
+    <declare-styleable name="WidgetSearchBar">
+        <attr name="wsbHint"
+              format="string|reference" />
+        <attr name="wsbText"
+              format="string|reference" />
+    </declare-styleable>
+</resources>

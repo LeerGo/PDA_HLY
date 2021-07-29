@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="position"
+            type="Integer" />
+        
+        <variable
+            name="positionSel"
+            type="Integer" />
+        
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.GoodsItemVO" />
+        
+        <variable
+            name="rule"
+            type="com.arpa.wms.hly.bean.BatchRuleBean" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="-1px"
+        android:background="@{data.select ? @color/color_f3f6ff : @color/white}"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        
+        <!--拣货库位-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_width="80dp"
+            android:text="@{data.oldLocationName}"
+            android:textColor="@color/black"
+            tools:text="1001" />
+        
+        <!--商品名称-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_width="160dp"
+            android:padding="2dp"
+            android:text="@{data.goodsName}"
+            android:textColor="@color/black"
+            tools:text="优酸乳113131aadasdfw" />
+        
+        <!--单位-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.goodsUnitName}"
+            android:textColor="@color/black"
+            tools:text="箱" />
+        
+        <!--生产日期-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.gmtManufacture}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.gmtManufacture}"
+            tools:text="2020-11-01" />
+        
+        <!--过期日期-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.gmtExpire}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.gmtExpire}"
+            tools:text="2020-11-01" />
+        
+        <!--存货日期-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.gmtStock}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.gmtStock}"
+            tools:text="2020-11-01" />
+        
+        <!--供应商-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.supplier}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.supplier}"
+            tools:text="山东" />
+        
+        <!--序列号-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.serialNumber}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.serialNumber}"
+            tools:text="山东" />
+        
+        <!--产地-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.extendOne}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.extendOne}"
+            tools:text="山东" />
+        
+        <!--特殊品项-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.extendTwo}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.extendTwo}"
+            tools:text="常规" />
+        
+        <!--拓展 3-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{String.valueOf(data.extendThree)}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.extendThree}"
+            tools:text="拓展 3" />
+        
+        <!--拓展 4-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{String.valueOf(data.extendFour)}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.extendFour}"
+            tools:text="拓展 4" />
+        
+        <!--拓展 5-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.extendFive}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.extendFive}"
+            tools:text="拓展 5" />
+        
+        <!--拓展 6-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:text="@{data.extendSix}"
+            android:textColor="@color/black"
+            app:visibleState="@{rule.extendSix}"
+            tools:text="拓展 6" />
+        
+        <!--计划数量-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_width="80dp"
+            android:text="@{String.valueOf(data.planQuantity)}"
+            android:textColor="@color/black"
+            tools:text="1000" />
+        
+        <!--码托数量-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_width="80dp"
+            android:text="@{String.valueOf(data.supportNum)}"
+            android:textColor="@color/black"
+            tools:text="200" />
+        
+        <!--计划托数-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_width="80dp"
+            android:text="@{String.valueOf(data.traysNum)}"
+            android:textColor="@color/black"
+            tools:text="5" />
+        
+        <!--已拣托数-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_width="80dp"
+            android:text="@{String.valueOf(data.pickingTraysNum)}"
+            android:textColor="@color/black"
+            tools:text="1" />
+        
+        <!--占位-->
+        <View
+            style="@style/TableTextStyle"
+            android:layout_width="150dp"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

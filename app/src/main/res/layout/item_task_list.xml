@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    
+    <data>
+        
+        <import type="android.text.TextUtils" />
+        
+        <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
+        
+        <variable
+            name="data"
+            type="ResTaskAssign" />
+        
+        <variable
+            name="listener"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
+        
+        <variable
+            name="select"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
+    </data>
+    
+    <com.google.android.material.card.MaterialCardView
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="12dp"
+        android:onClick="@{()->listener.transfer(data)}"
+        app:cardBackgroundColor="@color/white"
+        tools:layout_marginTop="10dp">
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="10dp">
+    
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/ll_header"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:gravity="center_vertical">
+        
+                <ImageButton
+                    android:layout_width="45dp"
+                    android:layout_height="45dp"
+                    android:background="@null"
+                    android:onClick="@{()->select.transfer(data)}"
+                    android:src="@drawable/selector_circle"
+                    app:select="@{data.isSelect}" />
+        
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@{@string/car_number(data.licensePlateNumber)}"
+                    android:textColor="@color/color_434c67"
+                    android:textSize="16sp"
+                    tools:text="车牌号：豫HM8983" />
+        
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginEnd="12dp"
+                    app:taskType="@{data.taskTypeDes}"
+                    tools:src="@mipmap/ic_task_goods_pick" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+            
+            <View
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="1px"
+                android:layout_below="@id/ll_header"
+                android:layout_marginHorizontal="12dp"
+                android:background="@color/grey" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_custom"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/line"
+                app:propsKey="@string/custom"
+                app:propsValue="@{data.customerName}"
+                app:visible="@{!TextUtils.isEmpty(data.customerName)}"
+                tools:propsValue="张三" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_queue"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_custom"
+                app:propsKey="@string/line_take_no"
+                app:propsValue="@{data.carQueueNumber}"
+                app:visible="@{!TextUtils.isEmpty(data.carQueueNumber)}"
+                tools:propsValue="10" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_count"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_custom"
+                android:layout_alignParentEnd="true"
+                android:layout_marginEnd="12dp"
+                app:propsKey="@string/number_of_units"
+                app:propsValue="@{String.valueOf(data.goodsQuantity)}"
+                tools:propsValue="1000" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_custodian"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_queue"
+                app:propsKey="@string/custodian"
+                app:propsValue="@{data.custodian}"
+                app:visible="@{!TextUtils.isEmpty(data.custodian)}"
+                tools:propsValue="张三" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_driver"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_custodian"
+                app:propsKey="@string/driver"
+                app:propsValue="@{data.driverName+`/`+data.driverPhone}"
+                app:visible="@{!TextUtils.isEmpty(data.driverName)}"
+                tools:propsValue="张三/13333333333" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_stevedore"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_driver"
+                app:propsKey="@string/stevedore"
+                app:propsValue="@{data.stevedore}"
+                app:visible="@{!TextUtils.isEmpty(data.stevedore)}"
+                tools:propsValue="装卸工一，装卸工一" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_forklift"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_stevedore"
+                app:propsKey="@string/forklift"
+                app:propsValue="@{data.forklift}"
+                app:visible="@{!TextUtils.isEmpty(data.forklift)}"
+                tools:propsValue="叉车工一，叉车工一" />
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
+</layout>

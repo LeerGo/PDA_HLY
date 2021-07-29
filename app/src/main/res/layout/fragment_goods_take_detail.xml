@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeDetailDiffList" />
+    </data>
+    
+    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:autoRefresh="@{viewModel.isAutoRefresh}"
+        app:onRefreshListener="@{()->viewModel.refresh()}"
+        app:refreshing="@{viewModel.refreshing}"
+        app:srlEnableFooterFollowWhenNoMoreData="false"
+        app:srlEnableLoadMore="false"
+        app:srlEnablePreviewInEditMode="true">
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:adapter="@{viewModel.adapter}"
+            app:itemBinding="@{viewModel.itemBinding}"
+            app:items="@{viewModel.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_goods_take_detail_wait" />
+    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+</layout>

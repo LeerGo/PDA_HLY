@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.inventory.move.vm.VMScanGoodsDetail" />
+    </data>
+    
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <com.arpa.wms.hly.ui.widget.WidgetTitleBar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:wtbTitle="移位商品详情" />
+        
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:padding="10dp">
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:propsKey="移出库位"
+                app:propsValue="@{viewModel.liveData.location}"
+                app:propsValueGravity="end"
+                tools:propsValue="relskw" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:propsKey="商品名称"
+                app:propsValue="@{viewModel.liveData.goodsName}"
+                app:propsValueGravity="end"
+                tools:propsValue="伊利优酸乳" />
+            
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                app:propsKey="基本单位"
+                app:propsValue="@{viewModel.liveData.unitName}"
+                app:propsValueGravity="end"
+                tools:propsValue="件" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:adapter="@{viewModel.adapter}"
+            app:itemBinding="@{viewModel.itemBinding}"
+            app:items="@{viewModel.liveData.inventoryList}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_scan_goods_detail" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>
