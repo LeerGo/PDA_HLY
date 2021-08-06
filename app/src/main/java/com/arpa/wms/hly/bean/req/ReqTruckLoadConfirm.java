@@ -12,29 +12,16 @@ import java.util.List;
  */
 public class ReqTruckLoadConfirm {
     private String code;
-    // 序列化为托数，二期会有，先行注释
-    // private int trayQuantity;
-    // 从 view 接受数据，赋值给 trayQuantity，不需要序列化
-    // private transient String trayCount;
+     private Integer trayQuantity;
     private List<OutboundItemDTOS> outboundItemDTOS;
 
-    /*public int getTrayQuantity() {
+    public Integer getTrayQuantity() {
         return trayQuantity;
     }
 
-    public void setTrayQuantity(int trayQuantity) {
+    public void setTrayQuantity(Integer trayQuantity) {
         this.trayQuantity = trayQuantity;
     }
-
-    public String getTrayCount() {
-        return trayCount;
-    }
-
-    public void setTrayCount(String trayCount) {
-        setTrayQuantity(Integer.parseInt(trayCount));
-        this.trayCount = trayCount;
-
-    }*/
 
     public String getCode() {
         return code;

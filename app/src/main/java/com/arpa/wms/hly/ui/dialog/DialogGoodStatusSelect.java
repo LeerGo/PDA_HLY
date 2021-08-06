@@ -53,7 +53,6 @@ public class DialogGoodStatusSelect extends BaseBottomDialogFragment {
 
     private void setSelectItem() {
         RecyclerView rvAssign = (RecyclerView) findViewById(R.id.rv_assign);
-
         DialogGoodStatusAdapter adapter = new DialogGoodStatusAdapter(requireContext(), staffList.indexOf(result));
         adapter.setOnItemClickListener((view, position, data) -> result = data);
         rvAssign.addItemDecoration(DrawableItemDecoration.getDivider(requireContext()));
