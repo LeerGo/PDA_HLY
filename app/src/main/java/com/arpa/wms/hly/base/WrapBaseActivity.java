@@ -2,6 +2,7 @@ package com.arpa.wms.hly.base;
 
 import android.os.Bundle;
 
+import com.arpa.and.arch.base.BaseActivity;
 import com.arpa.and.arch.base.BaseViewModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.R;
@@ -19,8 +20,7 @@ import androidx.databinding.ViewDataBinding;
  * base：基础 activity 的封装，注册消息、状态事件，调整 loading 动画
  * </p>
  */
-public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends ViewDataBinding>
-        extends com.arpa.and.arch.base.BaseActivity<VM, VDB> {
+public abstract class WrapBaseActivity <VM extends BaseViewModel, VDB extends ViewDataBinding> extends BaseActivity<VM, VDB> {
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         registerMessageEvent(ToastUtils::showShortSafe);

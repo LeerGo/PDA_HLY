@@ -36,7 +36,7 @@ public interface Const {
         /**
          * 设备 ID
          */
-        String EQUIPMENT_CODE="equipment-code";
+        String EQUIPMENT_CODE = "equipment-code";
     }
 
     /**
@@ -116,40 +116,6 @@ public interface Const {
          * 作业未完成
          */
         String UNFINISHED = "UNFINISHED";
-    }
-
-    /**
-     * 首页菜单
-     */
-    interface HOME_MENU {
-        /**
-         * 任务中心
-         */
-        String TASK_CENTER = "arpa.wms.TASK_CENTER";
-        /**
-         * 收货
-         */
-        String GOODS_TAKE = "arpa.wms.GOODS_TAKE";
-        /**
-         * 拣货
-         */
-        String GOODS_PICK = "arpa.wms.GOODS_PICK";
-        /**
-         * 复核
-         */
-        String GOODS_RECHECK = "arpa.wms.GOODS_RECHECK";
-        /**
-         * 装车
-         */
-        String TRUCK_LOAD = "arpa.wms.TRUCK_LOAD";
-        /**
-         * 库存移位
-         */
-        String INVENTORY_MOVE = "arpa.wms.INVENTORY_MOVE";
-        /**
-         * 库存查询
-         */
-        String INVENTORY_QUERY = "arpa.wms.INVENTORY_QUERY";
     }
 
     /**

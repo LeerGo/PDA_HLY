@@ -8,10 +8,16 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.bean.res.ResRole;
+import com.arpa.wms.hly.logic.home.goods.pick.GoodsPickTaskActivity;
+import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckActivity;
+import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeActivity;
+import com.arpa.wms.hly.logic.home.inventory.move.ScanLocationActivity;
+import com.arpa.wms.hly.logic.home.inventory.query.InventoryQueryActivity;
+import com.arpa.wms.hly.logic.home.truckload.TruckLoadActivity;
 import com.arpa.wms.hly.logic.mine.MineActivity;
+import com.arpa.wms.hly.logic.task.TaskCenterActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
-import com.arpa.wms.hly.utils.Const.HOME_MENU;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 
 import java.util.List;
@@ -94,15 +100,15 @@ public class VMHome extends WrapDataViewModel {
         // 切换横竖屏会重新执行 onCreate，懒得配置了，判空好了
         if (items.isEmpty()) {
             if (isOnlyPick) {
-                items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", HOME_MENU.GOODS_PICK));
+                items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", GoodsPickTaskActivity.class));
             } else {
-                items.add(new MenuBean(R.mipmap.ic_home_task_center, "任务中心", "Task Center", HOME_MENU.TASK_CENTER));
-                items.add(new MenuBean(R.mipmap.ic_home_goods_take, "收货", "Receiving Goods", HOME_MENU.GOODS_TAKE));
-                items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", HOME_MENU.GOODS_PICK));
-                items.add(new MenuBean(R.mipmap.ic_home_goods_recheck, "复核", "To Review", HOME_MENU.GOODS_RECHECK));
-                items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", HOME_MENU.TRUCK_LOAD));
-                items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", HOME_MENU.INVENTORY_MOVE));
-                items.add(new MenuBean(R.mipmap.ic_home_inventory_query, "库存查询", "Inventory Query", HOME_MENU.INVENTORY_QUERY));
+                items.add(new MenuBean(R.mipmap.ic_home_task_center, "任务中心", "Task Center", TaskCenterActivity.class));
+                items.add(new MenuBean(R.mipmap.ic_home_goods_take, "收货", "Receiving Goods", GoodsTakeActivity.class));
+                items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", GoodsPickTaskActivity.class));
+                items.add(new MenuBean(R.mipmap.ic_home_goods_recheck, "复核", "To Review", GoodsRecheckActivity.class));
+                items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", TruckLoadActivity.class));
+                items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", ScanLocationActivity.class));
+                items.add(new MenuBean(R.mipmap.ic_home_inventory_query, "库存查询", "Inventory Query", InventoryQueryActivity.class));
             }
         }
     }

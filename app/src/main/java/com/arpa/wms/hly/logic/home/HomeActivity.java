@@ -2,7 +2,6 @@ package com.arpa.wms.hly.logic.home;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
@@ -39,11 +38,9 @@ public class HomeActivity extends WrapBaseActivity<VMHome, ActivityHomeBinding> 
         viewBind.setVmHome(viewModel);
         viewBind.rvMenu.addItemDecoration(new GridItemDecoration(10));
         viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<MenuBean>) data -> {
-            if (!TextUtils.isEmpty(data.getPath())) {
-                Intent intent = new Intent();
-                intent.setAction(data.getPath());
-                startActivity(intent);
-            }
+            Intent intent = new Intent();
+            intent.setClass(this, data.getClz());
+            startActivity(intent);
         });
     }
 }

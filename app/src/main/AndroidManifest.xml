@@ -33,23 +33,11 @@
         <activity android:name=".logic.home.HomeActivity" />
         <activity android:name=".logic.mine.MineActivity" />
         <!--任务中心-->
-        <activity android:name=".logic.task.TaskCenterActivity">
-            <intent-filter>
-                <action android:name="arpa.wms.TASK_CENTER" />
-                
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".logic.task.TaskCenterActivity" />
         <activity android:name=".logic.task.TaskGoodsTakeActivity" />
         <activity android:name=".logic.task.TaskGoodsPickActivity" />
         <!--收货-->
-        <activity android:name=".logic.home.goods.take.GoodsTakeActivity">
-            <intent-filter>
-                <action android:name="arpa.wms.GOODS_TAKE" />
-                
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".logic.home.goods.take.GoodsTakeActivity" />
         <activity android:name=".logic.home.goods.take.GoodsTakeDetailActivity" />
         <activity
             android:name=".logic.home.goods.take.GoodsTakeConfirmActivity"
@@ -57,22 +45,10 @@
         <!--拣货-->
         <activity
             android:name=".logic.home.goods.pick.GoodsPickTaskActivity"
-            android:configChanges="orientation|screenSize"
-            android:screenOrientation="landscape">
-            <intent-filter>
-                <action android:name="arpa.wms.GOODS_PICK" />
-                
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+            android:configChanges="orientation|screenSize|mcc|mnc"
+            android:screenOrientation="landscape" />
         <!--复核-->
-        <activity android:name=".logic.home.goods.recheck.GoodsRecheckActivity">
-            <intent-filter>
-                <action android:name="arpa.wms.GOODS_RECHECK" />
-                
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".logic.home.goods.recheck.GoodsRecheckActivity" />
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckDetailActivity" />
         <activity android:name=".logic.home.goods.recheck.GoodsRecheckConfirmActivity" />
         <activity
@@ -80,34 +56,16 @@
             android:windowSoftInputMode="adjustResize|stateAlwaysHidden" />
         
         <!--装车-->
-        <activity android:name=".logic.home.truckload.TruckLoadActivity">
-            <intent-filter>
-                <action android:name="arpa.wms.TRUCK_LOAD" />
-                
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".logic.home.truckload.TruckLoadActivity" />
         <activity android:name=".logic.home.truckload.TruckLoadDetailActivity" />
         <activity android:name=".logic.home.truckload.TruckLoadConfirmActivity" />
         <!--移位-->
-        <activity android:name=".logic.home.inventory.move.ScanLocationActivity">
-            <intent-filter>
-                <action android:name="arpa.wms.INVENTORY_MOVE" />
-                
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".logic.home.inventory.move.ScanLocationActivity" />
         <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
         <activity android:name=".logic.home.inventory.move.ScanGoodsDetailActivity" />
         <activity android:name=".logic.home.inventory.move.ScanGoodsSureActivity" />
         <!--库存查询-->
-        <activity android:name=".logic.home.inventory.query.InventoryQueryActivity">
-            <intent-filter>
-                <action android:name="arpa.wms.INVENTORY_QUERY" />
-                
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".logic.home.inventory.query.InventoryQueryActivity" />
         
         <!-- App 全局配置 -->
         <meta-data
