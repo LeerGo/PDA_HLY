@@ -4,24 +4,26 @@ buildscript {
 
     repositories {
         google()
-        jcenter()
         mavenCentral()
+        maven { url 'https://maven.aliyun.com/repository/jcenter/' }
     }
 
     dependencies {
-        classpath "com.android.tools.build:gradle:4.1.3"
-        classpath "com.google.dagger:hilt-android-gradle-plugin:2.30.1-alpha"
+        classpath 'com.android.tools.build:gradle:7.0.0'
+        classpath "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
     }
 }
 
 allprojects {
     repositories {
         google()
-        jcenter()
         mavenCentral()
         maven { url "https://jitpack.io" }
-        maven { url "http://192.168.31.41:8081/repository/arpa-android-release/" }
-        maven { url "http://192.168.31.41:8081/repository/arpa-android-snapshot/" }
+        maven { url 'https://maven.aliyun.com/repository/jcenter/' }
+        maven {
+            url "http://192.168.31.41:8081/repository/arpa-android-release/"
+            allowInsecureProtocol = true
+        }
     }
 }
 
