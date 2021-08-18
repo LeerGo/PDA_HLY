@@ -1,7 +1,5 @@
 package com.arpa.wms.hly;
 
-import android.app.Application;
-
 import com.arpa.wms.hly.net.ApiService.API;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.Header;
@@ -21,6 +19,7 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.util.Date;
 import java.util.UUID;
 
+import androidx.multidex.MultiDexApplication;
 import dagger.hilt.android.HiltAndroidApp;
 import timber.log.Timber;
 
@@ -39,7 +38,7 @@ import static com.arpa.wms.hly.utils.Const.SPKEY.TEST_SERVER;
 // TODO: 还需要一个状态页面（空数据、错误、警告） @lyf 2021-04-30 09:17:42
 // TODO: 设计到分页加载的页面，再从上一个页面时，需要重新请求最后一页数据然后替换 @lyf 2021-04-30 03:13:00
 @HiltAndroidApp
-public class App extends Application {
+public class App extends MultiDexApplication {
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
