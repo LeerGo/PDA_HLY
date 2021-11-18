@@ -92,16 +92,25 @@
                 app:wqiSum="@{data.totalQuantity}"
                 tools:wqiCount="100"
                 tools:wqiSum="10000" />
-            
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_car_class"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_queue"
+                app:propsKey="车种车号："
+                app:propsValue="@{data.carClassNum}"
+                app:visible="@{!TextUtils.isEmpty(data.carClassNum)}"
+                tools:propsValue="XiaoTuiChe-003" />
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_keeper"
                 style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_queue"
+                android:layout_below="@id/wpi_car_class"
                 app:propsKey="保管员："
                 app:propsValue="@{data.custodian}"
                 app:visible="@{!TextUtils.isEmpty(data.custodian)}"
                 tools:propsValue="张三，李四" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_stevedore"
                 style="@style/TaskPropsStyle"

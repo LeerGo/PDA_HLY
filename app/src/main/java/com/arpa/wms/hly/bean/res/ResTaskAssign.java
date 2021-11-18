@@ -15,7 +15,8 @@ import java.math.BigDecimal;
  * since: 2021-05-17 13:44
  */
 public class ResTaskAssign extends SelectItem implements Parcelable {
-    public static final Parcelable.Creator<ResTaskAssign> CREATOR = new Parcelable.Creator<ResTaskAssign>() {
+
+    public static final Creator<ResTaskAssign> CREATOR = new Creator<>() {
         @Override
         public ResTaskAssign createFromParcel(Parcel source) {
             return new ResTaskAssign(source);
@@ -26,6 +27,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
             return new ResTaskAssign[size];
         }
     };
+
     private String carQueueNumber;
     private String code;
     private String sourceCode;
@@ -43,10 +45,11 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private int recheckQuantity;
     private int planQuantity;
     private int totalQuantity;
-    private BigDecimal volume;// 方量
-    private BigDecimal weight;// 重量
+    private BigDecimal volume; // 方量
     private String supplierCode; // 供应商 code
     private String supplierName; // 供应商 名称
+    private BigDecimal weight; // 重量
+    private String carClassNum; // 车种车号
 
     public ResTaskAssign() {
     }
@@ -73,6 +76,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.weight = (BigDecimal) in.readSerializable();
         this.supplierCode = in.readString();
         this.supplierName = in.readString();
+        this.carClassNum = in.readString();
     }
 
     public String getSourceCode() {
@@ -222,6 +226,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.receivedQuantity = this.jobQuantity;
         this.totalQuantity = this.goodsQuantity;
     }
+
     /**
      * 任务中心跳转拣货详情，需要转换一下字段赋值
      */
@@ -297,6 +302,15 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         dest.writeSerializable(this.weight);
         dest.writeString(this.supplierCode);
         dest.writeString(this.supplierName);
+        dest.writeString(this.carClassNum);
+    }
+
+    public String getCarClassNum() {
+        return carClassNum;
+    }
+
+    public void setCarClassNum(String carClassNum) {
+        this.carClassNum = carClassNum;
     }
 
     public void readFromParcel(Parcel source) {
@@ -321,5 +335,6 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.weight = (BigDecimal) source.readSerializable();
         this.supplierCode = source.readString();
         this.supplierName = source.readString();
+        this.carClassNum = source.readString();
     }
 }
