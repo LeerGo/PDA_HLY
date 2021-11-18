@@ -11,6 +11,7 @@ import com.arpa.wms.hly.logic.home.goods.take.vm.VMGoodsTakeConfirm;
 import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.ui.dialog.DialogDateSelect;
 import com.arpa.wms.hly.ui.dialog.DialogGoodStatusSelect;
+import com.arpa.wms.hly.ui.dialog.DialogGoodsTaskScan;
 import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.DateType;
@@ -50,7 +51,7 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
         viewModel.dialogMsg.observe(this, (Observer<String>) msg -> showDialogFragment(new DialogTips(msg)));
         viewModel.itemBinding
                 .bindExtra(BR.onStatusClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
-                        showDialogFragment(new DialogGoodStatusSelect(raw.getGoodsStatus(), viewModel.detail.getInventoryStatusList(),
+                        showDialogFragment(new DialogGoodStatusSelect(raw.getGoodsStatus(), viewModel.detail.get().getInventoryStatusList(),
                                 data -> {
                                     raw.setGoodsStatus(data.getCode());
                                     raw.setGoodsStatusName(data.getName());
@@ -82,5 +83,9 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
             viewModel.request.setGoodsBarCode(data);
             viewModel.requestData();
         });
+        viewBind.wiiScan.setOnClickListener(v -> showDialogFragment(new DialogGoodsTaskScan(data -> {
+            viewModel.detail.get().setScan(data.getIndex());
+            viewModel.scanText.set(data.getContent());
+        })));
     }
 }

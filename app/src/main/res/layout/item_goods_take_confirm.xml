@@ -149,16 +149,6 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            app:inputHint="请输入扩展 3"
-            app:inputTitle="扩展 3"
-            app:inputType="number"
-            app:inputValue="@={data.extendThree}"
-            app:visibleState="@{rule.extendThree}" />
-        
-        <com.arpa.wms.hly.ui.widget.WidgetInputItem
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:gravity="center_vertical"
             app:inputHint="请输入扩展 4"
             app:inputTitle="扩展 4"
             app:inputType="number"

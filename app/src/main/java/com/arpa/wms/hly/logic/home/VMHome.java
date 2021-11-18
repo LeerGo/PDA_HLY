@@ -18,6 +18,7 @@ import com.arpa.wms.hly.logic.mine.MineActivity;
 import com.arpa.wms.hly.logic.task.TaskCenterActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.SPKEY;
 
 import java.util.List;
@@ -64,7 +65,7 @@ public class VMHome extends WrapDataViewModel {
 
     private void getRole() {
         updateStatus(LOADING);
-        apiService.getRole().enqueue(new ResultCallback<List<ResRole>>() {
+        apiService.getRole().enqueue(new ResultCallback<>() {
             @Override
             public void onSuccess(List<ResRole> data) {
                 createMenu(checkRole(data));
@@ -145,6 +146,7 @@ public class VMHome extends WrapDataViewModel {
     }
 
     public ItemBinding<MenuBean> getItemBinding() {
+        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<MenuBean>) data -> startActivity(data.getClz()));
         return itemBinding;
     }
 }

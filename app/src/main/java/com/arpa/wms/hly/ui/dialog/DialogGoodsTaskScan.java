@@ -1,16 +1,16 @@
 package com.arpa.wms.hly.ui.dialog;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseBottomDialogFragment;
-import com.arpa.wms.hly.bean.InventoryStatus;
-import com.arpa.wms.hly.ui.adapter.DialogGoodStatusAdapter;
+import com.arpa.wms.hly.bean.GoodsScanSelectItem;
+import com.arpa.wms.hly.ui.adapter.DialogGoodsScanAdapter;
 import com.arpa.wms.hly.ui.decoration.DrawableItemDecoration;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.ToastUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.Nullable;
@@ -23,25 +23,23 @@ import androidx.recyclerview.widget.RecyclerView;
  * since: 2021-04-25 3:58 PM
  *
  * <p>
- * Dialog: 选择仓库
+ * Dialog: 是否扫码
  * </p>
  */
-public class DialogGoodStatusSelect extends BaseBottomDialogFragment {
-    private final List<InventoryStatus> staffList;
-    private final DataTransCallback<InventoryStatus> listener;
-    private InventoryStatus result;
+public class DialogGoodsTaskScan extends BaseBottomDialogFragment {
+    private final DataTransCallback<GoodsScanSelectItem> listener;
+    private final List<GoodsScanSelectItem> items = new ArrayList<>();
+    private GoodsScanSelectItem result;
 
-    public DialogGoodStatusSelect(String currentStatusCode, List<InventoryStatus> staffList, DataTransCallback<InventoryStatus> listener) {
-        this.staffList = staffList;
+    public DialogGoodsTaskScan(DataTransCallback<GoodsScanSelectItem> listener) {
         this.listener = listener;
-        if (!TextUtils.isEmpty(currentStatusCode)) {
-            result = new InventoryStatus(currentStatusCode);
-        }
+        items.add(new GoodsScanSelectItem(0, "不扫码"));
+        items.add(new GoodsScanSelectItem(1, "扫码"));
     }
 
     @Override
     public int getLayoutId() {
-        return R.layout.dialog_good_status_select;
+        return R.layout.dialog_goods_take_scan;
     }
 
     @Override
@@ -50,13 +48,17 @@ public class DialogGoodStatusSelect extends BaseBottomDialogFragment {
         setOptArea();
     }
 
+    /**
+     * 设置选中数据
+     */
     private void setSelectItem() {
         RecyclerView rvAssign = (RecyclerView) findViewById(R.id.rv_assign);
-        DialogGoodStatusAdapter adapter = new DialogGoodStatusAdapter(requireContext(), staffList.indexOf(result));
+
+        DialogGoodsScanAdapter adapter = new DialogGoodsScanAdapter(requireContext());
         adapter.setOnItemClickListener((view, position, data) -> result = data);
+        adapter.addAll(items);
         rvAssign.addItemDecoration(DrawableItemDecoration.getDivider(requireContext()));
         rvAssign.setAdapter(adapter);
-        adapter.addAll(staffList);
     }
 
     private void setOptArea() {
@@ -65,12 +67,11 @@ public class DialogGoodStatusSelect extends BaseBottomDialogFragment {
 
         btnCancel.setOnClickListener(v -> dismiss());
         btnSure.setOnClickListener(v -> {
-            if (null == result) {
-                ToastUtils.showShort("请选择一个收货状态");
-            } else {
-                listener.transfer(result);
-                dismiss();
+            if (result == null) {
+                ToastUtils.showShort("请选择是否需要扫描");
             }
+            listener.transfer(result);
+            dismiss();
         });
     }
 }

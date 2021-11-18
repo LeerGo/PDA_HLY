@@ -360,7 +360,6 @@ public class GoodsItemVO extends SelectItem {
         this.setGmtExpire(data.getGmtExpire());
         this.setGmtStock(data.getGmtStock());
         this.setSerialNumber(data.getSerialNumber());
-        this.setExtendThree(data.getExtendThree());
         this.setExtendFour(data.getExtendFour());
         this.setExtendFive(data.getExtendFive());
         this.setExtendSix(data.getExtendSix());

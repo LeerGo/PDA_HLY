@@ -1,6 +1,11 @@
 package com.arpa.wms.hly.bean;
 
-public class BatchRuleBean {
+import com.arpa.wms.hly.BR;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+public class BatchRuleBean extends BaseObservable {
     private String code;
     private String shipmentCode;
     private String shipmentName;
@@ -125,12 +130,14 @@ public class BatchRuleBean {
         this.extendTwo = extendTwo;
     }
 
+    @Bindable
     public int getExtendThree() {
         return extendThree;
     }
 
     public void setExtendThree(int extendThree) {
         this.extendThree = extendThree;
+        notifyPropertyChanged(BR.extendThree);
     }
 
     public int getExtendFour() {

@@ -33,8 +33,6 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
     @Expose(serialize = false)
     private String extendTwo; // 特殊品项
     @Expose(serialize = false)
-    private Integer extendThree; // 拓展 3
-    @Expose(serialize = false)
     private Integer extendFour; // 拓展 4
     @Expose(serialize = false)
     private String extendFive; // 拓展 5
@@ -155,15 +153,6 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
         this.serialNumber = serialNumber;
     }
 
-
-    public Integer getExtendThree() {
-        return extendThree;
-    }
-
-    public void setExtendThree(Integer extendThree) {
-        this.extendThree = extendThree;
-    }
-
     public Integer getExtendFour() {
         return extendFour;
     }
@@ -207,5 +196,4 @@ public class ResGoodTakeConfirm extends ReqGoodTakeConfirm {
             this.licensePlateNumber = licensePlateNumber;
         }
     }
-
 }

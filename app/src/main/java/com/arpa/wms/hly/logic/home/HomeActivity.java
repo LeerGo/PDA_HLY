@@ -1,15 +1,11 @@
 package com.arpa.wms.hly.logic.home;
 
-import android.content.Intent;
 import android.os.Bundle;
 
-import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
-import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.databinding.ActivityHomeBinding;
 import com.arpa.wms.hly.ui.decoration.GridItemDecoration;
-import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
@@ -37,10 +33,5 @@ public class HomeActivity extends WrapBaseActivity<VMHome, ActivityHomeBinding> 
 
         viewBind.setVmHome(viewModel);
         viewBind.rvMenu.addItemDecoration(new GridItemDecoration(10));
-        viewModel.getItemBinding().bindExtra(BR.listener, (ViewListener.DataTransCallback<MenuBean>) data -> {
-            Intent intent = new Intent();
-            intent.setClass(this, data.getClz());
-            startActivity(intent);
-        });
     }
 }
