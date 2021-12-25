@@ -33,8 +33,8 @@ public class DialogGoodsTaskScan extends BaseBottomDialogFragment {
 
     public DialogGoodsTaskScan(DataTransCallback<GoodsScanSelectItem> listener) {
         this.listener = listener;
-        items.add(new GoodsScanSelectItem(0, "不扫码"));
-        items.add(new GoodsScanSelectItem(1, "扫码"));
+        items.add(new GoodsScanSelectItem(0, "N"));
+        items.add(new GoodsScanSelectItem(1, "Y"));
     }
 
     @Override
