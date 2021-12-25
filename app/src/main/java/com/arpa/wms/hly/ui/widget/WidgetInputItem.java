@@ -143,10 +143,7 @@ public class WidgetInputItem extends RelativeLayout {
                 if (inputType == EditorInfo.TYPE_CLASS_NUMBER) {
                     setInputDigits(DIGITS_NUMBER);
 
-                    if (maxValue != -1)
-                        etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
-                    else
-                        etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.MAX_VALUE)});
+                    setInputLimit();
                 } else {
                     setInputDigits(digits);
                 }
@@ -154,6 +151,13 @@ public class WidgetInputItem extends RelativeLayout {
                 etInput.removeTextChangedListener(watcher);
             }
         });
+    }
+
+    private void setInputLimit() {
+        if (maxValue != -1)
+            etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
+        else
+            etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.MAX_VALUE)});
     }
 
     private void setInputDigits(String digits) {
@@ -168,6 +172,7 @@ public class WidgetInputItem extends RelativeLayout {
 
     public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
+        setInputLimit();
     }
 
     @BindingAdapter("inputValue")
