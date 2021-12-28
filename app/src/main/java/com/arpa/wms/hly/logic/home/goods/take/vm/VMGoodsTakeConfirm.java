@@ -12,6 +12,7 @@ import com.arpa.wms.hly.base.WrapBindingRVAdapter;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.GoodsTakeBatchHeader;
+import com.arpa.wms.hly.bean.InventoryStatus;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeDetail;
 import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
 import com.arpa.wms.hly.net.callback.ResultCallback;
@@ -62,6 +63,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     public final ItemBinding<Object> itemBinding = ItemBinding.of(onItemBind);
     // 供应商
     public String supplier;
+    // 默认状态
+    private InventoryStatus statusDefault;
 
     @Inject
     public VMGoodsTakeConfirm(@NonNull Application application, BaseModel model) {
@@ -82,14 +85,28 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
         apiService.takeRegisterDetail(request.toParams()).enqueue(new ResultCallback<>() {
             @Override
             public void onSuccess(ResGoodTakeConfirm data) {
+                statusDefault = null;
                 items.clear();
 
+                setStatusDefault(data);
+                setDetail(data);
+                addHeaderData();
+                addBatchData();
+            }
+
+            private void setDetail(ResGoodTakeConfirm data) {
                 detail.set(data);
                 detail.get().setCode(data.getCode());
                 detail.get().setReceiveCode(request.getReceiveCode());
+            }
 
-                addHeaderData();
-                addBatchData();
+            private void setStatusDefault(ResGoodTakeConfirm data) {
+                for (InventoryStatus item : data.getInventoryStatusList()) {
+                    if (item.getName().equals("合格")) {
+                        statusDefault = item;
+                        break;
+                    }
+                }
             }
 
             /**
@@ -130,6 +147,7 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     private void addBatchItem() {
         GoodsItemVO batchItem = new GoodsItemVO();
         batchItem.fromDetail(detail.get());
+        batchItem.setStatus(statusDefault);
         batchItem.setExpirationQuantity(detail.get().getExpirationQuantity());
         if (null != detail && detail.get().getBatchRule().getSupplier() == 1)
             batchItem.setSupplier(supplier);

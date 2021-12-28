@@ -364,4 +364,14 @@ public class GoodsItemVO extends SelectItem {
         this.setExtendFive(data.getExtendFive());
         this.setExtendSix(data.getExtendSix());
     }
+
+    /**
+     * 设置收货状态
+     */
+    public void setStatus(InventoryStatus status) {
+        if (null == status) return;
+        this.setGoodsStatus(status.getCode());
+        this.setGoodsStatusName(status.getName());
+        this.setLocation(status.getDefaultLocationName());
+    }
 }

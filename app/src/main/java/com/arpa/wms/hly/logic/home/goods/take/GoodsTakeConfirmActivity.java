@@ -53,9 +53,7 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
                 .bindExtra(BR.onStatusClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
                         showDialogFragment(new DialogGoodStatusSelect(raw.getGoodsStatus(), viewModel.detail.get().getInventoryStatusList(),
                                 data -> {
-                                    raw.setGoodsStatus(data.getCode());
-                                    raw.setGoodsStatusName(data.getName());
-                                    raw.setLocation(data.getDefaultLocationName());
+                                    raw.setStatus(data);
                                     viewModel.update(position, raw);
                                 })))
                 .bindExtra(BR.onDateClick, (ViewListener.OnDateClickListener<GoodsItemVO>) (view, position, dateType, raw) -> {
