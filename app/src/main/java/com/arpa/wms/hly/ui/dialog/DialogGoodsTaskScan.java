@@ -69,6 +69,7 @@ public class DialogGoodsTaskScan extends BaseBottomDialogFragment {
         btnSure.setOnClickListener(v -> {
             if (result == null) {
                 ToastUtils.showShort("请选择是否需要扫描");
+                return;
             }
             listener.transfer(result);
             dismiss();
