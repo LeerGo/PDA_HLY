@@ -92,6 +92,7 @@
                 android:layout_height="32dp"
                 android:gravity="center_vertical"
                 app:inputHint="请输入备注信息"
+                app:inputLength="100"
                 app:inputText="@={viewModel.detail.remarks}"
                 app:inputTitle="备注" />
         

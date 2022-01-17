@@ -99,6 +99,7 @@ public class WidgetInputItem extends RelativeLayout {
         setInputIcon(array.getDrawable(R.styleable.WidgetInputItem_inputIcon));
         setInputEnable(array.getBoolean(R.styleable.WidgetInputItem_inputEnable, true));
         setInputGravity(array.getInt(R.styleable.WidgetInputItem_inputGravity, -1));
+        setInputLength(array.getInt(R.styleable.WidgetInputItem_inputLength, Integer.MAX_VALUE));
         inputType = array.getInt(R.styleable.WidgetInputItem_inputType, EditorInfo.TYPE_CLASS_TEXT);
         digits = array.getString(R.styleable.WidgetInputItem_inputDigits);
         setInputType(inputType);
@@ -215,6 +216,10 @@ public class WidgetInputItem extends RelativeLayout {
     @BindingAdapter({"inputValueAttrChanged"})
     public static void setInputValueAttrChanged(WidgetInputItem view, InverseBindingListener listener) {
         view.setOnTextChanged(data -> listener.onChange());
+    }
+
+    public void setInputLength(Integer inputLength) {
+        etInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputLength)});
     }
 
     @Override
