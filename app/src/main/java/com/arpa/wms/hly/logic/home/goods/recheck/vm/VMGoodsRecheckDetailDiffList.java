@@ -63,12 +63,12 @@ public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
         return new AsyncDifferConfig.Builder<>(new DiffUtil.ItemCallback<GoodsItemVO>() {
             @Override
             public boolean areItemsTheSame(@NonNull GoodsItemVO oldItem, @NonNull GoodsItemVO newItem) {
-                return oldItem.getGoodCode().equals(newItem.getGoodCode());
+                return false;
             }
 
             @Override
             public boolean areContentsTheSame(@NonNull GoodsItemVO oldItem, @NonNull GoodsItemVO newItem) {
-                return oldItem.getRecheckQuantity() == newItem.getRecheckQuantity();
+                return false;
             }
         }).build();
     }
