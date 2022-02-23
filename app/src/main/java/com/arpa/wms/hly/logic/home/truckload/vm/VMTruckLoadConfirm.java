@@ -62,26 +62,28 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
 
     private void requestData() {
         showLoading();
-        apiService.getTruckLoadConfirmDetail(Objects.requireNonNull(headerData.getCode()))
-                .enqueue(new ResultCallback<ResTruckLoadConfirm>() {
-                    @Override
-                    public void onSuccess(ResTruckLoadConfirm data) {
-                        items.add(headerData);
-                        items.addAll(data.getOutboundItemVOList());
-                        request.get().setCode(data.getCode());
-                    }
+        apiService.getTruckLoadConfirmDetail(Objects.requireNonNull(headerData.getCode())).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(ResTruckLoadConfirm data) {
+                items.add(headerData);
+                for (GoodsItemVO item : data.getOutboundItemVOList()) {
+                    item.setLoadQuantity(String.valueOf(item.getRecheckQuantity()));
+                }
+                items.addAll(data.getOutboundItemVOList());
+                request.get().setCode(data.getCode());
+            }
 
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        hideLoading();
-                    }
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoading();
+            }
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage());
-                    }
-                });
+            @Override
+            public void onFailed(ResultError error) {
+                sendMessage(error.getMessage());
+            }
+        });
     }
 
     /**
@@ -92,25 +94,24 @@ public class VMTruckLoadConfirm extends WrapDataViewModel {
 
         showLoading();
         buildRequest();
-        apiService.confirmTruckLoad(request.get())
-                .enqueue(new ResultCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object data) {
-                        ToastUtils.showShort(R.string.request_success);
-                        finish();
-                    }
+        apiService.confirmTruckLoad(request.get()).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(Object data) {
+                ToastUtils.showShort(R.string.request_success);
+                finish();
+            }
 
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        hideLoading();
-                    }
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoading();
+            }
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage());
-                    }
-                });
+            @Override
+            public void onFailed(ResultError error) {
+                sendMessage(error.getMessage());
+            }
+        });
     }
 
     @SuppressLint("LogNotTimber")

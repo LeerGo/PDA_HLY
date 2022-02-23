@@ -52,24 +52,24 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
 
     private void requestData() {
         updateStatus(Status.LOADING);
-        apiService.recheckRegisterDetail(request.toParams())
-                .enqueue(new ResultCallback<GoodsItemVO>() {
-                    @Override
-                    public void onSuccess(GoodsItemVO data) {
-                        detail.set(data);
-                    }
+        apiService.recheckRegisterDetail(request.toParams()).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(GoodsItemVO data) {
+                detail.set(data);
+                recheckQuantity.set(String.valueOf(detail.get().getWaitRecheckQuantity()));
+            }
 
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        hideLoading();
-                    }
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoading();
+            }
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage());
-                    }
-                });
+            @Override
+            public void onFailed(ResultError error) {
+                sendMessage(error.getMessage());
+            }
+        });
     }
 
     public void confirm() {
@@ -87,24 +87,23 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         confirm.setRecheckQuantity(recheckQuantity.get());
         confirm.setOutboundCode(request.getOutboundCode());
         confirm.setOutboundItemCode(request.getOutboundItemCode());
-        apiService.recheckConfirm(confirm.toParams() )
-                .enqueue(new ResultCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object data) {
-                        finish();
-                    }
+        apiService.recheckConfirm(confirm.toParams()).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(Object data) {
+                finish();
+            }
 
 
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        hideLoading();
-                    }
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                hideLoading();
+            }
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage());
-                    }
-                });
+            @Override
+            public void onFailed(ResultError error) {
+                sendMessage(error.getMessage());
+            }
+        });
     }
 }
