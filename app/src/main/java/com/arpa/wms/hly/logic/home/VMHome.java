@@ -13,7 +13,6 @@ import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckActivity;
 import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeActivity;
 import com.arpa.wms.hly.logic.home.inventory.move.ScanLocationActivity;
 import com.arpa.wms.hly.logic.home.inventory.query.InventoryQueryActivity;
-import com.arpa.wms.hly.logic.home.truckload.TruckLoadActivity;
 import com.arpa.wms.hly.logic.mine.MineActivity;
 import com.arpa.wms.hly.logic.task.TaskCenterActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
@@ -107,7 +106,7 @@ public class VMHome extends WrapDataViewModel {
                 items.add(new MenuBean(R.mipmap.ic_home_goods_take, "收货", "Receiving Goods", GoodsTakeActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", GoodsPickTaskActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_goods_recheck, "复核", "To Review", GoodsRecheckActivity.class));
-                items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", TruckLoadActivity.class));
+//                items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", TruckLoadActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", ScanLocationActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_inventory_query, "库存查询", "Inventory Query", InventoryQueryActivity.class));
             }
