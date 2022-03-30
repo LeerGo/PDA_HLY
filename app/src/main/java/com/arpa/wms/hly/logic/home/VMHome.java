@@ -106,7 +106,8 @@ public class VMHome extends WrapDataViewModel {
                 items.add(new MenuBean(R.mipmap.ic_home_goods_take, "收货", "Receiving Goods", GoodsTakeActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_goods_pick, "拣货", "Picking Goods", GoodsPickTaskActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_goods_recheck, "复核", "To Review", GoodsRecheckActivity.class));
-//                items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", TruckLoadActivity.class));
+                // 迭代#220309 要求屏蔽该入口 add @lyf 2022-03-21 15:02:19
+                // items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", TruckLoadActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", ScanLocationActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_inventory_query, "库存查询", "Inventory Query", InventoryQueryActivity.class));
             }
