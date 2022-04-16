@@ -26,6 +26,7 @@
     <string name="hint_enter_password">请输入密码</string>
     <string name="hint_enter_phone">请输入手机号</string>
     <string name="hint_please_enter_goodsbar">请扫描/输入商品条码</string>
+    <string name="hint_please_enter_content">请扫描/输入内容</string>
     <string name="hint_please_enter_location">请扫描/输入移出库位</string>
     <string name="line_take_no">排队号：</string>
     <string name="login">登录</string>

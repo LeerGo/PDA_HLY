@@ -82,6 +82,15 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
         return reqTaskList;
     }
 
+    /**
+     * 检索
+     */
+    // TODO: 添加搜索内容 @sc 2022-04-13 02:10:52
+    public void search(String keyWord) {
+        //        request.setCode(keyWord);
+        refresh();
+    }
+
     @Override
     public ItemBinding<ResTaskAssign> getItemBinding() {
         itemBinding.bindExtra(BR.listener, (DataTransCallback<ResTaskAssign>) data -> {

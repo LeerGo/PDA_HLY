@@ -76,6 +76,8 @@ public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, Fragm
         viewModel.resTaskWorker.observe(this, resTaskWorker ->
                 showDialogFragment(new DialogAssignSelect(viewModel.workerType, resTaskWorker, data -> viewModel.taskAssign(data)))
         );
+
+        viewBind.etScan.setOnSearchClick(data -> viewModel.search(data));
     }
 
     /**
