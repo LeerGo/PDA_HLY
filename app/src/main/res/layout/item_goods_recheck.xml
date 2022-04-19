@@ -7,6 +7,7 @@
     <data>
         
         <import type="android.text.TextUtils" />
+        <import type="com.arpa.wms.hly.utils.NumberUtils" />
         
         <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
         
@@ -110,14 +111,31 @@
                 app:propsValue="@{data.stevedore}"
                 app:visible="@{!TextUtils.isEmpty(data.stevedore)}"
                 tools:propsValue="装卸工一，装卸工一" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_forklift"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_stevedore"
                 app:propsKey="叉车工："
                 app:propsValue="@{data.forklift}"
                 app:visible="@{!TextUtils.isEmpty(data.forklift)}"
                 tools:propsValue="叉车工一" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_assign"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_forklift"
+                app:propsKey="@string/assign_time"
+                app:propsValue="@{data.gmtCreated}"
+                tools:propsValue="2022-04-19" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_assign"
+                app:propsKey="@string/loading_high"
+                app:propsValue="@{String.valueOf(data.loadingCarHeight)}"
+                app:visible="@{!NumberUtils.isZero(data.loadingCarHeight)}"
+                tools:propsValue="5m" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

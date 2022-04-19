@@ -19,6 +19,16 @@ public class ReqTaskList extends ReqPage {
     private String jobStatus;
     private String warehouseCode;
     private String code;
+    private String queryValue;
+
+    public String getQueryValue() {
+        return queryValue;
+    }
+
+    public void setQueryValue(String queryValue) {
+        this.queryValue = queryValue;
+    }
+
     private Integer assign;//指派状态：0未指派，1已指派，2指派中
 
     public ReqTaskList(Integer pageSize) {

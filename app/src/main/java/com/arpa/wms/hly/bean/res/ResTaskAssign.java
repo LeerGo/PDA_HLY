@@ -50,6 +50,25 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private String supplierName; // 供应商 名称
     private BigDecimal weight; // 重量
     private String carClassNum; // 车种车号
+    private String gmtCreated;//指派时间
+    private BigDecimal loadingCarHeight;//装车高度
+
+    public BigDecimal getLoadingCarHeight() {
+        return loadingCarHeight;
+    }
+
+    public void setLoadingCarHeight(BigDecimal loadingCarHeight) {
+        this.loadingCarHeight = loadingCarHeight;
+    }
+
+    public String getGmtCreated() {
+        return gmtCreated;
+    }
+
+    public void setGmtCreated(String gmtCreated) {
+        this.gmtCreated = gmtCreated;
+    }
+
 
     public ResTaskAssign() {
     }

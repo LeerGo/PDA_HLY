@@ -4,6 +4,7 @@
     <data>
         
         <import type="android.text.TextUtils" />
+        <import type="com.arpa.wms.hly.utils.NumberUtils" />
         
         <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
         
@@ -83,7 +84,7 @@
                 app:propsValue="@{data.customerName}"
                 app:visible="@{!TextUtils.isEmpty(data.customerName)}"
                 tools:propsValue="张三" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_queue"
                 style="@style/TaskPropsRightStyle"
@@ -120,7 +121,7 @@
                 app:propsValue="@{data.driverName+`/`+data.driverPhone}"
                 app:visible="@{!TextUtils.isEmpty(data.driverName)}"
                 tools:propsValue="张三/13333333333" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_stevedore"
                 style="@style/TaskPropsRightStyle"
@@ -129,7 +130,7 @@
                 app:propsValue="@{data.stevedore}"
                 app:visible="@{!TextUtils.isEmpty(data.stevedore)}"
                 tools:propsValue="装卸工一，装卸工一" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_forklift"
                 style="@style/TaskPropsRightStyle"
@@ -138,6 +139,22 @@
                 app:propsValue="@{data.forklift}"
                 app:visible="@{!TextUtils.isEmpty(data.forklift)}"
                 tools:propsValue="叉车工一，叉车工一" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_assign"
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_forklift"
+                app:propsKey="@string/assign_time"
+                app:propsValue="@{data.gmtCreated}"
+                tools:propsValue="2022-04-19" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/TaskPropsRightStyle"
+                android:layout_below="@id/wpi_assign"
+                app:propsKey="@string/loading_high"
+                app:propsValue="@{String.valueOf(data.loadingCarHeight)}"
+                app:visible="@{!NumberUtils.isZero(data.loadingCarHeight)}"
+                tools:propsValue="5m" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

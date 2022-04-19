@@ -87,7 +87,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
      */
     // TODO: 添加搜索内容 @sc 2022-04-13 02:10:52
     public void search(String keyWord) {
-        //        request.setCode(keyWord);
+        reqTaskList.setQueryValue(keyWord);
         refresh();
     }
 
