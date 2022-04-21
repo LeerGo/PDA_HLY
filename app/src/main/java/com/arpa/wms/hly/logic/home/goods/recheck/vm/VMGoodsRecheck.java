@@ -48,6 +48,14 @@ public class VMGoodsRecheck extends VMBaseRefreshList<ResTaskAssign> {
         return apiService.goodsRecheckList(params);
     }
 
+    /**
+     * 检索
+     */
+    public void search(String keyWord) {
+        reqPage.setQueryValue(keyWord);
+        refresh();
+    }
+
     @Override
     public ReqPage getParams() {
         return reqPage;

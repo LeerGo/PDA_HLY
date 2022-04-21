@@ -53,6 +53,7 @@ public abstract class VMBaseRefreshList <T> extends WrapDataViewModel {
         configAdapter();
     }
 
+
     @Override
     public void onStart() {
         super.onStart();

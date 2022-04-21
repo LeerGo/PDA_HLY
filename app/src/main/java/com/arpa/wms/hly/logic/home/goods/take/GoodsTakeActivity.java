@@ -34,5 +34,7 @@ public class GoodsTakeActivity extends WrapBaseActivity<VMGoodsTake, ActivityPda
         viewBind.setViewModel(viewModel);
         //        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(new BothItemDecoration());
+
+        viewBind.etScan.setOnSearchClick(data -> viewModel.search(data));
     }
 }

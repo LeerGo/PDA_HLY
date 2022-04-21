@@ -35,5 +35,7 @@ public class GoodsRecheckActivity extends WrapBaseActivity<VMGoodsRecheck, Activ
         // TODO: 替换为 xml 映射 @lyf 2021-05-12 09:15:28
         // viewBind.wsbSearch.setOnSearchClick(data -> viewModel.search(data));
         viewBind.rvList.addItemDecoration(new BothItemDecoration());
+
+        viewBind.etScan.setOnSearchClick(data -> viewModel.search(data));
     }
 }

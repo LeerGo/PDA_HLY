@@ -53,6 +53,14 @@ public class VMGoodsTake extends VMBaseRefreshList<ResTaskAssign> {
         return reqPage;
     }
 
+    /**
+     * 检索
+     */
+    public void search(String keyWord) {
+        reqPage.setQueryValue(keyWord);
+        refresh();
+    }
+
     @Override
     public void configAdapter() {
         setAdapter(new WrapBindingRVAdapter<>());
