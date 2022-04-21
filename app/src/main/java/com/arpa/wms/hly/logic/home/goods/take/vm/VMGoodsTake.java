@@ -10,6 +10,7 @@ import com.arpa.wms.hly.base.WrapBindingRVAdapter;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
+import com.arpa.wms.hly.bean.req.ReqTaskList;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeDetailActivity;
 import com.arpa.wms.hly.ui.listener.ViewListener;
@@ -37,7 +38,7 @@ import retrofit2.Call;
 public class VMGoodsTake extends VMBaseRefreshList<ResTaskAssign> {
     private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take);
     private final ReqPage reqPage = new ReqPage(PAGE_SIZE);
-
+    private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
     @Inject
     public VMGoodsTake(@NonNull Application application, BaseModel model) {
         super(application, model);
@@ -50,14 +51,14 @@ public class VMGoodsTake extends VMBaseRefreshList<ResTaskAssign> {
 
     @Override
     public ReqPage getParams() {
-        return reqPage;
+        return reqTaskList;
     }
 
     /**
      * 检索
      */
     public void search(String keyWord) {
-        reqPage.setQueryValue(keyWord);
+        reqTaskList.setQueryValue(keyWord);
         refresh();
     }
 

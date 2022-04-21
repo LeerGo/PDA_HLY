@@ -12,20 +12,12 @@ package com.arpa.wms.hly.bean.base;
 public class ReqPage extends ReqBase {
     public int pageNum;
     public int pageSize;
-    public String queryValue;
 
     public ReqPage(int pageSize) {
         this.pageNum = 1;
         this.pageSize = pageSize;
     }
 
-    public String getQueryValue() {
-        return queryValue;
-    }
-
-    public void setQueryValue(String queryValue) {
-        this.queryValue = queryValue;
-    }
 
     public void pageIncrease() {
         pageNum++;
