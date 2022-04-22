@@ -129,11 +129,18 @@
                 tools:propsValue="2022-04-19" />
     
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_high"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_assign"
                 app:propsKey="@string/loading_high"
                 app:propsValue="@{String.valueOf(data.loadingCarHeight)}"
                 tools:propsValue="5m" />
+    
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_assign"
+                android:layout_toRightOf="@id/wpi_high"
+                app:propsValue="m" />
         </RelativeLayout>
     </com.google.android.material.card.MaterialCardView>
 </layout>

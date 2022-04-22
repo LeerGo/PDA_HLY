@@ -35,6 +35,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private String driverName;
     private String driverPhone;
     private int jobQuantity;
+    private int assign;
     private int goodsQuantity;
     private String licensePlateNumber;
     private String taskTypeDes;
@@ -51,7 +52,24 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private BigDecimal weight; // 重量
     private String carClassNum; // 车种车号
     private String gmtCreated;//指派时间
+    private String assignTime;//下发时间
     private BigDecimal loadingCarHeight;//装车高度
+
+    public String getAssignTime() {
+        return assignTime;
+    }
+
+    public void setAssignTime(String assignTime) {
+        this.assignTime = assignTime;
+    }
+
+    public int getAssign() {
+        return assign;
+    }
+
+    public void setAssign(int assign) {
+        this.assign = assign;
+    }
 
     public BigDecimal getLoadingCarHeight() {
         return loadingCarHeight;

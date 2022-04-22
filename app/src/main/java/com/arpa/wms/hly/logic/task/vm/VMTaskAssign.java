@@ -27,6 +27,7 @@ import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.ToastUtils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -52,8 +53,10 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
     private final ObservableBoolean isSelectAll = new ObservableBoolean();
     private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_task_list);
+    private final HashMap<String, Boolean> selectStateMap = new HashMap<>();
 
     public int workerType = -1;
+    public boolean keeper, stevedore, forklift;
 
     @Inject
     public VMTaskAssign(@NonNull Application application, BaseModel model) {
@@ -68,7 +71,18 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     @Override
     protected void refreshComplete(boolean isRefresh) {
         super.refreshComplete(isRefresh);
-        isSelectAll.set(false);
+
+        if (keeper && stevedore && forklift) {
+        } else {
+            // TODO: 复建选中状态 @sc 2022-04-22 02:29:38
+            for (ResTaskAssign item : getItems()) {
+                if (selectStateMap.containsKey(item.getCode())) {
+                    item.setSelect(selectStateMap.get(item.getCode()));
+                }
+            }
+        }
+
+        inverseSelectAll();
     }
 
     @Override
@@ -113,6 +127,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
         return itemBinding;
     }
 
+
     /**
      * 反向全选（每一条目选中后，反向判断是否全选）
      */
@@ -124,7 +139,14 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                 break;
             }
         }
-        isSelectAll.set(isItemAllSelect);
+
+        if (getItems().size() == 0) {
+            isSelectAll.set(false);
+        } else {
+            isSelectAll.set(isItemAllSelect);
+        }
+
+
     }
 
     /**
@@ -155,6 +177,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                     public void onSuccess(Object data) {
                         sendMessage("分配成功");
                         updateStatus(StatusEvent.Status.SUCCESS, true);
+                        judge();
                         autoRefresh();
                     }
 
@@ -192,18 +215,44 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
         }
     }
 
+
+    private void judge() {
+        if (workerType == Const.ASSIGN_WORK.CUSTODIAN) {
+            keeper = true;
+        } else if (workerType == Const.ASSIGN_WORK.STEVEDORE) {
+            stevedore = true;
+        } else {
+            forklift = true;
+        }
+
+        if (keeper && stevedore && forklift) {
+            sendMessage("都为真");
+            keeper = false;
+            stevedore = false;
+            forklift = false;
+            selectStateMap.clear();
+        } else {
+            // TODO:  保存选中状态 @sc 2022-04-22 02:27:07
+            for (ResTaskAssign item : getItems()) {
+                selectStateMap.put(item.getCode(), item.isSelect());
+            }
+        }
+    }
+
     /**
      * 取消分配人员
      */
-    public void taskAssignCancel(String workerType) {
+    public void taskAssignCancel(int assignType, String workerTypes) {
+        workerType = assignType;
         updateStatus(StatusEvent.Status.LOADING);
-        buildReqParams(workerType, null);
+        buildReqParams(workerTypes, null);
         apiService.pdaTasksCancelAssign(reqTaskAssign)
                 .enqueue(new ResultCallback<Object>() {
                     @Override
                     public void onSuccess(Object data) {
                         sendMessage("取消分配成功");
                         updateStatus(StatusEvent.Status.SUCCESS, true);
+                        judge();
                         autoRefresh();
                     }
 

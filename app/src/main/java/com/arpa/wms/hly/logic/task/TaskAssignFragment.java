@@ -116,6 +116,6 @@ public class TaskAssignFragment extends WrapBaseLazyFragment<VMTaskAssign, Fragm
      * 取消分配工作人员
      */
     private void cancelAssignStaffDialog(int assignType) {
-        showDialogFragment(new DialogTips("取消当前已分配的" + WORKER_TYPE_NAME[assignType], () -> viewModel.taskAssignCancel(WORKER_TYPE[assignType])));
+        showDialogFragment(new DialogTips("取消当前已分配的" + WORKER_TYPE_NAME[assignType], () -> viewModel.taskAssignCancel(assignType, WORKER_TYPE[assignType])));
     }
 }
