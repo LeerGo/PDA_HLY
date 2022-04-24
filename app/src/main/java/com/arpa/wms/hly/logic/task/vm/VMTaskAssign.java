@@ -226,7 +226,6 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
         }
 
         if (keeper && stevedore && forklift) {
-            sendMessage("都为真");
             keeper = false;
             stevedore = false;
             forklift = false;
