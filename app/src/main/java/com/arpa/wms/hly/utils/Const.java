@@ -59,6 +59,7 @@ public interface Const {
         String RECEIVE_ITEM_CODE = "receiveItemCode";
         String GOODS_NAME = "goodName";
         String GOODS_UNIT_NAME = "goodUnitName";
+        String GOODS_COUNT = "goodsCount";
         String SUPPLIER = "supplier";
     }
 

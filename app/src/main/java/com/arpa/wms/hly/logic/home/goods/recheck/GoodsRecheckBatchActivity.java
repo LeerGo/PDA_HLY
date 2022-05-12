@@ -16,8 +16,6 @@ import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.ToastUtils;
 import com.arpa.wms.hly.utils.WeakHandler;
 
-import java.util.ArrayList;
-
 import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -48,11 +46,10 @@ public class GoodsRecheckBatchActivity
         super.initData(savedInstanceState);
         sHandler = new WeakHandler<>(GoodsRecheckBatchActivity.this);
         viewBind.setViewModel(viewModel);
+        viewModel.initData(getIntent());
 
         setViews();
         restoreCodes();
-        viewModel.goodName.set(getIntent().getStringExtra(IntentKey.GOODS_NAME));
-        viewModel.goodUnitName.set(getIntent().getStringExtra(IntentKey.GOODS_UNIT_NAME));
     }
 
     private void setViews() {
@@ -79,10 +76,9 @@ public class GoodsRecheckBatchActivity
     }
 
     private void restoreCodes() {
-        ArrayList<String> codeList = getIntent().getStringArrayListExtra(IntentKey.DATA);
-        if (!codeList.isEmpty()) {
-            for (int i = codeList.size() - 1; i >= 0; i--) {
-                addTagView(codeList.get(i));
+        if (!viewModel.codeList.isEmpty()) {
+            for (int i = viewModel.codeList.size() - 1; i >= 0; i--) {
+                addTagView(viewModel.codeList.get(i));
             }
         }
     }
@@ -105,9 +101,11 @@ public class GoodsRecheckBatchActivity
         chip.setOnCloseIconClickListener(v -> {
             viewModel.codeList.remove(text);
             viewBind.cgBatchTags.removeView(v);
+            viewModel.calcRadio();
         });
         viewModel.codeList.add(0, text);
         viewBind.cgBatchTags.addView(chip, 0);
+        viewModel.calcRadio();
     }
 
     @Override

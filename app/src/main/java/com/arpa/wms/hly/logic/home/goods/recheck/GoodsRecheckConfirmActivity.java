@@ -60,6 +60,7 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
             Bundle bundle = new Bundle();
             bundle.putString(IntentKey.GOODS_NAME, viewModel.detail.get().getGoodsName());
             bundle.putString(IntentKey.GOODS_UNIT_NAME, viewModel.detail.get().getGoodsUnitName());
+            bundle.putInt(IntentKey.GOODS_COUNT, viewModel.detail.get().getWaitRecheckQuantity());
             bundle.putStringArrayList(IntentKey.DATA, viewModel.batchCodeList);
             batchResult.launch(newIntent(GoodsRecheckBatchActivity.class, bundle));
         });

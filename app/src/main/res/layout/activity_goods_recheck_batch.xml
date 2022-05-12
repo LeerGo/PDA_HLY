@@ -54,6 +54,14 @@
                     app:propsValue="@{viewModel.goodUnitName}"
                     app:propsValueGravity="end"
                     tools:propsValue="箱" />
+    
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/ItemRecheckBatchStyle"
+                    app:propsKey="扫码比例"
+                    app:propsKeyColor="@color/color_434c67"
+                    app:propsValue="@{viewModel.radio}"
+                    app:propsValueGravity="end"
+                    tools:propsValue="0.00%" />
                 
                 <View
                     android:layout_width="match_parent"
