@@ -3,13 +3,13 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:ignore="HardcodedText">
+    tools:ignore="HardcodedText,MissingDefaultResource">
     
     <data>
         
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.pick.VMGoodsPickTask" />
+            type="com.arpa.wms.hly.logic.home.goods.pick.VMGoodsPickTask"/>
     </data>
     
     <RelativeLayout
@@ -28,7 +28,7 @@
             style="@style/TableTextStyleCP"
             android:layout_width="92dp"
             android:layout_below="@+id/wtb_title"
-            android:text="拣货单" />
+            android:text="拣货单"/>
         
         <TextView
             android:id="@+id/tv_label_operate"
@@ -165,10 +165,6 @@
             app:srlEnableFooterFollowWhenNoMoreData="true"
             app:srlEnableLoadMore="true">
             
-            <com.scwang.smart.refresh.header.MaterialHeader
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-            
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_pick_orders"
                 android:layout_width="match_parent"
@@ -215,7 +211,7 @@
                     tools:listitem="@layout/item_pick_detail" />
             </com.arpa.wms.hly.ui.form.ObservableScrollView>
         </com.scwang.smart.refresh.layout.SmartRefreshLayout>
-        
+    
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rv_operate"
             android:layout_width="60dp"
@@ -227,6 +223,6 @@
             app:items="@{viewModel.taskDetailItems}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="20"
-            tools:listitem="@layout/item_pick_operation" />
+            tools:listitem="@layout/item_pick_operation"/>
     </RelativeLayout>
 </layout>
