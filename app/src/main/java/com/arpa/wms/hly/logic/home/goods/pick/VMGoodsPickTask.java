@@ -167,7 +167,7 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
     }
 
     public ItemBinding<GoodsItemVO> getTaskOperateBinding() {
-        taskOperateBinding.bindExtra(BR.onOperate, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
+        taskOperateBinding.bindExtra(BR.onAdd, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
             if (position != taskDetailAdapter.getPositionSel()) {
                 taskDetailItems.get(position).setSelect(true);
                 if (null != taskDetailAdapter.getItemSel()) {
@@ -181,6 +181,9 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
             }
             if (data.isPickFinish()) ToastUtils.showShortSafe("当前订单已拣货完成");
             else pickConfirm(position);
+        }).bindExtra(BR.onEdit, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
+            // TODO: 编辑功能待实现待实现 add by @lyf 2022-05-13 09:08
+            // 发送通知前台弹编辑窗口
         });
         return taskOperateBinding;
     }

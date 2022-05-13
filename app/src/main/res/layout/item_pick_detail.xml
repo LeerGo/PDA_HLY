@@ -37,7 +37,16 @@
             android:layout_width="80dp"
             android:text="@{data.oldLocationName}"
             android:textColor="@color/black"
-            tools:text="1001" />
+            tools:text="A1001" />
+        
+        <!--TODO: 待完善 add by @lyf 2022-05-13 09:00-->
+        <!--库位数量-->
+        <TextView
+            style="@style/TableTextStyle"
+            android:layout_width="80dp"
+            android:text="@{data.oldLocationName}"
+            android:textColor="@color/black"
+            tools:text="20031" />
         
         <!--商品名称-->
         <TextView

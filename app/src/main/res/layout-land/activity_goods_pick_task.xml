@@ -59,6 +59,11 @@
                 
                 <TextView
                     style="@style/TableTextStyleCP"
+                    android:layout_width="80dp"
+                    android:text="库位数量" />
+                
+                <TextView
+                    style="@style/TableTextStyleCP"
                     android:layout_width="160dp"
                     android:text="商品名称" />
                 
