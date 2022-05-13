@@ -6,31 +6,31 @@
     
     <data>
         
-        <import type="com.arpa.wms.hly.bean.GoodsItemVO" />
+        <import type="com.arpa.wms.hly.bean.GoodsItemVO"/>
         
-        <import type="com.arpa.wms.hly.bean.BatchRuleBean" />
+        <import type="com.arpa.wms.hly.bean.BatchRuleBean"/>
         
-        <import type="com.arpa.wms.hly.utils.Const.DateType" />
+        <import type="com.arpa.wms.hly.utils.Const.DateType"/>
         
         <variable
             name="data"
-            type="GoodsItemVO" />
+            type="GoodsItemVO"/>
         
         <variable
             name="rule"
-            type="BatchRuleBean" />
+            type="BatchRuleBean"/>
         
         <variable
             name="position"
-            type="Integer" />
+            type="Integer"/>
         
         <variable
             name="onDateClick"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.OnDateClickListener" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.OnDateClickListener"/>
         
         <variable
             name="onStatusClick"
-            type="com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener" />
+            type="com.arpa.wms.hly.ui.listener.ViewListener.OnItemClickListener"/>
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -52,7 +52,7 @@
             app:inputHint="请选择收货状态"
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
             app:inputText="@={data.goodsStatusName}"
-            app:inputTitle="收货状态" />
+            app:inputTitle="收货状态"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -61,7 +61,7 @@
             app:inputHint="请输入收货数量"
             app:inputTitle="收货数量"
             app:inputType="number"
-            app:inputValue="@={data.receivedQuantity}" />
+            app:inputValue="@={data.receivedQuantity}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -73,7 +73,7 @@
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
             app:inputText="@={data.gmtManufacture}"
             app:inputTitle="生产日期"
-            app:visibleState="@{rule.gmtManufacture}" />
+            app:visibleState="@{rule.gmtManufacture}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -85,7 +85,7 @@
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
             app:inputText="@={data.gmtExpire}"
             app:inputTitle="过期日期"
-            app:visibleState="@{rule.gmtExpire}" />
+            app:visibleState="@{rule.gmtExpire}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -97,7 +97,7 @@
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
             app:inputText="@={data.gmtStock}"
             app:inputTitle="存货日期"
-            app:visibleState="@{rule.gmtStock}" />
+            app:visibleState="@{rule.gmtStock}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -107,7 +107,7 @@
             app:inputHint="请输入供应商"
             app:inputText="@={data.supplier}"
             app:inputTitle="供应商"
-            app:visibleState="@{rule.supplier}" />
+            app:visibleState="@{rule.supplier}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -116,7 +116,7 @@
             app:inputHint="请输入序列号"
             app:inputText="@={data.serialNumber}"
             app:inputTitle="序列号"
-            app:visibleState="@{rule.serialNumber}" />
+            app:visibleState="@{rule.serialNumber}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -125,7 +125,7 @@
             app:inputHint="请输入产地"
             app:inputText="@={data.extendOne}"
             app:inputTitle="产地"
-            app:visibleState="@{rule.extendOne}" />
+            app:visibleState="@{rule.extendOne}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -134,7 +134,7 @@
             app:inputHint="请输入码托数量"
             app:inputTitle="码托数量"
             app:inputType="number"
-            app:inputValue="@={data.supportNum}" />
+            app:inputValue="@={data.supportNum}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -143,7 +143,7 @@
             app:inputHint="请输入特殊品项"
             app:inputText="@={data.extendTwo}"
             app:inputTitle="特殊品项"
-            app:visibleState="@{rule.extendTwo}" />
+            app:visibleState="@{rule.extendTwo}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -153,7 +153,7 @@
             app:inputTitle="扩展 4"
             app:inputType="number"
             app:inputValue="@={data.extendFour}"
-            app:visibleState="@{rule.extendFour}" />
+            app:visibleState="@{rule.extendFour}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -165,7 +165,7 @@
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
             app:inputText="@={data.extendFive}"
             app:inputTitle="扩展 5"
-            app:visibleState="@{rule.extendFive}" />
+            app:visibleState="@{rule.extendFive}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
@@ -177,15 +177,35 @@
             app:inputIcon="@mipmap/ic_arrow_light_gray_right"
             app:inputText="@={data.extendSix}"
             app:inputTitle="扩展 6"
-            app:visibleState="@{rule.extendSix}" />
+            app:visibleState="@{rule.extendSix}"/>
+        
+        <!--TODO: 待完善参数赋值 add by @lyf 2022-05-13 01:52-->
+        <com.arpa.wms.hly.ui.widget.WidgetInputItem
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            app:inputHint="请输入大箱数量"
+            app:inputText="@={data.location}"
+            app:inputTitle="大箱"
+            app:inputType="number"/>
+        
+        <!--TODO: 待完善参数赋值 add by @lyf 2022-05-13 01:52-->
+        <com.arpa.wms.hly.ui.widget.WidgetInputItem
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            app:inputHint="请输入小箱数量"
+            app:inputText="@={data.location}"
+            app:inputTitle="小箱"
+            app:inputType="number"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
-            app:inputHint="库位"
+            app:inputHint="请扫描/输入库位"
             app:inputIcon="@mipmap/ic_scan"
             app:inputText="@={data.location}"
-            app:inputTitle="请扫描/输入库位" />
+            app:inputTitle="库位"/>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
