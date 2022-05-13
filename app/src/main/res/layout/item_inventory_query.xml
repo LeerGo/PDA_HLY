@@ -168,18 +168,32 @@
                 app:decimalValue="@{data.extendFive}"
                 app:propsKey="拓   展   5："
                 tools:propsValue="T5" />
-            
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
                 app:decimalValue="@{data.extendSix}"
                 app:propsKey="拓   展   6："
-                tools:propsValue="T6" />
-            
+                tools:propsValue="T6"/>
+    
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
                 app:propsKey="收货批次："
                 app:propsValue="@{data.receiveLot}"
-                tools:propsValue="批次" />
+                tools:propsValue="批次"/>
+    
+            <!--TODO: 待完善取值 add by @lyf 2022-05-13 08:49-->
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                app:propsKey="入库车辆："
+                app:propsValue="@{data.receiveLot}"
+                tools:propsValue="鲁A2222"/>
+    
+            <!--TODO: 待完善取值 add by @lyf 2022-05-13 08:49-->
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/InventoryQueryItem"
+                app:propsKey="是否扫码："
+                app:propsValue="@{data.receiveLot}"
+                tools:propsValue="Y"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
 </layout>
