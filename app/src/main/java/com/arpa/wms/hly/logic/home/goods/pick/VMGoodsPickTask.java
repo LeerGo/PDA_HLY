@@ -133,32 +133,31 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
     public void requestDetail() {
         updateStatus(Status.LOADING);
         detailRefreshing.set(true);
-        apiService.pickingDetail(sourceCode)
-                .enqueue(new ResultCallback<ResPickDetail>() {
-                    @Override
-                    public void onSuccess(ResPickDetail data) {
-                        batchRule = data.getBatchRule();
-                        rule.set(batchRule);
-                        if (taskDetailAdapter.getPositionSel() != -1)
-                            data.getGoods().get(taskDetailAdapter.getPositionSel()).setSelect(true);
-                        taskDetailItems.clear();
-                        taskDetailItems.addAll(data.getGoods());
-                        updateStatus(Status.SUCCESS);
-                    }
+        apiService.pickingDetail(sourceCode).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(ResPickDetail data) {
+                batchRule = data.getBatchRule();
+                rule.set(batchRule);
+                if (taskDetailAdapter.getPositionSel() != -1)
+                    data.getGoods().get(taskDetailAdapter.getPositionSel()).setSelect(true);
+                taskDetailItems.clear();
+                taskDetailItems.addAll(data.getGoods());
+                updateStatus(Status.SUCCESS);
+            }
 
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        detailRefreshing.set(false);
-                    }
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                detailRefreshing.set(false);
+            }
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        taskDetailItems.clear();
-                        updateStatus(Status.ERROR);
-                        sendMessage(error.getMessage());
-                    }
-                });
+            @Override
+            public void onFailed(ResultError error) {
+                taskDetailItems.clear();
+                updateStatus(Status.ERROR);
+                sendMessage(error.getMessage());
+            }
+        });
     }
 
     public ItemBinding<GoodsItemVO> getTaskDetailBinding() {
@@ -184,6 +183,7 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
         }).bindExtra(BR.onEdit, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
             // TODO: 编辑功能待实现待实现 add by @lyf 2022-05-13 09:08
             // 发送通知前台弹编辑窗口
+            // 拣货单编辑只允许叉车和仓库主管有修改权限
         });
         return taskOperateBinding;
     }

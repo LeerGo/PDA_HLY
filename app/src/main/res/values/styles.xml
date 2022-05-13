@@ -154,4 +154,22 @@
         <item name="android:windowEnterAnimation">@anim/dialog_bottom_in</item>
         <item name="android:windowExitAnimation">@anim/dialog_bottom_out</item>
     </style>
+    
+    <style name="PickEditInput">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_height">28dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/color_434c67</item>
+        <item name="android:textColorHint">#B6BED2</item>
+        <item name="android:background">@drawable/shape_rrect_border_bluegrey_r5</item>
+    </style>
+    
+    <style name="PickEditLabel" parent="WWrapHWrap">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/color_434c67</item>
+    </style>
 </resources>
