@@ -15,7 +15,6 @@ import java.math.BigDecimal;
  * since: 2021-05-17 13:44
  */
 public class ResTaskAssign extends SelectItem implements Parcelable {
-
     public static final Creator<ResTaskAssign> CREATOR = new Creator<>() {
         @Override
         public ResTaskAssign createFromParcel(Parcel source) {
@@ -54,6 +53,40 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private String gmtCreated;//指派时间
     private String assignTime;//下发时间
     private BigDecimal loadingCarHeight;//装车高度
+    private String erpCode;
+
+    public ResTaskAssign() {
+    }
+
+    protected ResTaskAssign(Parcel in) {
+        this.carQueueNumber = in.readString();
+        this.code = in.readString();
+        this.sourceCode = in.readString();
+        this.custodian = in.readString();
+        this.driverName = in.readString();
+        this.driverPhone = in.readString();
+        this.jobQuantity = in.readInt();
+        this.assign = in.readInt();
+        this.goodsQuantity = in.readInt();
+        this.licensePlateNumber = in.readString();
+        this.taskTypeDes = in.readString();
+        this.customerName = in.readString();
+        this.forklift = in.readString();
+        this.stevedore = in.readString();
+        this.receivedQuantity = in.readInt();
+        this.recheckQuantity = in.readInt();
+        this.planQuantity = in.readInt();
+        this.totalQuantity = in.readInt();
+        this.volume = (BigDecimal) in.readSerializable();
+        this.supplierCode = in.readString();
+        this.supplierName = in.readString();
+        this.weight = (BigDecimal) in.readSerializable();
+        this.carClassNum = in.readString();
+        this.gmtCreated = in.readString();
+        this.assignTime = in.readString();
+        this.loadingCarHeight = (BigDecimal) in.readSerializable();
+        this.erpCode = in.readString();
+    }
 
     public String getAssignTime() {
         return assignTime;
@@ -85,35 +118,6 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
 
     public void setGmtCreated(String gmtCreated) {
         this.gmtCreated = gmtCreated;
-    }
-
-
-    public ResTaskAssign() {
-    }
-
-    protected ResTaskAssign(Parcel in) {
-        this.carQueueNumber = in.readString();
-        this.code = in.readString();
-        this.sourceCode = in.readString();
-        this.custodian = in.readString();
-        this.driverName = in.readString();
-        this.driverPhone = in.readString();
-        this.jobQuantity = in.readInt();
-        this.goodsQuantity = in.readInt();
-        this.licensePlateNumber = in.readString();
-        this.taskTypeDes = in.readString();
-        this.customerName = in.readString();
-        this.forklift = in.readString();
-        this.stevedore = in.readString();
-        this.receivedQuantity = in.readInt();
-        this.recheckQuantity = in.readInt();
-        this.planQuantity = in.readInt();
-        this.totalQuantity = in.readInt();
-        this.volume = (BigDecimal) in.readSerializable();
-        this.weight = (BigDecimal) in.readSerializable();
-        this.supplierCode = in.readString();
-        this.supplierName = in.readString();
-        this.carClassNum = in.readString();
     }
 
     public String getSourceCode() {
@@ -311,6 +315,18 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.supplierName = supplierName;
     }
 
+    public String getCarClassNum() {
+        return carClassNum;
+    }
+
+    public void setCarClassNum(String carClassNum) {
+        this.carClassNum = carClassNum;
+    }
+
+    public String getErpCode() {
+        return erpCode;
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -325,6 +341,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         dest.writeString(this.driverName);
         dest.writeString(this.driverPhone);
         dest.writeInt(this.jobQuantity);
+        dest.writeInt(this.assign);
         dest.writeInt(this.goodsQuantity);
         dest.writeString(this.licensePlateNumber);
         dest.writeString(this.taskTypeDes);
@@ -336,18 +353,14 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         dest.writeInt(this.planQuantity);
         dest.writeInt(this.totalQuantity);
         dest.writeSerializable(this.volume);
-        dest.writeSerializable(this.weight);
         dest.writeString(this.supplierCode);
         dest.writeString(this.supplierName);
+        dest.writeSerializable(this.weight);
         dest.writeString(this.carClassNum);
-    }
-
-    public String getCarClassNum() {
-        return carClassNum;
-    }
-
-    public void setCarClassNum(String carClassNum) {
-        this.carClassNum = carClassNum;
+        dest.writeString(this.gmtCreated);
+        dest.writeString(this.assignTime);
+        dest.writeSerializable(this.loadingCarHeight);
+        dest.writeString(this.erpCode);
     }
 
     public void readFromParcel(Parcel source) {
@@ -358,6 +371,7 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.driverName = source.readString();
         this.driverPhone = source.readString();
         this.jobQuantity = source.readInt();
+        this.assign = source.readInt();
         this.goodsQuantity = source.readInt();
         this.licensePlateNumber = source.readString();
         this.taskTypeDes = source.readString();
@@ -369,9 +383,13 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.planQuantity = source.readInt();
         this.totalQuantity = source.readInt();
         this.volume = (BigDecimal) source.readSerializable();
-        this.weight = (BigDecimal) source.readSerializable();
         this.supplierCode = source.readString();
         this.supplierName = source.readString();
+        this.weight = (BigDecimal) source.readSerializable();
         this.carClassNum = source.readString();
+        this.gmtCreated = source.readString();
+        this.assignTime = source.readString();
+        this.loadingCarHeight = (BigDecimal) source.readSerializable();
+        this.erpCode = source.readString();
     }
 }

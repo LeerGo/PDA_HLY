@@ -44,7 +44,7 @@
         <TextView
             style="@style/TableTextStyle"
             android:layout_width="80dp"
-            android:text="@{data.oldLocationName}"
+            android:text="@{String.valueOf(data.inventoryQuantity)}"
             android:textColor="@color/black"
             tools:text="20031" />
         

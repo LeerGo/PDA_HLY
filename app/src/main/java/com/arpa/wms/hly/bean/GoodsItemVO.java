@@ -47,6 +47,7 @@ public class GoodsItemVO extends SelectItem {
     private String gmtExpire; // 过期日期
     private int expirationQuantity; // 保质期
     private BatchRuleBean batchRule; // 批次规则
+    private int inventoryQuantity; // 库存数量
 
     public int getPickingTraysNum() {
         return pickingTraysNum;
@@ -373,5 +374,9 @@ public class GoodsItemVO extends SelectItem {
         this.setGoodsStatus(status.getCode());
         this.setGoodsStatusName(status.getName());
         this.setLocation(status.getDefaultLocationName());
+    }
+
+    public int getInventoryQuantity() {
+        return inventoryQuantity;
     }
 }
