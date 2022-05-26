@@ -92,6 +92,10 @@ public class GoodsRecheckBatchActivity
             ToastUtils.showShort("该批次号已录入");
             return;
         }
+        if (viewModel.codeList.size()==viewModel.goodsCount){
+            ToastUtils.showShort("批次号已录入最大数量");
+            return;
+        }
         Chip chip = new Chip(this);
         chip.setCloseIconVisible(true);
         chip.setText(text);
