@@ -5,6 +5,7 @@ public class InventoryStatus {
     private String name;
     private String defaultLocationCode;
     private String defaultLocationName;
+    private int isChangeBox;
 
     public InventoryStatus(String code) {
         this.code = code;
@@ -55,5 +56,13 @@ public class InventoryStatus {
         InventoryStatus that = (InventoryStatus) o;
 
         return code.equals(that.code);
+    }
+
+    public int getIsChangeBox() {
+        return isChangeBox;
+    }
+
+    public void setIsChangeBox(int isChangeBox) {
+        this.isChangeBox = isChangeBox;
     }
 }

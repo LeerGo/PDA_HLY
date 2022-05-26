@@ -1,6 +1,9 @@
 package com.arpa.wms.hly.bean;
 
+import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
+
+import androidx.databinding.Bindable;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -48,6 +51,9 @@ public class GoodsItemVO extends SelectItem {
     private int expirationQuantity; // 保质期
     private BatchRuleBean batchRule; // 批次规则
     private int inventoryQuantity; // 库存数量
+    private Integer smallBoxQuantity; // 小箱数量
+    private Integer bigBoxQuantity; // 大箱数量
+    private int isChangeBox;
 
     public int getPickingTraysNum() {
         return pickingTraysNum;
@@ -374,9 +380,40 @@ public class GoodsItemVO extends SelectItem {
         this.setGoodsStatus(status.getCode());
         this.setGoodsStatusName(status.getName());
         this.setLocation(status.getDefaultLocationName());
+        this.setIsChangeBox(status.getIsChangeBox());
     }
 
     public int getInventoryQuantity() {
         return inventoryQuantity;
+    }
+
+    public void setInventoryQuantity(int inventoryQuantity) {
+        this.inventoryQuantity = inventoryQuantity;
+    }
+
+    public Integer getSmallBoxQuantity() {
+        return smallBoxQuantity;
+    }
+
+    public void setSmallBoxQuantity(Integer smallBoxQuantity) {
+        this.smallBoxQuantity = smallBoxQuantity;
+    }
+
+    public Integer getBigBoxQuantity() {
+        return bigBoxQuantity;
+    }
+
+    public void setBigBoxQuantity(Integer bigBoxQuantity) {
+        this.bigBoxQuantity = bigBoxQuantity;
+    }
+
+    @Bindable
+    public int getIsChangeBox() {
+        return isChangeBox;
+    }
+
+    public void setIsChangeBox(int isChangeBox) {
+        this.isChangeBox = isChangeBox;
+        notifyPropertyChanged(BR.isChangeBox);
     }
 }

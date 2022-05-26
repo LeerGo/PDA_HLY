@@ -179,25 +179,25 @@
             app:inputTitle="扩展 6"
             app:visibleState="@{rule.extendSix}"/>
         
-        <!--TODO: 待完善参数赋值 add by @lyf 2022-05-13 01:52-->
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
             app:inputHint="请输入大箱数量"
-            app:inputText="@={data.location}"
             app:inputTitle="大箱"
-            app:inputType="number"/>
+            app:inputType="number"
+            app:visibleState="@{data.isChangeBox}"
+            app:inputValue="@={data.bigBoxQuantity}"/>
         
-        <!--TODO: 待完善参数赋值 add by @lyf 2022-05-13 01:52-->
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:gravity="center_vertical"
             app:inputHint="请输入小箱数量"
-            app:inputText="@={data.location}"
             app:inputTitle="小箱"
-            app:inputType="number"/>
+            app:inputType="number"
+            app:inputValue="@={data.smallBoxQuantity}"
+            app:visibleState="@{data.isChangeBox}"/>
         
         <com.arpa.wms.hly.ui.widget.WidgetInputItem
             android:layout_width="match_parent"
