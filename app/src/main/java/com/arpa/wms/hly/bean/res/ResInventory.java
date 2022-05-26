@@ -462,4 +462,8 @@ public class ResInventory {
     public void setScan(int scan) {
         this.scan = scan;
     }
+
+    public String scanFlag() {
+        return 0 == scan ? "N" : "Y";
+    }
 }

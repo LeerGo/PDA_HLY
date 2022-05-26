@@ -191,7 +191,7 @@
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
                 app:propsKey="是否扫码："
-                app:propsValue="@{1==data.scan? 'N' : 'Y'}"
+                app:propsValue="@{data.scanFlag()}"
                 tools:propsValue="Y"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
