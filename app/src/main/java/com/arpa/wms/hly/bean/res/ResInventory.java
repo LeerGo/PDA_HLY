@@ -60,6 +60,8 @@ public class ResInventory {
     private BigDecimal extendFive;
     private BigDecimal extendSix;
     private String inventoryContainerBarCode;
+    private String licensePlateNumber;
+    private int scan;
 
     public String getCode() {
         return code;
@@ -443,5 +445,21 @@ public class ResInventory {
 
     public void setInventoryContainerBarCode(String inventoryContainerBarCode) {
         this.inventoryContainerBarCode = inventoryContainerBarCode;
+    }
+
+    public String getLicensePlateNumber() {
+        return licensePlateNumber;
+    }
+
+    public void setLicensePlateNumber(String licensePlateNumber) {
+        this.licensePlateNumber = licensePlateNumber;
+    }
+
+    public int getScan() {
+        return scan;
+    }
+
+    public void setScan(int scan) {
+        this.scan = scan;
     }
 }

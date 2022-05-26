@@ -181,18 +181,17 @@
                 app:propsValue="@{data.receiveLot}"
                 tools:propsValue="批次"/>
     
-            <!--TODO: 待完善取值 add by @lyf 2022-05-13 08:49-->
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
                 app:propsKey="入库车辆："
-                app:propsValue="@{data.receiveLot}"
+                app:propsValue="@{data.licensePlateNumber}"
                 tools:propsValue="鲁A2222"/>
     
             <!--TODO: 待完善取值 add by @lyf 2022-05-13 08:49-->
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/InventoryQueryItem"
                 app:propsKey="是否扫码："
-                app:propsValue="@{data.receiveLot}"
+                app:propsValue="@{1==data.scan? 'N' : 'Y'}"
                 tools:propsValue="Y"/>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
