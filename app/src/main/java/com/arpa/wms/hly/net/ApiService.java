@@ -6,6 +6,7 @@ import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeConfirm;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
+import com.arpa.wms.hly.bean.req.ReqPickEdit;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
@@ -272,6 +273,13 @@ public interface ApiService {
     Call<Result<List<ResRole>>> getRole();
 
     /**
+     * 拣货单-编辑任务
+     */
+    @DomainName(API.KEY_WMS)
+    @POST("/wms/pda/picking/pickingEditing")
+    Call<Result<Object>> pickingEdit(@Body ReqPickEdit req);
+
+    /**
      * API 请求地址、一些参数
      */
     interface API {
@@ -281,14 +289,15 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://121.36.27.6:83";
+        // String URL_WMS = "http://121.36.27.6:83";
         // String URL_WMS = "http://121.36.109.152";
+        String URL_WMS = "http://192.168.30.90";
 
         /**
          * 单点登录
          */
-        String URL_SSO = "http://121.36.27.6:85";
-        // String URL_SSO = "http://test.sso.sarpa.cn";
+        // String URL_SSO = "http://121.36.27.6:85";
+        String URL_SSO = "http://test.sso.sarpa.cn";
 
         /**
          * API：SSO 单点登录获取 token

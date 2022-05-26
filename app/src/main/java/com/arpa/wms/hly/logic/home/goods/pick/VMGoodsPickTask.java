@@ -9,18 +9,22 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.VMBaseRefreshList;
 import com.arpa.wms.hly.bean.BatchRuleBean;
 import com.arpa.wms.hly.bean.GoodsItemVO;
+import com.arpa.wms.hly.bean.PickingItemVO;
 import com.arpa.wms.hly.bean.base.ReqPage;
 import com.arpa.wms.hly.bean.base.ResultPage;
+import com.arpa.wms.hly.bean.req.ReqPickEdit;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
 import com.arpa.wms.hly.bean.res.ResPickDetail;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.JOB_STATUS;
 import com.arpa.wms.hly.utils.Const.TASK_TYPE;
 import com.arpa.wms.hly.utils.ToastUtils;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -62,10 +66,11 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
     public ObservableField<BatchRuleBean> rule = new ObservableField<>();
     // 任务清单商品列表
     public ObservableArrayList<GoodsItemVO> taskDetailItems = new ObservableArrayList<>();
-
     public ObservableBoolean detailRefreshing = new ObservableBoolean();
     public ObservableBoolean detailEnable = new ObservableBoolean(true);
     private String sourceCode;
+    // 操作的数据位置
+    private int optPos;
 
     @Inject
     public VMGoodsPickTask(@NonNull Application application, BaseModel model) {
@@ -167,75 +172,102 @@ public class VMGoodsPickTask extends VMBaseRefreshList<ResTaskAssign> {
 
     public ItemBinding<GoodsItemVO> getTaskOperateBinding() {
         taskOperateBinding.bindExtra(BR.onAdd, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
-            if (position != taskDetailAdapter.getPositionSel()) {
-                taskDetailItems.get(position).setSelect(true);
-                if (null != taskDetailAdapter.getItemSel()) {
-                    taskDetailAdapter.getItemSel().setSelect(false);
-                    taskOperateAdapter.getItemSel().setSelect(false);
-                }
-                taskDetailAdapter.setPositionSel(position);
-                taskOperateAdapter.setPositionSel(position);
-                taskDetailAdapter.notifyDataSetChanged();
-                taskOperateAdapter.notifyDataSetChanged();
-            }
+            processItemSelectState(position);
             if (data.isPickFinish()) ToastUtils.showShortSafe("当前订单已拣货完成");
-            else pickConfirm(position);
+            else pickConfirm();
         }).bindExtra(BR.onEdit, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, data) -> {
-            // TODO: 编辑功能待实现待实现 add by @lyf 2022-05-13 09:08
-            // 发送通知前台弹编辑窗口
-            // 拣货单编辑只允许叉车和仓库主管有修改权限
+            processItemSelectState(position);
+            sendSingleLiveEvent(Const.Message.MSG_DIALOG);
         });
         return taskOperateBinding;
+    }
+
+    private void processItemSelectState(int position) {
+        optPos = position;
+        if (position != taskDetailAdapter.getPositionSel()) {
+            taskDetailItems.get(position).setSelect(true);
+            if (null != taskDetailAdapter.getItemSel()) {
+                taskDetailAdapter.getItemSel().setSelect(false);
+                taskOperateAdapter.getItemSel().setSelect(false);
+            }
+            taskDetailAdapter.setPositionSel(position);
+            taskOperateAdapter.setPositionSel(position);
+            taskDetailAdapter.notifyDataSetChanged();
+            taskOperateAdapter.notifyDataSetChanged();
+        }
     }
 
     /**
      * 拣货确认
      */
-    private void pickConfirm(int position) {
+    private void pickConfirm() {
         updateStatus(Status.LOADING);
-        apiService.pickingConfirm(taskDetailItems.get(position).getCode())
-                .enqueue(new ResultCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object data) {
-                        updateStatus(Status.SUCCESS);
-                        ToastUtils.showShort(R.string.request_success);
-                        taskDetailAdapter.getItemSel().increasePickingTraysNum();
-                        taskDetailAdapter.notifyItemChanged(position);
+        apiService.pickingConfirm(taskDetailItems.get(optPos).getCode()).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(Object data) {
+                updateStatus(Status.SUCCESS);
+                ToastUtils.showShort(R.string.request_success);
+                taskDetailAdapter.getItemSel().increasePickingTraysNum();
+                taskDetailAdapter.notifyItemChanged(optPos);
 
-                        if (isAllPickFinish()) {// 如果全都拣货完成，刷新拣货单列表
-                            taskDetailAdapter.resetPositionSel();
-                            autoRefresh();
-                        } else {// 否则刷新当前任务详情列表
-                            // 如果当前选中的条目已经拣货完成，重置选中索引
-                            if (taskDetailAdapter.getItemSel() != null && taskDetailAdapter.getItemSel().isPickFinish()) {
-                                taskDetailAdapter.getItemSel().setSelect(false);
-                                taskDetailAdapter.notifyItemChanged(position);
-                                taskDetailAdapter.resetPositionSel();
-                            }
-                            requestDetail();
-                        }
+                if (isAllPickFinish()) {// 如果全都拣货完成，刷新拣货单列表
+                    taskDetailAdapter.resetPositionSel();
+                    autoRefresh();
+                } else {// 否则刷新当前任务详情列表
+                    // 如果当前选中的条目已经拣货完成，重置选中索引
+                    if (taskDetailAdapter.getItemSel() != null && taskDetailAdapter.getItemSel().isPickFinish()) {
+                        taskDetailAdapter.getItemSel().setSelect(false);
+                        taskDetailAdapter.notifyItemChanged(optPos);
+                        taskDetailAdapter.resetPositionSel();
                     }
+                    requestDetail();
+                }
+            }
 
-                    /**
-                     * 拣货单下单据是否全部拣货完成
-                     * @return true - 完成
-                     */
-                    private boolean isAllPickFinish() {
-                        boolean result = true;
-                        for (GoodsItemVO taskItem : taskDetailItems) {
-                            if (!taskItem.isPickFinish()) {
-                                result = false;
-                                break;
-                            }
-                        }
-                        return result;
+            /**
+             * 拣货单下单据是否全部拣货完成
+             *
+             * @return true - 完成
+             */
+            private boolean isAllPickFinish() {
+                boolean result = true;
+                for (GoodsItemVO taskItem : taskDetailItems) {
+                    if (!taskItem.isPickFinish()) {
+                        result = false;
+                        break;
                     }
+                }
+                return result;
+            }
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        updateStatus(Status.ERROR);
-                        sendMessage(error.getMessage());
-                    }
-                });
+            @Override
+            public void onFailed(ResultError error) {
+                updateStatus(Status.ERROR);
+                sendMessage(error.getMessage());
+            }
+        });
+    }
+
+    /**
+     * 修改拣货库位、托盘、数量
+     */
+    public void pickEdit(List<PickingItemVO> data) {
+        updateStatus(Status.LOADING);
+        ReqPickEdit req = new ReqPickEdit();
+        req.setCode(taskDetailItems.get(optPos).getCode());
+        req.setItems(data);
+        apiService.pickingEdit(req).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(Object data) {
+                updateStatus(Status.SUCCESS);
+                requestDetail();
+            }
+
+            @Override
+            public void onFailed(ResultError error) {
+                updateStatus(Status.ERROR);
+                sendMessage(error.getMessage());
+            }
+        });
     }
 }

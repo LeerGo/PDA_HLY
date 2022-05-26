@@ -188,4 +188,8 @@ public interface Const {
         int extendFive = 3; // 拓展 5
         int extendSix = 4; // 拓展 6
     }
+
+    interface Message {
+        int MSG_DIALOG = 0x1;
+    }
 }
