@@ -58,6 +58,7 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
         );
         viewBind.acbBatchRegist.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
+            bundle.putString(IntentKey.CODE, viewModel.request.getOutboundCode());
             bundle.putString(IntentKey.GOODS_NAME, viewModel.detail.get().getGoodsName());
             bundle.putString(IntentKey.GOODS_UNIT_NAME, viewModel.detail.get().getGoodsUnitName());
             bundle.putInt(IntentKey.GOODS_COUNT, viewModel.detail.get().getWaitRecheckQuantity());

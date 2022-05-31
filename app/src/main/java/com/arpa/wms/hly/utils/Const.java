@@ -191,5 +191,7 @@ public interface Const {
 
     interface Message {
         int MSG_DIALOG = 0x1;
+        int MSG_RESTORE = 0x2;
+        int MSG_FINISH_RESULT = 0x3;
     }
 }

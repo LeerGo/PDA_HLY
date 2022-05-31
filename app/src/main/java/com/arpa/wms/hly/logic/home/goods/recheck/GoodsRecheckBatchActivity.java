@@ -6,14 +6,14 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
-import android.text.TextUtils;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityGoodsRecheckBatchBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch;
+import com.arpa.wms.hly.ui.dialog.DialogTips;
+import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
-import com.arpa.wms.hly.utils.ToastUtils;
 import com.arpa.wms.hly.utils.WeakHandler;
 
 import androidx.annotation.Nullable;
@@ -47,19 +47,43 @@ public class GoodsRecheckBatchActivity
         sHandler = new WeakHandler<>(GoodsRecheckBatchActivity.this);
         viewBind.setViewModel(viewModel);
         viewModel.initData(getIntent());
+        viewModel.getSingleLiveEvent().observeForever(message -> {
+            switch (message.what) {
+
+                case Const.Message.MSG_DIALOG:
+                    showDialogFragment(new DialogTips("暂存数据导入", "当前页面存在暂存但未提交的数据，是否载入？", "丢弃", "加载",
+                            () -> viewModel.restoreRecords(),
+                            () -> viewModel.discardRecords()));
+                    break;
+
+                case Const.Message.MSG_RESTORE:
+                    restoreCodes();
+                    viewModel.calcRadio();
+                    break;
+
+                case Const.Message.MSG_FINISH_RESULT:
+                    finishResult();
+                    break;
+
+                default:
+                    break;
+            }
+        });
 
         setViews();
-        restoreCodes();
     }
 
     private void setViews() {
-        viewBind.acbSure.setOnClickListener(v -> {
-            Intent data = new Intent();
-            data.putStringArrayListExtra(IntentKey.DATA, viewModel.codeList);
-            setResult(RESULT_OK, data);
-            finish();
-        });
+        viewBind.acbSure.setOnClickListener(v -> finishResult());
+        viewBind.acbSave.setOnClickListener(v -> viewModel.saveAll());
         viewBind.wiiInput.setOnTextChanged(this::postMsgDelayed);
+    }
+
+    private void finishResult() {
+        Intent data = new Intent();
+        data.putStringArrayListExtra(IntentKey.DATA, viewModel.parseCodeList());
+        setResult(RESULT_OK, data);
+        finish();
     }
 
     /**
@@ -78,7 +102,7 @@ public class GoodsRecheckBatchActivity
     private void restoreCodes() {
         if (!viewModel.codeList.isEmpty()) {
             for (int i = viewModel.codeList.size() - 1; i >= 0; i--) {
-                addTagView(viewModel.codeList.get(i));
+                addTagView(viewModel.codeList.get(i).getSnCode(), true);
             }
         }
     }
@@ -86,16 +110,8 @@ public class GoodsRecheckBatchActivity
     /**
      * 添加 view
      */
-    private void addTagView(String text) {
-        if (TextUtils.isEmpty(text)) return;
-        if (viewModel.codeList.contains(text)) {
-            ToastUtils.showShort("该批次号已录入");
-            return;
-        }
-        if (viewModel.codeList.size()==viewModel.goodsCount){
-            ToastUtils.showShort("批次号已录入最大数量");
-            return;
-        }
+    private void addTagView(String text, boolean isRestore) {
+        if (!isRestore && viewModel.inputInvalid(text)) return;
         Chip chip = new Chip(this);
         chip.setCloseIconVisible(true);
         chip.setText(text);
@@ -103,13 +119,15 @@ public class GoodsRecheckBatchActivity
         chip.setChipBackgroundColorResource(R.color.colorPrimary);
         chip.setCloseIconTintResource(R.color.white);
         chip.setOnCloseIconClickListener(v -> {
-            viewModel.codeList.remove(text);
+            viewModel.optTagData(text, false);
             viewBind.cgBatchTags.removeView(v);
-            viewModel.calcRadio();
         });
-        viewModel.codeList.add(0, text);
+        if (!isRestore) viewModel.optTagData(text, true);
         viewBind.cgBatchTags.addView(chip, 0);
-        viewModel.calcRadio();
+    }
+
+    private void addTagView(String text) {
+        addTagView(text, false);
     }
 
     @Override

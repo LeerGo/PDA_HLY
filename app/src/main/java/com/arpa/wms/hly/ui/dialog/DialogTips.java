@@ -23,6 +23,8 @@ import androidx.appcompat.widget.AppCompatTextView;
 public class DialogTips extends BaseDialogFragment {
     private String title;
     private String content;
+    private String btnLeft;
+    private String btnRight;
     private VoidCallback onSure;
     private VoidCallback onCancel;
 
@@ -35,8 +37,14 @@ public class DialogTips extends BaseDialogFragment {
     }
 
     public DialogTips(String title, String content, VoidCallback onSure, VoidCallback onCancel) {
+        this(null, null, title, content, onSure, onCancel);
+    }
+
+    public DialogTips(String title, String content, String btnLeft, String btnRight, VoidCallback onSure, VoidCallback onCancel) {
         this.title = title;
         this.content = content;
+        this.btnLeft = btnLeft;
+        this.btnRight = btnRight;
         this.onSure = onSure;
         this.onCancel = onCancel;
     }
@@ -64,6 +72,8 @@ public class DialogTips extends BaseDialogFragment {
     private void setContent() {
         AppCompatTextView tvTitle = (AppCompatTextView) findViewById(R.id.tv_title);
         AppCompatTextView tvContent = (AppCompatTextView) findViewById(R.id.tv_content);
+        AppCompatTextView tvCancel = (AppCompatTextView) findViewById(R.id.tv_cancel);
+        AppCompatTextView tvSure = (AppCompatTextView) findViewById(R.id.tv_sure);
 
         tvContent.setText(content);
         if (TextUtils.isEmpty(title)) {
@@ -72,6 +82,8 @@ public class DialogTips extends BaseDialogFragment {
             tvTitle.setText(title);
             tvTitle.setVisibility(View.VISIBLE);
         }
+        if (!TextUtils.isEmpty(btnLeft)) tvCancel.setText(btnLeft);
+        if (!TextUtils.isEmpty(btnRight)) tvSure.setText(btnRight);
     }
 
     private void setOptArea() {
