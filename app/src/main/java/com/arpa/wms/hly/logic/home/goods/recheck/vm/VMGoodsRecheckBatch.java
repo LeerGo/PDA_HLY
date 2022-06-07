@@ -75,7 +75,10 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     }
 
     public void calcRadio() {
-        BigDecimal result = BigDecimal.valueOf(codeList.size()).divide(BigDecimal.valueOf(goodsCount), 2, RoundingMode.HALF_UP).multiply(BigDecimal.valueOf(100));
+        BigDecimal result = BigDecimal.valueOf(codeList.size())
+                .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100))
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
         radio.set(result + "%");
     }
 
