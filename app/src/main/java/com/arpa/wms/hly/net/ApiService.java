@@ -192,7 +192,7 @@ public interface ApiService {
      * 复核确认
      */
     @DomainName(API.KEY_WMS)
-    @GET("/wms/pda/outbound/singleRecheck")
+    @POST("/wms/pda/outbound/singleRecheck")
     Call<Result<Object>> recheckConfirm(@QueryMap Map<String, Object> data);
 
     /**
