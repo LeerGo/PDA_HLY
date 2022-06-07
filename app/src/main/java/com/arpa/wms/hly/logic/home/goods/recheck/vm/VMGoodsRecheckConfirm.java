@@ -87,7 +87,7 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         confirm.setRecheckQuantity(recheckQuantity.get());
         confirm.setOutboundCode(request.getOutboundCode());
         confirm.setOutboundItemCode(request.getOutboundItemCode());
-        apiService.recheckConfirm(confirm.toParams()).enqueue(new ResultCallback<>() {
+        apiService.recheckConfirm(confirm).enqueue(new ResultCallback<>() {
             @Override
             public void onSuccess(Object data) {
                 finish();

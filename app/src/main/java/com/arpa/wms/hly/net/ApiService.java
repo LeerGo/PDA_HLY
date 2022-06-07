@@ -7,6 +7,7 @@ import com.arpa.wms.hly.bean.req.ReqGoodTakeConfirm;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
 import com.arpa.wms.hly.bean.req.ReqPickEdit;
+import com.arpa.wms.hly.bean.req.ReqRecheckConfirm;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
@@ -193,7 +194,7 @@ public interface ApiService {
      */
     @DomainName(API.KEY_WMS)
     @POST("/wms/pda/outbound/singleRecheck")
-    Call<Result<Object>> recheckConfirm(@QueryMap Map<String, Object> data);
+    Call<Result<Object>> recheckConfirm(@Body ReqRecheckConfirm data);
 
     /**
      * 库存查询
