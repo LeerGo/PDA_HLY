@@ -37,7 +37,6 @@ import retrofit2.Call;
 @HiltViewModel
 public class VMGoodsTake extends VMBaseRefreshList<ResTaskAssign> {
     private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_take);
-    private final ReqPage reqPage = new ReqPage(PAGE_SIZE);
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
     @Inject
     public VMGoodsTake(@NonNull Application application, BaseModel model) {

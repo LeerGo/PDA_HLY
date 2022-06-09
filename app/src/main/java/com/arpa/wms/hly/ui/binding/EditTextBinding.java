@@ -5,6 +5,8 @@ import android.text.TextUtils;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.SimpleTextWatcher;
 
+import java.math.BigDecimal;
+
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingAdapter;
@@ -19,15 +21,19 @@ import androidx.databinding.adapters.ListenerUtil;
 public class EditTextBinding {
 
     @BindingAdapter(value = "app:textValue")
-    public static void setTextValue(AppCompatEditText widget, Integer value) {
-        if (null != value && !value.toString().equals(String.valueOf(widget.getText())))
-            widget.setText(value.toString());
+    public static void setTextValue(AppCompatEditText widget, BigDecimal value) {
+        if (null != value) {
+            String sValue = value.stripTrailingZeros().toPlainString();
+            if (!sValue.equals(String.valueOf(widget.getText()))) {
+                widget.setText(sValue);
+            }
+        }
     }
 
     @InverseBindingAdapter(attribute = "app:textValue", event = "app:textValueAttrChanged")
-    public static Integer getTextValue(AppCompatEditText widget) {
+    public static BigDecimal getTextValue(AppCompatEditText widget) {
         if (null != widget && !TextUtils.isEmpty(widget.getText()))
-            return Integer.parseInt(String.valueOf(widget.getText()));
+            return new BigDecimal(widget.getText().toString());
         return null;
     }
 

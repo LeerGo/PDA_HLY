@@ -4,6 +4,8 @@ import android.text.TextUtils;
 
 import com.arpa.wms.hly.BR;
 
+import java.math.BigDecimal;
+
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
@@ -14,8 +16,8 @@ import androidx.databinding.Bindable;
  */
 public class PickingItemVO extends BaseObservable {
     private String location;// 库位
-    private Integer quantity; // 数量
-    private Integer traysNum; // 托数
+    private BigDecimal quantity; // 数量
+    private BigDecimal traysNum; // 托数
 
     @Bindable
     public String getLocation() {
@@ -28,21 +30,21 @@ public class PickingItemVO extends BaseObservable {
     }
 
     @Bindable
-    public Integer getQuantity() {
+    public BigDecimal getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(Integer quantity) {
+    public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
         notifyPropertyChanged(BR.quantity);
     }
 
     @Bindable
-    public Integer getTraysNum() {
+    public BigDecimal getTraysNum() {
         return traysNum;
     }
 
-    public void setTraysNum(Integer traysNum) {
+    public void setTraysNum(BigDecimal traysNum) {
         this.traysNum = traysNum;
         notifyPropertyChanged(BR.traysNum);
     }
