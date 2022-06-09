@@ -57,8 +57,8 @@ public class ResInventory {
     private String extendTwo;
     private BigDecimal extendThree;
     private BigDecimal extendFour;
-    private BigDecimal extendFive;
-    private BigDecimal extendSix;
+    private String extendFive;
+    private String extendSix;
     private String inventoryContainerBarCode;
     private String licensePlateNumber;
     private int scan;
@@ -423,19 +423,19 @@ public class ResInventory {
         this.extendFour = extendFour;
     }
 
-    public BigDecimal getExtendFive() {
+    public String getExtendFive() {
         return extendFive;
     }
 
-    public void setExtendFive(BigDecimal extendFive) {
+    public void setExtendFive(String extendFive) {
         this.extendFive = extendFive;
     }
 
-    public BigDecimal getExtendSix() {
+    public String getExtendSix() {
         return extendSix;
     }
 
-    public void setExtendSix(BigDecimal extendSix) {
+    public void setExtendSix(String extendSix) {
         this.extendSix = extendSix;
     }
 
