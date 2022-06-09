@@ -37,7 +37,7 @@ public class DialogTips extends BaseDialogFragment {
     }
 
     public DialogTips(String title, String content, VoidCallback onSure, VoidCallback onCancel) {
-        this(null, null, title, content, onSure, onCancel);
+        this(title, content, null, null, onSure, onCancel);
     }
 
     public DialogTips(String title, String content, String btnLeft, String btnRight, VoidCallback onSure, VoidCallback onCancel) {
