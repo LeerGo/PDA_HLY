@@ -1,11 +1,11 @@
 package com.arpa.wms.hly.logic.home.goods.recheck;
 
-import com.google.android.material.chip.Chip;
-
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
+
+import androidx.annotation.Nullable;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
@@ -15,8 +15,8 @@ import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.WeakHandler;
+import com.google.android.material.chip.Chip;
 
-import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -56,6 +56,15 @@ public class GoodsRecheckBatchActivity
                             () -> viewModel.discardRecords()));
                     break;
 
+                case Const.Message.MSG_BATCH_VERIFY:
+                    String[] obj = (String[]) message.obj;
+                    showDialogFragment(new DialogTips("校验提示", obj[0], () -> addTagView(obj[1], false, true)));
+                    break;
+
+                case Const.Message.MSG_BATCH_CONFIRM:
+                    showDialogFragment(new DialogTips("校验提示", (String) message.obj, this::finishResult));
+                    break;
+
                 case Const.Message.MSG_RESTORE:
                     restoreCodes();
                     viewModel.calcRadio();
@@ -74,14 +83,12 @@ public class GoodsRecheckBatchActivity
     }
 
     private void setViews() {
-        viewBind.acbSure.setOnClickListener(v -> finishResult());
-        viewBind.acbSave.setOnClickListener(v -> viewModel.saveAll());
         viewBind.wiiInput.setOnTextChanged(this::postMsgDelayed);
     }
 
     private void finishResult() {
         Intent data = new Intent();
-        data.putStringArrayListExtra(IntentKey.DATA, viewModel.parseCodeList());
+        data.putParcelableArrayListExtra(IntentKey.DATA, viewModel.codeList);
         setResult(RESULT_OK, data);
         finish();
     }
@@ -110,11 +117,12 @@ public class GoodsRecheckBatchActivity
     /**
      * 添加 view
      */
-    private void addTagView(String text, boolean isRestore) {
-        if (!isRestore && viewModel.inputInvalid(text)) return;
+    private void addTagView(String text, boolean isRestore, boolean isForce) {
+        if (!isForce && !isRestore && viewModel.inputInvalid(text)) return;
         Chip chip = new Chip(this);
         chip.setCloseIconVisible(true);
         chip.setText(text);
+        chip.setTag(text);
         chip.setTextColor(Color.WHITE);
         chip.setChipBackgroundColorResource(R.color.colorPrimary);
         chip.setCloseIconTintResource(R.color.white);
@@ -128,6 +136,10 @@ public class GoodsRecheckBatchActivity
 
     private void addTagView(String text) {
         addTagView(text, false);
+    }
+
+    private void addTagView(String text, boolean isRestore) {
+        addTagView(text, isRestore, false);
     }
 
     @Override
@@ -144,4 +156,3 @@ public class GoodsRecheckBatchActivity
         }
     }
 }
-

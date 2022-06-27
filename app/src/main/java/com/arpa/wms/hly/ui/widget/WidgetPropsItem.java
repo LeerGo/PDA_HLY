@@ -2,17 +2,18 @@ package com.arpa.wms.hly.ui.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.text.SpannableStringBuilder;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.TextView;
 
-import com.arpa.wms.hly.R;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.LinearLayoutCompat;
+
+import com.arpa.wms.hly.R;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -89,5 +90,9 @@ public class WidgetPropsItem extends LinearLayoutCompat {
 
     public void setPropsValue(int value) {
         setPropsValue(String.valueOf(value));
+    }
+
+    public void setValueSpan(SpannableStringBuilder span){
+        tvValue.setText(span);
     }
 }

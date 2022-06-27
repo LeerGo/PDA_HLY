@@ -4,12 +4,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
+
 import com.arpa.and.arch.base.BaseDialogFragment;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.ui.listener.ViewListener.VoidCallback;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatTextView;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -91,7 +91,7 @@ public class DialogTips extends BaseDialogFragment {
         AppCompatTextView tvSure = (AppCompatTextView) findViewById(R.id.tv_sure);
         tvSure.setOnClickListener(v -> onOpt(onSure));
         tvCancel.setOnClickListener(v -> onOpt(onCancel));
-        if (null == onSure) tvCancel.setVisibility(View.GONE);
+        if (null == onCancel) tvCancel.setVisibility(View.GONE);
     }
 
     private void onOpt(VoidCallback callback) {

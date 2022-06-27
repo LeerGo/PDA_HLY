@@ -3,15 +3,17 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 import android.content.Intent;
 import android.os.Bundle;
 
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
+
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityGoodsRecheckConfirmBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckConfirm;
 import com.arpa.wms.hly.utils.Const.IntentKey;
+import com.arpa.wms.hly.utils.SpanUtil;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -29,19 +31,16 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
     /**
      * 批次登记的 activity result
      */
-    private final ActivityResultLauncher<Intent> batchResult =
-            registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                    result -> {
-                        if (result.getResultCode() == RESULT_OK) {
-                            viewModel.batchCodeList = result.getData().getStringArrayListExtra(IntentKey.DATA);
-                            StringBuilder sb = new StringBuilder();
-                            for (int i = 0; i < viewModel.batchCodeList.size(); i++) {
-                                sb.append(viewModel.batchCodeList.get(i));
-                                if (i < viewModel.batchCodeList.size() - 1) sb.append(",");
-                            }
-                            viewModel.obvBatchCode.set(sb.toString());
-                        }
-                    });
+    private final ActivityResultLauncher<Intent> batchResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+        if (result.getResultCode() == RESULT_OK) {
+            viewModel.setBatchCode(result.getData().getParcelableArrayListExtra(IntentKey.DATA));
+            highlightBatchCode();
+        }
+    });
+
+    private void highlightBatchCode() {
+        viewBind.wpiBatch.setValueSpan(SpanUtil.highlight(viewModel.obvBatchCode, viewModel.latestBatchNo.get(), viewModel.oldestBatchNo.get()));
+    }
 
     @Override
     public int getLayoutId() {
@@ -62,7 +61,9 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
             bundle.putString(IntentKey.GOODS_NAME, viewModel.detail.get().getGoodsName());
             bundle.putString(IntentKey.GOODS_UNIT_NAME, viewModel.detail.get().getGoodsUnitName());
             bundle.putInt(IntentKey.GOODS_COUNT, viewModel.detail.get().getWaitRecheckQuantity());
-            bundle.putStringArrayList(IntentKey.DATA, viewModel.batchCodeList);
+            bundle.putString(IntentKey.DATE_MANUFACTURE, viewModel.detail.get().getGmtManufacture());
+            bundle.putString(IntentKey.PLACE_ORIGIN, viewModel.detail.get().getExtendOne());
+            bundle.putParcelableArrayList(IntentKey.DATA, viewModel.batchCodeList);
             batchResult.launch(newIntent(GoodsRecheckBatchActivity.class, bundle));
         });
     }

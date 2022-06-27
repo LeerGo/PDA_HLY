@@ -61,6 +61,8 @@ public interface Const {
         String GOODS_UNIT_NAME = "goodUnitName";
         String GOODS_COUNT = "goodsCount";
         String SUPPLIER = "supplier";
+        String DATE_MANUFACTURE = "date_manufacture";
+        String PLACE_ORIGIN = "place_origin";
     }
 
     /**
@@ -193,5 +195,7 @@ public interface Const {
         int MSG_DIALOG = 0x1;
         int MSG_RESTORE = 0x2;
         int MSG_FINISH_RESULT = 0x3;
+        int MSG_BATCH_VERIFY = 0x4;
+        int MSG_BATCH_CONFIRM = 0x5;
     }
 }

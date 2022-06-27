@@ -2,16 +2,16 @@ package com.arpa.wms.hly.ui.binding;
 
 import android.text.TextUtils;
 
-import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.ui.listener.SimpleTextWatcher;
-
-import java.math.BigDecimal;
-
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingAdapter;
 import androidx.databinding.InverseBindingListener;
 import androidx.databinding.adapters.ListenerUtil;
+
+import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.ui.listener.SimpleTextWatcher;
+
+import java.math.BigDecimal;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -20,7 +20,7 @@ import androidx.databinding.adapters.ListenerUtil;
  */
 public class EditTextBinding {
 
-    @BindingAdapter(value = "app:textValue")
+    @BindingAdapter(value = "textValue")
     public static void setTextValue(AppCompatEditText widget, BigDecimal value) {
         if (null != value) {
             String sValue = value.stripTrailingZeros().toPlainString();
@@ -30,14 +30,14 @@ public class EditTextBinding {
         }
     }
 
-    @InverseBindingAdapter(attribute = "app:textValue", event = "app:textValueAttrChanged")
+    @InverseBindingAdapter(attribute = "textValue", event = "textValueAttrChanged")
     public static BigDecimal getTextValue(AppCompatEditText widget) {
         if (null != widget && !TextUtils.isEmpty(widget.getText()))
             return new BigDecimal(widget.getText().toString());
         return null;
     }
 
-    @BindingAdapter(value = "app:textValueAttrChanged")
+    @BindingAdapter(value = "textValueAttrChanged")
     public static void setListener(AppCompatEditText widget, InverseBindingListener listener) {
         if (null != listener) {
             SimpleTextWatcher watcher = new SimpleTextWatcher() {

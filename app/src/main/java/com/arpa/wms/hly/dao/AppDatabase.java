@@ -1,9 +1,10 @@
 package com.arpa.wms.hly.dao;
 
-import com.arpa.wms.hly.bean.SNCodeEntity;
-
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
+
+import com.arpa.wms.hly.bean.SNCodeEntity;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -14,7 +15,8 @@ import androidx.room.RoomDatabase;
  * App 数据库
  * </p>
  */
-@Database(entities = {SNCodeEntity.class}, version = 1, exportSchema = false)
+@Database(entities = {SNCodeEntity.class}, version = 2, exportSchema = false)
+@TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract SNCodeDao snCodeDao();

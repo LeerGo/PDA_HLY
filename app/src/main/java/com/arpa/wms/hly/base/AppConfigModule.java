@@ -23,18 +23,18 @@ import okhttp3.internal.platform.Platform;
 public class AppConfigModule extends FrameConfigModule {
     @Override
     public void applyOptions(Context context, ConfigModule.Builder builder) {
-        builder.okHttpClientOptions(okHttpBuilder ->
-                okHttpBuilder
+        builder.okHttpClientOptions(okHttpBuilder -> okHttpBuilder
                         .addInterceptor(new ResponseTokenInterceptor())
                         .addInterceptor(new RequestTokenInterceptor())
-                        .addInterceptor(new LoggingInterceptor
-                                .Builder()//构建者模式
+                        .addInterceptor(new LoggingInterceptor.Builder()//构建者模式
                                 .loggable(true) //是否开启日志打印
                                 .setLevel(Level.BASIC) //打印的等级
                                 .log(Platform.INFO) // 打印类型
                                 .request("Net-Request") // request的Tag
                                 .response("Net-Response")// Response的Tag
-                                .build())
-        ).interceptorConfigOptions(interceptorBuilder -> interceptorBuilder.addLog(false));
+                                .build()
+                        ))
+                .interceptorConfigOptions(interceptorBuilder -> interceptorBuilder.addLog(false))
+                .roomDatabaseOptions(roomOptions -> roomOptions.fallbackToDestructiveMigration().build());
     }
 }

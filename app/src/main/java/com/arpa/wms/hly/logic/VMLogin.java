@@ -3,8 +3,12 @@ package com.arpa.wms.hly.logic;
 import android.app.Application;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
+
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent.Status;
+import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.bean.req.ReqLoginSSO;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.net.callback.ResultCallback;
@@ -14,8 +18,6 @@ import com.arpa.wms.hly.utils.ToastUtils;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
@@ -29,8 +31,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMLogin extends VMWarehouse {
-    private final ObservableField<String> userName = new ObservableField<>("test02");
-    private final ObservableField<String> userPass = new ObservableField<>("test02");
+    private final ObservableField<String> userName = new ObservableField<>();
+    private final ObservableField<String> userPass = new ObservableField<>();
     // private final ObservableField<String> userName = new ObservableField<>();
     // private final ObservableField<String> userPass = new ObservableField<>();
     private final ObservableField<Boolean> isShowPass = new ObservableField<>();
@@ -38,6 +40,16 @@ public class VMLogin extends VMWarehouse {
     @Inject
     public VMLogin(@NonNull Application application, BaseModel model) {
         super(application, model);
+        if (BuildConfig.DEBUG) {
+            // userName.set("test02");
+            // userPass.set("test02");
+
+            // userName.set("yangguihua");
+            // userPass.set("abcd1234");
+
+            userName.set("hq001");
+            userPass.set("a12345678");
+        }
     }
 
     /**

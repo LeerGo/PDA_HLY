@@ -32,7 +32,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:textColor="@color/color_434c67"
-            android:textSize="16sp"
+            android:textSize="14sp"
             tools:text="当前订单存在未收货商品，整单确认后未收货商品不能继续收货。" />
         
         <View
