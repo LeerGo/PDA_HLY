@@ -99,8 +99,8 @@ public class SNCodeEntity implements Comparable<SNCodeEntity>, Parcelable {
      * @param rawOrigin 目标产地
      */
     public void verify(String rawDate, String rawOrigin) {
-        isDateVerify = rawDate.equals(briefDate);
-        isOriginVerify = rawOrigin.equals(placeOrigin);
+        isDateVerify = briefDate.equals(rawDate);
+        isOriginVerify = placeOrigin.equals(rawOrigin);
         isTimeVerify = RexUtils.is24Hour(briefTime);
     }
 
