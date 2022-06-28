@@ -81,6 +81,7 @@ public class SNCodeEntity implements Comparable<SNCodeEntity>, Parcelable {
         int timeIndex = snCode.indexOf(":") - 2;
         var time = snCode.substring(timeIndex, timeIndex + 8);
         setBriefTime(time);
+        setBriefDate(new StringBuilder(date).insert(4, "-").insert(7, "-").toString());
         return date.concat(time);
     }
 
@@ -132,7 +133,6 @@ public class SNCodeEntity implements Comparable<SNCodeEntity>, Parcelable {
 
     public void setDate(Date date) {
         this.date = date;
-        setBriefDate(DateUtils.formatBrief.format(date));
     }
 
     public String getBriefDate() {

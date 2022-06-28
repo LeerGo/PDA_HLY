@@ -150,6 +150,10 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
         }
         entity = new SNCodeEntity(taskCode, text);
         entity.verify(gmtManufacture, placeOrigin);
+        if (!DateUtils.isDateValid(entity.getBriefDate())) {
+            sendMessage("批次号格式错误");
+            return true;
+        }
         if (entity.isMoreToday()) {
             sendMessage("批次号日期超出当天");
             return true;

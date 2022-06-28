@@ -1,7 +1,9 @@
 package com.arpa.wms.hly.utils;
 
 import android.annotation.SuppressLint;
+import android.text.TextUtils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -52,5 +54,18 @@ public class DateUtils {
      */
     public static boolean isMoreToday(Date date) {
         return date.getTime() > new Date().getTime();
+    }
+
+    public static boolean isDateValid(String dateToValidate) {
+        if (TextUtils.isEmpty(dateToValidate)) return false;
+
+        formatBrief.setLenient(false);
+
+        try {
+            formatBrief.parse(dateToValidate);
+        } catch (ParseException e) {
+            return false;
+        }
+        return true;
     }
 }
