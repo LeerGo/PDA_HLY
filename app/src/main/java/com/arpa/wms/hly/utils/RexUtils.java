@@ -13,7 +13,7 @@ public class RexUtils {
     /**
      * 批次号规则匹配
      */
-    private static final String REX_BATCH_NO = "\\d{8}[A-Za-z]\\d{1,2}\\d{2}:\\d{2}:\\d{2}\\d+";
+    private static final String REX_BATCH_NO = "\\d{8}([A-Za-z]\\d{1,2}|[A-Za-z]{1,2})\\d{2}:\\d{2}:\\d{2}\\d+";
     /**
      * 24 小时制匹配
      */
