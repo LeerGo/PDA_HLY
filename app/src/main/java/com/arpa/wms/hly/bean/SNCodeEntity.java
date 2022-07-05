@@ -101,8 +101,15 @@ public class SNCodeEntity implements Comparable<SNCodeEntity>, Parcelable {
      */
     public void verify(String rawDate, String rawOrigin) {
         isDateVerify = briefDate.equals(rawDate);
-        isOriginVerify = placeOrigin.equals(rawOrigin);
+        isOriginVerify = placeOrigin.equals(rawOrigin) || checkAOrigin(rawOrigin);
         isTimeVerify = RexUtils.is24Hour(briefTime);
+    }
+
+    /**
+     * 当下发产地为 M1/M2/M3 的情况下，实际扫描进入的产地为 A，这种场景不报错
+     */
+    private boolean checkAOrigin(String rawOrigin) {
+        return ("A".equals(placeOrigin) && ("M1".equals(rawOrigin) || "M2".equals(rawOrigin) || "M3".equals(rawOrigin)));
     }
 
     /**

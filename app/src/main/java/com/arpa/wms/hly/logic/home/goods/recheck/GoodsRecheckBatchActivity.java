@@ -58,11 +58,13 @@ public class GoodsRecheckBatchActivity
 
                 case Const.Message.MSG_BATCH_VERIFY:
                     String[] obj = (String[]) message.obj;
-                    showDialogFragment(new DialogTips("校验提示", obj[0], () -> addTagView(obj[1], false, true)));
+                    showDialogFragment(new DialogTips("校验提示", obj[0], "删除", "录入",
+                            () -> addTagView(obj[1], false, true), () -> {}));
                     break;
 
                 case Const.Message.MSG_BATCH_CONFIRM:
-                    showDialogFragment(new DialogTips("校验提示", (String) message.obj, this::finishResult));
+                    showDialogFragment(new DialogTips("校验提示", (String) message.obj,
+                            "删除", "录入", this::finishResult, () -> {}));
                     break;
 
                 case Const.Message.MSG_RESTORE:
@@ -86,13 +88,6 @@ public class GoodsRecheckBatchActivity
         viewBind.wiiInput.setOnTextChanged(this::postMsgDelayed);
     }
 
-    private void finishResult() {
-        Intent data = new Intent();
-        data.putParcelableArrayListExtra(IntentKey.DATA, viewModel.codeList);
-        setResult(RESULT_OK, data);
-        finish();
-    }
-
     /**
      * 延迟发送消息，通知添加批次号 chip-view
      */
@@ -106,12 +101,23 @@ public class GoodsRecheckBatchActivity
         sHandler.sendMessageDelayed(message, 500);
     }
 
+    private void finishResult() {
+        Intent data = new Intent();
+        data.putParcelableArrayListExtra(IntentKey.DATA, viewModel.codeList);
+        setResult(RESULT_OK, data);
+        finish();
+    }
+
     private void restoreCodes() {
         if (!viewModel.codeList.isEmpty()) {
             for (int i = viewModel.codeList.size() - 1; i >= 0; i--) {
                 addTagView(viewModel.codeList.get(i).getSnCode(), true);
             }
         }
+    }
+
+    private void addTagView(String text, boolean isRestore) {
+        addTagView(text, isRestore, false);
     }
 
     /**
@@ -134,14 +140,6 @@ public class GoodsRecheckBatchActivity
         viewBind.cgBatchTags.addView(chip, 0);
     }
 
-    private void addTagView(String text) {
-        addTagView(text, false);
-    }
-
-    private void addTagView(String text, boolean isRestore) {
-        addTagView(text, isRestore, false);
-    }
-
     @Override
     protected void onDestroy() {
         sHandler.clear();
@@ -154,5 +152,9 @@ public class GoodsRecheckBatchActivity
             addTagView((String) msg.obj);
             viewBind.wiiInput.setInputText("");
         }
+    }
+
+    private void addTagView(String text) {
+        addTagView(text, false);
     }
 }

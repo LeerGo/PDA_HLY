@@ -33,8 +33,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class VMLogin extends VMWarehouse {
     private final ObservableField<String> userName = new ObservableField<>();
     private final ObservableField<String> userPass = new ObservableField<>();
-    // private final ObservableField<String> userName = new ObservableField<>();
-    // private final ObservableField<String> userPass = new ObservableField<>();
     private final ObservableField<Boolean> isShowPass = new ObservableField<>();
 
     @Inject
