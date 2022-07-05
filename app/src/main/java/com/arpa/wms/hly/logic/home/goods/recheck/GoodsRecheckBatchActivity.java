@@ -63,8 +63,7 @@ public class GoodsRecheckBatchActivity
                     break;
 
                 case Const.Message.MSG_BATCH_CONFIRM:
-                    showDialogFragment(new DialogTips("校验提示", (String) message.obj,
-                            "删除", "录入", this::finishResult, () -> {}));
+                    showDialogFragment(new DialogTips("校验提示", (String) message.obj, this::finishResult));
                     break;
 
                 case Const.Message.MSG_RESTORE:
