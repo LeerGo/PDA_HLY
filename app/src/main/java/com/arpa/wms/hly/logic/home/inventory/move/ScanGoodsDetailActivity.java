@@ -1,6 +1,10 @@
 package com.arpa.wms.hly.logic.home.inventory.move;
 
+import static com.arpa.wms.hly.ui.decoration.BothItemDecoration.BOTTOM;
+
 import android.os.Bundle;
+
+import androidx.annotation.Nullable;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
@@ -9,10 +13,7 @@ import com.arpa.wms.hly.logic.home.inventory.move.vm.VMScanGoodsDetail;
 import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.utils.Const;
 
-import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
-
-import static com.arpa.wms.hly.ui.decoration.BothItemDecoration.BOTTOM;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -23,6 +24,7 @@ import static com.arpa.wms.hly.ui.decoration.BothItemDecoration.BOTTOM;
  * 页面：移位商品详情
  * </p>
  */
+@Deprecated
 @AndroidEntryPoint
 public class ScanGoodsDetailActivity extends WrapBaseActivity<VMScanGoodsDetail, ActivityScanGoodsDetailBinding> {
 

@@ -2,10 +2,11 @@ package com.arpa.wms.hly.logic.home.inventory.move;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
-import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -17,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * 页面：扫描移位商品
  * </p>
  */
+@Deprecated
 @AndroidEntryPoint
 public class ScanGoodsActivity extends InventoryScanActivity {
 

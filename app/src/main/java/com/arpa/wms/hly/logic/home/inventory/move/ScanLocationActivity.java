@@ -2,9 +2,10 @@ package com.arpa.wms.hly.logic.home.inventory.move;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+
 import com.arpa.wms.hly.R;
 
-import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -16,6 +17,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * 页面：扫描移位库位
  * </p>
  */
+@Deprecated
 @AndroidEntryPoint
 public class ScanLocationActivity extends InventoryScanActivity {
 
