@@ -3,6 +3,8 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.Message;
 import android.text.TextUtils;
 
@@ -18,11 +20,14 @@ import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.DateUtils;
 import com.arpa.wms.hly.utils.RexUtils;
+import com.arpa.wms.hly.utils.SoundMode;
 
+import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 
 import javax.inject.Inject;
 
@@ -41,6 +46,7 @@ import io.reactivex.schedulers.Schedulers;
  */
 @HiltViewModel
 public class VMGoodsRecheckBatch extends WrapDataViewModel {
+    private final HashMap<Integer, Integer> soundID = new HashMap<>();
     public ObservableField<String> goodName = new ObservableField<>();
     public ObservableField<String> goodUnitName = new ObservableField<>();
     public ObservableField<String> radio = new ObservableField<>("0.00%");
@@ -50,10 +56,32 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     private String gmtManufacture; // 生产日期
     private String placeOrigin; // 产地
     private SNCodeEntity entity;
+    private SoundPool soundPool = null;
 
     @Inject
     public VMGoodsRecheckBatch(@NonNull Application application, BaseModel model) {
         super(application, model);
+    }
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        try {
+            initSoundPool();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initSoundPool() throws IOException {
+        soundPool = new SoundPool(2, AudioManager.STREAM_SYSTEM, 5);
+        // soundID.put(1, soundPool.load(this, R.raw.duang, 1));
+        soundID.put(2, soundPool.load(getApplication().getAssets().openFd("biaobiao.mp3"), 1));  //需要捕获IO异常
+        playSound(SoundMode.SUCCESS);
+    }
+
+    public void playSound(@SoundMode.SOUND_MODE int index) {
+        soundPool.play(soundID.get(index), 1, 1, 0, 0, 1);
     }
 
     public void initData(Intent intent) {
@@ -94,6 +122,14 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
         Observable.just(1).subscribeOn(Schedulers.io()).subscribe(integer -> callback.call());
     }
 
+    public void calcRadio() {
+        BigDecimal result = BigDecimal.valueOf(codeList.size())
+                .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100))
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
+        radio.set(result + "%");
+    }
+
     /**
      * 操作 tag 数据
      */
@@ -102,14 +138,6 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
         if (isAdd) addData();
         else removeData(snCode);
         calcRadio();
-    }
-
-    public void calcRadio() {
-        BigDecimal result = BigDecimal.valueOf(codeList.size())
-                .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
-                .multiply(BigDecimal.valueOf(100))
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
-        radio.set(result + "%");
     }
 
     /**
@@ -128,6 +156,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      * 添加数据
      */
     public void addData() {
+        playSound(SoundMode.SUCCESS);
         codeList.add(0, entity);
     }
 
@@ -169,6 +198,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
             dialogTip.append("产地校验错误");
         }
         if (!TextUtils.isEmpty(dialogTip)) {
+            playSound(SoundMode.FAILED);
             Message msg = new Message();
             msg.what = Const.Message.MSG_BATCH_VERIFY;
             msg.obj = new String[]{dialogTip.toString(), text};
