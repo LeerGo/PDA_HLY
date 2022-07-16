@@ -1,6 +1,14 @@
 package com.arpa.wms.hly.logic.home;
 
+import static com.arpa.and.arch.base.livedata.StatusEvent.Status.ERROR;
+import static com.arpa.and.arch.base.livedata.StatusEvent.Status.LOADING;
+import static com.arpa.and.arch.base.livedata.StatusEvent.Status.SUCCESS;
+
 import android.app.Application;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
@@ -11,7 +19,7 @@ import com.arpa.wms.hly.bean.res.ResRole;
 import com.arpa.wms.hly.logic.home.goods.pick.GoodsPickTaskActivity;
 import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckActivity;
 import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeActivity;
-import com.arpa.wms.hly.logic.home.inventory.move.ScanLocationActivity;
+import com.arpa.wms.hly.logic.home.inventory.move.ScanGoodsSureActivity;
 import com.arpa.wms.hly.logic.home.inventory.query.InventoryQueryActivity;
 import com.arpa.wms.hly.logic.mine.MineActivity;
 import com.arpa.wms.hly.logic.task.TaskCenterActivity;
@@ -24,15 +32,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
-
-import static com.arpa.and.arch.base.livedata.StatusEvent.Status.ERROR;
-import static com.arpa.and.arch.base.livedata.StatusEvent.Status.LOADING;
-import static com.arpa.and.arch.base.livedata.StatusEvent.Status.SUCCESS;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -108,7 +109,9 @@ public class VMHome extends WrapDataViewModel {
                 items.add(new MenuBean(R.mipmap.ic_home_goods_recheck, "复核", "To Review", GoodsRecheckActivity.class));
                 // 迭代#220309 要求屏蔽该入口 add @lyf 2022-03-21 15:02:19
                 // items.add(new MenuBean(R.mipmap.ic_home_truck_load, "装车", "Loading", TruckLoadActivity.class));
-                items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", ScanLocationActivity.class));
+                // 迭代#220715 移位大改 add @lyf 2022-07-16 10:42:49
+                // items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", ScanLocationActivity.class));
+                items.add(new MenuBean(R.mipmap.ic_home_inventory_move, "移位", "Displacement", ScanGoodsSureActivity.class));
                 items.add(new MenuBean(R.mipmap.ic_home_inventory_query, "库存查询", "Inventory Query", InventoryQueryActivity.class));
             }
         }

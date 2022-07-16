@@ -290,15 +290,15 @@ public interface ApiService {
         /**
          * 仓储服务 API 服务地址
          */
-        String URL_WMS = "http://121.36.27.6:83";
-        // String URL_WMS = "http://121.36.109.152";
+        // String URL_WMS = "http://121.36.27.6:83";
+        String URL_WMS = "http://121.36.109.152";
         // String URL_WMS = "http://192.168.30.90";
 
         /**
          * 单点登录
          */
-        String URL_SSO = "http://121.36.27.6:85";
-        // String URL_SSO = "http://test.sso.sarpa.cn";
+        // String URL_SSO = "http://121.36.27.6:85";
+        String URL_SSO = "http://test.sso.sarpa.cn";
 
         /**
          * API：SSO 单点登录获取 token

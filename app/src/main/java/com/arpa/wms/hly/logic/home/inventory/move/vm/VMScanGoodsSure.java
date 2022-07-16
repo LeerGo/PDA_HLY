@@ -3,6 +3,9 @@ package com.arpa.wms.hly.logic.home.inventory.move.vm;
 import android.app.Application;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
+
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
@@ -18,8 +21,6 @@ import com.arpa.wms.hly.utils.ToastUtils;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import retrofit2.Call;
 
@@ -107,5 +108,15 @@ public class VMScanGoodsSure extends WrapDataViewModel {
                         finish();
                     }
                 });
+    }
+
+    /**
+     * 检索库位上的货物
+     */
+    public void searchGoodsOnLocation(String location) {
+        if (TextUtils.isEmpty(location)) {
+            sendMessage("库位不得为空");
+            return;
+        }
     }
 }
