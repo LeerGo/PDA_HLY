@@ -9,6 +9,8 @@ import com.arpa.and.arch.http.interceptor.logging.LoggingInterceptor;
 import com.arpa.wms.hly.net.interceptor.RequestTokenInterceptor;
 import com.arpa.wms.hly.net.interceptor.ResponseTokenInterceptor;
 
+import java.util.concurrent.TimeUnit;
+
 import okhttp3.internal.platform.Platform;
 
 /**
@@ -24,6 +26,8 @@ public class AppConfigModule extends FrameConfigModule {
     @Override
     public void applyOptions(Context context, ConfigModule.Builder builder) {
         builder.okHttpClientOptions(okHttpBuilder -> okHttpBuilder
+                        .readTimeout(30, TimeUnit.MINUTES)
+                        .writeTimeout(30, TimeUnit.MINUTES)
                         .addInterceptor(new ResponseTokenInterceptor())
                         .addInterceptor(new RequestTokenInterceptor())
                         .addInterceptor(new LoggingInterceptor.Builder()//构建者模式
