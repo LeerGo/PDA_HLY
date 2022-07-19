@@ -45,6 +45,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public ObservableField<String> goodUnitName = new ObservableField<>();
     public ObservableField<String> radio = new ObservableField<>("0.00%");
     public ArrayList<SNCodeEntity> codeList = new ArrayList<>();
+    public ObservableField<Integer> scanCount = new ObservableField<>();
     public int goodsCount; // 商品数，用以计算扫码比例
     private String taskCode;
     private String gmtManufacture; // 生产日期
@@ -78,6 +79,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
             });
         } else {
             codeList = list;
+            scanCount.set(codeList.size());
             sendSingleLiveEvent(Const.Message.MSG_RESTORE);
         }
     }
@@ -117,6 +119,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      */
     private void removeData(String snCode) {
         codeList.remove(new SNCodeEntity(taskCode, snCode));
+        scanCount.set(codeList.size());
         asyncLogic(() -> {
             if (null != getSNCodeDao().exists(taskCode, snCode)) {
                 getSNCodeDao().delete(taskCode, snCode);
@@ -129,6 +132,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      */
     public void addData() {
         codeList.add(0, entity);
+        scanCount.set(codeList.size());
     }
 
     /**
@@ -184,6 +188,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public void restoreRecords() {
         asyncLogic(() -> {
             codeList = (ArrayList<SNCodeEntity>) getSNCodeDao().getByTask(taskCode);
+            scanCount.set(codeList.size());
             sendSingleLiveEvent(Const.Message.MSG_RESTORE, true);
         });
     }
