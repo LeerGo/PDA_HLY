@@ -49,11 +49,11 @@
     
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/ItemRecheckBatchStyle"
-                    app:propsKey="单位"
+                    app:propsKey="扫码数量"
                     app:propsKeyColor="@color/color_434c67"
-                    app:propsValue="@{viewModel.goodUnitName}"
+                    app:propsValue="@{String.valueOf(viewModel.codeList.size())}"
                     app:propsValueGravity="end"
-                    tools:propsValue="箱"/>
+                    tools:propsValue="20"/>
     
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/ItemRecheckBatchStyle"
