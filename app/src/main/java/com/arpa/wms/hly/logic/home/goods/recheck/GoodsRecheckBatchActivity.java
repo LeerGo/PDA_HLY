@@ -124,6 +124,7 @@ public class GoodsRecheckBatchActivity
      */
     private void addTagView(String text, boolean isRestore, boolean isForce) {
         if (!isForce && !isRestore && viewModel.inputInvalid(text)) return;
+        if (!isForce && !isRestore) viewModel.player.play(R.raw.scan_success);
         Chip chip = new Chip(this);
         chip.setCloseIconVisible(true);
         chip.setText(text);

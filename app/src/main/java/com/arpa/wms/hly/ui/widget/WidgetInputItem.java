@@ -15,12 +15,6 @@ import android.view.MotionEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.RelativeLayout;
 
-import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.ui.filter.InputFilterMinMax;
-import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
-
-import java.util.Objects;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatEditText;
@@ -29,6 +23,12 @@ import androidx.appcompat.widget.AppCompatTextView;
 import androidx.databinding.BindingAdapter;
 import androidx.databinding.InverseBindingAdapter;
 import androidx.databinding.InverseBindingListener;
+
+import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.ui.filter.InputFilterMinMax;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
+
+import java.util.Objects;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -137,6 +137,10 @@ public class WidgetInputItem extends RelativeLayout {
         etInput.setHint(hint);
     }
 
+    public void setInputLength(Integer inputLength) {
+        etInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputLength)});
+    }
+
     private void addFocusListener() {
         etInput.setOnFocusChangeListener((v, hasFocus) -> {
             if (hasFocus) {
@@ -218,8 +222,25 @@ public class WidgetInputItem extends RelativeLayout {
         view.setOnTextChanged(data -> listener.onChange());
     }
 
-    public void setInputLength(Integer inputLength) {
-        etInput.setFilters(new InputFilter[]{new InputFilter.LengthFilter(inputLength)});
+    @BindingAdapter("inputFocus")
+    public static void setInputFocus(WidgetInputItem view, Boolean inputFocus) {
+        view.setInputFocus(null != inputFocus && inputFocus);
+    }
+
+    /**
+     * 设置输入焦点
+     */
+    public void setInputFocus(boolean inputFocus) {
+        if (etInput.isFocusable() == inputFocus) return;
+        if (!inputFocus) {
+            etInput.setFocusable(false);
+            etInput.clearFocus();
+        } else {
+            etInput.setFocusableInTouchMode(true);
+            etInput.setFocusable(true);
+            etInput.findFocus();
+            etInput.requestFocus();
+        }
     }
 
     @Override

@@ -74,16 +74,20 @@
                 android:layout_height="1px"
                 android:layout_below="@id/tvCarNumber"
                 android:background="@color/color_ececec" />
-            
+
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_customer"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
+                android:layout_alignParentStart="true"
+                android:layout_toStartOf="@id/wqi_quantity"
+                android:layout_marginEnd="4dp"
                 app:propsKey="客    户："
                 app:propsValue="@{data.customerName}"
                 tools:propsValue="测试客户" />
     
             <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
+                android:id="@+id/wqi_quantity"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
                 android:layout_alignParentEnd="true"
