@@ -82,6 +82,7 @@ dependencies {
 
     // 自有封装框架
     implementation 'com.arpa.and:arpa-arch:1.0.3'
+    implementation 'com.arpa.and:app-update:1.0.6'
 
     // 官方
     implementation "androidx.multidex:multidex:2.0.1"

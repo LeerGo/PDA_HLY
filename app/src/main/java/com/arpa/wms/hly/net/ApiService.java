@@ -11,19 +11,7 @@ import com.arpa.wms.hly.bean.req.ReqRecheckConfirm;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
-import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
-import com.arpa.wms.hly.bean.res.ResInventory;
-import com.arpa.wms.hly.bean.res.ResMoveGoods;
-import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
-import com.arpa.wms.hly.bean.res.ResMoveLocation;
-import com.arpa.wms.hly.bean.res.ResPickDetail;
-import com.arpa.wms.hly.bean.res.ResRole;
-import com.arpa.wms.hly.bean.res.ResTaskAssign;
-import com.arpa.wms.hly.bean.res.ResTaskPick;
-import com.arpa.wms.hly.bean.res.ResTaskWorker;
-import com.arpa.wms.hly.bean.res.ResTruckLoad;
-import com.arpa.wms.hly.bean.res.ResTruckLoadConfirm;
-import com.arpa.wms.hly.bean.res.ResWarehouse;
+import com.arpa.wms.hly.bean.res.*;
 import com.king.retrofit.retrofithelper.annotation.DomainName;
 
 import java.util.List;
@@ -40,6 +28,14 @@ import retrofit2.http.Query;
 import retrofit2.http.QueryMap;
 
 public interface ApiService {
+
+    /**
+     * 更新 App
+     */
+    @DomainName(API.KEY_WMS)
+    @GET("/wms/pda/pdaVersion")
+    Call<Result<ResVersion>> checkVersion();
+
     /**
      * 获取仓库 SSO
      */

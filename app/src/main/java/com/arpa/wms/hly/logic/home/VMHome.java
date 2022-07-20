@@ -9,6 +9,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
+import androidx.lifecycle.MutableLiveData;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
@@ -16,6 +17,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.MenuBean;
 import com.arpa.wms.hly.bean.res.ResRole;
+import com.arpa.wms.hly.bean.res.ResVersion;
 import com.arpa.wms.hly.logic.home.goods.pick.GoodsPickTaskActivity;
 import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckActivity;
 import com.arpa.wms.hly.logic.home.goods.take.GoodsTakeActivity;
@@ -46,9 +48,9 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 @HiltViewModel
 public class VMHome extends WrapDataViewModel {
+    public final MutableLiveData<ResVersion> version = new MutableLiveData<>();
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
-
     private final ObservableArrayList<MenuBean> items = new ObservableArrayList<>();
     private final ItemBinding<MenuBean> itemBinding = ItemBinding.of(BR.data, R.layout.item_home_menu);
 
@@ -61,6 +63,7 @@ public class VMHome extends WrapDataViewModel {
     public void onCreate() {
         super.onCreate();
         getRole();
+        checkVersion();
     }
 
     private void getRole() {
@@ -129,6 +132,24 @@ public class VMHome extends WrapDataViewModel {
     private void initHeader() {
         account.set("账号：" + spGetString(SPKEY.USER_NAME));
         warehouse.set("仓库：" + spGetString(SPKEY.WAREHOUSE_NAME));
+    }
+
+    /**
+     * 检查更新
+     */
+    private void checkVersion() {
+        apiService.checkVersion()
+                .enqueue(new ResultCallback<>() {
+                    @Override
+                    public void onSuccess(ResVersion data) {
+                        if (null != data) version.postValue(data);
+                    }
+
+                    @Override
+                    public void onFailed(ResultError error) {
+
+                    }
+                });
     }
 
     public void jumpMine() {

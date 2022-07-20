@@ -2,12 +2,16 @@ package com.arpa.wms.hly.logic.home;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+
+import com.arpa.and.libs.update.config.UpdateConfiguration;
+import com.arpa.and.libs.update.manager.DownloadManager;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
+import com.arpa.wms.hly.bean.res.ResVersion;
 import com.arpa.wms.hly.databinding.ActivityHomeBinding;
 import com.arpa.wms.hly.ui.decoration.GridItemDecoration;
 
-import androidx.annotation.Nullable;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -33,5 +37,30 @@ public class HomeActivity extends WrapBaseActivity<VMHome, ActivityHomeBinding> 
 
         viewBind.setVmHome(viewModel);
         viewBind.rvMenu.addItemDecoration(new GridItemDecoration(10));
+
+        viewModel.version.observe(this, version -> {
+            DownloadManager manager = DownloadManager.getInstance(this);
+            manager.setApkName("WMS_v" + version.getVersionName() + ".apk")
+                    .setApkUrl(version.getUrl())
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setConfiguration(configUpdate(version))
+                    .setApkVersionCode(version.getVersionCode())
+                    .setApkVersionName(version.getVersionName())
+                    .setApkDescription(version.getUpdateContent())
+                    .download();
+        });
+    }
+
+
+    /**
+     * 版本更新框架的一些参数配置
+     */
+    private UpdateConfiguration configUpdate(ResVersion version) {
+        return new UpdateConfiguration()
+                .setEnableLog(true)
+                .setJumpInstallPage(true)
+                .setShowBgdToast(false)
+                .setShowNotification(true)
+                .setForcedUpgrade(version.isForceUpdate());
     }
 }
