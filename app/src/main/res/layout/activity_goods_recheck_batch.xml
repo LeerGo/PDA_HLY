@@ -76,28 +76,30 @@
                     android:layout_height="1px"
                     android:background="@color/grey_eeeeee"/>
     
-                <RelativeLayout
+                <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:paddingTop="4dp"
+                    android:paddingBottom="6dp"
                     android:minHeight="50dp">
-        
+
                     <androidx.appcompat.widget.AppCompatTextView
-                        android:id="@+id/tvBatch"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
                         android:layout_height="wrap_content"
-                        android:paddingTop="12dp"
+                        android:paddingTop="6dp"
                         android:text="批次号"
-                        android:textColor="@color/color_434c67"/>
-        
-                    <com.google.android.material.chip.ChipGroup
-                        android:id="@+id/cgBatchTags"
+                        android:textColor="@color/color_434c67" />
+
+                    <androidx.recyclerview.widget.RecyclerView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_marginStart="18dp"
-                        android:layout_toEndOf="@id/tvBatch"
-                        app:lineSpacing="-8dp"/>
-                </RelativeLayout>
+                        android:layout_marginStart="8dp"
+                        app:items="@{viewModel.codeList}"
+                        app:itemBinding="@{viewModel.itemBinding}"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:listitem="@layout/item_batch_code" />
+                </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
         

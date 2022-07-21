@@ -7,9 +7,11 @@ import android.os.Message;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 
 import com.arpa.and.arch.base.BaseModel;
+import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.SNCodeEntity;
@@ -31,6 +33,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -46,7 +49,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public ObservableField<String> goodName = new ObservableField<>();
     public ObservableField<String> goodUnitName = new ObservableField<>();
     public ObservableField<String> radio = new ObservableField<>("0.00%");
-    public ArrayList<SNCodeEntity> codeList = new ArrayList<>();
+    public ObservableArrayList<SNCodeEntity> codeList = new ObservableArrayList<>();
     public ObservableField<Integer> scanCount = new ObservableField<>();
     public int goodsCount; // 商品数，用以计算扫码比例
     public SoundPlayer player;
@@ -58,6 +61,46 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     @Inject
     public VMGoodsRecheckBatch(@NonNull Application application, BaseModel model) {
         super(application, model);
+    }
+
+    public ItemBinding<SNCodeEntity> getItemBinding() {
+        ItemBinding<SNCodeEntity> itemBinding = ItemBinding.of(BR.data, R.layout.item_batch_code);
+        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<SNCodeEntity>) data -> removeData(data.getSnCode()));
+        return itemBinding;
+    }
+
+    /**
+     * 移除数据
+     */
+    private void removeData(String snCode) {
+        codeList.remove(new SNCodeEntity(taskCode, snCode));
+        scanCount.set(codeList.size());
+        calcRadio();
+        asyncLogic(() -> {
+            if (null != getSNCodeDao().exists(taskCode, snCode)) {
+                getSNCodeDao().delete(taskCode, snCode);
+            }
+        });
+    }
+
+    /**
+     * 获取序列号数据库操作类
+     */
+    private SNCodeDao getSNCodeDao() {
+        return getRoomDatabase(AppDatabase.class).snCodeDao();
+    }
+
+    @SuppressLint("CheckResult")
+    private void asyncLogic(ViewListener.VoidCallback callback) {
+        Observable.just(1).subscribeOn(Schedulers.io()).subscribe(integer -> callback.call());
+    }
+
+    public void calcRadio() {
+        BigDecimal result = BigDecimal.valueOf(codeList.size())
+                .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100))
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
+        radio.set(result + "%");
     }
 
     @Override
@@ -81,7 +124,6 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
         gmtManufacture = intent.getStringExtra(Const.IntentKey.DATE_MANUFACTURE);
         placeOrigin = intent.getStringExtra(Const.IntentKey.PLACE_ORIGIN);
         fillCodeList(intent.getParcelableArrayListExtra(Const.IntentKey.DATA));
-
         calcRadio();
     }
 
@@ -94,53 +136,18 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
                 }
             });
         } else {
-            codeList = list;
+            codeList.addAll(list);
             scanCount.set(codeList.size());
-            sendSingleLiveEvent(Const.Message.MSG_RESTORE);
         }
     }
 
     /**
-     * 获取序列号数据库操作类
+     * 添加 tag
      */
-    public SNCodeDao getSNCodeDao() {
-        return getRoomDatabase(AppDatabase.class).snCodeDao();
-    }
-
-    @SuppressLint("CheckResult")
-    private void asyncLogic(ViewListener.VoidCallback callback) {
-        Observable.just(1).subscribeOn(Schedulers.io()).subscribe(integer -> callback.call());
-    }
-
-    public void calcRadio() {
-        BigDecimal result = BigDecimal.valueOf(codeList.size())
-                .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
-                .multiply(BigDecimal.valueOf(100))
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
-        radio.set(result + "%");
-    }
-
-    /**
-     * 操作 tag 数据
-     */
-    @SuppressLint("CheckResult")
-    public void optTagData(String snCode, boolean isAdd) {
-        if (isAdd) addData();
-        else removeData(snCode);
+    public void addTag(String snCode) {
+        if (inputInvalid(snCode)) return;
+        addData();
         calcRadio();
-    }
-
-    /**
-     * 移除数据
-     */
-    private void removeData(String snCode) {
-        codeList.remove(new SNCodeEntity(taskCode, snCode));
-        scanCount.set(codeList.size());
-        asyncLogic(() -> {
-            if (null != getSNCodeDao().exists(taskCode, snCode)) {
-                getSNCodeDao().delete(taskCode, snCode);
-            }
-        });
     }
 
     /**
@@ -149,63 +156,6 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public void addData() {
         codeList.add(0, entity);
         scanCount.set(codeList.size());
-    }
-
-    /**
-     * 恢复记录
-     */
-    public void restoreRecords() {
-        asyncLogic(() -> {
-            codeList = (ArrayList<SNCodeEntity>) getSNCodeDao().getByTask(taskCode);
-            scanCount.set(codeList.size());
-            sendSingleLiveEvent(Const.Message.MSG_RESTORE, true);
-        });
-    }
-
-    /**
-     * 丢弃记录
-     */
-    public void discardRecords() {
-        asyncLogic(() -> getSNCodeDao().deleteByTask(taskCode));
-    }
-
-    /**
-     * 暂存
-     */
-    public void saveAll() {
-        asyncLogic(() -> {
-            getSNCodeDao().deleteByTask(taskCode);
-            getSNCodeDao().saveBatch(codeList);
-            sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true);
-        });
-    }
-
-    /**
-     * 确认
-     */
-    public void confirm() {
-        if (codeList.size() < 2) {
-            sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true);
-        } else {
-            Message msg = new Message();
-            msg.what = Const.Message.MSG_BATCH_CONFIRM;
-
-            boolean isDateVerify = true;
-            boolean isOriginVerify = true;
-            for (SNCodeEntity item : codeList) {
-                isDateVerify = isDateVerify && item.isDateVerify();
-                isOriginVerify = isOriginVerify && item.isOriginVerify();
-                if (!isDateVerify && !isOriginVerify) break;
-            }
-
-            SNCodeEntity oldestBatchNo = Collections.max(codeList);
-            SNCodeEntity latestBatchNo = Collections.min(codeList);
-            String diff = DateUtils.dateDiff(latestBatchNo.getDate(), oldestBatchNo.getDate());
-            msg.obj = (isOriginVerify ? "1、产地校验正确" : "1、产地校验不正确") + "\n" +
-                    (isDateVerify ? "2、生产日期校验正确" : "2、生产日期校验不正确") + "\n" +
-                    "3、上下批次时间为" + diff;
-            sendSingleLiveEvent(msg);
-        }
     }
 
     /**
@@ -259,5 +209,62 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
             return true;
         }
         return false;
+    }
+
+    /**
+     * 恢复记录
+     */
+    public void restoreRecords() {
+        asyncLogic(() -> {
+            codeList.addAll(getSNCodeDao().getByTask(taskCode));
+            scanCount.set(codeList.size());
+            calcRadio();
+        });
+    }
+
+    /**
+     * 丢弃记录
+     */
+    public void discardRecords() {
+        asyncLogic(() -> getSNCodeDao().deleteByTask(taskCode));
+    }
+
+    /**
+     * 暂存
+     */
+    public void saveAll() {
+        asyncLogic(() -> {
+            getSNCodeDao().deleteByTask(taskCode);
+            getSNCodeDao().saveBatch(codeList);
+            sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true);
+        });
+    }
+
+    /**
+     * 确认
+     */
+    public void confirm() {
+        if (codeList.size() < 2) {
+            sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true);
+        } else {
+            Message msg = new Message();
+            msg.what = Const.Message.MSG_BATCH_CONFIRM;
+
+            boolean isDateVerify = true;
+            boolean isOriginVerify = true;
+            for (SNCodeEntity item : codeList) {
+                isDateVerify = isDateVerify && item.isDateVerify();
+                isOriginVerify = isOriginVerify && item.isOriginVerify();
+                if (!isDateVerify && !isOriginVerify) break;
+            }
+
+            SNCodeEntity oldestBatchNo = Collections.max(codeList);
+            SNCodeEntity latestBatchNo = Collections.min(codeList);
+            String diff = DateUtils.dateDiff(latestBatchNo.getDate(), oldestBatchNo.getDate());
+            msg.obj = (isOriginVerify ? "1、产地校验正确" : "1、产地校验不正确") + "\n" +
+                    (isDateVerify ? "2、生产日期校验正确" : "2、生产日期校验不正确") + "\n" +
+                    "3、上下批次时间为" + diff;
+            sendSingleLiveEvent(msg);
+        }
     }
 }

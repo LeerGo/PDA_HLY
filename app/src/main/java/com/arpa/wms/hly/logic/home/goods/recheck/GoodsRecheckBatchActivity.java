@@ -1,7 +1,6 @@
 package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Message;
 
@@ -15,7 +14,6 @@ import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.WeakHandler;
-import com.google.android.material.chip.Chip;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -47,6 +45,8 @@ public class GoodsRecheckBatchActivity
         sHandler = new WeakHandler<>(GoodsRecheckBatchActivity.this);
         viewBind.setViewModel(viewModel);
         viewModel.initData(getIntent());
+        viewBind.wiiInput.setInputFocus(true);
+        viewBind.wiiInput.setOnTextChanged(this::postMsgDelayed);
         viewModel.getSingleLiveEvent().observeForever(message -> {
             switch (message.what) {
 
@@ -59,16 +59,11 @@ public class GoodsRecheckBatchActivity
                 case Const.Message.MSG_BATCH_VERIFY:
                     String[] obj = (String[]) message.obj;
                     showDialogFragment(new DialogTips("校验提示", obj[0], "删除", "录入",
-                            () -> addTagView(obj[1], false, true), () -> {}));
+                            () -> viewModel.addData(), () -> {}));
                     break;
 
                 case Const.Message.MSG_BATCH_CONFIRM:
                     showDialogFragment(new DialogTips("校验提示", (String) message.obj, this::finishResult));
-                    break;
-
-                case Const.Message.MSG_RESTORE:
-                    restoreCodes();
-                    viewModel.calcRadio();
                     break;
 
                 case Const.Message.MSG_FINISH_RESULT:
@@ -79,12 +74,6 @@ public class GoodsRecheckBatchActivity
                     break;
             }
         });
-
-        setViews();
-    }
-
-    private void setViews() {
-        viewBind.wiiInput.setOnTextChanged(this::postMsgDelayed);
     }
 
     /**
@@ -107,39 +96,6 @@ public class GoodsRecheckBatchActivity
         finish();
     }
 
-    private void restoreCodes() {
-        if (!viewModel.codeList.isEmpty()) {
-            for (int i = viewModel.codeList.size() - 1; i >= 0; i--) {
-                addTagView(viewModel.codeList.get(i).getSnCode(), true);
-            }
-        }
-    }
-
-    private void addTagView(String text, boolean isRestore) {
-        addTagView(text, isRestore, false);
-    }
-
-    /**
-     * 添加 view
-     */
-    private void addTagView(String text, boolean isRestore, boolean isForce) {
-        if (!isForce && !isRestore && viewModel.inputInvalid(text)) return;
-        if (!isForce && !isRestore) viewModel.player.play(R.raw.scan_success);
-        Chip chip = new Chip(this);
-        chip.setCloseIconVisible(true);
-        chip.setText(text);
-        chip.setTag(text);
-        chip.setTextColor(Color.WHITE);
-        chip.setChipBackgroundColorResource(R.color.colorPrimary);
-        chip.setCloseIconTintResource(R.color.white);
-        chip.setOnCloseIconClickListener(v -> {
-            viewModel.optTagData(text, false);
-            viewBind.cgBatchTags.removeView(v);
-        });
-        if (!isRestore) viewModel.optTagData(text, true);
-        viewBind.cgBatchTags.addView(chip, 0);
-    }
-
     @Override
     protected void onDestroy() {
         sHandler.clear();
@@ -149,12 +105,10 @@ public class GoodsRecheckBatchActivity
     @Override
     public void handleMessage(Message msg) {
         if (msg.what == MSG_ADD_TAG) {
-            addTagView((String) msg.obj);
+            viewBind.wiiInput.setInputFocus(false);
+            viewModel.addTag((String) msg.obj);
             viewBind.wiiInput.setInputText("");
+            viewBind.wiiInput.setInputFocus(true);
         }
-    }
-
-    private void addTagView(String text) {
-        addTagView(text, false);
     }
 }
