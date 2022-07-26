@@ -54,8 +54,8 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public int goodsCount; // 商品数，用以计算扫码比例
     public SoundPlayer player;
     private String taskCode;
-    private String gmtManufacture; // 生产日期
-    private String placeOrigin; // 产地
+    public ObservableField<String> gmtManufacture = new ObservableField<>(); // 生产日期
+    public ObservableField<String> placeOrigin = new ObservableField<>(); // 产地
     private SNCodeEntity entity;
 
     @Inject
@@ -121,8 +121,8 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
         goodName.set(intent.getStringExtra(Const.IntentKey.GOODS_NAME));
         goodUnitName.set(intent.getStringExtra(Const.IntentKey.GOODS_UNIT_NAME));
         goodsCount = intent.getIntExtra(Const.IntentKey.GOODS_COUNT, 0);
-        gmtManufacture = intent.getStringExtra(Const.IntentKey.DATE_MANUFACTURE);
-        placeOrigin = intent.getStringExtra(Const.IntentKey.PLACE_ORIGIN);
+        gmtManufacture.set(intent.getStringExtra(Const.IntentKey.DATE_MANUFACTURE));
+        placeOrigin.set(intent.getStringExtra(Const.IntentKey.PLACE_ORIGIN));
         fillCodeList(intent.getParcelableArrayListExtra(Const.IntentKey.DATA));
         calcRadio();
     }
@@ -179,7 +179,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
             return true;
         }
         entity = new SNCodeEntity(taskCode, text);
-        entity.verify(gmtManufacture, placeOrigin);
+        entity.verify(gmtManufacture.get(), placeOrigin.get());
         if (!DateUtils.isDateValid(entity.getBriefDate())) {
             sendMessage("批次号格式错误");
             player.play(R.raw.scan_failed);

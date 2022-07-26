@@ -5,10 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <data>
-        
+
+        <import type="android.text.TextUtils" />
+
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch"/>
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch" />
     </data>
     
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -46,32 +48,51 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/dp_15">
-    
+
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    style="@style/ItemRecheckBatchStyle"
+                    style="@style/ItemRecheckBatchSNStyle"
                     app:propsKey="单位"
                     app:propsKeyColor="@color/color_434c67"
                     app:propsValue="@{viewModel.goodUnitName}"
                     app:propsValueGravity="end"
-                    tools:propsValue="箱"/>
+                    tools:propsValue="箱" />
 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    style="@style/ItemRecheckBatchStyle"
+                    style="@style/ItemRecheckBatchSNStyle"
+                    app:propsKey="产地"
+                    app:propsKeyColor="@color/color_434c67"
+                    app:propsValue="@{viewModel.placeOrigin}"
+                    app:propsValueGravity="end"
+                    app:visible="@{!TextUtils.isEmpty(viewModel.placeOrigin)}"
+                    tools:propsValue="M1" />
+
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/ItemRecheckBatchSNStyle"
+                    app:propsKey="生产日期"
+                    app:propsKeyColor="@color/color_434c67"
+                    app:propsValue="@{viewModel.gmtManufacture}"
+                    app:propsValueGravity="end"
+                    app:visible="@{!TextUtils.isEmpty(viewModel.gmtManufacture)}"
+                    tools:propsValue="2022年07月26日" />
+
+                <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                    style="@style/ItemRecheckBatchSNStyle"
                     app:propsKey="扫码数量"
                     app:propsKeyColor="@color/color_434c67"
                     app:propsValue="@{String.valueOf(viewModel.scanCount)}"
                     app:propsValueGravity="end"
-                    tools:propsValue="箱"/>
-    
+                    tools:propsValue="箱" />
+
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                    style="@style/ItemRecheckBatchStyle"
+                    style="@style/ItemRecheckBatchSNStyle"
                     app:propsKey="扫码比例"
                     app:propsKeyColor="@color/color_434c67"
                     app:propsValue="@{viewModel.radio}"
                     app:propsValueGravity="end"
-                    tools:propsValue="0.00%"/>
-    
+                    tools:propsValue="0.00%" />
+
                 <View
+                    android:layout_marginTop="4dp"
                     android:layout_width="match_parent"
                     android:layout_height="1px"
                     android:background="@color/grey_eeeeee"/>

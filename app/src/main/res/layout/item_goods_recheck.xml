@@ -3,30 +3,30 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
-        
+
         <import type="android.text.TextUtils" />
-        
+
         <import type="com.arpa.wms.hly.bean.res.ResTaskAssign" />
-        
+
         <variable
             name="data"
             type="ResTaskAssign" />
-        
+
         <variable
             name="position"
             type="Integer" />
-        
+
         <variable
             name="showOrder"
             type="Boolean" />
-        
+
         <variable
             name="listener"
             type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
     </data>
-    
+
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -35,13 +35,13 @@
         android:clickable="@{showOrder}"
         android:onClick="@{()->listener.transfer(data)}"
         app:cardBackgroundColor="@color/white">
-        
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="12dp"
             android:paddingBottom="12dp">
-            
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvTaskOrder"
                 android:layout_width="wrap_content"
@@ -56,7 +56,7 @@
                 android:textSize="14sp"
                 app:visible="@{showOrder}"
                 tools:text="1" />
-            
+
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvCarNumber"
                 android:layout_width="match_parent"
@@ -67,7 +67,7 @@
                 android:text="@{@string/car_number(data.licensePlateNumber)}"
                 android:textColor="@color/color_434c67"
                 tools:text="车牌号：豫HM8983" />
-            
+
             <View
                 android:id="@+id/line"
                 android:layout_width="match_parent"
@@ -80,12 +80,12 @@
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/line"
                 android:layout_alignParentStart="true"
-                android:layout_toStartOf="@id/wqi_quantity"
                 android:layout_marginEnd="4dp"
+                android:layout_toStartOf="@id/wqi_quantity"
                 app:propsKey="客    户："
                 app:propsValue="@{data.customerName}"
                 tools:propsValue="测试客户" />
-    
+
             <com.arpa.wms.hly.ui.widget.WidgetQuantityItem
                 android:id="@+id/wqi_quantity"
                 style="@style/TaskPropsStyle"
@@ -96,16 +96,25 @@
                 app:wqiSum="@{data.planQuantity}"
                 tools:wqiCount="100"
                 tools:wqiSum="10000" />
-            
+
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_waybill"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_customer"
+                app:propsKey="运单号："
+                app:propsValue="@{data.sourceCode}"
+                app:visible="@{!TextUtils.isEmpty(data.sourceCode)}"
+                tools:propsValue="YD123456123" />
+
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_keeper"
                 style="@style/TaskPropsStyle"
-                android:layout_below="@id/wpi_customer"
+                android:layout_below="@id/wpi_waybill"
                 app:propsKey="保管员："
                 app:propsValue="@{data.custodian}"
                 app:visible="@{!TextUtils.isEmpty(data.custodian)}"
                 tools:propsValue="张三，李四" />
-            
+
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_stevedore"
                 style="@style/TaskPropsStyle"
@@ -114,7 +123,7 @@
                 app:propsValue="@{data.stevedore}"
                 app:visible="@{!TextUtils.isEmpty(data.stevedore)}"
                 tools:propsValue="装卸工一，装卸工一" />
-    
+
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_forklift"
                 style="@style/TaskPropsStyle"
@@ -123,7 +132,7 @@
                 app:propsValue="@{data.forklift}"
                 app:visible="@{!TextUtils.isEmpty(data.forklift)}"
                 tools:propsValue="叉车工一" />
-    
+
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_assign"
                 style="@style/TaskPropsStyle"
@@ -131,7 +140,7 @@
                 app:propsKey="@string/assign_time"
                 app:propsValue="@{data.gmtCreated}"
                 tools:propsValue="2022-04-19" />
-    
+
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_high"
                 style="@style/TaskPropsStyle"
@@ -139,7 +148,7 @@
                 app:propsKey="@string/loading_high"
                 app:propsValue="@{String.valueOf(data.loadingCarHeight)}"
                 tools:propsValue="5m" />
-    
+
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/wpi_assign"

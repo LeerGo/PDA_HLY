@@ -77,19 +77,19 @@
                     app:wqiName="复核数量："
                     app:wqiSum="@{data.planQuantity}" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-    
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll2"
                 style="@style/WMatchHWrap"
                 android:layout_below="@id/ll1">
-        
+
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="产        地："
                     app:propsValue="@{data.extendOne}"
                     app:visibleState="@{data.batchRule.extendOne}"
                     tools:propsValue="A7" />
-        
+
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/TaskPropsWeightStyle"
                     app:propsKey="特殊品项："
@@ -115,7 +115,7 @@
                     app:propsValue="@{data.traysNum}"
                     tools:propsValue="200" />
             </androidx.appcompat.widget.LinearLayoutCompat>
-    
+
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_location"
                 style="@style/TaskPropsStyle"
