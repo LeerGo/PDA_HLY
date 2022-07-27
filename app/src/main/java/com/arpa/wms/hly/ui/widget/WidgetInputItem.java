@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -246,5 +247,12 @@ public class WidgetInputItem extends RelativeLayout {
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
         return !isEnable;
+    }
+
+    /**
+     * 设置 EditorAction 事件响应
+     */
+    public void addOnEditor(TextView.OnEditorActionListener listener) {
+        etInput.setOnEditorActionListener(listener);
     }
 }
