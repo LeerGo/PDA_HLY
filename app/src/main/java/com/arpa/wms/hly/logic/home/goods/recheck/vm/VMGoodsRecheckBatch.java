@@ -1,6 +1,5 @@
 package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 
-import android.annotation.SuppressLint;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Message;
@@ -31,8 +30,9 @@ import java.util.Collections;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.internal.operators.completable.CompletableConcat;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
@@ -76,11 +76,20 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
         codeList.remove(new SNCodeEntity(taskCode, snCode));
         scanCount.set(codeList.size());
         calcRadio();
-        asyncLogic(() -> {
-            if (null != getSNCodeDao().exists(taskCode, snCode)) {
-                getSNCodeDao().delete(taskCode, snCode);
-            }
-        });
+        getSNCodeDao().delete(taskCode, snCode)
+                .subscribeOn(Schedulers.io()).subscribe();
+    }
+
+    /**
+     * 计算扫描百分比
+     */
+    public void calcRadio() {
+        BigDecimal result = BigDecimal.valueOf(codeList.size())
+                .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
+                .multiply(BigDecimal.valueOf(100))
+                .setScale(2, BigDecimal.ROUND_HALF_UP);
+        radio.set(result + "%");
+        isFocus.set(true);
     }
 
     /**
@@ -88,45 +97,6 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      */
     private SNCodeDao getSNCodeDao() {
         return getRoomDatabase(AppDatabase.class).snCodeDao();
-    }
-
-    @SuppressLint("CheckResult")
-    private void asyncLogic(ViewListener.VoidCallback callback) {
-        Observable.just(1).subscribeOn(Schedulers.io()).subscribe(integer -> callback.call());
-    }
-
-    public void calcRadio() {
-        BigDecimal result = BigDecimal.valueOf(codeList.size())
-                .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
-                .multiply(BigDecimal.valueOf(100))
-                .setScale(2, BigDecimal.ROUND_HALF_UP);
-        radio.set(result + "%");
-    }
-
-    public void initData(Intent intent) {
-        taskCode = intent.getStringExtra(Const.IntentKey.CODE);
-        goodName.set(intent.getStringExtra(Const.IntentKey.GOODS_NAME));
-        goodUnitName.set(intent.getStringExtra(Const.IntentKey.GOODS_UNIT_NAME));
-        goodsCount = intent.getIntExtra(Const.IntentKey.GOODS_COUNT, 0);
-        gmtManufacture = intent.getStringExtra(Const.IntentKey.DATE_MANUFACTURE);
-        placeOrigin = intent.getStringExtra(Const.IntentKey.PLACE_ORIGIN);
-        fillCodeList(intent.getParcelableArrayListExtra(Const.IntentKey.DATA));
-        calcRadio();
-    }
-
-    private void fillCodeList(ArrayList<SNCodeEntity> list) {
-        if (null == list || list.isEmpty()) {
-            asyncLogic(() -> {
-                int count = getSNCodeDao().count(taskCode);
-                if (count > 0) {
-                    sendSingleLiveEvent(Const.Message.MSG_DIALOG, true);
-                }
-            });
-        } else {
-            codeList.addAll(list);
-            scanCount.set(codeList.size());
-        }
-        isFocus.set(true);
     }
 
     /**
@@ -196,33 +166,62 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
         return false;
     }
 
+    public void initData(Intent intent) {
+        taskCode = intent.getStringExtra(Const.IntentKey.CODE);
+        goodName.set(intent.getStringExtra(Const.IntentKey.GOODS_NAME));
+        goodUnitName.set(intent.getStringExtra(Const.IntentKey.GOODS_UNIT_NAME));
+        goodsCount = intent.getIntExtra(Const.IntentKey.GOODS_COUNT, 0);
+        gmtManufacture = intent.getStringExtra(Const.IntentKey.DATE_MANUFACTURE);
+        placeOrigin = intent.getStringExtra(Const.IntentKey.PLACE_ORIGIN);
+        fillCodeList(intent.getParcelableArrayListExtra(Const.IntentKey.DATA));
+        calcRadio();
+    }
+
+    /**
+     * 填充批次号列表
+     */
+    private void fillCodeList(ArrayList<SNCodeEntity> list) {
+        if (null == list || list.isEmpty()) {
+            getSNCodeDao().count(taskCode)
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(res -> {
+                        if (res > 0) sendSingleLiveEvent(Const.Message.MSG_DIALOG, true);
+                    });
+        } else {
+            codeList.addAll(list);
+            scanCount.set(codeList.size());
+        }
+    }
+
     /**
      * 恢复记录
      */
     public void restoreRecords() {
-        asyncLogic(() -> {
-            codeList.addAll(getSNCodeDao().getByTask(taskCode));
-            scanCount.set(codeList.size());
-            calcRadio();
-        });
+        getSNCodeDao().getByTask(taskCode)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(data -> {
+                    codeList.addAll(data);
+                    scanCount.set(codeList.size());
+                    calcRadio();
+                });
     }
 
     /**
      * 丢弃记录
      */
     public void discardRecords() {
-        asyncLogic(() -> getSNCodeDao().deleteByTask(taskCode));
+        getSNCodeDao().deleteByTask(taskCode)
+                .subscribeOn(Schedulers.io()).subscribe();
     }
 
     /**
      * 暂存
      */
     public void saveAll() {
-        asyncLogic(() -> {
-            getSNCodeDao().deleteByTask(taskCode);
-            getSNCodeDao().saveBatch(codeList);
-            sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true);
-        });
+        CompletableConcat.concatArray(getSNCodeDao().deleteByTask(taskCode), getSNCodeDao().saveBatch(codeList))
+                .subscribeOn(Schedulers.io())
+                .subscribe(() -> sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true));
     }
 
     /**

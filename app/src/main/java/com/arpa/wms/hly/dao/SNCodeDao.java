@@ -1,13 +1,17 @@
 package com.arpa.wms.hly.dao;
 
-import com.arpa.wms.hly.bean.SNCodeEntity;
-
-import java.util.List;
-
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+
+import com.arpa.wms.hly.bean.SNCodeEntity;
+
+import java.util.List;
+
+import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Single;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -23,35 +27,35 @@ public interface SNCodeDao {
     void insert(SNCodeEntity searchHistory);
 
     @Query("select * from SNCodeEntity where taskCode= :taskCode and snCode= :snCode")
-    SNCodeEntity exists(String taskCode, String snCode);
+    Flowable<SNCodeEntity> exists(String taskCode, String snCode);
 
     /**
      * 删除一条序列号
      */
     @Query("delete from SNCodeEntity where taskCode= :taskCode and snCode= :snCode")
-    void delete(String taskCode, String snCode);
+    Completable delete(String taskCode, String snCode);
 
     /**
      * 删除一批序列号
      */
     @Query("delete from SNCodeEntity where taskCode= :taskCode")
-    void deleteByTask(String taskCode);
+    Completable deleteByTask(String taskCode);
 
     /**
-     * 删除一批序列号
+     * 查询任务号下的序列号数量
      */
     @Query("select count(*) from SNCodeEntity where taskCode= :taskCode")
-    int count(String taskCode);
+    Single<Integer> count(String taskCode);
 
     /**
      * 获取所有序列号
      */
-    @Query("SELECT * FROM SNCodeEntity where taskCode= :taskCode")
-    List<SNCodeEntity> getByTask(String taskCode);
+    @Query("SELECT * FROM SNCodeEntity where taskCode= :taskCode order by snCode desc")
+    Single<List<SNCodeEntity>> getByTask(String taskCode);
 
     /**
      * 批量存储
      */
     @Insert
-    void saveBatch(List<SNCodeEntity> items);
+    Completable saveBatch(List<SNCodeEntity> items);
 }
