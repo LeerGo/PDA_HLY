@@ -8,6 +8,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 
 import com.arpa.and.arch.base.BaseModel;
@@ -50,6 +51,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public ObservableField<String> radio = new ObservableField<>("0.00%");
     public ObservableArrayList<SNCodeEntity> codeList = new ObservableArrayList<>();
     public ObservableField<Integer> scanCount = new ObservableField<>();
+    public ObservableBoolean isFocus = new ObservableBoolean(false);
     public int goodsCount; // 商品数，用以计算扫码比例
     private String taskCode;
     private String gmtManufacture; // 生产日期
@@ -124,13 +126,17 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
             codeList.addAll(list);
             scanCount.set(codeList.size());
         }
+        isFocus.set(true);
     }
 
     /**
      * 添加 tag
      */
     public void addTag(String snCode) {
-        if (inputInvalid(snCode)) return;
+        if (inputInvalid(snCode)) {
+            isFocus.set(true);
+            return;
+        }
         addData();
         calcRadio();
     }

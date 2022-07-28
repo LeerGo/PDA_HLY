@@ -104,6 +104,7 @@ public class GoodsRecheckBatchActivity
     @Override
     public void handleMessage(Message msg) {
         if (msg.what == MSG_ADD_TAG) {
+            viewModel.isFocus.set(false);
             viewModel.addTag((String) msg.obj);
             viewBind.wiiInput.setInputText("");
         }

@@ -3,24 +3,24 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
-        
+
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch"/>
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch" />
     </data>
-    
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        
+
         <com.arpa.wms.hly.ui.widget.WidgetTitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:wtbTitle="批次登记"/>
-        
+            app:wtbTitle="批次登记" />
+
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
             style="@style/ItemRecheckBatchStyle"
             android:paddingHorizontal="@dimen/dp_15"
@@ -29,15 +29,15 @@
             app:propsKeySize="15sp"
             app:propsValue="@{viewModel.goodName}"
             app:propsValueGravity="end"
-            tools:propsValue="伊利优酸乳"/>
-        
+            tools:propsValue="伊利优酸乳" />
+
         <ScrollView
             android:id="@+id/svScroll"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:scrollbars="none">
-            
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -46,14 +46,14 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:paddingHorizontal="@dimen/dp_15">
-    
+
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/ItemRecheckBatchStyle"
                     app:propsKey="单位"
                     app:propsKeyColor="@color/color_434c67"
                     app:propsValue="@{viewModel.goodUnitName}"
                     app:propsValueGravity="end"
-                    tools:propsValue="箱"/>
+                    tools:propsValue="箱" />
 
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/ItemRecheckBatchStyle"
@@ -61,32 +61,32 @@
                     app:propsKeyColor="@color/color_434c67"
                     app:propsValue="@{String.valueOf(viewModel.scanCount)}"
                     app:propsValueGravity="end"
-                    tools:propsValue="箱"/>
-    
+                    tools:propsValue="箱" />
+
                 <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                     style="@style/ItemRecheckBatchStyle"
                     app:propsKey="扫码比例"
                     app:propsKeyColor="@color/color_434c67"
                     app:propsValue="@{viewModel.radio}"
                     app:propsValueGravity="end"
-                    tools:propsValue="0.00%"/>
-    
+                    tools:propsValue="0.00%" />
+
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1px"
-                    android:background="@color/grey_eeeeee"/>
-    
+                    android:background="@color/grey_eeeeee" />
+
                 <androidx.appcompat.widget.LinearLayoutCompat
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:minHeight="50dp"
                     android:paddingTop="4dp"
-                    android:paddingBottom="6dp"
-                    android:minHeight="50dp">
+                    android:paddingBottom="6dp">
 
                     <androidx.appcompat.widget.AppCompatTextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:paddingTop="6dp"
                         android:text="批次号"
                         android:textColor="@color/color_434c67" />
@@ -95,14 +95,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
-                        app:items="@{viewModel.codeList}"
                         app:itemBinding="@{viewModel.itemBinding}"
+                        app:items="@{viewModel.codeList}"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:listitem="@layout/item_batch_code" />
                 </androidx.appcompat.widget.LinearLayoutCompat>
             </androidx.appcompat.widget.LinearLayoutCompat>
         </ScrollView>
-        
+
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -110,48 +110,49 @@
             android:orientation="vertical"
             android:paddingHorizontal="12dp"
             android:paddingBottom="12dp">
-            
+
             <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:id="@+id/wiiInput"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
+                app:inputFocus="@{viewModel.isFocus}"
                 app:inputHint="请扫描/输入批次号"
                 app:inputIcon="@mipmap/ic_scan"
-                app:inputTitle="批次号"/>
-            
+                app:inputTitle="批次号" />
+
             <View
                 android:id="@+id/view2"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
-                android:background="@color/grey_eeeeee"/>
-            
+                android:background="@color/grey_eeeeee" />
+
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-                
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/acbSave"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_marginEnd="10dp"
-                    android:onClick="@{()-> viewModel.saveAll()}"
                     android:layout_weight="1"
                     android:background="@drawable/shape_rrect_blue_border_r5"
+                    android:onClick="@{()-> viewModel.saveAll()}"
                     android:text="暂存"
                     android:textColor="@color/colorPrimary"
-                    android:textSize="18sp"/>
-                
+                    android:textSize="18sp" />
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/acbSure"
                     android:layout_width="0dp"
                     android:layout_height="40dp"
                     android:layout_weight="1"
                     android:background="@drawable/shape_rrect_blue_gradient_r5"
-                    android:text="确认"
                     android:onClick="@{()-> viewModel.confirm()}"
+                    android:text="确认"
                     android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp" />
             </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
