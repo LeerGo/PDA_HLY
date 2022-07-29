@@ -47,7 +47,6 @@ public class GoodsRecheckBatchActivity
         sHandler = new WeakHandler<>(GoodsRecheckBatchActivity.this);
         viewBind.setViewModel(viewModel);
         viewModel.initData(getIntent());
-        viewBind.wiiInput.setInputFocus(true);
         viewBind.wiiInput.addOnEditor((v, actionId, event) -> {
             if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
                 postMsgDelayed(v.getText().toString());
@@ -112,10 +111,9 @@ public class GoodsRecheckBatchActivity
     @Override
     public void handleMessage(Message msg) {
         if (msg.what == MSG_ADD_TAG) {
-            viewBind.wiiInput.setInputFocus(false);
+            viewModel.isFocus.set(false);
             viewModel.addTag((String) msg.obj);
             viewBind.wiiInput.setInputText("");
-            viewBind.wiiInput.setInputFocus(true);
         }
     }
 }

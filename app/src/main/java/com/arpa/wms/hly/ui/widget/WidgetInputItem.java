@@ -231,16 +231,15 @@ public class WidgetInputItem extends RelativeLayout {
     /**
      * 设置输入焦点
      */
-    public void setInputFocus(boolean inputFocus) {
-        if (etInput.isFocusable() == inputFocus) return;
-        if (!inputFocus) {
-            etInput.setFocusable(false);
-            etInput.clearFocus();
-        } else {
+    private void setInputFocus(boolean inputFocus) {
+        if (inputFocus) {
             etInput.setFocusableInTouchMode(true);
             etInput.setFocusable(true);
             etInput.findFocus();
             etInput.requestFocus();
+        } else {
+            etInput.setFocusable(false);
+            etInput.clearFocus();
         }
     }
 
