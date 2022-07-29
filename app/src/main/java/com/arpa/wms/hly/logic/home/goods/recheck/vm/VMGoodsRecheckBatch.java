@@ -53,9 +53,9 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public ObservableField<Integer> scanCount = new ObservableField<>();
     public int goodsCount; // 商品数，用以计算扫码比例
     public SoundPlayer player;
-    private String taskCode;
     public ObservableField<String> gmtManufacture = new ObservableField<>(); // 生产日期
     public ObservableField<String> placeOrigin = new ObservableField<>(); // 产地
+    private String taskCode;
     private SNCodeEntity entity;
 
     @Inject
