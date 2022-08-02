@@ -1,5 +1,6 @@
 package com.arpa.wms.hly.net;
 
+import com.arpa.wms.hly.bean.GoodsInfo;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
@@ -211,14 +212,14 @@ public interface ApiService {
      */
     @DomainName(API.KEY_WMS)
     @GET("/wms/pda/moveTask/scanGoods")
-    Call<Result<ResMoveGoods>> scanGoods(@QueryMap Map<String, Object> data);
+    Call<Result<List<GoodsInfo>>> scanGoods(@Query("location") String location);
 
     /**
      * 无计划扫描商品 - 列表
      */
     @DomainName(API.KEY_WMS)
     @GET("/wms/pda/moveTask/goodsListDetail")
-    Call<Result<ResMoveGoods>> scanGoodsListDetail(@QueryMap Map<String, Object> data);
+    Call<Result<Object>> scanGoodsListDetail(@QueryMap Map<String, Object> data);
 
     /**
      * 无计划扫描商品 - 详情
@@ -232,7 +233,7 @@ public interface ApiService {
      */
     @POST("/wms/pda/moveTask/moveConfirm")
     @DomainName(API.KEY_WMS)
-    Call<Result<ResMoveGoods>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
+    Call<Result<Object>> scanGoodsSure(@Body ReqMoveSure reqMoveSure);
 
     /**
      * 获取装车列表

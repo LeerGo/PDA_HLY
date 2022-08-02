@@ -62,9 +62,6 @@
         <activity android:name=".logic.home.truckload.TruckLoadDetailActivity" />
         <activity android:name=".logic.home.truckload.TruckLoadConfirmActivity" />
         <!--移位-->
-        <activity android:name=".logic.home.inventory.move.ScanLocationActivity" />
-        <activity android:name=".logic.home.inventory.move.ScanGoodsActivity" />
-        <activity android:name=".logic.home.inventory.move.ScanGoodsDetailActivity" />
         <activity android:name=".logic.home.inventory.move.ScanGoodsSureActivity" />
         <!--库存查询-->
         <activity android:name=".logic.home.inventory.query.InventoryQueryActivity" />

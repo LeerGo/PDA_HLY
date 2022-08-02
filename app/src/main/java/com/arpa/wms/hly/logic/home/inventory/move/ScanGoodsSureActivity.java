@@ -8,7 +8,6 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityScanGoodsSureBinding;
 import com.arpa.wms.hly.logic.home.inventory.move.vm.VMScanGoodsSure;
-import com.arpa.wms.hly.ui.listener.ViewListener;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -34,12 +33,6 @@ public class ScanGoodsSureActivity extends WrapBaseActivity<VMScanGoodsSure, Act
         super.initData(savedInstanceState);
 
         viewBind.setViewModel(viewModel);
-        viewBind.wsbSearch.setOnSearchClick(new ViewListener.DataTransCallback<String>() {
-            @Override
-            public void transfer(String data) {
-                viewModel.searchGoodsOnLocation(data);
-            }
-        });
-        // viewModel.getScanGoodsDetail(getIntent().getParcelableExtra(IntentKey.DATA));
+        viewBind.wsbSearch.setOnSearchClick(data -> viewModel.searchGoodsOnLocation(data));
     }
 }

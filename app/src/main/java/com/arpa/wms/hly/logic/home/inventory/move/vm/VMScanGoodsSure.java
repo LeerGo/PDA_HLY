@@ -4,25 +4,27 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 
+import com.arpa.and.arch.BR;
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
+import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
-import com.arpa.wms.hly.bean.base.Result;
-import com.arpa.wms.hly.bean.req.ReqMoveGoods;
+import com.arpa.wms.hly.bean.GoodsInfo;
 import com.arpa.wms.hly.bean.req.ReqMoveSure;
-import com.arpa.wms.hly.bean.res.ResMoveGoods;
-import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.NumberUtils;
-import com.arpa.wms.hly.utils.ToastUtils;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import retrofit2.Call;
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -35,9 +37,12 @@ import retrofit2.Call;
  */
 @HiltViewModel
 public class VMScanGoodsSure extends WrapDataViewModel {
-    public ObservableField<ResMoveGoodsSure> liveData = new ObservableField<>();
     public ObservableField<Integer> moveQuantity = new ObservableField<>();
     public ObservableField<String> moveLocation = new ObservableField<>();
+    public ObservableField<String> outLocation = new ObservableField<>();
+    public ObservableArrayList<GoodsInfo> items = new ObservableArrayList<>();
+    private Integer maxMoveQuantity = 0;
+    private int selectIndex = -1;
 
     @Inject
     public VMScanGoodsSure(@NonNull Application application, BaseModel model) {
@@ -45,69 +50,50 @@ public class VMScanGoodsSure extends WrapDataViewModel {
     }
 
     /**
-     * 获取移位商品详情
-     */
-    public void getScanGoodsDetail(ReqMoveGoods reqMoveGoods) {
-        updateStatus(StatusEvent.Status.LOADING);
-        apiService.scanGoodsDetail(reqMoveGoods.toParams())
-                .enqueue(new ResultCallback<ResMoveGoodsSure>() {
-                    @Override
-                    public void onSuccess(ResMoveGoodsSure data) {
-                        updateStatus(StatusEvent.Status.SUCCESS);
-                        liveData.set(data);
-                    }
-
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage(), true);
-                        updateStatus(StatusEvent.Status.ERROR);
-                    }
-                });
-    }
-
-    /**
      * 移位确认
      */
     public void moveConfirm() {
+        if (-1 == selectIndex) {
+            sendMessage("请选中移位商品");
+            return;
+        }
         if (null == moveQuantity.get()) {
-            ToastUtils.showShort("请输入移位数量");
+            sendMessage("请输入移位数量");
             return;
         }
         if (TextUtils.isEmpty(moveLocation.get())) {
-            ToastUtils.showShort("请输入移入库位");
+            sendMessage("请输入移入库位");
             return;
         }
-        if (NumberUtils.isLarger(moveQuantity.get(), liveData.get().getInventoryList().get(0).getQuantity())) {
-            ToastUtils.showShort("填写数量不能大于移位数量");
+        if (NumberUtils.isLarger(moveQuantity.get(), maxMoveQuantity)) {
+            sendMessage("填写数量不能大于移位数量");
             return;
         }
 
         updateStatus(StatusEvent.Status.LOADING);
+        GoodsInfo data = items.get(selectIndex);
         ReqMoveSure reqMoveSure = new ReqMoveSure();
-        reqMoveSure.setCode(liveData.get().getInventoryList().get(0).getCode());
-        reqMoveSure.setContainerBarCode(liveData.get().getInventoryList().get(0).getContainerBarCode());
+        reqMoveSure.setGoodsCode(data.getGoodsCode());
+        reqMoveSure.setLocation(outLocation.get());
         reqMoveSure.setMoveLocation(moveLocation.get());
-        reqMoveSure.setMoveQuantity(moveQuantity.get().toString());
-        apiService.scanGoodsSure(reqMoveSure)
-                .enqueue(new ResultCallback<ResMoveGoods>() {
-                    @Override
-                    public void onResponse(Call<Result<ResMoveGoods>> call, Result<ResMoveGoods> result) {
-                        super.onResponse(call, result);
-                        ToastUtils.showShort(result.getMsg());
-                    }
+        reqMoveSure.setMoveQuantity(moveQuantity.get());
+        apiService.scanGoodsSure(reqMoveSure).enqueue(new ResultCallback<>() {
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage(), true);
-                        updateStatus(StatusEvent.Status.ERROR);
-                    }
+            @Override
+            public void onSuccess(Object data) {
+                updateStatus(StatusEvent.Status.SUCCESS);
+                sendMessage(R.string.request_success);
+                searchGoodsOnLocation(outLocation.get());
+                moveLocation.set(null);
+                moveQuantity.set(null);
+            }
 
-                    @Override
-                    public void onSuccess(ResMoveGoods data) {
-                        updateStatus(StatusEvent.Status.SUCCESS);
-                        finish();
-                    }
-                });
+            @Override
+            public void onFailed(ResultError error) {
+                sendMessage(error.getMessage(), true);
+                updateStatus(StatusEvent.Status.ERROR);
+            }
+        });
     }
 
     /**
@@ -118,5 +104,41 @@ public class VMScanGoodsSure extends WrapDataViewModel {
             sendMessage("库位不得为空");
             return;
         }
+        outLocation.set(location);
+        updateStatus(StatusEvent.Status.LOADING);
+        /*KW002*/
+        apiService.scanGoods(location).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(List<GoodsInfo> data) {
+                updateStatus(StatusEvent.Status.SUCCESS);
+                items.clear();
+                items.addAll(data);
+            }
+
+            @Override
+            public void onFailed(ResultError error) {
+                updateStatus(StatusEvent.Status.ERROR);
+                sendMessage(error.getMessage());
+            }
+        });
+    }
+
+    public ItemBinding<GoodsInfo> getItemBinding() {
+        ItemBinding<GoodsInfo> itemBinding = ItemBinding.of(BR.data, R.layout.item_move_goods);
+        itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsInfo>) data -> {
+            int currentIndex = items.indexOf(data);
+            if (currentIndex == selectIndex) {
+                data.setSelect(false);
+                selectIndex = -1;
+            } else {
+                if (selectIndex != -1) {
+                    items.get(selectIndex).setSelect(false);
+                }
+                data.setSelect(true);
+                selectIndex = currentIndex;
+            }
+            if (data.isSelect()) maxMoveQuantity = data.getQuantity();
+        });
+        return itemBinding;
     }
 }

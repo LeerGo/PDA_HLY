@@ -28,15 +28,17 @@
             android:id="@+id/wsbSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:wsbHint="请输入/扫描库位"
-            android:layout_marginHorizontal="10dp" />
+            android:layout_marginHorizontal="10dp"
+            app:wsbHint="请输入/扫描库位" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="0dp"
+            android:layout_weight="1"
+            app:itemBinding="@{viewModel.itemBinding}"
+            app:items="@{viewModel.items}"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/item_move_goods"
-            android:layout_weight="1" />
+            tools:listitem="@layout/item_move_goods" />
 
         <androidx.appcompat.widget.LinearLayoutCompat
             android:layout_width="match_parent"
@@ -47,22 +49,20 @@
             app:divider="@drawable/divider_line_horizontal"
             app:showDividers="middle">
 
-            <!--app:inputValue="@={viewModel.moveQuantity}"-->
             <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 app:inputEnable="false"
                 app:inputHint="暂无移出库位"
-                app:inputTitle="移出库位" />
-
+                app:inputTitle="移出库位"
+                app:inputText="@{viewModel.outLocation}" />
 
             <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 app:inputHint="请扫描/输入移位数量"
-                app:inputMax="@{viewModel.liveData.inventoryList.get(0).quantity}"
                 app:inputTitle="移位数量"
                 app:inputType="number"
                 app:inputValue="@={viewModel.moveQuantity}" />
