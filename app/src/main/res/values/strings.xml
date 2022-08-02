@@ -12,7 +12,6 @@
     <string name="car_number">车牌号：%s</string>
     <string name="custodian">保管员：</string>
     <string name="assign_time">指派时间：</string>
-    <string name="issue_time">下发时间：</string>
     <string name="loading_high">装车高度：</string>
     <string name="custom">客户：</string>
     <string name="data_empty">查询结果为空</string>
@@ -21,14 +20,12 @@
     <string name="error_password_wrong">密码错误，请重新输入</string>
     <string name="error_user_not_exist">当前用户不存在</string>
     <string name="failure_result_common">获取失败</string>
-    <string name="failure_warehouse_list">该账号未分配仓库</string>
     <string name="forklift">叉车工：</string>
     <string name="goods_location">库位：%s</string>
     <string name="goods_name">商品名称：%s</string>
     <string name="goods_take_number">商品编码：%s</string>
     <string name="hint_enter_password">请输入密码</string>
     <string name="hint_enter_phone">请输入手机号</string>
-    <string name="hint_please_enter_goodsbar">请扫描/输入商品条码</string>
     <string name="hint_please_enter_content">请扫描/输入内容</string>
     <string name="hint_please_enter_location">请扫描/输入移出库位</string>
     <string name="line_take_no">排队号：</string>
@@ -43,11 +40,8 @@
     <string name="picking_location">拣货库位：%s</string>
     <string name="request_success">操作成功</string>
     <string name="select_all">全选</string>
-    <string name="status_lock">/已锁定</string>
-    <string name="status_unlock">/未锁定</string>
     <string name="stevedore">装卸工：</string>
     <string name="sure">确定</string>
-    <string name="task_number_goods_take">收货任务号：%s</string>
     <string name="title_choose_warehouse">请选择登录仓库</string>
     <string name="title_home">首页</string>
     <string name="title_mine">我的</string>
