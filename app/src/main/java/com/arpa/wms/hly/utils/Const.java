@@ -196,5 +196,6 @@ public interface Const {
         int MSG_FINISH_RESULT = 0x2;
         int MSG_BATCH_VERIFY = 0x3;
         int MSG_BATCH_CONFIRM = 0x4;
+        int MSG_BATCH_REPEAT = 0x5;
     }
 }

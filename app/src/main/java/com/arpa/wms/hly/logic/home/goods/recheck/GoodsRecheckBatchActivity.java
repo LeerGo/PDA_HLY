@@ -76,6 +76,10 @@ public class GoodsRecheckBatchActivity
                     finishResult();
                     break;
 
+                case Const.Message.MSG_BATCH_REPEAT:
+                    showDialogFragment(new DialogTips("校验提示", "该批次号已录入", () -> {}));
+                    break;
+
                 default:
                     break;
             }

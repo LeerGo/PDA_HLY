@@ -173,7 +173,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
             return true;
         }
         if (codeList.contains(new SNCodeEntity(taskCode, text))) {
-            sendMessage("该批次号已录入");
+            sendSingleLiveEvent(Const.Message.MSG_BATCH_REPEAT);
             player.play(R.raw.scan_failed);
             return true;
         }
