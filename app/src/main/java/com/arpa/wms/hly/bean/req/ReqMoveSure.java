@@ -15,6 +15,9 @@ public class ReqMoveSure extends ReqBase {
     private Integer moveQuantity;
     private String moveLocation;
     private String location;
+    private String goodsStatus;
+    private String gmtManufacture;
+    private String extendOne;
 
     public ReqMoveSure() {
         warehouseCode = SPUtils.getInstance().getString(SPKEY.WAREHOUSE_CODE);
@@ -50,5 +53,29 @@ public class ReqMoveSure extends ReqBase {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getGoodsStatus() {
+        return goodsStatus;
+    }
+
+    public void setGoodsStatus(String goodsStatus) {
+        this.goodsStatus = goodsStatus;
+    }
+
+    public String getGmtManufacture() {
+        return gmtManufacture;
+    }
+
+    public void setGmtManufacture(String gmtManufacture) {
+        this.gmtManufacture = gmtManufacture;
+    }
+
+    public String getExtendOne() {
+        return extendOne;
+    }
+
+    public void setExtendOne(String extendOne) {
+        this.extendOne = extendOne;
     }
 }

@@ -10,6 +10,7 @@ import java.util.Objects;
 public class GoodsInfo extends SelectItem {
     private String goodsCode;
     private String goodsName;
+    private String goodsStatus;
     private String goodsStatusName;
     private Integer quantity;
     private String extendOne;
@@ -29,6 +30,14 @@ public class GoodsInfo extends SelectItem {
 
     public void setGoodsName(String goodsName) {
         this.goodsName = goodsName;
+    }
+
+    public String getGoodsStatus() {
+        return goodsStatus;
+    }
+
+    public void setGoodsStatus(String goodsStatus) {
+        this.goodsStatus = goodsStatus;
     }
 
     public String getGoodsStatusName() {

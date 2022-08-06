@@ -77,6 +77,9 @@ public class VMScanGoodsSure extends WrapDataViewModel {
         reqMoveSure.setLocation(outLocation.get());
         reqMoveSure.setMoveLocation(moveLocation.get());
         reqMoveSure.setMoveQuantity(moveQuantity.get());
+        reqMoveSure.setExtendOne(data.getExtendOne());
+        reqMoveSure.setGmtManufacture(data.getGmtManufacture());
+        reqMoveSure.setGoodsStatus(data.getGoodsStatus());
         apiService.scanGoodsSure(reqMoveSure).enqueue(new ResultCallback<>() {
 
             @Override
@@ -117,6 +120,7 @@ public class VMScanGoodsSure extends WrapDataViewModel {
 
             @Override
             public void onFailed(ResultError error) {
+                items.clear();
                 updateStatus(StatusEvent.Status.ERROR);
                 sendMessage(error.getMessage());
             }
