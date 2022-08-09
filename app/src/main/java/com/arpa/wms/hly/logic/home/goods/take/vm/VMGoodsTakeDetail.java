@@ -2,18 +2,18 @@ package com.arpa.wms.hly.logic.home.goods.take.vm;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.logic.common.vm.VMPdaTaskDetail;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
-import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.Arrays;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
@@ -45,12 +45,15 @@ public class VMGoodsTakeDetail extends VMPdaTaskDetail {
                 .enqueue(new ResultCallback<ResTaskAssign>() {
                     @Override
                     public void onSuccess(ResTaskAssign data) {
-                        headerData.postValue(data);
+                        if (null != data) {
+                            headerData.postValue(data);
+                        }
                     }
 
                     @Override
                     public void onFailed(ResultError error) {
-                        ToastUtils.showShort(error.getMessage());
+                        sendMessage(error.getMessage());
+                        finish();
                     }
                 });
     }
