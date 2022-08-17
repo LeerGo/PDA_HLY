@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.DensityUtils;
 
 /**
@@ -22,8 +23,10 @@ import com.arpa.wms.hly.utils.DensityUtils;
  * </p>
  */
 public class WidgetTitleBar extends RelativeLayout {
+    public ViewListener.VoidCallback onBack;
     private ImageView ivBack;
     private TextView tvTitle;
+
 
     public WidgetTitleBar(Context context) {
         super(context);
@@ -60,6 +63,14 @@ public class WidgetTitleBar extends RelativeLayout {
     }
 
     private void bindAction(Context context) {
-        ivBack.setOnClickListener(v -> ((Activity) context).finish());
+        if (null != onBack) {
+            ivBack.setOnClickListener(v -> onBack.call());
+        } else {
+            ivBack.setOnClickListener(v -> ((Activity) context).finish());
+        }
+    }
+
+    public void setOnBack(ViewListener.VoidCallback onBack) {
+        this.onBack = onBack;
     }
 }

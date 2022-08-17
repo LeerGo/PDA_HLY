@@ -8,6 +8,8 @@
 
         <import type="android.text.TextUtils" />
 
+        <import type="com.arpa.wms.hly.utils.Const" />
+
         <variable
             name="viewModel"
             type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch" />
@@ -21,6 +23,7 @@
         <com.arpa.wms.hly.ui.widget.WidgetTitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:onBack="@{() ->viewModel.sendSingleLiveEvent(Const.Message.MSG_BATCH_SAVE)}"
             app:wtbTitle="批次登记" />
 
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
