@@ -3,8 +3,6 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
-import android.view.KeyEvent;
-import android.view.inputmethod.EditorInfo;
 
 import androidx.annotation.Nullable;
 
@@ -47,12 +45,10 @@ public class GoodsRecheckBatchActivity
         sHandler = new WeakHandler<>(GoodsRecheckBatchActivity.this);
         viewBind.setViewModel(viewModel);
         viewModel.initData(getIntent());
-        viewBind.wiiInput.addOnEditor((v, actionId, event) -> {
-            if (actionId == EditorInfo.IME_ACTION_DONE || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                postMsgDelayed(v.getText().toString());
-            }
-            return false;
+        viewBind.wiiInput.setOnTextChanged(data -> {
+            if (!viewModel.isManually.get()) postMsgDelayed(data);
         });
+        viewBind.btnManually.setOnClickListener(v -> postMsgDelayed(viewBind.wiiInput.getInputText()));
         viewModel.getSingleLiveEvent().observeForever(message -> {
             switch (message.what) {
 
@@ -99,7 +95,7 @@ public class GoodsRecheckBatchActivity
         if (sHandler.hasMessages(MSG_ADD_TAG)) {
             sHandler.removeMessages(MSG_ADD_TAG);
         }
-        sHandler.sendMessage(message);
+        sHandler.sendMessageDelayed(message, 500);
     }
 
     private void finishResult() {

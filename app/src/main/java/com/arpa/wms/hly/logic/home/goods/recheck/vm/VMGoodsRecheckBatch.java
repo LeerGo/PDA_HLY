@@ -57,6 +57,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public SoundPlayer player;
     public ObservableField<String> gmtManufacture = new ObservableField<>(); // 生产日期
     public ObservableField<String> placeOrigin = new ObservableField<>(); // 产地
+    public ObservableBoolean isManually = new ObservableBoolean();
     private String taskCode;
     private SNCodeEntity entity;
 
@@ -272,5 +273,12 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
                     "3、上下批次时间为" + diff;
             sendSingleLiveEvent(msg);
         }
+    }
+
+    /**
+     * 开启手动模式
+     */
+    public void manuallyMode(boolean isManually) {
+        this.isManually.set(isManually);
     }
 }
