@@ -75,6 +75,7 @@ public class GoodsRecheckBatchActivity
                 case Const.Message.MSG_BATCH_REPEAT:
                     showDialogFragment(new DialogTips("校验提示", "该批次号已录入", () -> {}));
                     break;
+                    
                 case Const.Message.MSG_BATCH_SAVE:
                     showDialogFragment(new DialogTips("提示", "扫描数据是否需要暂存？", () -> viewModel.saveAll(), () -> viewModel.finish()));
                     break;

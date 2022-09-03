@@ -150,7 +150,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
             isFocus.set(true);
             return;
         }
-        player.play(R.raw.scan_success);
+        // player.play(R.raw.scan_success);
         addData();
         calcRadio();
     }
