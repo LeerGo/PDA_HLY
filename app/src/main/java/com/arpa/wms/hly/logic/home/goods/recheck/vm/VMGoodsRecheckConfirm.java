@@ -15,6 +15,7 @@ import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
 import com.arpa.wms.hly.bean.req.ReqRecheckConfirm;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
+import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.ArrayList;
@@ -80,8 +81,11 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         });
     }
 
-    // FIXME: 不动生产数据，临时屏蔽操作 add by 李一方 2022-06-27 01:54:05
     public void confirm() {
+        sendSingleLiveEvent(Const.Message.MSG_DIALOG);
+    }
+
+    public void submit(){
         if (TextUtils.isEmpty(recheckQuantity.get())) {
             ToastUtils.showShortSafe("请输入复核数量");
             return;

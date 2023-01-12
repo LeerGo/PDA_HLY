@@ -27,7 +27,6 @@ public class WidgetTitleBar extends RelativeLayout {
     private ImageView ivBack;
     private TextView tvTitle;
 
-
     public WidgetTitleBar(Context context) {
         super(context);
     }
@@ -47,7 +46,12 @@ public class WidgetTitleBar extends RelativeLayout {
 
     private void initAttrs(Context context, AttributeSet attrs) {
         TypedArray typedArray = context.obtainStyledAttributes(attrs, R.styleable.WidgetTitleBar);
-        int padding = (int) typedArray.getDimension(R.styleable.WidgetTitleBar_wtbBackPadding, DensityUtils.dip2px(12));
+        int padding;
+        if (isInEditMode()) {
+            padding = 32;
+        } else {
+            padding = (int) typedArray.getDimension(R.styleable.WidgetTitleBar_wtbBackPadding, DensityUtils.dip2px(12));
+        }
         setWtbTitle(typedArray.getString(R.styleable.WidgetTitleBar_wtbTitle));
         if (typedArray.getBoolean(R.styleable.WidgetTitleBar_wtbShowBack, true)) {
             ivBack.setPadding(padding, padding, padding, padding);

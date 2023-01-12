@@ -11,6 +11,8 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityGoodsRecheckConfirmBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckConfirm;
+import com.arpa.wms.hly.ui.dialog.DialogTips;
+import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.SpanUtil;
 
@@ -55,6 +57,11 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
                 getIntent().getStringExtra(IntentKey.OUTBOUND_CODE),
                 getIntent().getStringExtra(IntentKey.OUTBOUND_ITEM_CODE)
         );
+        registerSingleLiveEvent(msg -> {
+            if (Const.Message.MSG_DIALOG == msg.what) {
+                showDialogFragment(new DialogTips("提示", "数据是否录入完毕，确认提交？", () -> viewModel.submit(), () -> {}));
+            }
+        });
         viewBind.acbBatchRegist.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
             bundle.putString(IntentKey.CODE, viewModel.request.getOutboundItemCode());
