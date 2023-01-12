@@ -87,7 +87,9 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      * 计算扫描百分比
      */
     public void calcRadio() {
-        BigDecimal result = BigDecimal.valueOf(codeList.size())
+        BigDecimal result;
+        if (0 == goodsCount) result = BigDecimal.ZERO;
+        else result = BigDecimal.valueOf(codeList.size())
                 .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
                 .multiply(BigDecimal.valueOf(100))
                 .setScale(2, BigDecimal.ROUND_HALF_UP);
