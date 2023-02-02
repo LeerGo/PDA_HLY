@@ -4,7 +4,10 @@ import android.view.Gravity;
 import android.view.Window;
 import android.view.WindowManager;
 
+import androidx.databinding.ViewDataBinding;
+
 import com.arpa.and.arch.base.BaseDialogFragment;
+import com.arpa.and.arch.base.BaseViewModel;
 import com.arpa.wms.hly.R;
 
 /**
@@ -16,7 +19,8 @@ import com.arpa.wms.hly.R;
  * Base: 针对底部弹窗的基础封装
  * </p>
  */
-public abstract class BaseBottomDialogFragment extends BaseDialogFragment {
+public abstract class BaseBottomDialogFragment<VM extends BaseViewModel, VDB extends ViewDataBinding>
+        extends BaseDialogFragment<VM, VDB> {
     @Override
     protected void setWindow(Window window, float widthRatio) {
         WindowManager.LayoutParams lp = window.getAttributes();

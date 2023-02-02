@@ -41,7 +41,6 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     public ObservableField<GoodsItemVO> detail = new ObservableField<>();
     public String obvBatchCode;
     public ArrayList<SNCodeEntity> batchCodeList = new ArrayList<>();
-    ;
     public ObservableField<String> recheckQuantity = new ObservableField<>();
     // 最新批次号
     public ObservableField<String> latestBatchNo = new ObservableField<>();

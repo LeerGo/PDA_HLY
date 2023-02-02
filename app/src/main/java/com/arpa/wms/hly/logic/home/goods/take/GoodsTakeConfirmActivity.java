@@ -2,6 +2,9 @@ package com.arpa.wms.hly.logic.home.goods.take;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
+
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
@@ -12,13 +15,12 @@ import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
 import com.arpa.wms.hly.ui.dialog.DialogDateSelect;
 import com.arpa.wms.hly.ui.dialog.DialogGoodStatusSelect;
 import com.arpa.wms.hly.ui.dialog.DialogGoodsTaskScan;
+import com.arpa.wms.hly.ui.dialog.DialogLocation;
 import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.DateType;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
-import androidx.annotation.Nullable;
-import androidx.lifecycle.Observer;
 import dagger.hilt.android.AndroidEntryPoint;
 
 /**
@@ -50,6 +52,12 @@ public class GoodsTakeConfirmActivity extends WrapBaseActivity<VMGoodsTakeConfir
         viewModel.supplier = getIntent().getStringExtra(IntentKey.SUPPLIER);
         viewModel.dialogMsg.observe(this, (Observer<String>) msg -> showDialogFragment(new DialogTips(msg)));
         viewModel.itemBinding
+                .bindExtra(BR.onLocationClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) -> {
+                    showDialogFragment(new DialogLocation(data -> {
+                        raw.setLocation(data);
+                        viewModel.update(position, raw);
+                    }));
+                })
                 .bindExtra(BR.onStatusClick, (ViewListener.OnItemClickListener<GoodsItemVO>) (view, position, raw) ->
                         showDialogFragment(new DialogGoodStatusSelect(raw.getGoodsStatus(), viewModel.detail.get().getInventoryStatusList(),
                                 data -> {

@@ -278,6 +278,14 @@ public interface ApiService {
     Call<Result<Object>> pickingEdit(@Body ReqPickEdit req);
 
     /**
+     * 收货确认-模糊搜索库位
+     */
+    @DomainName(API.KEY_WMS)
+    @GET("/wms//pda/location/findBySerialNumber")
+    Call<ResultPage<String>> findLocation(@QueryMap Map<String, Object> data);
+
+
+    /**
      * API 请求地址、一些参数
      */
     interface API {
@@ -290,6 +298,7 @@ public interface ApiService {
         String URL_WMS = "http://121.36.27.6:83";
         // String URL_WMS = "http://121.36.109.152";
         // String URL_WMS = "http://192.168.30.90";
+        // String URL_WMS = "http://192.168.30.236";
 
         /**
          * 单点登录

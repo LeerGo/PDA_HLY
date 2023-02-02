@@ -3,6 +3,10 @@ package com.arpa.wms.hly.logic.home.goods.take.vm;
 import android.app.Application;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableField;
+
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.MessageEvent;
 import com.arpa.and.arch.base.livedata.StatusEvent;
@@ -24,9 +28,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableArrayList;
-import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.BindingRecyclerViewAdapter;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
@@ -41,6 +42,7 @@ import me.tatarka.bindingcollectionadapter2.OnItemBind;
  * 页面：商品收货确认
  * </p>
  */
+// TODO: 库位输入改为模糊搜索，待对接@陈港 add by 李一方 2023-02-01 13:49:54
 @HiltViewModel
 public class VMGoodsTakeConfirm extends WrapDataViewModel {
     public final ObservableArrayList<Object> items = new ObservableArrayList<>();
@@ -54,7 +56,8 @@ public class VMGoodsTakeConfirm extends WrapDataViewModel {
     private final OnItemBind<Object> onItemBind =
             (itemBinding, position, data) -> {
                 if (data instanceof GoodsItemVO) {
-                    itemBinding.set(BR.data, R.layout.item_goods_take_confirm).bindExtra(BR.rule, detail.get().getBatchRule());
+                    itemBinding.set(BR.data, R.layout.item_goods_take_confirm)
+                            .bindExtra(BR.rule, detail.get().getBatchRule());
                 } else {
                     // FIX: 这里如果 variableId 相同，会出现 class cast exception @lyf 2021-06-03 08:22:22
                     itemBinding.set(BR.header, R.layout.header_goods_take_confirm);

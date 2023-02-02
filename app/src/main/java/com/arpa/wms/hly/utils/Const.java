@@ -193,6 +193,7 @@ public interface Const {
 
     interface Message {
         int MSG_DIALOG = 0x1;
+        int MSG_DIALOG_DISMISS = 0x11;
         int MSG_FINISH_RESULT = 0x2;
         int MSG_BATCH_VERIFY = 0x3;
         int MSG_BATCH_CONFIRM = 0x4;
