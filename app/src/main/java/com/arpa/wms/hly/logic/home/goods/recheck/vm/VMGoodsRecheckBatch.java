@@ -154,7 +154,6 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
         }
         // player.play(R.raw.scan_success);
         addData();
-        calcRadio();
     }
 
     /**
@@ -163,6 +162,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public void addData() {
         codeList.add(0, entity);
         scanCount.set(codeList.size());
+        calcRadio();
     }
 
     /**
