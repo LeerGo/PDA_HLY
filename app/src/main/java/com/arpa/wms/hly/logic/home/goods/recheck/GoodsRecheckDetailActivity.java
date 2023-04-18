@@ -2,6 +2,9 @@ package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
+import androidx.viewpager2.widget.ViewPager2;
+
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.bean.res.ResTaskAssign;
@@ -10,8 +13,6 @@ import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 
-import androidx.annotation.Nullable;
-import androidx.viewpager2.widget.ViewPager2;
 import dagger.hilt.android.AndroidEntryPoint;
 
 import static com.arpa.wms.hly.utils.Const.TASK_STATUS.TAKE_WAIT;
@@ -33,6 +34,7 @@ public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckD
         public void onPageSelected(int position) {
             super.onPageSelected(position);
             viewModel.searchInfo.setStatus(position == 0 ? TAKE_WAIT : TAKE_YET);
+            viewModel.isWait.set(position == Const.TASK_STATUS.RECHECK_WAIT);
         }
     };
 

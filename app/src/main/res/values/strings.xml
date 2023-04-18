@@ -47,4 +47,5 @@
     <string name="title_mine">我的</string>
     <string name="title_task_list">任务列表</string>
     <string name="warehouse_change">切换仓库</string>
+    <string name="upload_order">上传单据</string>
 </resources>

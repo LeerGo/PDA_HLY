@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.arpa.wms.hly.bean.SNCodeEntity;
+import com.arpa.wms.hly.bean.TaskItemEntity;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -15,9 +16,11 @@ import com.arpa.wms.hly.bean.SNCodeEntity;
  * App 数据库
  * </p>
  */
-@Database(entities = {SNCodeEntity.class}, version = 2, exportSchema = false)
-@TypeConverters(DateConverter.class)
+@Database(entities = {SNCodeEntity.class, TaskItemEntity.class}, version = 3, exportSchema = false)
+@TypeConverters(value = {DateConverter.class, BigDecimalConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract SNCodeDao snCodeDao();
+
+    public abstract TaskItemDao taskItemDao();
 }

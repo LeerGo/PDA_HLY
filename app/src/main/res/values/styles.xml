@@ -60,7 +60,7 @@
 
     <style name="TaskPropsStyle"
            parent="WWrapHWrap">
-        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginTop">6dp</item>
     </style>
 
     <style name="TaskPropsWeightStyle"

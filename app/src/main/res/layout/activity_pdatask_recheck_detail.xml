@@ -2,37 +2,36 @@
 <layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    
+
     <data>
-        
+
         <variable
             name="viewModel"
             type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail" />
     </data>
-    
+
     <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
-        
+
         <!--标题栏-->
         <com.arpa.wms.hly.ui.widget.WidgetTitleBar
             android:id="@+id/widgetTitleBar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:wtbTitle="复核详情" />
-        
+
         <!--搜索框-->
-        <!--TODO: 这里搜索功能的 viewmodel 可以抽取复用，通过 include 传入调用 @lyf 2021-05-06 11:20:40 -->
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
                 android:background="@color/colorPrimary" />
-            
+
             <com.arpa.wms.hly.ui.widget.WidgetSearchBar
                 android:id="@+id/wsbSearch"
                 android:layout_width="match_parent"
@@ -41,30 +40,31 @@
                 android:paddingHorizontal="12dp"
                 app:wsbHint="@{viewModel.searchHint}" />
         </FrameLayout>
-        
+
         <!--内容区域-->
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
             <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                
+
                 <FrameLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/color_f3f8ff"
                     android:paddingTop="10dp"
                     app:layout_scrollFlags="scroll">
-                    
+
                     <include
                         android:id="@+id/inc_header"
                         layout="@layout/item_goods_take"
                         app:data="@{viewModel.headerData}" />
                 </FrameLayout>
-                
+
                 <com.google.android.material.tabs.TabLayout
                     android:id="@+id/tablayout"
                     android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                     app:tabTextAppearance="@style/TabTextStyle"
                     app:tabTextColor="@color/color_434c67" />
             </com.google.android.material.appbar.AppBarLayout>
-            
+
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/viewpager"
                 android:layout_width="match_parent"
@@ -88,5 +88,12 @@
                 app:tab="@{tablayout}"
                 app:titles="@{viewModel.titles}" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/MineButtonBaseStyle"
+            app:visible="@{viewModel.isWait}"
+            android:background="@drawable/shape_rrect_blue_gradient_r5"
+            android:onClick="@{()->viewModel.finishWork()}"
+            android:text="@string/upload_order" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

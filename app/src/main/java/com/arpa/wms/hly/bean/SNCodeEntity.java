@@ -3,6 +3,7 @@ package com.arpa.wms.hly.bean;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
@@ -20,7 +21,6 @@ import java.util.Objects;
  * version: 1.0.0<br/>
  * since: 2022/5/31 10:14
  */
-// TODO: 数据库变更过大，之前暂存的数据会丢失，告知项目、测试 add by 李一方 2022-06-27 10:59:50
 @Entity(indices = {@Index(value = "taskCode")})
 public class SNCodeEntity implements Comparable<SNCodeEntity>, Parcelable {
     public static final Parcelable.Creator<SNCodeEntity> CREATOR = new Parcelable.Creator<>() {
@@ -42,6 +42,8 @@ public class SNCodeEntity implements Comparable<SNCodeEntity>, Parcelable {
     private boolean isOriginVerify; // 产地校验，true - 通过
     private boolean isDateVerify; // 生产日期校验, true - 通过
     private boolean isTimeVerify; // 生产时间校验，true - 通过
+    @ColumnInfo(defaultValue = "1")
+    private Integer scanRatio; // 扫码比例
 
     public SNCodeEntity() {
     }
@@ -196,6 +198,14 @@ public class SNCodeEntity implements Comparable<SNCodeEntity>, Parcelable {
 
     public void setTaskCode(String taskCode) {
         this.taskCode = taskCode;
+    }
+
+    public Integer getScanRatio() {
+        return scanRatio;
+    }
+
+    public void setScanRatio(Integer scanRatio) {
+        this.scanRatio = scanRatio;
     }
 
     @Override

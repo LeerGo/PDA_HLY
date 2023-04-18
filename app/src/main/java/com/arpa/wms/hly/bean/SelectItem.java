@@ -1,9 +1,10 @@
 package com.arpa.wms.hly.bean;
 
-import com.arpa.and.arch.BR;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
+
+import com.arpa.wms.hly.BR;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
