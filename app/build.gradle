@@ -4,6 +4,7 @@ plugins {
 }
 
 android {
+    namespace 'com.arpa.wms.hly'
     compileSdkVersion build_versions.compileSdk
     buildToolsVersion build_versions.buildTools
 
@@ -94,15 +95,15 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
 
     // hilt
-    api "com.google.dagger:hilt-android:2.38.1"
-    annotationProcessor "com.google.dagger:hilt-android-compiler:2.38.1"
+    api "com.google.dagger:hilt-android:2.41"
+    annotationProcessor "com.google.dagger:hilt-android-compiler:2.41"
 
     // 功能
     implementation "com.orhanobut:logger:2.2.0"
 
     // 性能
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.7"
-    implementation 'com.tencent.bugly:crashreport:3.4.4'
+    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.9.1"
+    implementation 'com.tencent.bugly:crashreport:4.0.4'
 
     // UI
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'

@@ -1,3 +1,2 @@
 include ':app'
-//include ':base-arch'
 rootProject.name = "HengLiYuan_WMS"
