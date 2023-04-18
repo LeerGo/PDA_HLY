@@ -1,4 +1,4 @@
-package com.arpa.wms.hly.bean;
+package com.arpa.wms.hly.bean.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

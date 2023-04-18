@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.arpa.wms.hly.bean.TaskItemEntity;
+import com.arpa.wms.hly.bean.entity.TaskItemEntity;
 
 import java.util.List;
 

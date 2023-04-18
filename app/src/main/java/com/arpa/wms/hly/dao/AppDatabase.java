@@ -4,8 +4,9 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.arpa.wms.hly.bean.SNCodeEntity;
-import com.arpa.wms.hly.bean.TaskItemEntity;
+import com.arpa.wms.hly.bean.entity.SNCodeEntity;
+import com.arpa.wms.hly.bean.entity.SplitRuleEntity;
+import com.arpa.wms.hly.bean.entity.TaskItemEntity;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -16,11 +17,16 @@ import com.arpa.wms.hly.bean.TaskItemEntity;
  * App 数据库
  * </p>
  */
-@Database(entities = {SNCodeEntity.class, TaskItemEntity.class}, version = 3, exportSchema = false)
+@Database(
+        entities = {SNCodeEntity.class, TaskItemEntity.class, SplitRuleEntity.class},
+        version = 3, exportSchema = false
+)
 @TypeConverters(value = {DateConverter.class, BigDecimalConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract SNCodeDao snCodeDao();
 
     public abstract TaskItemDao taskItemDao();
+
+    public abstract SplitRuleDao splitRuleDao();
 }

@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.arpa.wms.hly.bean.SNCodeEntity;
+import com.arpa.wms.hly.bean.entity.SNCodeEntity;
 
 import java.util.List;
 

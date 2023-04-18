@@ -4,10 +4,15 @@ import android.app.Application;
 import android.content.Intent;
 import android.text.TextUtils;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
+
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
+import com.arpa.wms.hly.dao.AppDatabase;
+import com.arpa.wms.hly.dao.SplitRuleDao;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.net.callback.ResultCallback;
@@ -18,8 +23,6 @@ import com.arpa.wms.hly.utils.Utils;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableField;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 import static com.arpa.wms.hly.utils.Const.Header.EQUIPMENT_CODE;
@@ -39,6 +42,7 @@ public class VMMine extends VMWarehouse {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
     private final ObservableField<String> version = new ObservableField<>();
+    private SplitRuleDao ruleDao;
 
     @Inject
     public VMMine(@NonNull Application application, BaseModel model) {
@@ -53,6 +57,7 @@ public class VMMine extends VMWarehouse {
     }
 
     private void initInfo() {
+        ruleDao = getRoomDatabase(AppDatabase.class).splitRuleDao();
         version.set("v" + BuildConfig.VERSION_NAME);
         account.set(spGetString(Const.SPKEY.USER_NAME));
         warehouse.set(spGetString(Const.SPKEY.WAREHOUSE_NAME));
@@ -123,5 +128,12 @@ public class VMMine extends VMWarehouse {
 
     public ObservableField<String> getVersion() {
         return version;
+    }
+
+    /**
+     * 同步切分规则数据
+     */
+    public void sync() {
+        // TODO: 待实现 add by 李一方 2023-04-18 17:54:53
     }
 }

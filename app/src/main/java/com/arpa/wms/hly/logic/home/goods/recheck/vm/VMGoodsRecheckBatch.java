@@ -14,7 +14,7 @@ import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
-import com.arpa.wms.hly.bean.SNCodeEntity;
+import com.arpa.wms.hly.bean.entity.SNCodeEntity;
 import com.arpa.wms.hly.dao.AppDatabase;
 import com.arpa.wms.hly.dao.SNCodeDao;
 import com.arpa.wms.hly.ui.listener.ViewListener;
