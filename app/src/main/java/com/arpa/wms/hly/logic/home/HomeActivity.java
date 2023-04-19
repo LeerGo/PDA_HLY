@@ -51,7 +51,6 @@ public class HomeActivity extends WrapBaseActivity<VMHome, ActivityHomeBinding> 
         });
     }
 
-
     /**
      * 版本更新框架的一些参数配置
      */
