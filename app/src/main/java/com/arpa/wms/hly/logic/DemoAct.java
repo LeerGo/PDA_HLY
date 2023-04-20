@@ -1,5 +1,9 @@
 package com.arpa.wms.hly.logic;
 
+import android.os.Bundle;
+
+import androidx.annotation.Nullable;
+
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
 import com.arpa.wms.hly.databinding.ActivityDemoBinding;
@@ -16,5 +20,11 @@ public class DemoAct extends WrapBaseActivity<VMDemo, ActivityDemoBinding> {
     @Override
     public int getLayoutId() {
         return R.layout.activity_demo;
+    }
+
+    @Override
+    public void initData(@Nullable Bundle savedInstanceState) {
+        super.initData(savedInstanceState);
+        viewBind.setViewModel(viewModel);
     }
 }

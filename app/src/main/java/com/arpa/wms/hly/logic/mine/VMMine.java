@@ -21,7 +21,7 @@ import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.Utils;
-import com.arpa.wms.hly.utils.work.PreSyncWorker;
+import com.arpa.wms.hly.utils.work.SyncWorker;
 
 import javax.inject.Inject;
 
@@ -136,11 +136,20 @@ public class VMMine extends VMWarehouse {
      * 同步切分规则数据
      */
     public void sync() {
-        // TODO: 待实现 add by 李一方 2023-04-18 17:54:53
+        /*var constraints = new Constraints.Builder()
+                .setRequiredNetworkType(NetworkType.CONNECTED)
+                .setRequiresBatteryNotLow(false)
+                .build();
+        var task = new PeriodicWorkRequest
+                .Builder(SyncWorker.class, 20, TimeUnit.MINUTES)
+                .setConstraints(constraints)
+                .addTag("SYNC-DATA").build();
+        mWorkManager.enqueueUniquePeriodicWork("定时轮训任务", ExistingPeriodicWorkPolicy.REPLACE, task);*/
+
         mWorkManager.beginUniqueWork(
-                "PRE-SYNC",
+                Const.Worker.syncData,
                 ExistingWorkPolicy.REPLACE,
-                OneTimeWorkRequest.from(PreSyncWorker.class)
+                OneTimeWorkRequest.from(SyncWorker.class)
         ).enqueue();
     }
 }

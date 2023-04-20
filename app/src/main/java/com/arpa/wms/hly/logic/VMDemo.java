@@ -4,8 +4,10 @@ import android.app.Application;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
+import androidx.work.ExistingPeriodicWorkPolicy;
 import androidx.work.ExistingWorkPolicy;
 import androidx.work.OneTimeWorkRequest;
+import androidx.work.PeriodicWorkRequest;
 import androidx.work.WorkManager;
 
 import com.arpa.and.arch.base.BaseModel;
@@ -14,8 +16,9 @@ import com.arpa.wms.hly.bean.entity.SplitRuleEntity;
 import com.arpa.wms.hly.bean.req.ReqTaskList;
 import com.arpa.wms.hly.dao.AppDatabase;
 import com.arpa.wms.hly.dao.SplitRuleDao;
-import com.arpa.wms.hly.utils.work.PreSyncWorker;
+import com.arpa.wms.hly.utils.work.SyncWorker;
 
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -47,17 +50,27 @@ public class VMDemo extends WrapDataViewModel {
         mWorkManager = WorkManager.getInstance(application);
     }
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        // doWorker();
-        // doPage();
-        doTest();
+    public void doWorker() {
+        doLoop();
+    }
+
+    private void doLoop() {
+        var tag = "LOOP-WORKER";
+        // var info = mWorkManager.getWorkInfosByTag(tag);
+
+        // var task = new PeriodicWorkRequest
+        //         .Builder(LoopWorker.class, 20, TimeUnit.MINUTES)
+        //         .addTag(tag).build();
+
+        var task = new PeriodicWorkRequest
+                .Builder(SyncWorker.class, 20, TimeUnit.MINUTES)
+                .addTag(tag).build();
+        mWorkManager.enqueueUniquePeriodicWork("定时轮训任务", ExistingPeriodicWorkPolicy.REPLACE, task);
     }
 
     private void doTest() {
         SplitRuleDao dao = getRoomDatabase(AppDatabase.class).splitRuleDao();
-        dao.getLastTime().flatMap( it -> Observable.just(it.orElse(1L)))
+        dao.getLastTime().flatMap(it -> Observable.just(it.orElse(1L)))
                 .flatMap(apiService::rxCheckVersion2)
                 .subscribe();
 
@@ -136,11 +149,11 @@ public class VMDemo extends WrapDataViewModel {
                 });*/
     }
 
-    private void doWorker() {
+    private void doWorkerSingle() {
         mWorkManager.beginUniqueWork(
                 "PRE-SYNC",
                 ExistingWorkPolicy.REPLACE,
-                OneTimeWorkRequest.from(PreSyncWorker.class)
+                OneTimeWorkRequest.from(SyncWorker.class)
         ).enqueue();
     }
 }

@@ -25,7 +25,8 @@ public class ResultPageData <T> {
     }
 
     public boolean isFinish() {
-        return (total <= (pageNum * pageSize));
+        return (total <= (pageNum * pageSize))
+                || (null != records && records.size() < pageSize);
     }
 
 }

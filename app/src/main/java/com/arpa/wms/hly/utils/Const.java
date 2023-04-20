@@ -200,4 +200,8 @@ public interface Const {
         int MSG_BATCH_REPEAT = 0x5;
         int MSG_BATCH_SAVE = 0x6;
     }
+
+    interface Worker {
+        String syncData = "syncData";
+    }
 }

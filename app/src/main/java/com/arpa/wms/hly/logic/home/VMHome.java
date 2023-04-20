@@ -28,7 +28,7 @@ import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.SPKEY;
-import com.arpa.wms.hly.utils.work.PreSyncWorker;
+import com.arpa.wms.hly.utils.work.SyncWorker;
 
 import java.util.List;
 
@@ -75,7 +75,7 @@ public class VMHome extends WrapDataViewModel {
     private void doWorker() {
         mWorkManager.beginUniqueWork("PRE-SYNC",
                 ExistingWorkPolicy.REPLACE,
-                OneTimeWorkRequest.from(PreSyncWorker.class)).enqueue();
+                OneTimeWorkRequest.from(SyncWorker.class)).enqueue();
     }
 
     private void getRole() {
