@@ -12,12 +12,25 @@ import com.arpa.wms.hly.bean.req.ReqRecheckConfirm;
 import com.arpa.wms.hly.bean.req.ReqTaskAssign;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadConfirm;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
-import com.arpa.wms.hly.bean.res.*;
+import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
+import com.arpa.wms.hly.bean.res.ResInventory;
+import com.arpa.wms.hly.bean.res.ResMoveGoodsSure;
+import com.arpa.wms.hly.bean.res.ResMoveLocation;
+import com.arpa.wms.hly.bean.res.ResPickDetail;
+import com.arpa.wms.hly.bean.res.ResRole;
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
+import com.arpa.wms.hly.bean.res.ResTaskPick;
+import com.arpa.wms.hly.bean.res.ResTaskWorker;
+import com.arpa.wms.hly.bean.res.ResTruckLoad;
+import com.arpa.wms.hly.bean.res.ResTruckLoadConfirm;
+import com.arpa.wms.hly.bean.res.ResVersion;
+import com.arpa.wms.hly.bean.res.ResWarehouse;
 import com.king.retrofit.retrofithelper.annotation.DomainName;
 
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
@@ -284,6 +297,26 @@ public interface ApiService {
     @GET("/wms//pda/location/findBySerialNumber")
     Call<ResultPage<String>> findLocation(@QueryMap Map<String, Object> data);
 
+    /**
+     * 更新 App
+     */
+    @DomainName(API.KEY_WMS)
+    @GET("/wms/pda/pdaVersion")
+    Observable<Result<ResVersion>> rxCheckVersion();
+
+    /**
+     * 更新 App
+     */
+    @DomainName(API.KEY_WMS)
+    @GET("/wms/pda/pdaVersion")
+    Observable<Result<ResVersion>> rxCheckVersion2(@Query("time") Long timestamp);
+
+    /**
+     * 获取首页的任务任务列表
+     */
+    @DomainName(API.KEY_WMS)
+    @GET("/wms/pda/tasks")
+    Observable<ResultPage<ResTaskAssign>> rxPdaTasks(@QueryMap Map<String, Object> data);
 
     /**
      * API 请求地址、一些参数

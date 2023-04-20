@@ -18,6 +18,9 @@ public class ReqPage extends ReqBase {
         this.pageSize = pageSize;
     }
 
+    public void setPageNum(int pageNum) {
+        this.pageNum = pageNum;
+    }
 
     public void pageIncrease() {
         pageNum++;

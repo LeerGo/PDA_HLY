@@ -4,14 +4,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 
-import com.arpa.wms.hly.logic.LoginActivity;
-import com.arpa.wms.hly.logic.home.HomeActivity;
-import com.arpa.wms.hly.utils.Const.SPKEY;
-import com.arpa.wms.hly.utils.SPUtils;
-import com.arpa.wms.hly.utils.WeakHandler;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.arpa.wms.hly.logic.LoginActivity;
+import com.arpa.wms.hly.logic.home.HomeActivity;
+import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.SPUtils;
+import com.arpa.wms.hly.utils.WeakHandler;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -22,7 +22,6 @@ import androidx.appcompat.app.AppCompatActivity;
  * 闪屏页
  * </p>
  */
-// TODO: 改造简化代码 @lyf 2021-04-22 03:52:16
 public class SplashActivity extends AppCompatActivity implements WeakHandler.MessageListener {
     private static final int msgJump = 0x1;
     //设置成静态成员，否则会出现内存泄漏
@@ -53,13 +52,13 @@ public class SplashActivity extends AppCompatActivity implements WeakHandler.Mes
     @Override
     public void handleMessage(Message msg) {
         if (msg.what == msgJump) {
-            if (SPUtils.getInstance().getBoolean(SPKEY.IS_NEW_USER, true))
+            if (SPUtils.getInstance().getBoolean(Const.SPKEY.IS_NEW_USER, true))
                 startActivity(new Intent(this, LoginActivity.class));
             else
                 startActivity(new Intent(this, HomeActivity.class));
 
             // ----------- 测试
-            // startActivity(new Intent(this, DemoActivity.class));
+            // startActivity(new Intent(this, DemoAct.class));
             finish();
         }
     }

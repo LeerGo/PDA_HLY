@@ -3,13 +3,14 @@ package com.arpa.wms.hly.dao;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
-import androidx.room.Transaction;
 
 import com.arpa.wms.hly.bean.entity.SplitRuleEntity;
 
 import java.util.List;
+import java.util.Optional;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -21,27 +22,13 @@ import io.reactivex.rxjava3.core.Completable;
  * </p>
  */
 @Dao
-public abstract class SplitRuleDao {
+public interface SplitRuleDao {
     /**
      * 批量存储
      */
     @Insert
-    public abstract Completable saveBatch(List<SplitRuleEntity> items);
+    Completable saveBatch(List<SplitRuleEntity> items);
 
-    /**
-     * 删除所有
-     */
-    @Query("DELETE FROM SplitRuleEntity")
-    public abstract void deleteAll();
-
-
-    // 重置自增主键的值
-    @Query("UPDATE sqlite_sequence SET seq = 0 WHERE name = 'SplitRuleEntity'")
-    public abstract void resetId();
-
-    @Transaction
-    public void resetTable() {
-        deleteAll();
-        resetId();
-    }
+    @Query("SELECT timestamp FROM SplitRuleEntity ORDER BY timestamp desc LIMIT 1")
+    Observable<Optional<Long>> getLastTime();
 }

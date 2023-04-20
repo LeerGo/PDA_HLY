@@ -12,6 +12,7 @@ import com.arpa.wms.hly.net.interceptor.ResponseTokenInterceptor;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.internal.platform.Platform;
+import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -38,6 +39,7 @@ public class AppConfigModule extends FrameConfigModule {
                                 .response("Net-Response")// Response的Tag
                                 .build()
                         ))
+                .retrofitOptions(options-> options.addCallAdapterFactory(RxJava3CallAdapterFactory.createSynchronous()))
                 .interceptorConfigOptions(interceptorBuilder -> interceptorBuilder.addLog(false))
                 .roomDatabaseOptions(roomOptions -> roomOptions.fallbackToDestructiveMigration().build());
     }

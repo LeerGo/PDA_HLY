@@ -6,13 +6,14 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkManager;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.BuildConfig;
 import com.arpa.wms.hly.bean.req.ReqModifyPass;
-import com.arpa.wms.hly.dao.AppDatabase;
-import com.arpa.wms.hly.dao.SplitRuleDao;
 import com.arpa.wms.hly.logic.LoginActivity;
 import com.arpa.wms.hly.logic.common.vm.VMWarehouse;
 import com.arpa.wms.hly.net.callback.ResultCallback;
@@ -20,6 +21,7 @@ import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.Utils;
+import com.arpa.wms.hly.utils.work.PreSyncWorker;
 
 import javax.inject.Inject;
 
@@ -42,11 +44,12 @@ public class VMMine extends VMWarehouse {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
     private final ObservableField<String> version = new ObservableField<>();
-    private SplitRuleDao ruleDao;
+    private WorkManager mWorkManager;
 
     @Inject
     public VMMine(@NonNull Application application, BaseModel model) {
         super(application, model);
+        mWorkManager = WorkManager.getInstance(application);
     }
 
     @Override
@@ -57,7 +60,6 @@ public class VMMine extends VMWarehouse {
     }
 
     private void initInfo() {
-        ruleDao = getRoomDatabase(AppDatabase.class).splitRuleDao();
         version.set("v" + BuildConfig.VERSION_NAME);
         account.set(spGetString(Const.SPKEY.USER_NAME));
         warehouse.set(spGetString(Const.SPKEY.WAREHOUSE_NAME));
@@ -135,5 +137,10 @@ public class VMMine extends VMWarehouse {
      */
     public void sync() {
         // TODO: 待实现 add by 李一方 2023-04-18 17:54:53
+        mWorkManager.beginUniqueWork(
+                "PRE-SYNC",
+                ExistingWorkPolicy.REPLACE,
+                OneTimeWorkRequest.from(PreSyncWorker.class)
+        ).enqueue();
     }
 }

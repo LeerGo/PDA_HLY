@@ -1,8 +1,9 @@
 package com.arpa.wms.hly.bean.entity;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
+
+import com.arpa.wms.hly.bean.res.ResTaskAssign;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -15,17 +16,25 @@ import androidx.room.PrimaryKey;
  */
 @Entity
 public class SplitRuleEntity {
-    @PrimaryKey
-    @NonNull
-    private String id;
+    @PrimaryKey(autoGenerate = true)
+    private Integer id;
+    private String code;
     private Long timestamp;
 
-    public String getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public Long getTimestamp() {
@@ -34,5 +43,11 @@ public class SplitRuleEntity {
 
     public void setTimestamp(Long timestamp) {
         this.timestamp = timestamp;
+    }
+
+    // FIXME: 测试方法，待删除 add by 李一方 2023-04-20 10:04:52
+    public void convert(ResTaskAssign data) {
+        this.code = data.getCode();
+        this.timestamp = System.currentTimeMillis();
     }
 }
