@@ -4,6 +4,11 @@ import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
+
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BR;
@@ -32,10 +37,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -178,7 +179,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                         sendMessage("分配成功");
                         updateStatus(StatusEvent.Status.SUCCESS, true);
                         judge();
-                        autoRefresh();
+                        // TODO: 设置 UI add by 李一方 2023-04-21 11:20:06
                     }
 
                     @Override
@@ -208,10 +209,10 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                 reqTaskAssign.getPartyCodeList().add(new PartyCodeList(staff.getCode(), staff.getName()));
             }
 
-            if (null != data.getJobType())
-                reqTaskAssign.setWorkType(data.getJobType().getValue());
-            else
-                reqTaskAssign.setWorkType(null);
+            // if (null != data.getJobType())
+            //     reqTaskAssign.setWorkType(data.getJobType().getValue());
+            // else
+            //     reqTaskAssign.setWorkType(null);
         }
     }
 
@@ -252,7 +253,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                         sendMessage("取消分配成功");
                         updateStatus(StatusEvent.Status.SUCCESS, true);
                         judge();
-                        autoRefresh();
+                        // TODO: 设置 UI add by 李一方 2023-04-21 11:20:21
                     }
 
                     @Override

@@ -54,6 +54,19 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private String assignTime;//下发时间
     private BigDecimal loadingCarHeight;//装车高度
     private String erpCode;
+    private String jobType;
+
+    public void setErpCode(String erpCode) {
+        this.erpCode = erpCode;
+    }
+
+    public String getJobType() {
+        return jobType;
+    }
+
+    public void setJobType(String jobType) {
+        this.jobType = jobType;
+    }
 
     public ResTaskAssign() {
     }
