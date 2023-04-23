@@ -3,6 +3,9 @@ package com.arpa.wms.hly.bean.res;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import androidx.databinding.Bindable;
+
+import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.bean.SelectItem;
 import com.arpa.wms.hly.bean.req.ReqTruckLoadDetail;
 import com.arpa.wms.hly.utils.NumberUtils;
@@ -54,18 +57,18 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
     private String assignTime;//下发时间
     private BigDecimal loadingCarHeight;//装车高度
     private String erpCode;
-    private String jobType;
+    private String jobTypeName;
 
     public void setErpCode(String erpCode) {
         this.erpCode = erpCode;
     }
 
-    public String getJobType() {
-        return jobType;
+    public String getJobTypeName() {
+        return jobTypeName;
     }
 
-    public void setJobType(String jobType) {
-        this.jobType = jobType;
+    public void setJobTypeName(String jobTypeName) {
+        this.jobTypeName = jobTypeName;
     }
 
     public ResTaskAssign() {
@@ -173,20 +176,24 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.totalQuantity = totalQuantity;
     }
 
+    @Bindable
     public String getStevedore() {
         return stevedore;
     }
 
     public void setStevedore(String stevedore) {
         this.stevedore = stevedore;
+        notifyPropertyChanged(BR.stevedore);
     }
 
+    @Bindable
     public String getForklift() {
         return forklift;
     }
 
     public void setForklift(String forklift) {
         this.forklift = forklift;
+        notifyPropertyChanged(BR.forklift);
     }
 
     public String getCarQueueNumber() {
@@ -213,12 +220,14 @@ public class ResTaskAssign extends SelectItem implements Parcelable {
         this.code = code;
     }
 
+    @Bindable
     public String getCustodian() {
         return custodian;
     }
 
     public void setCustodian(String custodian) {
         this.custodian = custodian;
+        notifyPropertyChanged(BR.custodian);
     }
 
     public String getDriverName() {

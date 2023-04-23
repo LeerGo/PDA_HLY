@@ -92,8 +92,8 @@
                 android:layout_below="@id/wpi_custom"
                 android:layout_marginEnd="12dp"
                 app:propsKey="作业类型："
-                app:propsValue="@{data.jobType}"
-                app:visible="@{!TextUtils.isEmpty(data.jobType)}"
+                app:propsValue="@{data.jobTypeName}"
+                app:visible="@{!TextUtils.isEmpty(data.jobTypeName)}"
                 tools:propsValue="集装箱" />
 
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
