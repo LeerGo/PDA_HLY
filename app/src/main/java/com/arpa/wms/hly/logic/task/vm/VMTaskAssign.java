@@ -3,6 +3,12 @@ package com.arpa.wms.hly.logic.task.vm;
 import android.annotation.SuppressLint;
 import android.app.Application;
 import android.os.Bundle;
+import android.text.TextUtils;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.ObservableBoolean;
+import androidx.databinding.ObservableInt;
+import androidx.lifecycle.MutableLiveData;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
@@ -27,15 +33,15 @@ import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.ToastUtils;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
-import androidx.databinding.ObservableBoolean;
-import androidx.databinding.ObservableInt;
-import androidx.lifecycle.MutableLiveData;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -48,13 +54,11 @@ import static com.arpa.wms.hly.utils.Const.IntentKey.DATA;
 public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     public final ObservableInt type = new ObservableInt();
     public final MutableLiveData<ResTaskWorker> resTaskWorker = new MutableLiveData<>();
-
     private final ReqTaskAssign reqTaskAssign = new ReqTaskAssign();
     private final ReqTaskList reqTaskList = new ReqTaskList(PAGE_SIZE);
     private final ObservableBoolean isSelectAll = new ObservableBoolean();
     private final ItemBinding<ResTaskAssign> itemBinding = ItemBinding.of(BR.data, R.layout.item_task_list);
     private final HashMap<String, Boolean> selectStateMap = new HashMap<>();
-
     public int workerType = -1;
     public boolean keeper, stevedore, forklift;
 
@@ -77,7 +81,7 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
             // TODO: 复建选中状态 @sc 2022-04-22 02:29:38
             for (ResTaskAssign item : getItems()) {
                 if (selectStateMap.containsKey(item.getCode())) {
-                    item.setSelect(selectStateMap.get(item.getCode()));
+                    item.setSelect(Boolean.TRUE.equals(selectStateMap.get(item.getCode())));
                 }
             }
         }
@@ -145,8 +149,6 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
         } else {
             isSelectAll.set(isItemAllSelect);
         }
-
-
     }
 
     /**
@@ -171,22 +173,50 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
     public void taskAssign(TaskStaffSelect data) {
         updateStatus(StatusEvent.Status.LOADING);
         buildReqParams(Const.ASSIGN_WORK.WORKER_TYPE[workerType], data);
-        apiService.pdaTasksAssign(reqTaskAssign)
-                .enqueue(new ResultCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object data) {
-                        sendMessage("分配成功");
-                        updateStatus(StatusEvent.Status.SUCCESS, true);
-                        judge();
-                        autoRefresh();
-                    }
+        apiService.pdaTasksAssign(reqTaskAssign).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(Object data) {
+                sendMessage("分配成功");
+                updateStatus(StatusEvent.Status.SUCCESS, true);
+                judge();
+                setUI(reqTaskAssign);
+            }
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage(), true);
-                        updateStatus(StatusEvent.Status.ERROR, true);
-                    }
-                });
+            private void setUI(ReqTaskAssign req) {
+                getItems().stream()
+                        .filter(it -> req.getOrderCodes().contains(it.getCode()))
+                        .forEach(it -> addWorker(it, req.getWorkerType(), req.getPartyCodeList()));
+            }
+
+            private void addWorker(ResTaskAssign item, String workerType, List<PartyCodeList> party) {
+                var result = party.stream().map(PartyCodeList::getPartyName).collect(Collectors.toSet());
+                switch (workerType) {
+                    case "CUSTODIAN":
+                        item.setCustodian(join(item.getCustodian(), result));
+                        break;
+                    case "FORKLIFT":
+                        item.setForklift(join(item.getForklift(), result));
+                        break;
+                    case "STEVEDORE":
+                        item.setStevedore(join(item.getStevedore(), result));
+                        break;
+                }
+            }
+
+            @NonNull
+            private String join(String item, Set<String> result) {
+                if (!TextUtils.isEmpty(item)) {
+                    result.addAll(Arrays.asList(item.split(",")));
+                }
+                return String.join(",", result);
+            }
+
+            @Override
+            public void onFailed(ResultError error) {
+                sendMessage(error.getMessage(), true);
+                updateStatus(StatusEvent.Status.ERROR, true);
+            }
+        });
     }
 
     /**
@@ -208,10 +238,10 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
                 reqTaskAssign.getPartyCodeList().add(new PartyCodeList(staff.getCode(), staff.getName()));
             }
 
-            if (null != data.getJobType())
-                reqTaskAssign.setWorkType(data.getJobType().getValue());
-            else
-                reqTaskAssign.setWorkType(null);
+            // if (null != data.getJobType())
+            //     reqTaskAssign.setWorkType(data.getJobType().getValue());
+            // else
+            //     reqTaskAssign.setWorkType(null);
         }
     }
 
@@ -245,29 +275,48 @@ public class VMTaskAssign extends VMBaseRefreshList<ResTaskAssign> {
         workerType = assignType;
         updateStatus(StatusEvent.Status.LOADING);
         buildReqParams(workerTypes, null);
-        apiService.pdaTasksCancelAssign(reqTaskAssign)
-                .enqueue(new ResultCallback<Object>() {
-                    @Override
-                    public void onSuccess(Object data) {
-                        sendMessage("取消分配成功");
-                        updateStatus(StatusEvent.Status.SUCCESS, true);
-                        judge();
-                        autoRefresh();
-                    }
+        apiService.pdaTasksCancelAssign(reqTaskAssign).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(Object data) {
+                sendMessage("取消分配成功");
+                updateStatus(StatusEvent.Status.SUCCESS, true);
+                judge();
+                setUI(reqTaskAssign);
+            }
 
-                    @Override
-                    public void onFinish() {
-                        super.onFinish();
-                        //                        isSelectAll.set(false);
-                        hideLoading();
-                    }
+            private void setUI(ReqTaskAssign req) {
+                getItems().stream()
+                        .filter(it -> req.getOrderCodes().contains(it.getCode()))
+                        .forEach(it -> removeWorker(it, req.getWorkerType()));
+            }
 
-                    @Override
-                    public void onFailed(ResultError error) {
-                        sendMessage(error.getMessage(), true);
-                        updateStatus(StatusEvent.Status.ERROR, true);
-                    }
-                });
+            private void removeWorker(ResTaskAssign item, String workerType) {
+                switch (workerType) {
+                    case "CUSTODIAN":
+                        item.setCustodian(null);
+                        break;
+                    case "FORKLIFT":
+                        item.setForklift(null);
+                        break;
+                    case "STEVEDORE":
+                        item.setStevedore(null);
+                        break;
+                }
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                //                        isSelectAll.set(false);
+                hideLoading();
+            }
+
+            @Override
+            public void onFailed(ResultError error) {
+                sendMessage(error.getMessage(), true);
+                updateStatus(StatusEvent.Status.ERROR, true);
+            }
+        });
     }
 
     /**

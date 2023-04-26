@@ -8,6 +8,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.appcompat.widget.AppCompatSpinner;
+import androidx.appcompat.widget.AppCompatTextView;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.BaseBottomDialogFragment;
 import com.arpa.wms.hly.bean.TaskJobType;
@@ -17,13 +23,6 @@ import com.arpa.wms.hly.ui.adapter.DialogAssignSelectAdapter;
 import com.arpa.wms.hly.ui.decoration.DrawableItemDecoration;
 import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 import com.arpa.wms.hly.utils.ToastUtils;
-
-import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.appcompat.widget.AppCompatSpinner;
-import androidx.appcompat.widget.AppCompatTextView;
-import androidx.appcompat.widget.LinearLayoutCompat;
-import androidx.recyclerview.widget.RecyclerView;
 
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.CUSTODIAN;
 import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.FORKLIFT;
@@ -70,21 +69,21 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
      * 设置标题
      */
     private void setTitles() {
-        LinearLayoutCompat llType = (LinearLayoutCompat) findViewById(R.id.ll_type);
+        // LinearLayoutCompat llType = (LinearLayoutCompat) findViewById(R.id.ll_type);
         AppCompatTextView tvTitle = (AppCompatTextView) findViewById(R.id.tv_title);
         switch (workType) {
             case CUSTODIAN:
                 tvTitle.setText("分配保管员");
-                llType.setVisibility(View.GONE);
+                // llType.setVisibility(View.GONE);
                 break;
             case FORKLIFT:
                 tvTitle.setText("分配叉车工");
-                llType.setVisibility(View.GONE);
+                // llType.setVisibility(View.GONE);
                 break;
             case STEVEDORE:
                 tvTitle.setText("分配装卸工");
-                llType.setVisibility(View.VISIBLE);
-                setWorkType();
+                // llType.setVisibility(View.VISIBLE);
+                // setWorkType();
                 break;
         }
     }
@@ -137,9 +136,9 @@ public class DialogAssignSelect extends BaseBottomDialogFragment {
 
         btnCancel.setOnClickListener(v -> dismiss());
         btnSure.setOnClickListener(v -> {
-            if (workType == STEVEDORE && null == result.getJobType()) {
-                ToastUtils.showShort("请选择作业类型");
-            }
+            // if (workType == STEVEDORE && null == result.getJobType()) {
+            //     ToastUtils.showShort("请选择作业类型");
+            // }
             if (result.getStaffs().isEmpty()) {
                 ToastUtils.showShort("请选择工作人员");
                 return;
