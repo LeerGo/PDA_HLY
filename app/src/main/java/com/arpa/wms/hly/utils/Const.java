@@ -63,6 +63,7 @@ public interface Const {
         String SUPPLIER = "supplier";
         String DATE_MANUFACTURE = "date_manufacture";
         String PLACE_ORIGIN = "place_origin";
+        String TYPE = "type";
     }
 
     /**
@@ -201,7 +202,8 @@ public interface Const {
         int MSG_BATCH_SAVE = 0x6;
     }
 
-    interface Worker {
-        String syncData = "syncData";
+    interface Serial {
+        int GODOS_ID = 0;
+        int GODDS_CODE = 1;
     }
 }

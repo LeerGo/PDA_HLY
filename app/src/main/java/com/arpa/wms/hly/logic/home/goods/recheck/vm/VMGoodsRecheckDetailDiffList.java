@@ -10,12 +10,10 @@ import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.VMBaseDiffList;
 import com.arpa.wms.hly.bean.GoodsItemVO;
+import com.arpa.wms.hly.bean.RecheckItemVO;
 import com.arpa.wms.hly.bean.base.ReqBase;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
-import com.arpa.wms.hly.dao.AppDatabase;
-import com.arpa.wms.hly.dao.SNCodeDao;
-import com.arpa.wms.hly.dao.TaskItemDao;
 import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckConfirmActivity;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.IntentKey;
@@ -40,22 +38,13 @@ import retrofit2.Call;
  * </p>
  */
 @HiltViewModel
-public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
-    public String supplierName; // TODO: 检查数据来源，看能否简化 add by 李一方 2023-04-18 16:55:53
+public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<RecheckItemVO> {
+    public String supplierName;
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
-    private SNCodeDao snDao;
-    private TaskItemDao taskDao;
 
     @Inject
     public VMGoodsRecheckDetailDiffList(@NonNull Application application, BaseModel model) {
         super(application, model);
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        snDao = getRoomDatabase(AppDatabase.class).snCodeDao();
-        taskDao = getRoomDatabase(AppDatabase.class).taskItemDao();
     }
 
     @Override
@@ -70,7 +59,7 @@ public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
     }
 
     @Override
-    public Call<Result<List<GoodsItemVO>>> getCall(Map<String, Object> params) {
+    public Call<Result<List<RecheckItemVO>>> getCall(Map<String, Object> params) {
         return apiService.recheckItemListBelow(params);
     }
 
@@ -80,8 +69,8 @@ public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
     }
 
     @Override
-    public ItemBinding<GoodsItemVO> getItemBinding() {
-        ItemBinding<GoodsItemVO> itemBinding;
+    public ItemBinding<RecheckItemVO> getItemBinding() {
+        ItemBinding<RecheckItemVO> itemBinding;
         if (request.getRecheckStatus() == TASK_STATUS.RECHECK_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_wait);
             itemBinding
@@ -98,5 +87,12 @@ public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<GoodsItemVO> {
         }
 
         return itemBinding;
+    }
+
+    /**
+     * 结束作业
+     */
+    public void finishWork() {
+        // TODO: 待实现 add by 李一方 2023-04-18 17:04:27
     }
 }

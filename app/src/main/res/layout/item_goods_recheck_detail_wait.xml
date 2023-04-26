@@ -8,9 +8,11 @@
 
         <import type="android.text.TextUtils" />
 
+        <import type="com.arpa.wms.hly.utils.NumberUtils" />
+
         <variable
             name="data"
-            type="com.arpa.wms.hly.bean.GoodsItemVO" />
+            type="com.arpa.wms.hly.bean.RecheckItemVO" />
 
         <variable
             name="supplier"
@@ -116,25 +118,23 @@
                     tools:propsValue="200" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
-            <!--TODO: 待联调 add by @lyf 2023-04-18 17:07-->
-            <!--app:propsValue="@{data.supportNum}"-->
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                 android:id="@+id/wpi_radio"
                 style="@style/WMatchHWrap"
                 android:layout_below="@id/ll3"
                 android:layout_marginTop="4dp"
-                app:propsValueColor="@color/colorPrimary"
                 app:propsKey="扫  码  率："
+                app:propsValue='@{NumberUtils.parseDecimal(data.radio) +"%"}'
+                app:propsValueColor="@color/colorPrimary"
                 tools:propsValue="3%" />
 
-            <!--TODO: 待联调 add by @lyf 2023-04-18 17:07-->
             <androidx.appcompat.widget.LinearLayoutCompat
                 android:id="@+id/ll4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/wpi_radio"
-                android:gravity="center_vertical"
-                android:layout_marginTop="4dp">
+                android:layout_marginTop="4dp"
+                android:gravity="center_vertical">
 
                 <androidx.appcompat.widget.AppCompatTextView
                     android:layout_width="wrap_content"
@@ -149,13 +149,14 @@
                     android:background="@drawable/shape_rrect_border_grey"
                     android:digits="123456789"
                     android:hint="请输入扫码比例"
-                    android:textColorHint="@color/color_hint_text"
                     android:lineSpacingExtra="3dp"
                     android:paddingHorizontal="4dp"
                     android:paddingVertical="2dp"
                     android:textColor="@color/colorPrimary"
-                    tools:text="8"
-                    android:textSize="14sp" />
+                    android:textColorHint="@color/color_hint_text"
+                    android:textSize="14sp"
+                    app:textValue="@={data.scanRatio}"
+                    tools:text="8" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem

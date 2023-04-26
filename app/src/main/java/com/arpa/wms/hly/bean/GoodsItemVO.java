@@ -1,18 +1,14 @@
 package com.arpa.wms.hly.bean;
 
+import androidx.databinding.Bindable;
+
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
-
-import androidx.databinding.Bindable;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
  * since: 2021-05-18 10:52
- *
- * <p>
- * 内容描述区域
- * </p>
  */
 public class GoodsItemVO extends SelectItem {
     private String code;

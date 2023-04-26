@@ -34,7 +34,6 @@ public class GoodsRecheckDetailActivity extends WrapBaseActivity<VMGoodsRecheckD
         public void onPageSelected(int position) {
             super.onPageSelected(position);
             viewModel.searchInfo.setStatus(position == 0 ? TAKE_WAIT : TAKE_YET);
-            viewModel.isWait.set(position == Const.TASK_STATUS.RECHECK_WAIT);
         }
     };
 

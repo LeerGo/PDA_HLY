@@ -23,10 +23,6 @@ import static com.arpa.wms.hly.utils.Const.ASSIGN_WORK.GOODS_TAKE;
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
  * since: 2021-04-29 15:59
- *
- * <p>
- * 内容描述区域
- * </p>
  */
 public class LogicViewBinding {
     @BindingAdapter(value = "taskType")
