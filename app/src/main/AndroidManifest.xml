@@ -33,9 +33,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".logic.DemoAct"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".logic.LoginActivity"
             android:screenOrientation="portrait" />
         <activity

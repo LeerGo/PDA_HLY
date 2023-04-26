@@ -1,11 +1,6 @@
 package com.arpa.wms.hly;
 
-import android.util.Log;
-
-import androidx.annotation.NonNull;
-import androidx.hilt.work.HiltWorkerFactory;
 import androidx.multidex.MultiDexApplication;
-import androidx.work.Configuration;
 
 import com.arpa.wms.hly.net.ApiService.API;
 import com.arpa.wms.hly.utils.Const;
@@ -26,8 +21,6 @@ import com.tencent.bugly.crashreport.CrashReport;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.HiltAndroidApp;
 import timber.log.Timber;
 
@@ -46,7 +39,7 @@ import static com.arpa.wms.hly.utils.Const.SPKEY.TEST_SERVER;
 // TODO: 还需要一个状态页面（空数据、错误、警告） @lyf 2021-04-30 09:17:42
 // TODO: 设计到分页加载的页面，再从上一个页面时，需要重新请求最后一页数据然后替换 @lyf 2021-04-30 03:13:00
 @HiltAndroidApp
-public class App extends MultiDexApplication implements Configuration.Provider {
+public class App extends MultiDexApplication {
     static {
         //设置全局的Header构建器
         SmartRefreshLayout.setDefaultRefreshHeaderCreator((context, layout) -> {
@@ -60,9 +53,6 @@ public class App extends MultiDexApplication implements Configuration.Provider {
             return new ClassicsFooter(context).setDrawableSize(20);
         });
     }
-
-    @Inject
-    HiltWorkerFactory workerFactory;
 
     @Override
     public void onCreate() {
@@ -108,14 +98,5 @@ public class App extends MultiDexApplication implements Configuration.Provider {
                 }
             }
         });
-    }
-
-    @NonNull
-    @Override
-    public Configuration getWorkManagerConfiguration() {
-        return new Configuration.Builder()
-                .setWorkerFactory(workerFactory)
-                .setMinimumLoggingLevel(Log.DEBUG)
-                .build();
     }
 }

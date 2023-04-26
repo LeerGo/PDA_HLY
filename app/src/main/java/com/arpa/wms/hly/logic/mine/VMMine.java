@@ -6,9 +6,6 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableField;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent.Status;
@@ -21,7 +18,6 @@ import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.SPUtils;
 import com.arpa.wms.hly.utils.Utils;
-import com.arpa.wms.hly.utils.work.SyncWorker;
 
 import javax.inject.Inject;
 
@@ -44,12 +40,10 @@ public class VMMine extends VMWarehouse {
     private final ObservableField<String> account = new ObservableField<>();
     private final ObservableField<String> warehouse = new ObservableField<>();
     private final ObservableField<String> version = new ObservableField<>();
-    private WorkManager mWorkManager;
 
     @Inject
     public VMMine(@NonNull Application application, BaseModel model) {
         super(application, model);
-        mWorkManager = WorkManager.getInstance(application);
     }
 
     @Override
@@ -130,26 +124,5 @@ public class VMMine extends VMWarehouse {
 
     public ObservableField<String> getVersion() {
         return version;
-    }
-
-    /**
-     * 同步切分规则数据
-     */
-    public void sync() {
-        /*var constraints = new Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .setRequiresBatteryNotLow(false)
-                .build();
-        var task = new PeriodicWorkRequest
-                .Builder(SyncWorker.class, 20, TimeUnit.MINUTES)
-                .setConstraints(constraints)
-                .addTag("SYNC-DATA").build();
-        mWorkManager.enqueueUniquePeriodicWork("定时轮训任务", ExistingPeriodicWorkPolicy.REPLACE, task);*/
-
-        mWorkManager.beginUniqueWork(
-                Const.Worker.syncData,
-                ExistingWorkPolicy.REPLACE,
-                OneTimeWorkRequest.from(SyncWorker.class)
-        ).enqueue();
     }
 }

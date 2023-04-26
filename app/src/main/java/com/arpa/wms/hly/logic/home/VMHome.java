@@ -6,9 +6,6 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableField;
 import androidx.lifecycle.MutableLiveData;
-import androidx.work.ExistingWorkPolicy;
-import androidx.work.OneTimeWorkRequest;
-import androidx.work.WorkManager;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
@@ -28,7 +25,6 @@ import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const.SPKEY;
-import com.arpa.wms.hly.utils.work.SyncWorker;
 
 import java.util.List;
 
@@ -57,25 +53,16 @@ public class VMHome extends WrapDataViewModel {
     private final ObservableField<String> warehouse = new ObservableField<>();
     private final ObservableArrayList<MenuBean> items = new ObservableArrayList<>();
     private final ItemBinding<MenuBean> itemBinding = ItemBinding.of(BR.data, R.layout.item_home_menu);
-    private WorkManager mWorkManager;
     @Inject
     public VMHome(@NonNull Application application, BaseModel model) {
         super(application, model);
-        mWorkManager = WorkManager.getInstance(application);
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
         getRole();
-        // checkVersion();
-        // doWorker();
-    }
-
-    private void doWorker() {
-        mWorkManager.beginUniqueWork("PRE-SYNC",
-                ExistingWorkPolicy.REPLACE,
-                OneTimeWorkRequest.from(SyncWorker.class)).enqueue();
+        checkVersion();
     }
 
     private void getRole() {
