@@ -1,5 +1,7 @@
 package com.arpa.wms.hly.base;
 
+import com.google.gson.GsonBuilder;
+
 import android.content.Context;
 
 import com.arpa.and.arch.config.FrameConfigModule;
@@ -39,6 +41,7 @@ public class AppConfigModule extends FrameConfigModule {
                                 .response("Net-Response")// Response的Tag
                                 .build()
                         ))
+                .gsonOptions(GsonBuilder::setLenient)
                 .retrofitOptions(options-> options.addCallAdapterFactory(RxJava3CallAdapterFactory.createSynchronous()))
                 .interceptorConfigOptions(interceptorBuilder -> interceptorBuilder.addLog(false))
                 .roomDatabaseOptions(roomOptions -> roomOptions.fallbackToDestructiveMigration().build());

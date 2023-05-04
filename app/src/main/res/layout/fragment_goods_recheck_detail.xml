@@ -9,6 +9,10 @@
         <import type="com.arpa.wms.hly.utils.Const.TASK_STATUS" />
 
         <variable
+            name="vmSerial"
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialDetail" />
+
+        <variable
             name="viewModel"
             type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailDiffList" />
     </data>
@@ -25,6 +29,7 @@
             android:layout_marginVertical="4dp"
             android:paddingHorizontal="12dp"
             app:wsbHint="请扫描序列号"
+            app:keyWord="@={vmSerial.keyWord}"
             app:visible="@{TASK_STATUS.RECHECK_WAIT==viewModel.status}" />
 
         <androidx.recyclerview.widget.RecyclerView

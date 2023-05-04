@@ -5,12 +5,14 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.arpa.wms.hly.bean.entity.SNCode;
 import com.arpa.wms.hly.bean.entity.SNCodeEntity;
 
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
+import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 
 /**
@@ -24,10 +26,19 @@ public interface SNCodeDao {
      * 插入一条序列号（去重）
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable insert(SNCode snCode);
+
+    /**
+     * 插入一条序列号（去重）
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
     void insert(SNCodeEntity searchHistory);
 
     @Query("select * from SNCodeEntity where taskCode= :taskCode and snCode= :snCode")
     Flowable<SNCodeEntity> exists(String taskCode, String snCode);
+
+    @Query("select * from sncode where snCode= :snCode")
+    Maybe<SNCode> exists(String snCode);
 
     /**
      * 删除一条序列号

@@ -3,12 +3,10 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
-import androidx.lifecycle.LifecycleOwner;
 
 import com.arpa.and.arch.base.BaseModel;
-import com.arpa.and.arch.base.DataViewModel;
-import com.arpa.and.arch.base.livedata.MessageEvent;
-import com.arpa.and.arch.base.livedata.StatusEvent;
+import com.arpa.wms.hly.bean.GoodsItemVO;
+import com.arpa.wms.hly.bean.RecheckItemVO;
 import com.arpa.wms.hly.bean.SNCutRule;
 import com.arpa.wms.hly.bean.req.ReqSNRule;
 
@@ -29,6 +27,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMSerialDetail extends AbsVMSerial {
+    protected List<RecheckItemVO> items;
 
     @Inject
     public VMSerialDetail(@NonNull Application application, BaseModel model) {
@@ -41,6 +40,24 @@ public class VMSerialDetail extends AbsVMSerial {
     }
 
     @Override
+    protected Integer obtainScanRadio(SNCutRule rule) {
+        return items.stream()
+                .filter(it -> it.getGoodCode().equals(rule.getGoodsCode()))
+                .findFirst()
+                .map(RecheckItemVO::getScanRatio)
+                .orElse(1);
+    }
+
+    @Override
+    protected String obtainItemCode(SNCutRule rule) {
+        return items.stream()
+                .filter(it -> it.getGoodCode().equals(rule.getGoodsCode()))
+                .findFirst()
+                .map(GoodsItemVO::getCode)
+                .orElse(null);
+    }
+
+    @Override
     protected String obtainTarget(String snCode) {
         return snCode.substring(snCode.length() - 3);
     }
@@ -50,9 +67,7 @@ public class VMSerialDetail extends AbsVMSerial {
         reqSNRule.setGoodsId(target);
     }
 
-    public void register(LifecycleOwner owner, DataViewModel model) {
-        getSingleLiveEvent().observe(owner, model::sendSingleLiveEvent);
-        getStatusEvent().observe(owner, (StatusEvent.StatusObserver) model::updateStatus);
-        getMessageEvent().observe(owner, (MessageEvent.MessageObserver) model::sendMessage);
+    public void setItems(List<RecheckItemVO> items) {
+        this.items = items;
     }
 }

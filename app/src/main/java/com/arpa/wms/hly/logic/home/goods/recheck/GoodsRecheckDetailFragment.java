@@ -11,7 +11,6 @@ import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailDiffList;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialDetail;
-import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -52,23 +51,25 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
         super.initData(savedInstanceState);
 
         viewBind.setViewModel(viewModel);
-
-        VMSerialDetail vmSerial = obtainViewModel(VMSerialDetail.class);
-        vmSerial.register(this, viewModel);
-        // viewBind.wsbSearch.setOnSearchClick(vmSerial::onScan);
-        viewBind.wsbSearch.setOnSearchClick(new ViewListener.DataTransCallback<String>() {
-            @Override
-            public void transfer(String data) {
-                vmSerial.sendMessage("1111");
-            }
-        });
-
         viewModel.initParams(requireArguments());
-        observeParent();
+        int recheckStatus = requireArguments().getInt(Const.IntentKey.STATUS);
+        String code = requireArguments().getString(Const.IntentKey.CODE);
+        observeSerial(recheckStatus, code);
+        observeParent(recheckStatus);
     }
 
-    private void observeParent() {
-        int recheckStatus = requireArguments().getInt(Const.IntentKey.STATUS);
+    private void observeSerial(int recheckStatus, String code) {
+        if (Const.TASK_STATUS.RECHECK_WAIT == recheckStatus) {
+            VMSerialDetail vmSerial = obtainViewModel(VMSerialDetail.class);
+            vmSerial.register(this, viewModel);
+            vmSerial.setTaskCode(code);
+            vmSerial.setItems(viewModel.items);
+            viewBind.setVmSerial(vmSerial);
+            viewBind.wsbSearch.setOnSearchClick(vmSerial::onScan);
+        }
+    }
+
+    private void observeParent(int recheckStatus) {
         VMGoodsRecheckDetail parentModel = new ViewModelProvider(requireActivity()).get(VMGoodsRecheckDetail.class);
         parentModel.headerData.observe(requireActivity(), headerData -> viewModel.supplierName = headerData.getSupplierName());
         parentModel.searchLiveData.observe(requireActivity(),

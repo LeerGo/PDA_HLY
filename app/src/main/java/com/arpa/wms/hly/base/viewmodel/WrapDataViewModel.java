@@ -2,14 +2,18 @@ package com.arpa.wms.hly.base.viewmodel;
 
 import android.app.Application;
 
+import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
+
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.DataViewModel;
+import com.arpa.and.arch.base.livedata.MessageEvent;
+import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.net.ApiService;
 import com.arpa.wms.hly.utils.SPUtils;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 
 /**
@@ -44,5 +48,11 @@ public class WrapDataViewModel extends DataViewModel {
 
     public void spPut(String key, String value) {
         SPUtils.getInstance().put(key, value);
+    }
+
+    public void register(LifecycleOwner owner, DataViewModel model) {
+        getSingleLiveEvent().observe(owner, model::sendSingleLiveEvent);
+        getStatusEvent().observe(owner, (StatusEvent.StatusObserver) model::updateStatus);
+        getMessageEvent().observe(owner, (MessageEvent.MessageObserver) model::sendMessage);
     }
 }

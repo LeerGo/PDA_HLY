@@ -1,5 +1,10 @@
 package com.arpa.wms.hly.bean.entity;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
 import com.arpa.wms.hly.bean.SNCutRule;
 
 /**
@@ -7,19 +12,21 @@ import com.arpa.wms.hly.bean.SNCutRule;
  * version: 1.0.0<br/>
  * since: 2023-04-26 15:17
  */
+@Entity(indices = {@Index(value = "taskCode")})
 public class SNCode {
+    @PrimaryKey(autoGenerate = true)
     private long id;
     private String taskCode; // 任务 ID
     private String taskItemCode; // 任务明细 ID
     private String goodsId; // 商品 ID
-    private String goodsCode; // 商品编码
+    private String goodsCode; // 商品编码x
     private String snCode; // 原批次号码
     private String productionDate; // 生产日期
     private String productionTime; // 生产时间
     private String productionLocation; // 产地
     private String machineNum; // 机台号
     private String expirationDate; // 过期日期
-    // @ColumnInfo(defaultValue = "1")
+    @ColumnInfo(defaultValue = "1")
     private Integer scanRatio; // 扫码比例
 
     public SNCode() {
@@ -32,6 +39,8 @@ public class SNCode {
 
     public void convertRule(SNCutRule rule, String snCode) {
         setSnCode(snCode);
+        setGoodsCode(rule.getGoodsCode());
+        setGoodsId(rule.getGoodsId());
         if (1 == rule.getMachineNumFlag()) {
             setMachineNum(snCode.substring(rule.getMachineNumStart() - 1, rule.getMachineNumEnd()));
         }
@@ -159,5 +168,23 @@ public class SNCode {
 
     public void setScanRatio(Integer scanRatio) {
         this.scanRatio = scanRatio;
+    }
+
+    @Override
+    public String toString() {
+        return "SNCode{" +
+                "id=" + id +
+                ", taskCode='" + taskCode + '\'' +
+                ", taskItemCode='" + taskItemCode + '\'' +
+                ", goodsId='" + goodsId + '\'' +
+                ", goodsCode='" + goodsCode + '\'' +
+                ", snCode='" + snCode + '\'' +
+                ", productionDate='" + productionDate + '\'' +
+                ", productionTime='" + productionTime + '\'' +
+                ", productionLocation='" + productionLocation + '\'' +
+                ", machineNum='" + machineNum + '\'' +
+                ", expirationDate='" + expirationDate + '\'' +
+                ", scanRatio=" + scanRatio +
+                '}';
     }
 }

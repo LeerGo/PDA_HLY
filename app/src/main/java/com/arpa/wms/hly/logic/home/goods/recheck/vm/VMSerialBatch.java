@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 
 import com.arpa.and.arch.base.BaseModel;
+import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.SNCutRule;
 import com.arpa.wms.hly.bean.req.ReqSNRule;
 
@@ -28,6 +29,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class VMSerialBatch extends AbsVMSerial {
     private final List<SNCutRule> usedRule = new ArrayList<>();
     private String goodsCode;
+    private GoodsItemVO item;
 
     @Inject
     public VMSerialBatch(@NonNull Application application, BaseModel model) {
@@ -40,6 +42,17 @@ public class VMSerialBatch extends AbsVMSerial {
     }
 
     @Override
+    protected Integer obtainScanRadio(SNCutRule rule) {
+        // TODO: 待实现 add by 李一方 2023-05-04 16:35:53
+        return 1;
+    }
+
+    @Override
+    protected String obtainItemCode(SNCutRule rule) {
+        return item.getCode();
+    }
+
+    @Override
     protected String obtainTarget(String snCode) {
         return goodsCode;
     }
@@ -47,5 +60,9 @@ public class VMSerialBatch extends AbsVMSerial {
     @Override
     protected void handleReq(ReqSNRule reqSNRule, String target) {
         reqSNRule.setGoodsCode(goodsCode);
+    }
+
+    public void setItem(GoodsItemVO item) {
+        this.item = item;
     }
 }

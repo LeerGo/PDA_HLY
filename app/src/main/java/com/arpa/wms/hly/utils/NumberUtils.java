@@ -39,4 +39,8 @@ public class NumberUtils {
         }
         return "";
     }
+
+    public static boolean isEqual(BigDecimal a, BigDecimal b) {
+        return a.compareTo(b) == 0;
+    }
 }

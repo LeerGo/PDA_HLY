@@ -25,8 +25,10 @@ import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.Const.TASK_STATUS;
+import com.arpa.wms.hly.utils.NumberUtils;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
 
 import javax.inject.Inject;
@@ -35,7 +37,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList;
+import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -51,7 +53,7 @@ public class VMGoodsRecheckDetailDiffList extends WrapDataViewModel {
     private static final String TAG = "@@@@ VMGoodsRecheckDetailDif";
     public ObservableInt status = new ObservableInt();
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
-    public AsyncDiffObservableList<RecheckItemVO> items = new AsyncDiffObservableList<>(new DiffUtil.ItemCallback<>() {
+    public DiffObservableList<RecheckItemVO> items = new DiffObservableList<>(new DiffUtil.ItemCallback<>() {
         @Override
         public boolean areItemsTheSame(@NonNull RecheckItemVO oldItem, @NonNull RecheckItemVO newItem) {
             return oldItem.getCode().equals(newItem.getCode());
@@ -59,7 +61,9 @@ public class VMGoodsRecheckDetailDiffList extends WrapDataViewModel {
 
         @Override
         public boolean areContentsTheSame(@NonNull RecheckItemVO oldItem, @NonNull RecheckItemVO newItem) {
-            return oldItem.getRecheckQuantity() == newItem.getRecheckQuantity();
+            return oldItem.getRecheckQuantity() == newItem.getRecheckQuantity()
+                    || Objects.equals(oldItem.getScanRatio(), newItem.getScanRatio())
+                    || NumberUtils.isEqual(oldItem.getRadio(), newItem.getRadio());
         }
     });
     private final TaskItemDao dao;

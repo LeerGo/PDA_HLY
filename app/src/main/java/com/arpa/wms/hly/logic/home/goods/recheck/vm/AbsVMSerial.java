@@ -4,6 +4,7 @@ import android.app.Application;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableField;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
@@ -21,6 +22,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.rxjava3.core.Single;
+import io.reactivex.rxjava3.schedulers.Schedulers;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -31,6 +35,8 @@ import java.util.Map;
  * </p>
  */
 public abstract class AbsVMSerial extends WrapDataViewModel {
+    public ObservableField<String> keyWord = new ObservableField<>();
+    private static final String TAG = "@@@@ AbsVMSerial";
     // 五分钟时间标记
     private final long diffTime = 5 * 60 * 1000;
     // 本地规则缓存
@@ -40,16 +46,12 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
     protected final Map<String, Long> cacheTime = new HashMap<>();
     private final ReqSNRule reqSNRule = new ReqSNRule();
     protected String target;
-    private SNCodeDao snDao;
-    private TaskItemDao taskDao;
+    protected String taskCode;
+    private final SNCodeDao snDao;
+    private final TaskItemDao taskDao;
 
     public AbsVMSerial(@NonNull Application application, BaseModel model) {
         super(application, model);
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
 
         snDao = getRoomDatabase(AppDatabase.class).snCodeDao();
         taskDao = getRoomDatabase(AppDatabase.class).taskItemDao();
@@ -77,6 +79,7 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
                 handleMultiRule(ruleGroup);
             }
         } else {
+            keyWord.set(null);
             sendMessage("未能匹配到有效切分规则");
         }
     }
@@ -87,11 +90,31 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
      * 切分序列号
      */
     protected void cutSNCode(SNCutRule rule, String snCode) {
-        SNCode code = new SNCode();
-        code.convertRule(rule, snCode);
-        // TODO: 存储 add by 李一方 2023-04-26 15:46:37
-        // snDao.save(code);
+        snDao.exists(snCode)
+                .subscribeOn(Schedulers.io())
+                .map(movie -> Boolean.TRUE)
+                .switchIfEmpty(Single.defer(() -> Single.just(Boolean.FALSE)))
+                .flatMap(it -> {
+                    if (it) {
+                        return Single.just(false);
+                    } else {
+                        SNCode code = new SNCode();
+                        code.setTaskCode(taskCode);
+                        code.setTaskItemCode(obtainItemCode(rule));
+                        code.setScanRatio(obtainScanRadio(rule));
+                        code.convertRule(rule, snCode);
+                        return snDao.insert(code).toSingle(() -> true);
+                    }
+                })
+                .subscribe(it -> {
+                    keyWord.set(null);
+                    sendMessage(it ? "序列号录入成功" : "序列号已存在", true);
+                });
     }
+
+    protected abstract Integer obtainScanRadio(SNCutRule rule);
+
+    protected abstract String obtainItemCode(SNCutRule rule);
 
     protected abstract String obtainTarget(String snCode);
 
@@ -118,5 +141,9 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
                 sendMessage(error.getMessage());
             }
         });
+    }
+
+    public void setTaskCode(String taskCode) {
+        this.taskCode = taskCode;
     }
 }

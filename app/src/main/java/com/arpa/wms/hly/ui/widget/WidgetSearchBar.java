@@ -10,11 +10,15 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 
-import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
-
 import androidx.appcompat.widget.AppCompatImageView;
 import androidx.appcompat.widget.LinearLayoutCompat;
+import androidx.databinding.BindingAdapter;
+import androidx.databinding.InverseBindingAdapter;
+import androidx.databinding.InverseBindingListener;
+
+import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.ui.listener.SimpleTextWatcher;
+import com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -117,5 +121,26 @@ public class WidgetSearchBar extends LinearLayoutCompat {
 
     public void setWatcher(TextWatcher watcher) {
         this.watcher = watcher;
+    }
+
+    @BindingAdapter(value = "keyWord")
+    public static void bindKeyWord(WidgetSearchBar view, String keyWord) {
+        view.setWsbText(keyWord);
+    }
+
+    @InverseBindingAdapter(attribute = "keyWord")
+    public static String getKeyWord(WidgetSearchBar view) {
+        return view.etKey.getText().toString();
+    }
+
+    @BindingAdapter({"keyWordAttrChanged"})
+    public static void setKeyWordAttrChanged(WidgetSearchBar view, InverseBindingListener listener) {
+        view.setWatcher(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                super.onTextChanged(s, start, before, count);
+                listener.onChange();
+            }
+        });
     }
 }
