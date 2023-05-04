@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
 import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
+import androidx.databinding.ObservableInt;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
@@ -51,13 +52,15 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public ObservableField<String> goodUnitName = new ObservableField<>();
     public ObservableField<String> radio = new ObservableField<>("0.00%");
     public ObservableArrayList<SNCodeEntity> codeList = new ObservableArrayList<>();
-    public ObservableField<Integer> scanCount = new ObservableField<>();
+    public ObservableInt scanCount = new ObservableInt();
+    public ObservableInt scanRadio = new ObservableInt();
     public ObservableBoolean isFocus = new ObservableBoolean(false);
-    public int goodsCount; // 商品数，用以计算扫码比例
-    public SoundPlayer player;
     public ObservableField<String> gmtManufacture = new ObservableField<>(); // 生产日期
     public ObservableField<String> placeOrigin = new ObservableField<>(); // 产地
     public ObservableBoolean isManually = new ObservableBoolean();
+
+    public int goodsCount; // 商品数，用以计算扫码比例
+    public SoundPlayer player;
     private String taskCode;
     private SNCodeEntity entity;
 

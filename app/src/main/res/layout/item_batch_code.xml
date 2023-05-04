@@ -15,27 +15,39 @@
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="28dp"
-        android:layout_marginTop="2dp"
-        android:background="@drawable/shape_rrect_solid_blue"
-        android:gravity="center"
-        android:paddingStart="12dp">
+        android:layout_marginTop="-1px">
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@drawable/shape_rrect_border_black"
+            android:gravity="center"
             android:text="@{data.snCode}"
-            android:textColor="@color/white"
-            android:textSize="13sp"
+            android:textColor="@color/color_434c67"
             tools:text="20200202M112:12:1203" />
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginStart="2dp"
-            android:layout_marginEnd="2dp"
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="-1px"
+            android:background="@drawable/shape_rrect_border_black"
+            android:gravity="center"
+            android:paddingHorizontal="4dp"
+            android:textColor="@color/color_434c67"
+            tools:text="1" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:layout_width="50dp"
+            android:layout_height="match_parent"
+            android:layout_marginStart="-1px"
+            android:background="@drawable/shape_rrect_border_black"
+            android:gravity="center"
             android:onClick="@{() ->listener.transfer(data)}"
-            app:srcCompat="@drawable/ic_close" />
+            android:paddingHorizontal="4dp"
+            android:text="删除"
+            android:textColor="@color/colorPrimary" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>
