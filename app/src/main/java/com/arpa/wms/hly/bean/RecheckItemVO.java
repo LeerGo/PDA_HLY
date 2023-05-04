@@ -15,7 +15,12 @@ public class RecheckItemVO extends GoodsItemVO {
     // 扫码率
     private BigDecimal radio;
     // 扫码比例
-    private BigDecimal scanRatio;
+    private Integer scanRatio;
+
+    public RecheckItemVO() {
+        radio = BigDecimal.ZERO;
+        scanRatio = 1;
+    }
 
     @Bindable
     public BigDecimal getRadio() {
@@ -28,11 +33,11 @@ public class RecheckItemVO extends GoodsItemVO {
     }
 
     @Bindable
-    public BigDecimal getScanRatio() {
+    public Integer getScanRatio() {
         return scanRatio;
     }
 
-    public void setScanRatio(BigDecimal scanRatio) {
+    public void setScanRatio(Integer scanRatio) {
         this.scanRatio = scanRatio;
         notifyPropertyChanged(BR.scanRatio);
     }

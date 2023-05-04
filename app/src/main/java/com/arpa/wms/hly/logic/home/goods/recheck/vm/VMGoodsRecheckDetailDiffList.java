@@ -4,29 +4,38 @@ import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableInt;
+import androidx.recyclerview.widget.DiffUtil;
 
 import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.viewmodel.VMBaseDiffList;
+import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.RecheckItemVO;
-import com.arpa.wms.hly.bean.base.ReqBase;
-import com.arpa.wms.hly.bean.base.Result;
+import com.arpa.wms.hly.bean.entity.TaskItemEntity;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
+import com.arpa.wms.hly.dao.AppDatabase;
+import com.arpa.wms.hly.dao.TaskItemDao;
 import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckConfirmActivity;
+import com.arpa.wms.hly.net.callback.ResultCallback;
+import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.ui.listener.ViewListener;
+import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.Const.TASK_STATUS;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import retrofit2.Call;
+import me.tatarka.bindingcollectionadapter2.collections.AsyncDiffObservableList;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -38,49 +47,54 @@ import retrofit2.Call;
  * </p>
  */
 @HiltViewModel
-public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<RecheckItemVO> {
-    public String supplierName;
+public class VMGoodsRecheckDetailDiffList extends WrapDataViewModel {
+    private static final String TAG = "@@@@ VMGoodsRecheckDetailDif";
+    public ObservableInt status = new ObservableInt();
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
+    public AsyncDiffObservableList<RecheckItemVO> items = new AsyncDiffObservableList<>(new DiffUtil.ItemCallback<>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull RecheckItemVO oldItem, @NonNull RecheckItemVO newItem) {
+            return oldItem.getCode().equals(newItem.getCode());
+        }
+
+        @Override
+        public boolean areContentsTheSame(@NonNull RecheckItemVO oldItem, @NonNull RecheckItemVO newItem) {
+            return oldItem.getRecheckQuantity() == newItem.getRecheckQuantity();
+        }
+    });
+    private final TaskItemDao dao;
+    public String supplierName;
 
     @Inject
     public VMGoodsRecheckDetailDiffList(@NonNull Application application, BaseModel model) {
         super(application, model);
+        dao = getRoomDatabase(AppDatabase.class).taskItemDao();
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        refresh();
+        requestData();
     }
 
-    @Override
-    protected boolean setAutoRefresh() {
-        return false;
-    }
-
-    @Override
-    public Call<Result<List<RecheckItemVO>>> getCall(Map<String, Object> params) {
-        return apiService.recheckItemListBelow(params);
-    }
-
-    @Override
-    public ReqBase getParams() {
-        return request;
-    }
-
-    @Override
     public ItemBinding<RecheckItemVO> getItemBinding() {
         ItemBinding<RecheckItemVO> itemBinding;
         if (request.getRecheckStatus() == TASK_STATUS.RECHECK_WAIT) {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_wait);
-            itemBinding
+            itemBinding.bindExtra(BR.supplier, supplierName)
                     .bindExtra(BR.listener, (ViewListener.DataTransCallback<GoodsItemVO>) data -> {
                         Bundle bundle = new Bundle();
                         bundle.putString(IntentKey.OUTBOUND_CODE, data.getOutboundCode());
                         bundle.putString(IntentKey.OUTBOUND_ITEM_CODE, data.getCode());
                         startActivity(GoodsRecheckConfirmActivity.class, bundle);
                     })
-                    .bindExtra(BR.supplier, supplierName);
+                    .bindExtra(BR.focusCall, (ViewListener.FocusCallback<RecheckItemVO>) (isFocus, data) -> {
+                        if (!isFocus) {
+                            TaskItemEntity entity = new TaskItemEntity();
+                            entity.convert(data);
+                            dao.insert(entity).subscribeOn(Schedulers.io()).subscribe();
+                        }
+                    });
         } else {
             itemBinding = ItemBinding.of(BR.data, R.layout.item_goods_recheck_detail_yet);
             itemBinding.bindExtra(BR.supplier, supplierName);
@@ -94,5 +108,56 @@ public class VMGoodsRecheckDetailDiffList extends VMBaseDiffList<RecheckItemVO> 
      */
     public void finishWork() {
         // TODO: 待实现 add by 李一方 2023-04-18 17:04:27
+    }
+
+    public void initParams(Bundle bundle) {
+        status.set(bundle.getInt(Const.IntentKey.STATUS));
+        String code = bundle.getString(Const.IntentKey.CODE);
+        request.setParams(status.get(), code);
+    }
+
+    @Override
+    public void onPause() {
+        saveData();
+        super.onPause();
+    }
+
+    private void saveData() {
+        items.forEach(it -> {
+            // NumberUtils.
+        });
+    }
+
+    public void requestData() {
+        updateStatus(StatusEvent.Status.LOADING);
+        apiService.recheckItemListBelow(request.toParams()).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(List<RecheckItemVO> data) {
+                updateStatus(StatusEvent.Status.SUCCESS);
+                dao.getByTask(request.getOutboundCode())
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        // .to(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(getApplication())))
+                        .subscribe(it -> {
+                            var tmp = data;
+                            if (TASK_STATUS.RECHECK_WAIT == status.get() && !it.isEmpty()) {
+                                tmp = data.stream().peek(m -> it.stream()
+                                                .filter(m2 -> m2.getItemCode().equals(m.getCode()))
+                                                .forEach(m2 -> {
+                                                    m.setRadio(m2.getRadio());
+                                                    m.setScanRatio(m2.getScanRatio());
+                                                }))
+                                        .collect(Collectors.toList());
+                            }
+                            items.update(tmp);
+                        });
+            }
+
+            @Override
+            public void onFailed(ResultError error) {
+                updateStatus(StatusEvent.Status.ERROR);
+                sendMessage(error.getMessage());
+            }
+        });
     }
 }

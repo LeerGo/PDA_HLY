@@ -6,6 +6,8 @@
 
     <data>
 
+        <import type="com.arpa.wms.hly.utils.Const.TASK_STATUS" />
+
         <variable
             name="viewModel"
             type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailDiffList" />
@@ -17,33 +19,24 @@
         android:orientation="vertical">
 
         <com.arpa.wms.hly.ui.widget.WidgetSearchBar
+            android:id="@+id/wsbSearch"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginVertical="4dp"
-            android:paddingHorizontal="12dp" />
+            android:paddingHorizontal="12dp"
+            app:wsbHint="请扫描序列号"
+            app:visible="@{TASK_STATUS.RECHECK_WAIT==viewModel.status}" />
 
-        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvList"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:autoRefresh="@{viewModel.isAutoRefresh}"
-            app:onRefreshListener="@{()->viewModel.refresh()}"
-            app:refreshing="@{viewModel.refreshing}"
-            app:srlEnableFooterFollowWhenNoMoreData="false"
-            app:srlEnableLoadMore="false"
-            app:srlEnablePreviewInEditMode="true">
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvList"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:adapter="@{viewModel.adapter}"
-                app:itemBinding="@{viewModel.itemBinding}"
-                app:items="@{viewModel.items}"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:itemCount="20"
-                tools:listitem="@layout/item_goods_recheck_detail_wait" />
-        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+            app:itemBinding="@{viewModel.itemBinding}"
+            app:items="@{viewModel.items}"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="20"
+            tools:listitem="@layout/item_goods_recheck_detail_wait" />
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/MineButtonBaseStyle"

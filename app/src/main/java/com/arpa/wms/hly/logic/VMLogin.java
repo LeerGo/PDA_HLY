@@ -39,8 +39,11 @@ public class VMLogin extends VMWarehouse {
     public VMLogin(@NonNull Application application, BaseModel model) {
         super(application, model);
         if (BuildConfig.DEBUG) {
-            userName.set("test02");
-            userPass.set("test02");
+            // userName.set("test02");
+            // userPass.set("test02");
+
+            userName.set("super_admin");
+            userPass.set("abcd1234");
 
             // userName.set("yangguihua");
             // userPass.set("abcd1234");

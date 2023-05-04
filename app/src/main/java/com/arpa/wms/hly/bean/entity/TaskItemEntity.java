@@ -5,6 +5,8 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
 
+import com.arpa.wms.hly.bean.RecheckItemVO;
+
 import java.math.BigDecimal;
 
 /**
@@ -25,7 +27,7 @@ public class TaskItemEntity {
     private BigDecimal radio;
     // 扫码比例
     @ColumnInfo(defaultValue = "1")
-    private BigDecimal scanRatio;
+    private Integer scanRatio;
 
     public String getTaskCode() {
         return taskCode;
@@ -51,11 +53,18 @@ public class TaskItemEntity {
         this.radio = radio;
     }
 
-    public BigDecimal getScanRatio() {
+    public Integer getScanRatio() {
         return scanRatio;
     }
 
-    public void setScanRatio(BigDecimal scanRatio) {
+    public void setScanRatio(Integer scanRatio) {
         this.scanRatio = scanRatio;
+    }
+
+    public void convert(RecheckItemVO data) {
+        setRadio(data.getRadio());
+        setItemCode(data.getCode());
+        setTaskCode(data.getOutboundCode());
+        setScanRatio(data.getScanRatio());
     }
 }

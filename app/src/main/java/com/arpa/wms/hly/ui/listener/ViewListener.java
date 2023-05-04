@@ -28,4 +28,8 @@ public interface ViewListener {
     interface OnDateClickListener <T> {
         void onItemClick(View view, int position, int type, T data);
     }
+
+    interface FocusCallback <T> {
+        void onFocusChanged(boolean isFocus, T data);
+    }
 }

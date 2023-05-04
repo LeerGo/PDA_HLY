@@ -137,7 +137,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
                     .subscribeOn(Schedulers.io())
                     .subscribe(res -> {
                         if (res > 0) sendSingleLiveEvent(Const.Message.MSG_DIALOG, true);
-                    }).dispose();
+                    });
         } else {
             codeList.addAll(list);
             scanCount.set(codeList.size());
@@ -229,7 +229,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
                     codeList.addAll(data);
                     scanCount.set(codeList.size());
                     calcRadio();
-                }).dispose();
+                });
     }
 
     /**
@@ -246,7 +246,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public void saveAll() {
         CompletableConcat.concatArray(getSNCodeDao().deleteByTask(taskCode), getSNCodeDao().saveBatch(codeList))
                 .subscribeOn(Schedulers.io())
-                .subscribe(() -> sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true)).dispose();
+                .subscribe(() -> sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true));
     }
 
     /**

@@ -21,13 +21,18 @@
         <variable
             name="listener"
             type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
+
+        <variable
+            name="focusCall"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.FocusCallback" />
     </data>
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="12dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="10dp"
         android:onClick="@{()->listener.transfer(data)}"
         app:cardBackgroundColor="@color/white"
         tools:layout_marginBottom="10dp">
@@ -147,15 +152,15 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@drawable/shape_rrect_border_grey"
-                    android:digits="123456789"
-                    android:hint="请输入扫码比例"
                     android:lineSpacingExtra="3dp"
                     android:paddingHorizontal="4dp"
                     android:paddingVertical="2dp"
                     android:textColor="@color/colorPrimary"
                     android:textColorHint="@color/color_hint_text"
                     android:textSize="14sp"
-                    app:textValue="@={data.scanRatio}"
+                    app:minValue="@{1}"
+                    app:onFocusChanged="@{(v, focus) ->focusCall.onFocusChanged(focus, data)}"
+                    app:textIntVal="@={data.scanRatio}"
                     tools:text="8" />
             </androidx.appcompat.widget.LinearLayoutCompat>
 

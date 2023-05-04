@@ -96,6 +96,7 @@ dependencies {
     // Retrofit 适配器
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'com.uber.autodispose2:autodispose-androidx-lifecycle:2.1.1'
 
     // hilt
     api "com.google.dagger:hilt-android:2.41"

@@ -107,10 +107,6 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             }
 
             private void handlerSNRule(Map<Integer, List<SNCutRule>> data) {
-                // var res = data.values().stream()
-                //         .flatMap(Collection::stream)
-                //         .collect(Collectors.toList());
-                // cacheRule.put(target, res);
                 cacheTime.put(target, System.currentTimeMillis());
                 cacheRule.put(target, data);
                 handleSNCode(snCode);
@@ -119,6 +115,7 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             @Override
             public void onFailed(ResultError error) {
                 updateStatus(StatusEvent.Status.ERROR);
+                sendMessage(error.getMessage());
             }
         });
     }

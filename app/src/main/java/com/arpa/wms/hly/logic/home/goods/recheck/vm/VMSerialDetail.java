@@ -3,8 +3,12 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 import android.app.Application;
 
 import androidx.annotation.NonNull;
+import androidx.lifecycle.LifecycleOwner;
 
 import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.DataViewModel;
+import com.arpa.and.arch.base.livedata.MessageEvent;
+import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.bean.SNCutRule;
 import com.arpa.wms.hly.bean.req.ReqSNRule;
 
@@ -44,5 +48,11 @@ public class VMSerialDetail extends AbsVMSerial {
     @Override
     protected void handleReq(ReqSNRule reqSNRule, String target) {
         reqSNRule.setGoodsId(target);
+    }
+
+    public void register(LifecycleOwner owner, DataViewModel model) {
+        getSingleLiveEvent().observe(owner, model::sendSingleLiveEvent);
+        getStatusEvent().observe(owner, (StatusEvent.StatusObserver) model::updateStatus);
+        getMessageEvent().observe(owner, (MessageEvent.MessageObserver) model::sendMessage);
     }
 }

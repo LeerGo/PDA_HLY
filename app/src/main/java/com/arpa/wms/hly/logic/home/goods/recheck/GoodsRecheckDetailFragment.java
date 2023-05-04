@@ -10,7 +10,8 @@ import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailDiffList;
-import com.arpa.wms.hly.ui.decoration.BothItemDecoration;
+import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialDetail;
+import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -43,7 +44,7 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
 
     @Override
     public void onLazyLoad() {
-        viewModel.autoRefresh();
+        viewModel.requestData();
     }
 
     @Override
@@ -51,16 +52,30 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
         super.initData(savedInstanceState);
 
         viewBind.setViewModel(viewModel);
+
+        VMSerialDetail vmSerial = obtainViewModel(VMSerialDetail.class);
+        vmSerial.register(this, viewModel);
+        // viewBind.wsbSearch.setOnSearchClick(vmSerial::onScan);
+        viewBind.wsbSearch.setOnSearchClick(new ViewListener.DataTransCallback<String>() {
+            @Override
+            public void transfer(String data) {
+                vmSerial.sendMessage("1111");
+            }
+        });
+
+        viewModel.initParams(requireArguments());
+        observeParent();
+    }
+
+    private void observeParent() {
         int recheckStatus = requireArguments().getInt(Const.IntentKey.STATUS);
-        viewModel.request.setParams(recheckStatus, requireArguments().getString(Const.IntentKey.CODE));
-        viewBind.rvList.addItemDecoration(new BothItemDecoration());
         VMGoodsRecheckDetail parentModel = new ViewModelProvider(requireActivity()).get(VMGoodsRecheckDetail.class);
         parentModel.headerData.observe(requireActivity(), headerData -> viewModel.supplierName = headerData.getSupplierName());
         parentModel.searchLiveData.observe(requireActivity(),
                 searchInfo -> {
                     if (recheckStatus == searchInfo.getStatus()) {
                         viewModel.request.setGoodsBarCode(searchInfo.getKeyWord());
-                        viewModel.autoRefresh();
+                        viewModel.requestData();
                     }
                 }
         );
