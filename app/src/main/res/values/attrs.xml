@@ -8,16 +8,18 @@
         <attr name="wmmIcon"
               format="reference" />
     </declare-styleable>
-    
+
     <declare-styleable name="WidgetTitleBar">
         <attr name="wtbTitle"
+              format="string|reference" />
+        <attr name="wtbSub"
               format="string|reference" />
         <attr name="wtbShowBack"
               format="boolean" />
         <attr name="wtbBackPadding"
               format="dimension" />
     </declare-styleable>
-    
+
     <declare-styleable name="WidgetPropsItem">
         <attr name="propsKey"
               format="string|reference" />
@@ -38,7 +40,7 @@
                   value="0x00800005" />
         </attr>
     </declare-styleable>
-    
+
     <declare-styleable name="WidgetQuantityItem">
         <attr name="wqiSum"
               format="integer" />
@@ -49,7 +51,7 @@
         <attr name="wqiShowCount"
               format="boolean" />
     </declare-styleable>
-    
+
     <declare-styleable name="WidgetInputItem">
         <attr name="inputTitle"
               format="string|reference" />
@@ -79,8 +81,14 @@
             <!--<flag name="numberDecimal"
                   value="0x00002002" />-->
         </attr>
+        <attr name="inputImeOptions">
+            <flag name="normal"
+                  value="0x00000000" />
+            <flag name="actionSearch"
+                  value="0x00000003" />
+        </attr>
     </declare-styleable>
-    
+
     <declare-styleable name="WidgetSearchBar">
         <attr name="wsbHint"
               format="string|reference" />

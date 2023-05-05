@@ -64,6 +64,7 @@ public interface Const {
         String DATE_MANUFACTURE = "date_manufacture";
         String PLACE_ORIGIN = "place_origin";
         String TYPE = "type";
+        String GOODS_CODE = "goodsCode";
     }
 
     /**

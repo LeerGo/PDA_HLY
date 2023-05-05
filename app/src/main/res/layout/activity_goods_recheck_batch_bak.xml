@@ -11,8 +11,12 @@
         <import type="com.arpa.wms.hly.utils.Const" />
 
         <variable
-            name="viewModel"
+            name="vmSerial"
             type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialBatch" />
+
+        <variable
+            name="viewModel"
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckBatch" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -20,12 +24,10 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--app:onBack="@{() ->viewModel.sendSingleLiveEvent(Const.Message.MSG_BATCH_SAVE)}"-->
         <com.arpa.wms.hly.ui.widget.WidgetTitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:onAction="@{() ->viewModel.chooseRule()}"
-            app:wtbSub="规则选择"
+            app:onBack="@{() ->viewModel.sendSingleLiveEvent(Const.Message.MSG_BATCH_SAVE)}"
             app:wtbTitle="批次登记" />
 
         <com.arpa.wms.hly.ui.widget.WidgetPropsItem
@@ -89,34 +91,12 @@
                 app:propsValueGravity="end"
                 tools:propsValue="0.00%" />
 
-            <androidx.appcompat.widget.LinearLayoutCompat
+            <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 style="@style/ItemRecheckBatchSNStyle"
-                android:gravity="center_vertical">
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="换箱比例"
-                    android:textColor="@color/color_434c67"
-                    android:textSize="14sp" />
-
-                <androidx.appcompat.widget.AppCompatEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@null"
-                    android:gravity="end"
-                    android:hint="请输入换箱比例(最小 1）"
-                    android:lineSpacingExtra="3dp"
-                    android:paddingHorizontal="4dp"
-                    android:paddingVertical="2dp"
-                    android:textColor="@color/colorPrimary"
-                    android:textColorHint="@color/color_hint_text"
-                    android:textSize="14sp"
-                    app:minValue="@{1}"
-                    app:onFocusChanged="@{(v, focus) -> viewModel.onScanRatioChange(focus)}"
-                    app:textIntVal="@={viewModel.scanRatio}"
-                    tools:text="" />
-            </androidx.appcompat.widget.LinearLayoutCompat>
+                app:inputTitle="换箱比例"
+                app:inputType="number"
+                app:inputValue="@{viewModel.scanRadio}"
+                tools:inputText="1" />
 
             <View
                 android:layout_width="match_parent"
@@ -158,7 +138,6 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="-2px"
                 android:layout_marginBottom="8dp"
                 android:layout_weight="1"
                 app:itemBinding="@{viewModel.itemBinding}"
@@ -176,17 +155,16 @@
             android:paddingHorizontal="12dp"
             android:paddingBottom="12dp">
 
-            <!--app:inputFocus="@{viewModel.isFocus}"-->
             <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:id="@+id/wiiInput"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
-                app:inputAction="@{v->viewModel.onScan((String)v)}"
+                app:inputAction="@{v->vmSerial.onScan((String)v)}"
+                app:inputFocus="@{viewModel.isFocus}"
                 app:inputHint="请扫描/输入批次号"
                 app:inputIcon="@mipmap/ic_scan"
                 app:inputImeOptions="actionSearch"
-                app:inputText="@={viewModel.keyWord}"
                 app:inputTitle="批次号" />
 
             <View
@@ -195,16 +173,33 @@
                 android:layout_height="1px"
                 android:background="@color/grey_eeeeee" />
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/acbSure"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
-                android:layout_height="32dp"
-                android:layout_weight="1"
-                android:background="@drawable/shape_rrect_blue_gradient_r5"
-                android:onClick="@{()-> viewModel.confirm()}"
-                android:text="确认"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:layout_height="wrap_content">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/acbSave"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rrect_blue_border_r5"
+                    android:onClick="@{()-> viewModel.saveAll()}"
+                    android:text="暂存"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="18sp" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/acbSure"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/shape_rrect_blue_gradient_r5"
+                    android:onClick="@{()-> viewModel.confirm()}"
+                    android:text="确认"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
         </androidx.appcompat.widget.LinearLayoutCompat>
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

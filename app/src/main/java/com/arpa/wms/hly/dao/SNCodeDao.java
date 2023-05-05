@@ -1,6 +1,7 @@
 package com.arpa.wms.hly.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -46,6 +47,12 @@ public interface SNCodeDao {
     Completable delete(String taskCode, String snCode);
 
     /**
+     * 删除一条序列号
+     */
+    @Delete
+    void delete(SNCode code);
+
+    /**
      * 删除一批序列号
      */
     @Query("delete from SNCodeEntity where taskCode= :taskCode")
@@ -62,6 +69,12 @@ public interface SNCodeDao {
      */
     @Query("SELECT * FROM SNCodeEntity where taskCode= :taskCode order by snCode desc")
     Single<List<SNCodeEntity>> getByTask(String taskCode);
+
+    /**
+     * 获取所有序列号
+     */
+    @Query("SELECT * FROM SNCode where taskCode= :taskCode and taskItemCode= :itemCode order by snCode desc")
+    List<SNCode> getByTask(String taskCode, String itemCode);
 
     /**
      * 批量存储

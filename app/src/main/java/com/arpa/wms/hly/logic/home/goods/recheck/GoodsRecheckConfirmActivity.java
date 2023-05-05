@@ -36,7 +36,7 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
     private final ActivityResultLauncher<Intent> batchResult = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
         if (result.getResultCode() == RESULT_OK) {
             viewModel.setBatchCode(result.getData().getParcelableArrayListExtra(IntentKey.DATA));
-            highlightBatchCode();
+            // highlightBatchCode();
         }
     });
 
@@ -64,8 +64,10 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
         });
         viewBind.acbBatchRegist.setOnClickListener(v -> {
             Bundle bundle = new Bundle();
-            bundle.putString(IntentKey.CODE, viewModel.request.getOutboundItemCode());
+            bundle.putString(IntentKey.CODE, viewModel.request.getOutboundCode());
+            bundle.putString(IntentKey.OUTBOUND_ITEM_CODE, viewModel.request.getOutboundItemCode());
             bundle.putString(IntentKey.GOODS_NAME, viewModel.detail.get().getGoodsName());
+            bundle.putString(IntentKey.GOODS_CODE, viewModel.detail.get().getGoodCode());
             bundle.putString(IntentKey.GOODS_UNIT_NAME, viewModel.detail.get().getGoodsUnitName());
             bundle.putInt(IntentKey.GOODS_COUNT, viewModel.detail.get().getWaitRecheckQuantity());
             bundle.putString(IntentKey.DATE_MANUFACTURE, viewModel.detail.get().getGmtManufacture());

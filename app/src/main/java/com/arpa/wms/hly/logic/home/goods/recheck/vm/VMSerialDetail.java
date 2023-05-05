@@ -48,10 +48,16 @@ public class VMSerialDetail extends AbsVMSerial {
         var data = getItemVO(rule);
         data.ifPresent(vo -> {
             Integer count = snDao.countRadio(taskCode, vo.getCode());
-            BigDecimal res = new BigDecimal(count)
-                    .divide(BigDecimal.valueOf(vo.getPlanQuantity()), 4, RoundingMode.HALF_UP)
-                    .multiply(BigDecimal.valueOf(100))
-                    .setScale(2, RoundingMode.HALF_UP);
+            BigDecimal res;
+            if (null == count || 0 == count) {
+                count = 0;
+                res = BigDecimal.ZERO;
+            } else {
+                res = new BigDecimal(count)
+                        .divide(BigDecimal.valueOf(vo.getPlanQuantity()), 4, RoundingMode.HALF_UP)
+                        .multiply(BigDecimal.valueOf(100))
+                        .setScale(2, RoundingMode.HALF_UP);
+            }
             vo.setRatio(res);
             taskDao.updateTaskRatio(taskCode, vo.getCode(), res);
         });

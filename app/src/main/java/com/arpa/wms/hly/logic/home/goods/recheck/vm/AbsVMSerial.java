@@ -32,7 +32,6 @@ import java.util.Map;
  * </p>
  */
 public abstract class AbsVMSerial extends WrapDataViewModel {
-    public ObservableField<String> keyWord = new ObservableField<>();
     private static final String TAG = "@@@@ AbsVMSerial";
     // 五分钟时间标记
     private final long diffTime = 5 * 60 * 1000;
@@ -42,6 +41,7 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
     protected final Map<String, Map<Integer, List<SNCutRule>>> cacheRule = new HashMap<>();
     protected final Map<String, Long> cacheTime = new HashMap<>();
     private final ReqSNRule reqSNRule = new ReqSNRule();
+    public ObservableField<String> keyWord = new ObservableField<>();
     protected String target;
     protected String taskCode;
     protected final SNCodeDao snDao;
@@ -95,12 +95,16 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             code.setScanRatio(obtainScanRadio(rule));
             code.convertRule(rule, snCode);
             snDao.insert(code);
-            sendMessage("序列号录入成功");
-            calcCountRadio(rule);
+            afterSaveSNCode(rule, code);
         } else {
             sendMessage("序列号已存在");
         }
         keyWord.set(null);
+    }
+
+    protected void afterSaveSNCode(SNCutRule rule, SNCode code) {
+        sendMessage("序列号录入成功");
+        calcCountRadio(rule);
     }
 
     protected abstract void calcCountRadio(SNCutRule rule);

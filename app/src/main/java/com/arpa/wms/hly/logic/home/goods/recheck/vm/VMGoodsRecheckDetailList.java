@@ -59,9 +59,10 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
     }
 
     @Override
-    public void onCreate() {
-        super.onCreate();
-        requestData();
+    public void onResume() {
+        super.onResume();
+
+        adjustRadio(items);
     }
 
     public ItemBinding<RecheckItemVO> getItemBinding() {
@@ -109,19 +110,7 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
         apiService.recheckItemListBelow(request.toParams()).enqueue(new ResultCallback<>() {
             @Override
             public void onSuccess(List<RecheckItemVO> data) {
-                if (TASK_STATUS.RECHECK_WAIT == status.get()) {
-                    data.forEach(it -> {
-                        var task = dao.exists(request.getOutboundCode(), it.getCode());
-                        if (null == task) {
-                            task = new TaskItemEntity();
-                            task.convert(it);
-                            dao.save(task);
-                        } else {
-                            it.setRatio(task.getRatio());
-                            it.setScanRatio(task.getScanRatio());
-                        }
-                    });
-                }
+                adjustRadio(data);
                 items.clear();
                 items.addAll(data);
                 updateStatus(StatusEvent.Status.SUCCESS);
@@ -139,5 +128,24 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
                 sendMessage(error.getMessage());
             }
         });
+    }
+
+    /**
+     * 调整扫描比例
+     */
+    private void adjustRadio(List<RecheckItemVO> data) {
+        if (TASK_STATUS.RECHECK_WAIT == status.get() && !data.isEmpty()) {
+            data.forEach(it -> {
+                var task = dao.exists(request.getOutboundCode(), it.getCode());
+                if (null == task) {
+                    task = new TaskItemEntity();
+                    task.convert(it);
+                    dao.save(task);
+                } else {
+                    it.setRatio(task.getRatio());
+                    it.setScanRatio(task.getScanRatio());
+                }
+            });
+        }
     }
 }

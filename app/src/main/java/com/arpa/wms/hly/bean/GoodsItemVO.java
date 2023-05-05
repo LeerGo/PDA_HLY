@@ -13,6 +13,7 @@ import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
 public class GoodsItemVO extends SelectItem {
     private String code;
     private String goodCode; // 商品编码
+    private String goodsCode; // 商品编码
     private String goodsName; // 商品名称
     private String goodsUnitName; // 单位
     private String gmtManufacture; // 生产日期
@@ -153,6 +154,14 @@ public class GoodsItemVO extends SelectItem {
 
     public void setGoodCode(String goodCode) {
         this.goodCode = goodCode;
+    }
+
+    public String getGoodsCode() {
+        return goodsCode;
+    }
+
+    public void setGoodsCode(String goodsCode) {
+        this.goodsCode = goodsCode;
     }
 
     public String getLoadQuantity() {

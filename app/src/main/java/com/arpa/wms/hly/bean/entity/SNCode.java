@@ -32,10 +32,10 @@ public class SNCode {
     public SNCode() {
     }
 
-    public SNCode(String taskCode, String taskItemCode) {
+    /*public SNCode(String taskCode, String taskItemCode) {
         this.taskCode = taskCode;
         this.taskItemCode = taskItemCode;
-    }
+    }*/
 
     public void convertRule(SNCutRule rule, String snCode) {
         setSnCode(snCode);
@@ -186,5 +186,25 @@ public class SNCode {
                 ", expirationDate='" + expirationDate + '\'' +
                 ", scanRatio=" + scanRatio +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof SNCode)) return false;
+
+        SNCode code = (SNCode) o;
+
+        if (!taskCode.equals(code.taskCode)) return false;
+        if (!taskItemCode.equals(code.taskItemCode)) return false;
+        return snCode.equals(code.snCode);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = taskCode.hashCode();
+        result = 31 * result + taskItemCode.hashCode();
+        result = 31 * result + snCode.hashCode();
+        return result;
     }
 }

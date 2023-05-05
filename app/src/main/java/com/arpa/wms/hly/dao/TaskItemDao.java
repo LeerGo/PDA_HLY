@@ -54,6 +54,12 @@ public interface TaskItemDao {
     void updateTaskRatio(String taskCode, String itemCode, BigDecimal ratio);
 
     /**
+     * 更新扫码率
+     */
+    @Query("update TaskItemEntity set scanRatio=:ratio where taskCode= :taskCode and itemCode=:itemCode")
+    void updateScanRatio(String taskCode, String itemCode, Integer ratio);
+
+    /**
      * 获取换箱比
      */
     @Query("select scanRatio from taskitementity where taskCode= :taskCode and itemCode=:itemCode")

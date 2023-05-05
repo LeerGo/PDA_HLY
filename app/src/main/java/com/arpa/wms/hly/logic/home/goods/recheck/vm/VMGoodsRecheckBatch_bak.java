@@ -15,7 +15,6 @@ import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
-import com.arpa.wms.hly.bean.entity.SNCode;
 import com.arpa.wms.hly.bean.entity.SNCodeEntity;
 import com.arpa.wms.hly.dao.AppDatabase;
 import com.arpa.wms.hly.dao.SNCodeDao;
@@ -28,11 +27,13 @@ import com.arpa.wms.hly.utils.SoundPlayer;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.internal.operators.completable.CompletableConcat;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
@@ -46,28 +47,30 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  * </p>
  */
 @HiltViewModel
-public class VMGoodsRecheckBatch extends WrapDataViewModel {
+public class VMGoodsRecheckBatch_bak extends WrapDataViewModel {
     public ObservableField<String> goodName = new ObservableField<>();
     public ObservableField<String> goodUnitName = new ObservableField<>();
-    public ObservableField<String> ratio = new ObservableField<>("0.00%");
-    public ObservableArrayList<SNCode> items = new ObservableArrayList<>();
+    public ObservableField<String> radio = new ObservableField<>("0.00%");
+    public ObservableArrayList<SNCodeEntity> codeList = new ObservableArrayList<>();
     public ObservableInt scanCount = new ObservableInt();
     public ObservableInt scanRadio = new ObservableInt();
     public ObservableBoolean isFocus = new ObservableBoolean(false);
     public ObservableField<String> gmtManufacture = new ObservableField<>(); // 生产日期
     public ObservableField<String> placeOrigin = new ObservableField<>(); // 产地
+    public ObservableBoolean isManually = new ObservableBoolean();
+
     public int goodsCount; // 商品数，用以计算扫码比例
     public SoundPlayer player;
-    public String itemCode;
+    private String taskCode;
     private SNCodeEntity entity;
 
     @Inject
-    public VMGoodsRecheckBatch(@NonNull Application application, BaseModel model) {
+    public VMGoodsRecheckBatch_bak(@NonNull Application application, BaseModel model) {
         super(application, model);
     }
 
-    public ItemBinding<SNCode> getItemBinding() {
-        ItemBinding<SNCode> itemBinding = ItemBinding.of(BR.data, R.layout.item_batch_code);
+    public ItemBinding<SNCodeEntity> getItemBinding() {
+        ItemBinding<SNCodeEntity> itemBinding = ItemBinding.of(BR.data, R.layout.item_batch_code);
         itemBinding.bindExtra(BR.listener, (ViewListener.DataTransCallback<SNCodeEntity>) data -> removeData(data.getSnCode()));
         return itemBinding;
     }
@@ -76,10 +79,10 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      * 移除数据
      */
     private void removeData(String snCode) {
-        items.remove(new SNCodeEntity(itemCode, snCode));
-        scanCount.set(items.size());
+        codeList.remove(new SNCodeEntity(taskCode, snCode));
+        scanCount.set(codeList.size());
         calcRadio();
-        getSNCodeDao().delete(itemCode, snCode)
+        getSNCodeDao().delete(taskCode, snCode)
                 .subscribeOn(Schedulers.io()).subscribe();
     }
 
@@ -89,11 +92,11 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     public void calcRadio() {
         BigDecimal result;
         if (0 == goodsCount) result = BigDecimal.ZERO;
-        else result = BigDecimal.valueOf(items.size())
+        else result = BigDecimal.valueOf(codeList.size())
                 .divide(BigDecimal.valueOf(goodsCount), 4, RoundingMode.HALF_UP)
                 .multiply(BigDecimal.valueOf(100))
                 .setScale(2, BigDecimal.ROUND_HALF_UP);
-        ratio.set(result + "%");
+        radio.set(result + "%");
         isFocus.set(true);
     }
 
@@ -118,7 +121,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
     }
 
     public void initData(Intent intent) {
-        itemCode = intent.getStringExtra(Const.IntentKey.OUTBOUND_ITEM_CODE);
+        taskCode = intent.getStringExtra(Const.IntentKey.CODE);
         goodName.set(intent.getStringExtra(Const.IntentKey.GOODS_NAME));
         goodUnitName.set(intent.getStringExtra(Const.IntentKey.GOODS_UNIT_NAME));
         goodsCount = intent.getIntExtra(Const.IntentKey.GOODS_COUNT, 0);
@@ -133,14 +136,14 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      */
     private void fillCodeList(ArrayList<SNCodeEntity> list) {
         if (null == list || list.isEmpty()) {
-            getSNCodeDao().count(itemCode)
+            getSNCodeDao().count(taskCode)
                     .subscribeOn(Schedulers.io())
                     .subscribe(res -> {
                         if (res > 0) sendSingleLiveEvent(Const.Message.MSG_DIALOG, true);
                     });
         } else {
-            // codeList.addAll(list);
-            scanCount.set(items.size());
+            codeList.addAll(list);
+            scanCount.set(codeList.size());
         }
     }
 
@@ -160,8 +163,8 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      * 添加数据
      */
     public void addData() {
-        // codeList.add(0, entity);
-        scanCount.set(items.size());
+        codeList.add(0, entity);
+        scanCount.set(codeList.size());
         calcRadio();
     }
 
@@ -175,17 +178,17 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
             player.play(R.raw.scan_failed);
             return true;
         }
-        if (items.contains(new SNCodeEntity(itemCode, text))) {
+        if (codeList.contains(new SNCodeEntity(taskCode, text))) {
             sendSingleLiveEvent(Const.Message.MSG_BATCH_REPEAT);
             player.play(R.raw.scan_failed);
             return true;
         }
-        if (items.size() == goodsCount) {
+        if (codeList.size() == goodsCount) {
             sendMessage("批次号已录入最大数量");
             player.play(R.raw.scan_failed);
             return true;
         }
-        entity = new SNCodeEntity(itemCode, text);
+        entity = new SNCodeEntity(taskCode, text);
         entity.verify(gmtManufacture.get(), placeOrigin.get());
         if (!DateUtils.isDateValid(entity.getBriefDate())) {
             sendMessage("批次号格式错误");
@@ -222,12 +225,12 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      * 恢复记录
      */
     public void restoreRecords() {
-        getSNCodeDao().getByTask(itemCode)
+        getSNCodeDao().getByTask(taskCode)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(data -> {
-                    // codeList.addAll(data);
-                    scanCount.set(items.size());
+                    codeList.addAll(data);
+                    scanCount.set(codeList.size());
                     calcRadio();
                 });
     }
@@ -236,7 +239,7 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      * 丢弃记录
      */
     public void discardRecords() {
-        getSNCodeDao().deleteByTask(itemCode)
+        getSNCodeDao().deleteByTask(taskCode)
                 .subscribeOn(Schedulers.io()).subscribe();
     }
 
@@ -244,16 +247,16 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
      * 暂存
      */
     public void saveAll() {
-        // CompletableConcat.concatArray(getSNCodeDao().deleteByTask(itemCode), getSNCodeDao().saveBatch(codeList))
-        //         .subscribeOn(Schedulers.io())
-        //         .subscribe(() -> sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true));
+        CompletableConcat.concatArray(getSNCodeDao().deleteByTask(taskCode), getSNCodeDao().saveBatch(codeList))
+                .subscribeOn(Schedulers.io())
+                .subscribe(() -> sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true));
     }
 
     /**
      * 确认
      */
     public void confirm() {
-        if (items.size() < 2) {
+        if (codeList.size() < 2) {
             sendSingleLiveEvent(Const.Message.MSG_FINISH_RESULT, true);
         } else {
             Message msg = new Message();
@@ -261,19 +264,26 @@ public class VMGoodsRecheckBatch extends WrapDataViewModel {
 
             boolean isDateVerify = true;
             boolean isOriginVerify = true;
-            // for (SNCodeEntity item : codeList) {
-            //     isDateVerify = isDateVerify && item.isDateVerify();
-            //     isOriginVerify = isOriginVerify && item.isOriginVerify();
-            //     if (!isDateVerify && !isOriginVerify) break;
-            // }
+            for (SNCodeEntity item : codeList) {
+                isDateVerify = isDateVerify && item.isDateVerify();
+                isOriginVerify = isOriginVerify && item.isOriginVerify();
+                if (!isDateVerify && !isOriginVerify) break;
+            }
 
-            // SNCodeEntity oldestBatchNo = Collections.max(codeList);
-            // SNCodeEntity latestBatchNo = Collections.min(codeList);
-            // String diff = DateUtils.dateDiff(latestBatchNo.getDate(), oldestBatchNo.getDate());
-            // msg.obj = (isOriginVerify ? "1、产地校验正确" : "1、产地校验不正确") + "\n" +
-            //         (isDateVerify ? "2、生产日期校验正确" : "2、生产日期校验不正确") + "\n" +
-            //         "3、上下批次时间为" + diff;
+            SNCodeEntity oldestBatchNo = Collections.max(codeList);
+            SNCodeEntity latestBatchNo = Collections.min(codeList);
+            String diff = DateUtils.dateDiff(latestBatchNo.getDate(), oldestBatchNo.getDate());
+            msg.obj = (isOriginVerify ? "1、产地校验正确" : "1、产地校验不正确") + "\n" +
+                    (isDateVerify ? "2、生产日期校验正确" : "2、生产日期校验不正确") + "\n" +
+                    "3、上下批次时间为" + diff;
             sendSingleLiveEvent(msg);
         }
+    }
+
+    /**
+     * 开启手动模式
+     */
+    public void manuallyMode(boolean isManually) {
+        this.isManually.set(isManually);
     }
 }
