@@ -14,7 +14,7 @@
 
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailDiffList" />
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList" />
     </data>
 
     <androidx.appcompat.widget.LinearLayoutCompat
@@ -28,20 +28,30 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="4dp"
             android:paddingHorizontal="12dp"
-            app:wsbHint="请扫描序列号"
             app:keyWord="@={vmSerial.keyWord}"
-            app:visible="@{TASK_STATUS.RECHECK_WAIT==viewModel.status}" />
+            app:visible="@{TASK_STATUS.RECHECK_WAIT==viewModel.status}"
+            app:wsbHint="请扫描序列号" />
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvList"
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            app:itemBinding="@{viewModel.itemBinding}"
-            app:items="@{viewModel.items}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="20"
-            tools:listitem="@layout/item_goods_recheck_detail_wait" />
+            app:onRefreshListener="@{()->viewModel.requestData()}"
+            app:refreshing="@{viewModel.refreshing}"
+            app:srlEnableFooterFollowWhenNoMoreData="false"
+            app:srlEnableLoadMore="false"
+            app:srlEnablePreviewInEditMode="true">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:itemBinding="@{viewModel.itemBinding}"
+                app:items="@{viewModel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="20"
+                tools:listitem="@layout/item_goods_recheck_detail_wait" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/MineButtonBaseStyle"

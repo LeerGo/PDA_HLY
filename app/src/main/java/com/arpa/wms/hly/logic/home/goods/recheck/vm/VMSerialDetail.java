@@ -18,7 +18,6 @@ import java.util.Optional;
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -47,26 +46,25 @@ public class VMSerialDetail extends AbsVMSerial {
     @Override
     protected void calcCountRadio(SNCutRule rule) {
         var data = getItemVO(rule);
-        // Log.e(TAG, "calcCountRadio: " + data);
-        data.ifPresent(vo ->
-                snDao.countRadio(taskCode, vo.getCode())
-                        .subscribeOn(Schedulers.io())
-                        .flatMapCompletable(it -> {
-                            var res = new BigDecimal(it)
-                                    .divide(BigDecimal.valueOf(vo.getPlanQuantity()), 4, RoundingMode.HALF_UP)
-                                    .multiply(BigDecimal.valueOf(100))
-                                    .setScale(2, RoundingMode.HALF_UP);
-                            vo.setRadio(res);
-                            return taskDao.updateTaskRadio(taskCode, vo.getCode(), res);
-                        })
-                        .subscribe());
+        data.ifPresent(vo -> {
+            Integer count = snDao.countRadio(taskCode, vo.getCode());
+            BigDecimal res = new BigDecimal(count)
+                    .divide(BigDecimal.valueOf(vo.getPlanQuantity()), 4, RoundingMode.HALF_UP)
+                    .multiply(BigDecimal.valueOf(100))
+                    .setScale(2, RoundingMode.HALF_UP);
+            vo.setRatio(res);
+            taskDao.updateTaskRatio(taskCode, vo.getCode(), res);
+        });
     }
 
     @Override
     protected Integer obtainScanRadio(SNCutRule rule) {
-        return getItemVO(rule)
-                .map(RecheckItemVO::getScanRatio)
-                .orElse(1);
+        var data = getItemVO(rule);
+        if (data.isPresent()) {
+            return taskDao.queryTaskRatio(taskCode, data.get().getCode());
+        } else {
+            return 1;
+        }
     }
 
     @NonNull

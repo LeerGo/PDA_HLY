@@ -12,7 +12,6 @@ import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
 import io.reactivex.rxjava3.core.Flowable;
-import io.reactivex.rxjava3.core.Maybe;
 import io.reactivex.rxjava3.core.Single;
 
 /**
@@ -26,7 +25,7 @@ public interface SNCodeDao {
      * 插入一条序列号（去重）
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Completable insert(SNCode snCode);
+    void insert(SNCode snCode);
 
     /**
      * 插入一条序列号（去重）
@@ -38,7 +37,7 @@ public interface SNCodeDao {
     Flowable<SNCodeEntity> exists(String taskCode, String snCode);
 
     @Query("select * from sncode where snCode= :snCode")
-    Maybe<SNCode> exists(String snCode);
+    SNCode exists(String snCode);
 
     /**
      * 删除一条序列号
@@ -74,5 +73,5 @@ public interface SNCodeDao {
      * 查询任务号下的序列号数量
      */
     @Query("select sum(scanRatio) from SNCode where taskCode= :taskCode and taskItemCode=:itemCode")
-    Single<Integer> countRadio(String taskCode, String itemCode);
+    Integer countRadio(String taskCode, String itemCode);
 }

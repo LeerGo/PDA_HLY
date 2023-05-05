@@ -4,8 +4,9 @@ import android.app.Application;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
-import androidx.recyclerview.widget.DiffUtil;
 
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent;
@@ -25,19 +26,13 @@ import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.Const.TASK_STATUS;
-import com.arpa.wms.hly.utils.NumberUtils;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
-import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -49,35 +44,23 @@ import me.tatarka.bindingcollectionadapter2.collections.DiffObservableList;
  * </p>
  */
 @HiltViewModel
-public class VMGoodsRecheckDetailDiffList extends WrapDataViewModel {
-    private static final String TAG = "@@@@ VMGoodsRecheckDetailDif";
+public class VMGoodsRecheckDetailList extends WrapDataViewModel {
     public ObservableInt status = new ObservableInt();
+    public ObservableBoolean refreshing = new ObservableBoolean();
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
-    public DiffObservableList<RecheckItemVO> items = new DiffObservableList<>(new DiffUtil.ItemCallback<>() {
-        @Override
-        public boolean areItemsTheSame(@NonNull RecheckItemVO oldItem, @NonNull RecheckItemVO newItem) {
-            return oldItem.getCode().equals(newItem.getCode());
-        }
-
-        @Override
-        public boolean areContentsTheSame(@NonNull RecheckItemVO oldItem, @NonNull RecheckItemVO newItem) {
-            return oldItem.getRecheckQuantity() == newItem.getRecheckQuantity()
-                    || Objects.equals(oldItem.getScanRatio(), newItem.getScanRatio())
-                    || NumberUtils.isEqual(oldItem.getRadio(), newItem.getRadio());
-        }
-    });
+    public ObservableArrayList<RecheckItemVO> items = new ObservableArrayList<>();
     private final TaskItemDao dao;
     public String supplierName;
 
     @Inject
-    public VMGoodsRecheckDetailDiffList(@NonNull Application application, BaseModel model) {
+    public VMGoodsRecheckDetailList(@NonNull Application application, BaseModel model) {
         super(application, model);
         dao = getRoomDatabase(AppDatabase.class).taskItemDao();
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
+    public void onCreate() {
+        super.onCreate();
         requestData();
     }
 
@@ -96,7 +79,7 @@ public class VMGoodsRecheckDetailDiffList extends WrapDataViewModel {
                         if (!isFocus) {
                             TaskItemEntity entity = new TaskItemEntity();
                             entity.convert(data);
-                            dao.insert(entity).subscribeOn(Schedulers.io()).subscribe();
+                            dao.save(entity);
                         }
                     });
         } else {
@@ -122,27 +105,32 @@ public class VMGoodsRecheckDetailDiffList extends WrapDataViewModel {
 
     public void requestData() {
         updateStatus(StatusEvent.Status.LOADING);
+        refreshing.set(true);
         apiService.recheckItemListBelow(request.toParams()).enqueue(new ResultCallback<>() {
             @Override
             public void onSuccess(List<RecheckItemVO> data) {
+                if (TASK_STATUS.RECHECK_WAIT == status.get()) {
+                    data.forEach(it -> {
+                        var task = dao.exists(request.getOutboundCode(), it.getCode());
+                        if (null == task) {
+                            task = new TaskItemEntity();
+                            task.convert(it);
+                            dao.save(task);
+                        } else {
+                            it.setRatio(task.getRatio());
+                            it.setScanRatio(task.getScanRatio());
+                        }
+                    });
+                }
+                items.clear();
+                items.addAll(data);
                 updateStatus(StatusEvent.Status.SUCCESS);
-                dao.getByTask(request.getOutboundCode())
-                        .subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        // .to(AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(getApplication())))
-                        .subscribe(it -> {
-                            var tmp = data;
-                            if (TASK_STATUS.RECHECK_WAIT == status.get() && !it.isEmpty()) {
-                                tmp = data.stream().peek(m -> it.stream()
-                                                .filter(m2 -> m2.getItemCode().equals(m.getCode()))
-                                                .forEach(m2 -> {
-                                                    m.setRadio(m2.getRadio());
-                                                    m.setScanRatio(m2.getScanRatio());
-                                                }))
-                                        .collect(Collectors.toList());
-                            }
-                            items.update(tmp);
-                        });
+            }
+
+            @Override
+            public void onFinish() {
+                super.onFinish();
+                refreshing.set(false);
             }
 
             @Override

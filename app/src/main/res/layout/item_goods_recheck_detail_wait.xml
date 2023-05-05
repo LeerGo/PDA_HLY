@@ -129,7 +129,7 @@
                 android:layout_below="@id/ll3"
                 android:layout_marginTop="4dp"
                 app:propsKey="扫  码  率："
-                app:propsValue='@{NumberUtils.parseDecimal(data.radio) +"%"}'
+                app:propsValue='@{NumberUtils.parseDecimal(data.ratio) +"%"}'
                 app:propsValueColor="@color/colorPrimary"
                 tools:propsValue="3%" />
 

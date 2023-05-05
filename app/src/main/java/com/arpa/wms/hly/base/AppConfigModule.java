@@ -44,6 +44,9 @@ public class AppConfigModule extends FrameConfigModule {
                 .gsonOptions(GsonBuilder::setLenient)
                 .retrofitOptions(options-> options.addCallAdapterFactory(RxJava3CallAdapterFactory.createSynchronous()))
                 .interceptorConfigOptions(interceptorBuilder -> interceptorBuilder.addLog(false))
-                .roomDatabaseOptions(roomOptions -> roomOptions.fallbackToDestructiveMigration().build());
+                .roomDatabaseOptions(roomOptions -> roomOptions
+                        .allowMainThreadQueries()
+                        .fallbackToDestructiveMigration().build()
+                );
     }
 }

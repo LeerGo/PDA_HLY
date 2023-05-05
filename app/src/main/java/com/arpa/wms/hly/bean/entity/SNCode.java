@@ -19,7 +19,7 @@ public class SNCode {
     private String taskCode; // 任务 ID
     private String taskItemCode; // 任务明细 ID
     private String goodsId; // 商品 ID
-    private String goodsCode; // 商品编码x
+    private String goodsCode; // 商品编码
     private String snCode; // 原批次号码
     private String productionDate; // 生产日期
     private String productionTime; // 生产时间
@@ -27,7 +27,7 @@ public class SNCode {
     private String machineNum; // 机台号
     private String expirationDate; // 过期日期
     @ColumnInfo(defaultValue = "1")
-    private Integer scanRatio; // 扫码比例
+    private Integer scanRatio; // 换箱比例
 
     public SNCode() {
     }

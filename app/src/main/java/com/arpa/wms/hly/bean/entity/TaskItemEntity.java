@@ -24,7 +24,7 @@ public class TaskItemEntity {
     private String itemCode;
     // 扫码率
     @ColumnInfo(defaultValue = "0")
-    private BigDecimal radio;
+    private BigDecimal ratio;
     // 扫码比例
     @ColumnInfo(defaultValue = "1")
     private Integer scanRatio;
@@ -45,12 +45,12 @@ public class TaskItemEntity {
         this.itemCode = itemCode;
     }
 
-    public BigDecimal getRadio() {
-        return radio;
+    public BigDecimal getRatio() {
+        return ratio;
     }
 
-    public void setRadio(BigDecimal radio) {
-        this.radio = radio;
+    public void setRatio(BigDecimal ratio) {
+        this.ratio = ratio;
     }
 
     public Integer getScanRatio() {
@@ -62,7 +62,7 @@ public class TaskItemEntity {
     }
 
     public void convert(RecheckItemVO data) {
-        setRadio(data.getRadio());
+        setRatio(data.getRatio());
         setItemCode(data.getCode());
         setTaskCode(data.getOutboundCode());
         setScanRatio(data.getScanRatio());

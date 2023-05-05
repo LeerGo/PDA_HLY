@@ -9,7 +9,7 @@ import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
-import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailDiffList;
+import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialDetail;
 import com.arpa.wms.hly.utils.Const;
 
@@ -25,7 +25,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRecheckDetailDiffList, FragmentGoodsRecheckDetailBinding> {
+public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRecheckDetailList, FragmentGoodsRecheckDetailBinding> {
 
     public static GoodsRecheckDetailFragment newInstance(int outboundStatus, String outboundCode) {
         GoodsRecheckDetailFragment fragment = new GoodsRecheckDetailFragment();

@@ -13,23 +13,23 @@ import java.math.BigDecimal;
  */
 public class RecheckItemVO extends GoodsItemVO {
     // 扫码率
-    private BigDecimal radio;
+    private BigDecimal ratio;
     // 扫码比例
     private Integer scanRatio;
 
     public RecheckItemVO() {
-        radio = BigDecimal.ZERO;
+        ratio = BigDecimal.ZERO;
         scanRatio = 1;
     }
 
     @Bindable
-    public BigDecimal getRadio() {
-        return radio;
+    public BigDecimal getRatio() {
+        return ratio;
     }
 
-    public void setRadio(BigDecimal radio) {
-        this.radio = radio;
-        notifyPropertyChanged(BR.radio);
+    public void setRatio(BigDecimal ratio) {
+        this.ratio = ratio;
+        notifyPropertyChanged(BR.ratio);
     }
 
     @Bindable
@@ -45,7 +45,7 @@ public class RecheckItemVO extends GoodsItemVO {
     @Override
     public String toString() {
         return "RecheckItemVO{" +
-                "radio=" + radio +
+                "radio=" + ratio +
                 ", scanRatio=" + scanRatio +
                 '}';
     }

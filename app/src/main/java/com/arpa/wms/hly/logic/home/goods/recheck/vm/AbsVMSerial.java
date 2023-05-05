@@ -22,9 +22,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.rxjava3.core.Single;
-import io.reactivex.rxjava3.schedulers.Schedulers;
-
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -90,34 +87,20 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
      * 切分序列号
      */
     protected void cutSNCode(SNCutRule rule, String snCode) {
-        // SNCode code = new SNCode();
-        // code.setTaskCode(taskCode);
-        // code.setTaskItemCode(obtainItemCode(rule));
-        // code.setScanRatio(obtainScanRadio(rule));
-        // code.convertRule(rule, snCode);
-        // Log.e(TAG, "cutSNCode: " + code);
-        // calcCountRadio(rule);
-        snDao.exists(snCode)
-                .subscribeOn(Schedulers.io())
-                .map(movie -> Boolean.TRUE)
-                .switchIfEmpty(Single.defer(() -> Single.just(Boolean.FALSE)))
-                .flatMap(it -> {
-                    if (it) {
-                        return Single.just(false);
-                    } else {
-                        SNCode code = new SNCode();
-                        code.setTaskCode(taskCode);
-                        code.setTaskItemCode(obtainItemCode(rule));
-                        code.setScanRatio(obtainScanRadio(rule));
-                        code.convertRule(rule, snCode);
-                        return snDao.insert(code).toSingle(() -> true);
-                    }
-                })
-                .subscribe(it -> {
-                    keyWord.set(null);
-                    calcCountRadio(rule);
-                    sendMessage(it ? "序列号录入成功" : "序列号已存在", true);
-                });
+        var code = snDao.exists(snCode);
+        if (null == code) {
+            code = new SNCode();
+            code.setTaskCode(taskCode);
+            code.setTaskItemCode(obtainItemCode(rule));
+            code.setScanRatio(obtainScanRadio(rule));
+            code.convertRule(rule, snCode);
+            snDao.insert(code);
+            sendMessage("序列号录入成功");
+            calcCountRadio(rule);
+        } else {
+            sendMessage("序列号已存在");
+        }
+        keyWord.set(null);
     }
 
     protected abstract void calcCountRadio(SNCutRule rule);

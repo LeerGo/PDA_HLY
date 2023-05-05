@@ -16,7 +16,6 @@ import com.orhanobut.logger.PrettyFormatStrategy;
 import com.scwang.smart.refresh.footer.ClassicsFooter;
 import com.scwang.smart.refresh.header.ClassicsHeader;
 import com.scwang.smart.refresh.layout.SmartRefreshLayout;
-import com.tencent.bugly.crashreport.CrashReport;
 
 import java.util.Date;
 import java.util.UUID;
@@ -61,11 +60,11 @@ public class App extends MultiDexApplication {
         Utils.init(this);
         setRetrofit();
         initLogger();
-        initBugly();
+        // initBugly();
     }
 
     private void initBugly() {
-        CrashReport.initCrashReport(getApplicationContext(), Const.BUGLY_ID, BuildConfig.DEBUG);
+        // CrashReport.initCrashReport(getApplicationContext(), Const.BUGLY_ID, BuildConfig.DEBUG);
     }
 
     private void setRetrofit() {

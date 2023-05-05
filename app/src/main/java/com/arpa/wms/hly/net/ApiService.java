@@ -306,27 +306,6 @@ public interface ApiService {
     @GET("/wms/cutSn/refreshCutSnRule")
     Call<Result<Map<Integer, List<SNCutRule>>>> cutSnRule(@QueryMap Map<String, Object> data);
 
-    // /**
-    //  * 更新 App
-    //  */
-    // @DomainName(API.KEY_WMS)
-    // @GET("/wms/pda/pdaVersion")
-    // Observable<Result<ResVersion>> rxCheckVersion();
-    //
-    // /**
-    //  * 更新 App
-    //  */
-    // @DomainName(API.KEY_WMS)
-    // @GET("/wms/pda/pdaVersion")
-    // Observable<Result<ResVersion>> rxCheckVersion2(@Query("time") Long timestamp);
-    //
-    // /**
-    //  * 获取首页的任务任务列表
-    //  */
-    // @DomainName(API.KEY_WMS)
-    // @GET("/wms/pda/tasks")
-    // Observable<ResultPage<ResTaskAssign>> rxPdaTasks(@QueryMap Map<String, Object> data);
-
     /**
      * API 请求地址、一些参数
      */
@@ -341,7 +320,6 @@ public interface ApiService {
         // String URL_WMS = "http://121.36.109.152";
         // String URL_WMS = "http://192.168.30.90";
         String URL_WMS = "http://192.168.30.88";
-        // String URL_WMS = "http://192.168.30.236";
 
         /**
          * 单点登录
