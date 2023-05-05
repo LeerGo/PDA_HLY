@@ -120,18 +120,6 @@ public class VMGoodsRecheckDetailDiffList extends WrapDataViewModel {
         request.setParams(status.get(), code);
     }
 
-    @Override
-    public void onPause() {
-        saveData();
-        super.onPause();
-    }
-
-    private void saveData() {
-        items.forEach(it -> {
-            // NumberUtils.
-        });
-    }
-
     public void requestData() {
         updateStatus(StatusEvent.Status.LOADING);
         apiService.recheckItemListBelow(request.toParams()).enqueue(new ResultCallback<>() {

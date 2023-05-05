@@ -41,4 +41,12 @@ public class RecheckItemVO extends GoodsItemVO {
         this.scanRatio = scanRatio;
         notifyPropertyChanged(BR.scanRatio);
     }
+
+    @Override
+    public String toString() {
+        return "RecheckItemVO{" +
+                "radio=" + radio +
+                ", scanRatio=" + scanRatio +
+                '}';
+    }
 }

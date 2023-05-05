@@ -7,6 +7,7 @@ import androidx.room.Query;
 
 import com.arpa.wms.hly.bean.entity.TaskItemEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
@@ -40,4 +41,10 @@ public interface TaskItemDao {
      */
     @Query("delete from TaskItemEntity where taskCode= :taskCode")
     Completable deleteByTask(String taskCode);
+
+    /**
+     * 更新扫码率
+     */
+    @Query("update TaskItemEntity set radio=:radio where taskCode= :taskCode and itemCode=:itemCode")
+    Completable updateTaskRadio(String taskCode, String itemCode, BigDecimal radio);
 }

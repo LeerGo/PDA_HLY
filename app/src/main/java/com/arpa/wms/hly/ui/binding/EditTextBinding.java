@@ -64,26 +64,25 @@ public class EditTextBinding {
         return null;
     }
 
-    @InverseBindingAdapter(attribute = "textIntVal", event = "textValueAttrChanged")
+    @InverseBindingAdapter(attribute = "textIntVal", event = "textIntValAttrChanged")
     public static Integer getTextIntVal(AppCompatEditText widget) {
         if (null != widget && !TextUtils.isEmpty(widget.getText()))
             return Integer.parseInt(widget.getText().toString());
         return null;
     }
 
-    @BindingAdapter(value = "textValueAttrChanged")
-    public static void setListener(AppCompatEditText widget, InverseBindingListener listener) {
-        if (null != listener) {
-            SimpleTextWatcher watcher = new SimpleTextWatcher() {
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    super.onTextChanged(s, start, before, count);
-                    listener.onChange();
-                }
-            };
-            SimpleTextWatcher old = ListenerUtil.trackListener(widget, watcher, R.id.textWatcher);
-            if (null != old) widget.removeTextChangedListener(old);
-            widget.addTextChangedListener(watcher);
-        }
+    @BindingAdapter(value = {"textValueAttrChanged", "textIntValAttrChanged"}, requireAll = false)
+    public static void setListener(AppCompatEditText widget, InverseBindingListener textValueListener, InverseBindingListener textIntValListener) {
+        SimpleTextWatcher watcher = new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                super.onTextChanged(s, start, before, count);
+                if (null != textValueListener) textValueListener.onChange();
+                if (null != textIntValListener) textIntValListener.onChange();
+            }
+        };
+        SimpleTextWatcher old = ListenerUtil.trackListener(widget, watcher, R.id.textWatcher);
+        if (null != old) widget.removeTextChangedListener(old);
+        widget.addTextChangedListener(watcher);
     }
 }

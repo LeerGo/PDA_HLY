@@ -47,8 +47,8 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
     private final ReqSNRule reqSNRule = new ReqSNRule();
     protected String target;
     protected String taskCode;
-    private final SNCodeDao snDao;
-    private final TaskItemDao taskDao;
+    protected final SNCodeDao snDao;
+    protected final TaskItemDao taskDao;
 
     public AbsVMSerial(@NonNull Application application, BaseModel model) {
         super(application, model);
@@ -90,6 +90,13 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
      * 切分序列号
      */
     protected void cutSNCode(SNCutRule rule, String snCode) {
+        // SNCode code = new SNCode();
+        // code.setTaskCode(taskCode);
+        // code.setTaskItemCode(obtainItemCode(rule));
+        // code.setScanRatio(obtainScanRadio(rule));
+        // code.convertRule(rule, snCode);
+        // Log.e(TAG, "cutSNCode: " + code);
+        // calcCountRadio(rule);
         snDao.exists(snCode)
                 .subscribeOn(Schedulers.io())
                 .map(movie -> Boolean.TRUE)
@@ -108,9 +115,12 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
                 })
                 .subscribe(it -> {
                     keyWord.set(null);
+                    calcCountRadio(rule);
                     sendMessage(it ? "序列号录入成功" : "序列号已存在", true);
                 });
     }
+
+    protected abstract void calcCountRadio(SNCutRule rule);
 
     protected abstract Integer obtainScanRadio(SNCutRule rule);
 

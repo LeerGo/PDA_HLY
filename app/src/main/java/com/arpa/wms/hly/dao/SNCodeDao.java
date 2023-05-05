@@ -69,4 +69,10 @@ public interface SNCodeDao {
      */
     @Insert
     Completable saveBatch(List<SNCodeEntity> items);
+
+    /**
+     * 查询任务号下的序列号数量
+     */
+    @Query("select sum(scanRatio) from SNCode where taskCode= :taskCode and taskItemCode=:itemCode")
+    Single<Integer> countRadio(String taskCode, String itemCode);
 }

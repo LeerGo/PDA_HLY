@@ -42,6 +42,11 @@ public class VMSerialBatch extends AbsVMSerial {
     }
 
     @Override
+    protected void calcCountRadio(SNCutRule rule) {
+
+    }
+
+    @Override
     protected Integer obtainScanRadio(SNCutRule rule) {
         // TODO: 待实现 add by 李一方 2023-05-04 16:35:53
         return 1;
