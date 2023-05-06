@@ -49,10 +49,9 @@ public class VMSerialDetail extends AbsVMSerial {
     protected void calcCountRadio(SNCutRule rule) {
         var data = getItemVO(rule);
         data.ifPresent(vo -> {
-            Integer count = snDao.countRadio(taskCode, vo.getCode());
+            int count = snDao.countRadio(taskCode, vo.getCode());
             BigDecimal res;
-            if (null == count || 0 == count) {
-                count = 0;
+            if (0 == count) {
                 res = BigDecimal.ZERO;
             } else {
                 res = new BigDecimal(count)
@@ -87,6 +86,21 @@ public class VMSerialDetail extends AbsVMSerial {
         return getItemVO(rule)
                 .map(GoodsItemVO::getCode)
                 .orElse(null);
+    }
+
+    @Override
+    protected String obtainItemProdDate(SNCutRule rule) {
+        return getItemVO(rule).map(GoodsItemVO::getGmtManufacture).orElse(null);
+    }
+
+    @Override
+    protected String obtainItemProdAddress(SNCutRule rule) {
+        return getItemVO(rule).map(GoodsItemVO::getExtendOne).orElse(null);
+    }
+
+    @Override
+    protected Integer obtainItemPlanQuantity(SNCutRule rule) {
+        return getItemVO(rule).map(GoodsItemVO::getPlanQuantity).orElse(0);
     }
 
     @Override

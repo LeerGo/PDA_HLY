@@ -1,9 +1,6 @@
 package com.arpa.wms.hly.bean.req;
 
-import com.arpa.wms.hly.bean.SNCodeVO;
 import com.arpa.wms.hly.bean.base.ReqBase;
-
-import java.util.List;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -14,7 +11,9 @@ public class ReqRecheckConfirm extends ReqBase {
     private String outboundCode;
     private String outboundItemCode;
     private String recheckQuantity;
-    private List<SNCodeVO> beachNumber;
+    private String beachNumber;
+    private String ratio;// 换箱比例
+    private String productionDate;// 生产日期
 
     public String getOutboundCode() {
         return outboundCode;
@@ -40,11 +39,27 @@ public class ReqRecheckConfirm extends ReqBase {
         this.recheckQuantity = recheckQuantity;
     }
 
-    public List<SNCodeVO> getBeachNumber() {
+    public String getBeachNumber() {
         return beachNumber;
     }
 
-    public void setBeachNumber(List<SNCodeVO> beachNumber) {
+    public void setBeachNumber(String beachNumber) {
         this.beachNumber = beachNumber;
+    }
+
+    public String getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(String ratio) {
+        this.ratio = ratio;
+    }
+
+    public String getProductionDate() {
+        return productionDate;
+    }
+
+    public void setProductionDate(String productionDate) {
+        this.productionDate = productionDate;
     }
 }

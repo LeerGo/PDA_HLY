@@ -9,7 +9,6 @@ import com.arpa.wms.hly.bean.res.ResTaskAssign;
 import com.arpa.wms.hly.logic.common.vm.VMPdaTaskDetail;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
-import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.Arrays;
 
@@ -28,7 +27,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMGoodsRecheckDetail extends VMPdaTaskDetail {
-
     @Inject
     public VMGoodsRecheckDetail(@NonNull Application application, BaseModel model) {
         super(application, model);
@@ -41,18 +39,22 @@ public class VMGoodsRecheckDetail extends VMPdaTaskDetail {
     }
 
     @Override
-    protected void refreshHeader() {
+    public void refreshHeader() {
         apiService.recheckItemList(headerData.getValue().getCode())
                 .enqueue(new ResultCallback<>() {
                     @Override
                     public void onSuccess(ResTaskAssign data) {
                         data.toRecheckDetail();
                         headerData.postValue(data);
+                        if (data.getPlanQuantity() == data.getRecheckQuantity()) {
+                            sendMessage("订单复核完成");
+                            finish();
+                        }
                     }
 
                     @Override
                     public void onFailed(ResultError error) {
-                        ToastUtils.showShort(error.getMessage());
+                        sendMessage(error.getMessage());
                     }
                 });
     }

@@ -1,5 +1,6 @@
 package com.arpa.wms.hly.bean.entity;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Index;
@@ -7,6 +8,7 @@ import androidx.room.PrimaryKey;
 
 import com.arpa.wms.hly.bean.SNCutRule;
 import com.arpa.wms.hly.utils.DateUtils;
+import com.arpa.wms.hly.utils.RexUtils;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -45,10 +47,12 @@ public class SNCode implements Comparable<SNCode> {
             setMachineNum(snCode.substring(rule.getMachineNumStart() - 1, rule.getMachineNumEnd()));
         }
         if (1 == rule.getExpirationDateFlag()) {
-            setExpirationDate(snCode.substring(rule.getExpirationDateStart() - 1, rule.getExpirationDateEnd()));
+            StringBuilder sb = formateDate(rule.getExpirationDateStart(), rule.getExpirationDateEnd(), snCode);
+            setExpirationDate(sb.toString());
         }
         if (1 == rule.getProductionDateFlag()) {
-            setProductionDate(snCode.substring(rule.getProductionDateStart() - 1, rule.getProductionDateEnd()));
+            StringBuilder sb = formateDate(rule.getProductionDateStart(), rule.getProductionDateEnd(), snCode);
+            setProductionDate(sb.toString());
         }
         if (1 == rule.getProductionTimeFlag()) {
             setProductionTime(snCode.substring(rule.getProductionTimeStart() - 1, rule.getProductionTimeEnd()));
@@ -56,13 +60,26 @@ public class SNCode implements Comparable<SNCode> {
         if (1 == rule.getProductionLocationFlag()) {
             setProductionLocation(snCode.substring(rule.getProductionLocationStart() - 1, rule.getProductionLocationEnd()));
         }
-        if (1 == rule.getProductionDateFlag() && 1 == rule.getProductionTimeFlag()) {
+        if (1 == rule.getProductionDateFlag()) {
+            String fullDate;
+            if (1 == rule.getProductionTimeFlag() && RexUtils.is24Hour(productionTime)) {
+                fullDate = productionDate.concat(productionTime);
+            } else {
+                fullDate = productionDate.concat("00:00:00");
+            }
             try {
-                setFullProdDate(DateUtils.formatBatch.parse(productionDate.concat(productionTime)));
+                setFullProdDate(DateUtils.formatBatch.parse(fullDate));
             } catch (ParseException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    @NonNull
+    private static StringBuilder formateDate(int indexStart, int indexEnd, String snCode) {
+        StringBuilder sb = new StringBuilder(snCode.substring(indexStart - 1, indexEnd));
+        sb.insert(4, "-").insert(7, "-").toString();
+        return sb;
     }
 
     /**

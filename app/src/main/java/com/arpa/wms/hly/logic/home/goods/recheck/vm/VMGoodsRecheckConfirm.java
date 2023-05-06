@@ -3,6 +3,7 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -22,6 +23,7 @@ import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckBatchActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.NumberUtils;
 
 import java.util.Collections;
 import java.util.List;
@@ -45,7 +47,6 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     public ReqRecheckConfirm confirm = new ReqRecheckConfirm();
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
     public ObservableField<GoodsItemVO> detail = new ObservableField<>();
-    public String obvBatchCode;
     public ObservableField<String> recheckQuantity = new ObservableField<>();
     // 最新批次号
     public ObservableField<String> latestBatchNo = new ObservableField<>();
@@ -53,6 +54,7 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     public ObservableField<String> oldestBatchNo = new ObservableField<>();
     private final SNCodeDao snDao;
     private final TaskItemDao taskDao;
+    public String obvBatchCode;
     private String taskCode;
     private String itemCode;
 
@@ -92,7 +94,15 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     }
 
     public void confirm() {
-        sendSingleLiveEvent(Const.Message.MSG_DIALOG);
+        var ratio = taskDao.getTaskRatio(taskCode, itemCode);
+        if (NumberUtils.isLarger(detail.get().getScanningRatio(), ratio)) {
+            Message msg = new Message();
+            msg.what = Const.Message.MSG_DIALOG;
+            msg.obj = "扫码比例低于仓库规定比例 " + NumberUtils.parseDecimal(detail.get().getScanningRatio()) + "%\n确认提交？";
+            sendSingleLiveEvent(msg);
+        } else {
+            submit();
+        }
     }
 
     public void record() {
@@ -115,8 +125,11 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         }
 
         updateStatus(Status.LOADING);
-        var tmp = snDao.getSNByTask(taskCode, itemCode);
-        confirm.setBeachNumber(tmp);
+        var tmp = snDao.getByTask(taskCode, itemCode);
+        confirm.setBeachNumber(tmp.stream().map(SNCode::getSnCode).collect(Collectors.joining("\n")));
+        confirm.setProductionDate(tmp.stream().map(SNCode::getProductionDate).collect(Collectors.joining("\n")));
+        confirm.setRatio(tmp.stream().map(it -> String.valueOf(it.getScanRatio())).collect(Collectors.joining("\n")));
+        tmp = null;
         confirm.setRecheckQuantity(recheckQuantity.get());
         confirm.setOutboundCode(taskCode);
         confirm.setOutboundItemCode(itemCode);

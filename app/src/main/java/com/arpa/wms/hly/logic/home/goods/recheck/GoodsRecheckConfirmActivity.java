@@ -46,7 +46,7 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
         viewModel.initParams(getIntent());
         registerSingleLiveEvent(msg -> {
             if (Const.Message.MSG_DIALOG == msg.what) {
-                showDialogFragment(new DialogTips("提示", "数据是否录入完毕，确认提交？", () -> viewModel.submit(), () -> {}));
+                showDialogFragment(new DialogTips("提示", (String) msg.obj, () -> viewModel.submit(), () -> {}));
             }
         });
     }

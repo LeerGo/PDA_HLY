@@ -58,7 +58,7 @@
             android:layout_height="32dp"
             android:layout_marginVertical="8dp"
             android:background="@drawable/shape_rrect_blue_gradient_r5"
-            android:onClick="@{()->viewModel.finishWork()}"
+            android:onClick="@{()->viewModel.uploadOrder()}"
             android:text="@string/upload_order" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

@@ -1,16 +1,19 @@
 package com.arpa.wms.hly.logic.home.goods.recheck;
 
 import android.os.Bundle;
+import android.os.Message;
 
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseLazyFragment;
+import com.arpa.wms.hly.bean.SNCodeTip;
 import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialDetail;
+import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.utils.Const;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -26,6 +29,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 @AndroidEntryPoint
 public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRecheckDetailList, FragmentGoodsRecheckDetailBinding> {
+    private VMSerialDetail vmSerial;
 
     public static GoodsRecheckDetailFragment newInstance(int outboundStatus, String outboundCode) {
         GoodsRecheckDetailFragment fragment = new GoodsRecheckDetailFragment();
@@ -39,6 +43,12 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
     @Override
     public int getLayoutId() {
         return R.layout.fragment_goods_recheck_detail;
+    }
+
+    @Override
+    public void onDestroy() {
+        vmSerial.release();
+        super.onDestroy();
     }
 
     @Override
@@ -56,11 +66,29 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
         String code = requireArguments().getString(Const.IntentKey.CODE);
         observeSerial(recheckStatus, code);
         observeParent(recheckStatus);
+        viewModel.getSingleLiveEvent().observeForever(this::processEvent);
+    }
+
+    private void processEvent(Message message) {
+        switch (message.what) {
+
+            case Const.Message.MSG_BATCH_REPEAT:
+                showDialogFragment(new DialogTips("校验提示", "该批次号已当前或其他单据录入", () -> {}));
+                break;
+
+            case Const.Message.MSG_BATCH_VERIFY:
+                SNCodeTip tip = (SNCodeTip) message.obj;
+                showDialogFragment(new DialogTips("校验提示", tip.getTip(), "删除", "录入",
+                        () -> vmSerial.addSNCode(tip.getRule(), tip.getCode()), () -> {}));
+                break;
+            default:
+                break;
+        }
     }
 
     private void observeSerial(int recheckStatus, String code) {
         if (Const.TASK_STATUS.RECHECK_WAIT == recheckStatus) {
-            VMSerialDetail vmSerial = obtainViewModel(VMSerialDetail.class);
+            vmSerial = obtainViewModel(VMSerialDetail.class);
             vmSerial.register(this, viewModel);
             vmSerial.setTaskCode(code);
             vmSerial.setItems(viewModel.items);
@@ -71,6 +99,7 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
 
     private void observeParent(int recheckStatus) {
         VMGoodsRecheckDetail parentModel = new ViewModelProvider(requireActivity()).get(VMGoodsRecheckDetail.class);
+        viewModel.refresh.observe(this, it -> parentModel.refreshHeader());
         parentModel.headerData.observe(requireActivity(), headerData -> viewModel.supplierName = headerData.getSupplierName());
         parentModel.searchLiveData.observe(requireActivity(),
                 searchInfo -> {

@@ -9,15 +9,19 @@ import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableInt;
 
 import com.arpa.and.arch.base.BaseModel;
+import com.arpa.and.arch.base.livedata.SingleLiveEvent;
 import com.arpa.and.arch.base.livedata.StatusEvent;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.GoodsItemVO;
 import com.arpa.wms.hly.bean.RecheckItemVO;
+import com.arpa.wms.hly.bean.entity.SNCode;
 import com.arpa.wms.hly.bean.entity.TaskItemEntity;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
+import com.arpa.wms.hly.bean.req.ReqRecheckConfirm;
 import com.arpa.wms.hly.dao.AppDatabase;
+import com.arpa.wms.hly.dao.SNCodeDao;
 import com.arpa.wms.hly.dao.TaskItemDao;
 import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckConfirmActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
@@ -27,7 +31,9 @@ import com.arpa.wms.hly.utils.Const;
 import com.arpa.wms.hly.utils.Const.IntentKey;
 import com.arpa.wms.hly.utils.Const.TASK_STATUS;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -49,13 +55,16 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
     public ObservableBoolean refreshing = new ObservableBoolean();
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
     public ObservableArrayList<RecheckItemVO> items = new ObservableArrayList<>();
-    private final TaskItemDao dao;
+    public SingleLiveEvent<Object> refresh = new SingleLiveEvent<>();
+    private final SNCodeDao snDao;
+    private final TaskItemDao taskDao;
     public String supplierName;
 
     @Inject
     public VMGoodsRecheckDetailList(@NonNull Application application, BaseModel model) {
         super(application, model);
-        dao = getRoomDatabase(AppDatabase.class).taskItemDao();
+        snDao = getRoomDatabase(AppDatabase.class).snCodeDao();
+        taskDao = getRoomDatabase(AppDatabase.class).taskItemDao();
     }
 
     @Override
@@ -80,7 +89,7 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
                         if (!isFocus) {
                             TaskItemEntity entity = new TaskItemEntity();
                             entity.convert(data);
-                            dao.save(entity);
+                            taskDao.save(entity);
                         }
                     });
         } else {
@@ -94,8 +103,40 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
     /**
      * 结束作业
      */
-    public void finishWork() {
-        // TODO: 待实现 add by 李一方 2023-04-18 17:04:27
+    public void uploadOrder() {
+        List<ReqRecheckConfirm> reqData = new ArrayList<>();
+        items.forEach(it -> {
+            var tmp = snDao.getByTask(it.getOutboundCode(), it.getCode());
+            if (null != tmp && !tmp.isEmpty()) {
+                ReqRecheckConfirm item = new ReqRecheckConfirm();
+                item.setRecheckQuantity(String.valueOf(it.getPlanQuantity()));
+                item.setOutboundCode(it.getOutboundCode());
+                item.setOutboundItemCode(it.getCode());
+                item.setBeachNumber(tmp.stream().map(SNCode::getSnCode).collect(Collectors.joining("\n")));
+                item.setProductionDate(tmp.stream().map(SNCode::getProductionDate).collect(Collectors.joining("\n")));
+                item.setRatio(tmp.stream().map(vo -> String.valueOf(vo.getScanRatio())).collect(Collectors.joining("\n")));
+                reqData.add(item);
+            }
+        });
+        if (reqData.isEmpty()) {
+            sendMessage("请扫描序列号");
+            return;
+        }
+        updateStatus(StatusEvent.Status.LOADING);
+        apiService.recheckBatchConfirm(reqData).enqueue(new ResultCallback<>() {
+            @Override
+            public void onSuccess(Object data) {
+                updateStatus(StatusEvent.Status.SUCCESS);
+                refresh.postValue(new Object());
+                requestData();
+            }
+
+            @Override
+            public void onFailed(ResultError error) {
+                updateStatus(StatusEvent.Status.SUCCESS);
+                sendMessage(error.getMessage());
+            }
+        });
     }
 
     public void initParams(Bundle bundle) {
@@ -136,11 +177,11 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
     private void adjustRadio(List<RecheckItemVO> data) {
         if (TASK_STATUS.RECHECK_WAIT == status.get() && !data.isEmpty()) {
             data.forEach(it -> {
-                var task = dao.exists(request.getOutboundCode(), it.getCode());
+                var task = taskDao.exists(request.getOutboundCode(), it.getCode());
                 if (null == task) {
                     task = new TaskItemEntity();
                     task.convert(it);
-                    dao.save(task);
+                    taskDao.save(task);
                 } else {
                     it.setRatio(task.getRatio());
                     it.setScanRatio(task.getScanRatio());

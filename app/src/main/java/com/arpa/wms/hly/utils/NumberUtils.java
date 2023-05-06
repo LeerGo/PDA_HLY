@@ -8,6 +8,17 @@ import java.math.BigDecimal;
  * since: 2021-05-11 16:44
  */
 public class NumberUtils {
+
+    private static BigDecimal non(BigDecimal num) {
+        if (null == num)
+            return BigDecimal.valueOf(Long.MIN_VALUE);
+        return num;
+    }
+
+    public static boolean isLarger(BigDecimal aNum, BigDecimal bNum) {
+        return non(aNum).compareTo(non(bNum)) > 0;
+    }
+
     public static boolean isLarger(String aNum, String bNum) {
         return new BigDecimal(aNum).compareTo(new BigDecimal(bNum)) > 0;
     }

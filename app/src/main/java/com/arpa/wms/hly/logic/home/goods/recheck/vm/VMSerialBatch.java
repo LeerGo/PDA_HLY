@@ -3,6 +3,7 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 import android.app.Application;
 import android.content.Intent;
 import android.os.Message;
+import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
@@ -17,10 +18,12 @@ import com.arpa.wms.hly.bean.entity.SNCode;
 import com.arpa.wms.hly.bean.req.ReqSNRule;
 import com.arpa.wms.hly.ui.listener.ViewListener;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.DateUtils;
 import com.arpa.wms.hly.utils.NumberUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -97,10 +100,12 @@ public class VMSerialBatch extends AbsVMSerial {
 
     @Override
     protected void handleMultiRule(Map<Integer, List<SNCutRule>> ruleGroup) {
-        Message msg = new Message();
-        msg.what = Const.Message.MSG_MULTI_RULE;
-        msg.obj = ruleGroup;
-        sendSingleLiveEvent(msg);
+        if (null != ruleGroup && !ruleGroup.isEmpty()) {
+            Message msg = new Message();
+            msg.what = Const.Message.MSG_MULTI_RULE;
+            msg.obj = ruleGroup;
+            sendSingleLiveEvent(msg);
+        }
     }
 
     @Override
@@ -115,10 +120,9 @@ public class VMSerialBatch extends AbsVMSerial {
 
     @Override
     protected void calcCountRadio(SNCutRule rule) {
-        Integer count = snDao.countRadio(taskCode, itemCode);
+        int count = snDao.countRadio(taskCode, itemCode);
         BigDecimal res;
-        if (null == count || 0 == count) {
-            count = 0;
+        if (0 == count) {
             res = BigDecimal.ZERO;
         } else {
             res = new BigDecimal(count)
@@ -143,6 +147,24 @@ public class VMSerialBatch extends AbsVMSerial {
     }
 
     @Override
+    protected String obtainItemProdDate(SNCutRule rule) {
+        if (TextUtils.isEmpty(gmtManufacture.get())) {
+            return null;
+        }
+        return gmtManufacture.get();
+    }
+
+    @Override
+    protected String obtainItemProdAddress(SNCutRule rule) {
+        return placeOrigin.get();
+    }
+
+    @Override
+    protected Integer obtainItemPlanQuantity(SNCutRule rule) {
+        return goodsCount;
+    }
+
+    @Override
     protected String obtainTarget(String snCode) {
         return goodsCode;
     }
@@ -160,7 +182,7 @@ public class VMSerialBatch extends AbsVMSerial {
 
     private void removeData(SNCode snCode) {
         items.remove(snCode);
-        snDao.delete(snCode);
+        snDao.delete(snCode.getTaskCode(), snCode.getTaskItemCode(), snCode.getSnCode());
         calcCountRadio();
     }
 
@@ -171,8 +193,24 @@ public class VMSerialBatch extends AbsVMSerial {
     }
 
     public void confirm() {
-        // TODO: 待实现 add by 李一方 2023-05-06 16:16:15
-        finish();
+        if (items.size() < 2) {
+            finish();
+        } else {
+            Message msg = new Message();
+            msg.what = Const.Message.MSG_BATCH_CONFIRM;
+
+            boolean isDateVerify = items.stream().allMatch(it -> it.getProductionDate().equals(obtainItemProdDate(null)));
+            boolean isOriginVerify = items.stream().allMatch(it -> it.getProductionLocation().equals(obtainItemProdAddress(null)));
+            ;
+
+            SNCode oldest = Collections.max(items);
+            SNCode latest = Collections.min(items);
+            String diff = DateUtils.dateDiff(latest.getFullProdDate(), oldest.getFullProdDate());
+            msg.obj = (isOriginVerify ? "1、产地校验正确" : "1、产地校验不正确") + "\n" +
+                    (isDateVerify ? "2、生产日期校验正确" : "2、生产日期校验不正确") + "\n" +
+                    "3、上下批次时间为" + diff;
+            sendSingleLiveEvent(msg);
+        }
     }
 
     public void chooseRule() {
@@ -190,7 +228,11 @@ public class VMSerialBatch extends AbsVMSerial {
             var ruleGroup = ruleAll.entrySet().stream()
                     .filter(entry -> entry.getValue().size() > 1)
                     .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
-            handleMultiRule(ruleGroup);
+            if (ruleGroup.isEmpty()) {
+                sendMessage("切分规则已同步");
+            } else {
+                handleMultiRule(ruleGroup);
+            }
         } else {
             sendMessage("暂无有效切分规则\n请联系管理员添加");
         }
@@ -198,7 +240,11 @@ public class VMSerialBatch extends AbsVMSerial {
 
     @Override
     protected void afterObtainRule(String snCode) {
-        obtainMultiRuleGroup();
+        if (TextUtils.isEmpty(snCode)) {
+            obtainMultiRuleGroup();
+        } else {
+            super.afterObtainRule(snCode);
+        }
     }
 
     public void removeHistory() {

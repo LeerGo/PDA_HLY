@@ -28,7 +28,7 @@ import dagger.hilt.android.AndroidEntryPoint;
  */
 @AndroidEntryPoint
 public class DialogMultiRule extends BaseBottomDialogFragment<VMDialogMultiRule, DialogMultiRuleBinding> {
-    private ViewListener.DataTransCallback<HashMap<Integer, SNCutRule>> callback;
+    private final ViewListener.DataTransCallback<HashMap<Integer, SNCutRule>> callback;
 
     public static DialogMultiRule newInstance(HashMap<Integer, List<SNCutRule>> data, HashMap<Integer, SNCutRule> last, ViewListener.DataTransCallback<HashMap<Integer, SNCutRule>> callback) {
         Bundle args = new Bundle();

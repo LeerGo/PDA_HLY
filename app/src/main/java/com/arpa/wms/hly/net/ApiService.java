@@ -208,6 +208,13 @@ public interface ApiService {
     Call<Result<Object>> recheckConfirm(@Body ReqRecheckConfirm data);
 
     /**
+     * 复核确认
+     */
+    @DomainName(API.KEY_WMS)
+    @POST("/wms/pda/outbound/batchRecheck")
+    Call<Result<Object>> recheckBatchConfirm(@Body List<ReqRecheckConfirm> data);
+
+    /**
      * 库存查询
      */
     @DomainName(API.KEY_WMS)
@@ -295,7 +302,7 @@ public interface ApiService {
      * 收货确认-模糊搜索库位
      */
     @DomainName(API.KEY_WMS)
-    @GET("/wms//pda/location/findBySerialNumber")
+    @GET("/wms/pda/location/findBySerialNumber")
     Call<ResultPage<String>> findLocation(@QueryMap Map<String, Object> data);
 
 

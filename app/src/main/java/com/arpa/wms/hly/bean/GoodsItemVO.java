@@ -5,6 +5,8 @@ import androidx.databinding.Bindable;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
 
+import java.math.BigDecimal;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -51,6 +53,15 @@ public class GoodsItemVO extends SelectItem {
     private Integer smallBoxQuantity; // 小箱数量
     private Integer bigBoxQuantity; // 大箱数量
     private int isChangeBox;
+    private BigDecimal scanningRatio;
+
+    public BigDecimal getScanningRatio() {
+        return scanningRatio;
+    }
+
+    public void setScanningRatio(BigDecimal scanningRatio) {
+        this.scanningRatio = scanningRatio;
+    }
 
     public int getPickingTraysNum() {
         return pickingTraysNum;

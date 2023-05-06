@@ -20,7 +20,6 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!--app:onBack="@{() ->viewModel.sendSingleLiveEvent(Const.Message.MSG_BATCH_SAVE)}"-->
         <com.arpa.wms.hly.ui.widget.WidgetTitleBar
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -176,13 +175,13 @@
             android:paddingHorizontal="12dp"
             android:paddingBottom="12dp">
 
-            <!--app:inputFocus="@{viewModel.isFocus}"-->
             <com.arpa.wms.hly.ui.widget.WidgetInputItem
                 android:id="@+id/wiiInput"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:gravity="center_vertical"
                 app:inputAction="@{v->viewModel.onScan((String)v)}"
+                app:inputFocus="@{viewModel.isFocus}"
                 app:inputHint="请扫描/输入批次号"
                 app:inputIcon="@mipmap/ic_scan"
                 app:inputImeOptions="actionSearch"
