@@ -19,7 +19,7 @@ import com.arpa.wms.hly.bean.entity.TaskItemEntity;
  */
 @Database(
         entities = {SNCodeEntity.class, TaskItemEntity.class, SNCode.class},
-        version = 6, exportSchema = false
+        version = 7, exportSchema = false
 )
 @TypeConverters(value = {DateConverter.class, BigDecimalConverter.class})
 public abstract class AppDatabase extends RoomDatabase {

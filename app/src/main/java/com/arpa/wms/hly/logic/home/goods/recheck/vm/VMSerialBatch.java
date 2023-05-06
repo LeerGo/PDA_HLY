@@ -171,7 +171,8 @@ public class VMSerialBatch extends AbsVMSerial {
     }
 
     public void confirm() {
-
+        // TODO: 待实现 add by 李一方 2023-05-06 16:16:15
+        finish();
     }
 
     public void chooseRule() {

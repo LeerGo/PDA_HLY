@@ -161,7 +161,7 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
 
     public void multiRuleSel(HashMap<Integer, SNCutRule> data) {
         this.ruleSelect = data;
-        if (null != data && !data.isEmpty()) {
+        if (null != data && !data.isEmpty() && !TextUtils.isEmpty(snCode)) {
             handleSNCode(snCode);
         }
     }

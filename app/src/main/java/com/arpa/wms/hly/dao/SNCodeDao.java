@@ -6,6 +6,7 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.arpa.wms.hly.bean.SNCodeVO;
 import com.arpa.wms.hly.bean.entity.SNCode;
 import com.arpa.wms.hly.bean.entity.SNCodeEntity;
 
@@ -62,6 +63,12 @@ public interface SNCodeDao {
      * 删除一批序列号
      */
     @Query("delete from SNCode where taskCode= :taskCode and taskItemCode= :itemCode")
+    void deleteByTaskItem(String taskCode, String itemCode);
+
+    /**
+     * 删除一批序列号
+     */
+    @Query("delete from SNCode where taskCode= :taskCode and taskItemCode= :itemCode")
     void removeByTaskItem(String taskCode, String itemCode);
 
     /**
@@ -87,6 +94,12 @@ public interface SNCodeDao {
      */
     @Query("SELECT * FROM SNCode where taskCode= :taskCode and taskItemCode= :itemCode order by snCode desc")
     List<SNCode> getByTask(String taskCode, String itemCode);
+
+    /**
+     * 获取所有序列号
+     */
+    @Query("SELECT snCode, scanRatio as ratio FROM SNCode where taskCode= :taskCode and taskItemCode= :itemCode order by snCode desc")
+    List<SNCodeVO> getSNByTask(String taskCode, String itemCode);
 
     /**
      * 批量存储

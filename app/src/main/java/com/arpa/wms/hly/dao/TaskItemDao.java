@@ -48,6 +48,12 @@ public interface TaskItemDao {
     Completable deleteByTask(String taskCode);
 
     /**
+     * 删除一批任务明细记录
+     */
+    @Query("delete from TaskItemEntity where taskCode= :taskCode and itemCode= :itemCode")
+    void deleteByTaskItem(String taskCode, String itemCode);
+
+    /**
      * 更新扫码率
      */
     @Query("update TaskItemEntity set ratio=:ratio where taskCode= :taskCode and itemCode=:itemCode")

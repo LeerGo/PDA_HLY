@@ -6,6 +6,10 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.arpa.wms.hly.bean.SNCutRule;
+import com.arpa.wms.hly.utils.DateUtils;
+
+import java.text.ParseException;
+import java.util.Date;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
@@ -13,7 +17,7 @@ import com.arpa.wms.hly.bean.SNCutRule;
  * since: 2023-04-26 15:17
  */
 @Entity(indices = {@Index(value = "taskCode")})
-public class SNCode {
+public class SNCode implements Comparable<SNCode> {
     @PrimaryKey(autoGenerate = true)
     private long id;
     private String taskCode; // 任务 ID
@@ -28,14 +32,10 @@ public class SNCode {
     private String expirationDate; // 过期日期
     @ColumnInfo(defaultValue = "1")
     private Integer scanRatio; // 换箱比例
+    private Date fullProdDate; // 完整生产日期
 
     public SNCode() {
     }
-
-    /*public SNCode(String taskCode, String taskItemCode) {
-        this.taskCode = taskCode;
-        this.taskItemCode = taskItemCode;
-    }*/
 
     public void convertRule(SNCutRule rule, String snCode) {
         setSnCode(snCode);
@@ -55,6 +55,13 @@ public class SNCode {
         }
         if (1 == rule.getProductionLocationFlag()) {
             setProductionLocation(snCode.substring(rule.getProductionLocationStart() - 1, rule.getProductionLocationEnd()));
+        }
+        if (1 == rule.getProductionDateFlag() && 1 == rule.getProductionTimeFlag()) {
+            try {
+                setFullProdDate(DateUtils.formatBatch.parse(productionDate.concat(productionTime)));
+            } catch (ParseException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
@@ -170,6 +177,14 @@ public class SNCode {
         this.scanRatio = scanRatio;
     }
 
+    public Date getFullProdDate() {
+        return fullProdDate;
+    }
+
+    public void setFullProdDate(Date fullProdDate) {
+        this.fullProdDate = fullProdDate;
+    }
+
     @Override
     public String toString() {
         return "SNCode{" +
@@ -206,5 +221,10 @@ public class SNCode {
         result = 31 * result + taskItemCode.hashCode();
         result = 31 * result + snCode.hashCode();
         return result;
+    }
+
+    @Override
+    public int compareTo(SNCode o) {
+        return this.fullProdDate.compareTo(o.getFullProdDate());
     }
 }
