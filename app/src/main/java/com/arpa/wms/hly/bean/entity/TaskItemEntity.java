@@ -25,7 +25,7 @@ public class TaskItemEntity {
     // 扫码率
     @ColumnInfo(defaultValue = "0")
     private BigDecimal ratio;
-    // 扫码比例
+    // 换箱比
     @ColumnInfo(defaultValue = "1")
     private Integer scanRatio;
 

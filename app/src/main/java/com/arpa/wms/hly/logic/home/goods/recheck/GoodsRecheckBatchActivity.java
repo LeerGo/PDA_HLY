@@ -7,9 +7,15 @@ import androidx.annotation.Nullable;
 
 import com.arpa.wms.hly.R;
 import com.arpa.wms.hly.base.WrapBaseActivity;
+import com.arpa.wms.hly.bean.SNCutRule;
 import com.arpa.wms.hly.databinding.ActivityGoodsRecheckBatchBinding;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialBatch;
+import com.arpa.wms.hly.ui.dialog.DialogMultiRule;
+import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.utils.Const;
+
+import java.util.HashMap;
+import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -57,12 +63,12 @@ public class GoodsRecheckBatchActivity extends WrapBaseActivity<VMSerialBatch, A
     private void processEvent(Message message) {
         switch (message.what) {
 
-            // case Const.Message.MSG_DIALOG:
-            //     showDialogFragment(new DialogTips("暂存数据导入", "当前页面存在暂存但未提交的数据，是否载入？", "丢弃", "加载",
-            //             () -> viewModel.restoreRecords(),
-            //             () -> viewModel.discardRecords()));
-            //     break;
-            //
+            case Const.Message.MSG_DIALOG:
+                showDialogFragment(new DialogTips("暂存数据导入", "当前页面存在暂存但未提交的数据，是否载入？", "丢弃", "加载",
+                        () -> viewModel.init(),
+                        () -> viewModel.removeHistory()));
+                break;
+
             // case Const.Message.MSG_BATCH_VERIFY:
             //     String[] obj = (String[]) message.obj;
             //     showDialogFragment(new DialogTips("校验提示", obj[0], "删除", "录入",
@@ -84,6 +90,10 @@ public class GoodsRecheckBatchActivity extends WrapBaseActivity<VMSerialBatch, A
             // case Const.Message.MSG_BATCH_SAVE:
             //     showDialogFragment(new DialogTips("提示", "扫描数据是否需要暂存？", () -> viewModel.saveAll(), () -> viewModel.finish()));
             //     break;
+
+            case Const.Message.MSG_MULTI_RULE:
+                showDialogFragment(DialogMultiRule.newInstance((HashMap<Integer, List<SNCutRule>>) message.obj, viewModel.ruleSelect, data -> viewModel.multiRuleSel(data)));
+                break;
 
             default:
                 break;

@@ -232,7 +232,6 @@
                         app:inputTitle="最晚批次号"
                         app:visible="@{!TextUtils.isEmpty(viewModel.oldestBatchNo)}" />
 
-                    <!--app:propsValue="@{viewModel.obvBatchCode}"-->
                     <com.arpa.wms.hly.ui.widget.WidgetPropsItem
                         android:id="@+id/wpi_batch"
                         style="@style/ItemRecheckBatchStyle"

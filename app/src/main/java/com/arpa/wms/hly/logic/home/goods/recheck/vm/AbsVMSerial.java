@@ -39,11 +39,13 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
     // 复核详情 key 是 goods_id；复核批次登记 key 是 goods_code
     // value 是关联规则
     protected final Map<String, Map<Integer, List<SNCutRule>>> cacheRule = new HashMap<>();
+    public HashMap<Integer, SNCutRule> ruleSelect = new HashMap<>();
     protected final Map<String, Long> cacheTime = new HashMap<>();
-    private final ReqSNRule reqSNRule = new ReqSNRule();
+    protected final ReqSNRule reqSNRule = new ReqSNRule();
     public ObservableField<String> keyWord = new ObservableField<>();
     protected String target;
     protected String taskCode;
+    protected String snCode;
     protected final SNCodeDao snDao;
     protected final TaskItemDao taskDao;
 
@@ -56,6 +58,7 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
 
     public void onScan(String snCode) {
         if (TextUtils.isEmpty(snCode) || snCode.length() < 3) return;
+        this.snCode = snCode;
         target = obtainTarget(snCode);
         Long current = System.currentTimeMillis();
         if (!cacheTime.containsKey(target) || (current - cacheTime.get(target)) >= diffTime) {
@@ -66,14 +69,22 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
         }
     }
 
-    private void handleSNCode(String snCode) {
-        var map = cacheRule.get(target);
-        if (map.containsKey(snCode.length())) {
-            List<SNCutRule> ruleGroup = map.get(snCode.length());
-            if (ruleGroup.size() == 1) {
+    protected void handleSNCode(String snCode) {
+        var tmp = cacheRule.get(target);
+        if (null != tmp && tmp.containsKey(snCode.length())) {
+            List<SNCutRule> ruleGroup = tmp.get(snCode.length());
+            if (null == ruleGroup) {
+                keyWord.set(null);
+                sendMessage("未能匹配到有效切分规则");
+            } else if (ruleGroup.size() == 1) {
                 cutSNCode(ruleGroup.get(0), snCode);
             } else {
-                handleMultiRule(ruleGroup);
+                var validRule = ruleSelect.get(snCode.length());
+                if (null == validRule) {
+                    handleMultiRule(tmp);
+                } else {
+                    cutSNCode(validRule, snCode);
+                }
             }
         } else {
             keyWord.set(null);
@@ -81,7 +92,7 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
         }
     }
 
-    protected abstract void handleMultiRule(List<SNCutRule> ruleGroup);
+    protected abstract void handleMultiRule(Map<Integer, List<SNCutRule>> ruleGroup);
 
     /**
      * 切分序列号
@@ -129,7 +140,7 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             private void handlerSNRule(Map<Integer, List<SNCutRule>> data) {
                 cacheTime.put(target, System.currentTimeMillis());
                 cacheRule.put(target, data);
-                handleSNCode(snCode);
+                afterObtainRule(snCode);
             }
 
             @Override
@@ -140,7 +151,18 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
         });
     }
 
+    protected void afterObtainRule(String snCode) {
+        handleSNCode(snCode);
+    }
+
     public void setTaskCode(String taskCode) {
         this.taskCode = taskCode;
+    }
+
+    public void multiRuleSel(HashMap<Integer, SNCutRule> data) {
+        this.ruleSelect = data;
+        if (null != data && !data.isEmpty()) {
+            handleSNCode(snCode);
+        }
     }
 }

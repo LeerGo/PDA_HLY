@@ -1,5 +1,6 @@
 package com.arpa.wms.hly.bean;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  * version: 1.0.0<br/>
  * since: 2023-04-26 14:00
  */
-public class SNCutRule {
+public class SNCutRule extends SelectItem implements Serializable {
     // 编码
     private String code;
 

@@ -10,9 +10,13 @@ import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.GoodsItemVO;
+import com.arpa.wms.hly.bean.entity.SNCode;
 import com.arpa.wms.hly.bean.entity.SNCodeEntity;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
 import com.arpa.wms.hly.bean.req.ReqRecheckConfirm;
+import com.arpa.wms.hly.dao.AppDatabase;
+import com.arpa.wms.hly.dao.SNCodeDao;
+import com.arpa.wms.hly.dao.TaskItemDao;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
@@ -20,6 +24,8 @@ import com.arpa.wms.hly.utils.ToastUtils;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -46,10 +52,14 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     public ObservableField<String> latestBatchNo = new ObservableField<>();
     // 最旧批次号
     public ObservableField<String> oldestBatchNo = new ObservableField<>();
+    private final SNCodeDao snDao;
+    private final TaskItemDao taskDao;
 
     @Inject
     public VMGoodsRecheckConfirm(@NonNull Application application, BaseModel model) {
         super(application, model);
+        snDao = getRoomDatabase(AppDatabase.class).snCodeDao();
+        taskDao = getRoomDatabase(AppDatabase.class).taskItemDao();
     }
 
     @Override
@@ -125,5 +135,10 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         obvBatchCode = sb.toString();
         oldestBatchNo.set(result.isEmpty() ? null : Collections.max(result).getSnCode());
         latestBatchNo.set(result.isEmpty() ? null : Collections.min(result).getSnCode());
+    }
+
+    public void loadHistory() {
+        List<SNCode> snCodes = snDao.getByTask(request.getOutboundCode(), request.getOutboundItemCode());
+        obvBatchCode = snCodes.stream().map(SNCode::getSnCode).collect(Collectors.joining("\n"));
     }
 }

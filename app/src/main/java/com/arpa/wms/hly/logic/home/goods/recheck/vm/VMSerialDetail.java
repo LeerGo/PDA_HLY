@@ -13,6 +13,7 @@ import com.arpa.wms.hly.bean.req.ReqSNRule;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import javax.inject.Inject;
@@ -39,7 +40,8 @@ public class VMSerialDetail extends AbsVMSerial {
     }
 
     @Override
-    protected void handleMultiRule(List<SNCutRule> ruleGroup) {
+    protected void handleMultiRule(Map<Integer, List<SNCutRule>> ruleGroup) {
+        keyWord.set(null);
         sendMessage("无法匹配唯一规则，请进入批次登记页面扫码");
     }
 

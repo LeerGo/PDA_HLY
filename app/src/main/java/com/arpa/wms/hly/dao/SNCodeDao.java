@@ -59,10 +59,22 @@ public interface SNCodeDao {
     Completable deleteByTask(String taskCode);
 
     /**
+     * 删除一批序列号
+     */
+    @Query("delete from SNCode where taskCode= :taskCode and taskItemCode= :itemCode")
+    void removeByTaskItem(String taskCode, String itemCode);
+
+    /**
      * 查询任务号下的序列号数量
      */
     @Query("select count(*) from SNCodeEntity where taskCode= :taskCode")
     Single<Integer> count(String taskCode);
+
+    /**
+     * 查询任务号下的序列号数量
+     */
+    @Query("select count(*) from SNCode where taskCode= :taskCode and taskItemCode= :itemCode")
+    Integer count(String taskCode, String itemCode);
 
     /**
      * 获取所有序列号

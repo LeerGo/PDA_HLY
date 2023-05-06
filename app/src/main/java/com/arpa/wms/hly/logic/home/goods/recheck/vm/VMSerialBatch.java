@@ -2,6 +2,7 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 
 import android.app.Application;
 import android.content.Intent;
+import android.os.Message;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
@@ -20,8 +21,9 @@ import com.arpa.wms.hly.utils.NumberUtils;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -39,13 +41,12 @@ import me.tatarka.bindingcollectionadapter2.ItemBinding;
  */
 @HiltViewModel
 public class VMSerialBatch extends AbsVMSerial {
-    private final List<SNCutRule> usedRule = new ArrayList<>();
     public ObservableField<String> goodName = new ObservableField<>();
     public ObservableField<String> goodUnitName = new ObservableField<>();
     public ObservableField<String> gmtManufacture = new ObservableField<>(); // 生产日期
     public ObservableField<String> placeOrigin = new ObservableField<>(); // 产地
     public ObservableArrayList<SNCode> items = new ObservableArrayList<>();
-    public ObservableField<String> ratio = new ObservableField();
+    public ObservableField<String> ratio = new ObservableField<>();
     public ObservableInt scanCount = new ObservableInt();
     public ObservableInt scanRatio = new ObservableInt();
     private String goodsCode;
@@ -61,10 +62,19 @@ public class VMSerialBatch extends AbsVMSerial {
     public void onCreate() {
         super.onCreate();
 
-        init();
+        checkHistory();
     }
 
-    private void init() {
+    private void checkHistory() {
+        if (snDao.count(taskCode, itemCode) > 0) {
+            sendSingleLiveEvent(Const.Message.MSG_DIALOG);
+        } else {
+            calcCountRadio();
+            obtainScanRadio(null);
+        }
+    }
+
+    public void init() {
         loadHistory();
         calcCountRadio();
         obtainScanRadio(null);
@@ -86,8 +96,11 @@ public class VMSerialBatch extends AbsVMSerial {
     }
 
     @Override
-    protected void handleMultiRule(List<SNCutRule> ruleGroup) {
-        // TODO: 弹窗选择批次规则 add by 李一方 2023-04-26 15:11:43
+    protected void handleMultiRule(Map<Integer, List<SNCutRule>> ruleGroup) {
+        Message msg = new Message();
+        msg.what = Const.Message.MSG_MULTI_RULE;
+        msg.obj = ruleGroup;
+        sendSingleLiveEvent(msg);
     }
 
     @Override
@@ -162,6 +175,35 @@ public class VMSerialBatch extends AbsVMSerial {
     }
 
     public void chooseRule() {
-        sendMessage("规则选择");
+        if (cacheRule.isEmpty()) {
+            handleReq(reqSNRule, target);
+            requestRule(null);
+        } else {
+            obtainMultiRuleGroup();
+        }
+    }
+
+    private void obtainMultiRuleGroup() {
+        var ruleAll = cacheRule.get(target);
+        if (null != ruleAll) {
+            var ruleGroup = ruleAll.entrySet().stream()
+                    .filter(entry -> entry.getValue().size() > 1)
+                    .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue));
+            handleMultiRule(ruleGroup);
+        } else {
+            sendMessage("暂无有效切分规则\n请联系管理员添加");
+        }
+    }
+
+    @Override
+    protected void afterObtainRule(String snCode) {
+        obtainMultiRuleGroup();
+    }
+
+    public void removeHistory() {
+        snDao.removeByTaskItem(taskCode, itemCode);
+        taskDao.updateTaskRatio(taskCode, itemCode, BigDecimal.ZERO);
+        calcCountRadio();
+        obtainScanRadio(null);
     }
 }

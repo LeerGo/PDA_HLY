@@ -44,6 +44,15 @@ public class GoodsRecheckConfirmActivity extends WrapBaseActivity<VMGoodsRecheck
         viewBind.wpiBatch.setValueSpan(SpanUtil.highlight(viewModel.obvBatchCode, viewModel.latestBatchNo.get(), viewModel.oldestBatchNo.get()));
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        viewModel.loadHistory();
+        viewBind.wpiBatch.setPropsValue(viewModel.obvBatchCode);
+    }
+
     @Override
     public int getLayoutId() {
         return R.layout.activity_goods_recheck_confirm;
