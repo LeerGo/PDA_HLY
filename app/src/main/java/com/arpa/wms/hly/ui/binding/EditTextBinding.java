@@ -68,7 +68,7 @@ public class EditTextBinding {
     public static Integer getTextIntVal(AppCompatEditText widget) {
         if (null != widget && !TextUtils.isEmpty(widget.getText()))
             return Integer.parseInt(widget.getText().toString());
-        return 0;
+        return null;
     }
 
     @BindingAdapter(value = {"textValueAttrChanged", "textIntValAttrChanged"}, requireAll = false)

@@ -87,6 +87,9 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
                     })
                     .bindExtra(BR.focusCall, (ViewListener.FocusCallback<RecheckItemVO>) (isFocus, data) -> {
                         if (!isFocus) {
+                            if (null == data.getScanRatio()) {
+                                data.setScanRatio(1);
+                            }
                             TaskItemEntity entity = new TaskItemEntity();
                             entity.convert(data);
                             taskDao.save(entity);

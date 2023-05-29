@@ -69,7 +69,9 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
     }
 
     public void release() {
-        player.release();
+        if (null != player) {
+            player.release();
+        }
     }
 
     public void onScan(String snCode) {

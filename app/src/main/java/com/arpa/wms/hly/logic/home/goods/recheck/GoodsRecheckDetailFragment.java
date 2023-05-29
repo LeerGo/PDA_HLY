@@ -47,7 +47,9 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
 
     @Override
     public void onDestroy() {
-        vmSerial.release();
+        if (null!=vmSerial) {
+            vmSerial.release();
+        }
         super.onDestroy();
     }
 
