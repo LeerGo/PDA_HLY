@@ -3,6 +3,8 @@ package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 import android.app.Application;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+
 import com.arpa.and.arch.base.BaseModel;
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.R;
@@ -20,7 +22,6 @@ import java.util.Map;
 
 import javax.inject.Inject;
 
-import androidx.annotation.NonNull;
 import dagger.hilt.android.lifecycle.HiltViewModel;
 import me.tatarka.bindingcollectionadapter2.ItemBinding;
 import retrofit2.Call;
@@ -42,6 +43,12 @@ public class VMGoodsRecheck extends VMBaseRefreshList<ResTaskAssign> {
     @Inject
     public VMGoodsRecheck(@NonNull Application application, BaseModel model) {
         super(application, model);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        refresh();
     }
 
     @Override

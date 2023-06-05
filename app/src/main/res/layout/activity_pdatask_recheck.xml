@@ -22,8 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:wtbTitle="待复核列表" />
-    
-    
+
         <com.arpa.wms.hly.ui.widget.WidgetSearchBar
             android:id="@+id/et_scan"
             android:layout_width="match_parent"
