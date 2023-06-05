@@ -12,6 +12,8 @@ public class ReqRecheckConfirm extends ReqBase {
     private String outboundItemCode;
     private String recheckQuantity;
     private String beachNumber;
+    private String ratio;// 换箱比例
+    private String productionDate;// 生产日期
 
     public String getOutboundCode() {
         return outboundCode;
@@ -43,5 +45,21 @@ public class ReqRecheckConfirm extends ReqBase {
 
     public void setBeachNumber(String beachNumber) {
         this.beachNumber = beachNumber;
+    }
+
+    public String getRatio() {
+        return ratio;
+    }
+
+    public void setRatio(String ratio) {
+        this.ratio = ratio;
+    }
+
+    public String getProductionDate() {
+        return productionDate;
+    }
+
+    public void setProductionDate(String productionDate) {
+        this.productionDate = productionDate;
     }
 }

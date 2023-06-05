@@ -3,33 +3,62 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-    
+
     <data>
-        
+
+        <import type="com.arpa.wms.hly.utils.Const.TASK_STATUS" />
+
+        <variable
+            name="vmSerial"
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialDetail" />
+
         <variable
             name="viewModel"
-            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailDiffList" />
+            type="com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList" />
     </data>
-    
-    <com.scwang.smart.refresh.layout.SmartRefreshLayout
+
+    <androidx.appcompat.widget.LinearLayoutCompat
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:autoRefresh="@{viewModel.isAutoRefresh}"
-        app:onRefreshListener="@{()->viewModel.refresh()}"
-        app:refreshing="@{viewModel.refreshing}"
-        app:srlEnableFooterFollowWhenNoMoreData="false"
-        app:srlEnableLoadMore="false"
-        app:srlEnablePreviewInEditMode="true">
-        
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvList"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.arpa.wms.hly.ui.widget.WidgetSearchBar
+            android:id="@+id/wsbSearch"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:adapter="@{viewModel.adapter}"
-            app:itemBinding="@{viewModel.itemBinding}"
-            app:items="@{viewModel.items}"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="20"
-            tools:listitem="@layout/item_goods_recheck_detail_wait" />
-    </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="4dp"
+            android:paddingHorizontal="12dp"
+            app:keyWord="@={vmSerial.keyWord}"
+            app:visible="@{TASK_STATUS.RECHECK_WAIT==viewModel.status}"
+            app:wsbHint="请扫描序列号" />
+
+        <com.scwang.smart.refresh.layout.SmartRefreshLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            app:onRefreshListener="@{()->viewModel.requestData()}"
+            app:refreshing="@{viewModel.refreshing}"
+            app:srlEnableFooterFollowWhenNoMoreData="false"
+            app:srlEnableLoadMore="false"
+            app:srlEnablePreviewInEditMode="true">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:itemBinding="@{viewModel.itemBinding}"
+                app:items="@{viewModel.items}"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="20"
+                tools:listitem="@layout/item_goods_recheck_detail_wait" />
+        </com.scwang.smart.refresh.layout.SmartRefreshLayout>
+
+        <androidx.appcompat.widget.AppCompatButton
+            style="@style/MineButtonBaseStyle"
+            android:layout_height="32dp"
+            android:layout_marginVertical="8dp"
+            android:background="@drawable/shape_rrect_blue_gradient_r5"
+            android:onClick="@{()->viewModel.uploadOrder()}"
+            android:text="@string/upload_order" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

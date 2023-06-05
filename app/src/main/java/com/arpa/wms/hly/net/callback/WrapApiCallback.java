@@ -14,10 +14,6 @@ import retrofit2.Call;
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
  * since: 2021-05-17 10:17
- *
- * <p>
- * 内容描述区域
- * </p>
  */
 public abstract class WrapApiCallback <T extends Result> extends ApiCallback<T> {
 

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="Integer" />
+
+        <variable
+            name="dataSel"
+            type="androidx.databinding.ObservableInt" />
+
+        <variable
+            name="listener"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
+    </data>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:layout_width="70dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="1dp"
+        android:background="@drawable/back_multi_rule"
+        android:gravity="center"
+        android:onClick="@{() ->listener.transfer(data)}"
+        android:text="@{String.valueOf(data)}"
+        android:textColor="@color/color_mullti_rule"
+        android:textSize="15sp"
+        app:select="@{data == dataSel}"
+        tools:text="21" />
+</layout>

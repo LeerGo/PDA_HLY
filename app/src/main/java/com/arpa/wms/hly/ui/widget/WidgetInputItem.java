@@ -10,10 +10,12 @@ import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.inputmethod.EditorInfo;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -39,7 +41,6 @@ import java.util.Objects;
  * 控件：属性输入条目
  * </p>
  */
-// FIXME: 在列表（收货登记页面的批次）中输入，光标应该放置最后 @lyf 2021-05-21 01:58:39
 public class WidgetInputItem extends RelativeLayout {
     private static final String DIGITS_NUMBER = "1234567890";
 
@@ -49,8 +50,10 @@ public class WidgetInputItem extends RelativeLayout {
 
     private int inputType;
     private int maxValue = -1;
+    private int minValue = 0;
     private String digits;
     private boolean isEnable = true;
+    private DataTransCallback<String> onSearchClick;
     private DataTransCallback<String> onTextChanged;
     private final TextWatcher watcher = new TextWatcher() {
         @Override
@@ -100,6 +103,7 @@ public class WidgetInputItem extends RelativeLayout {
         setInputEnable(array.getBoolean(R.styleable.WidgetInputItem_inputEnable, true));
         setInputGravity(array.getInt(R.styleable.WidgetInputItem_inputGravity, -1));
         setInputLength(array.getInt(R.styleable.WidgetInputItem_inputLength, Integer.MAX_VALUE));
+        setInputImeOptions(array.getInt(R.styleable.WidgetInputItem_inputImeOptions, EditorInfo.IME_ACTION_UNSPECIFIED));
         inputType = array.getInt(R.styleable.WidgetInputItem_inputType, EditorInfo.TYPE_CLASS_TEXT);
         digits = array.getString(R.styleable.WidgetInputItem_inputDigits);
         setInputType(inputType);
@@ -147,7 +151,6 @@ public class WidgetInputItem extends RelativeLayout {
                 etInput.addTextChangedListener(watcher);
                 if (inputType == EditorInfo.TYPE_CLASS_NUMBER) {
                     setInputDigits(DIGITS_NUMBER);
-
                     setInputLimit();
                 } else {
                     setInputDigits(digits);
@@ -159,10 +162,9 @@ public class WidgetInputItem extends RelativeLayout {
     }
 
     private void setInputLimit() {
-        if (maxValue != -1)
-            etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, maxValue)});
-        else
-            etInput.setFilters(new InputFilter[]{new InputFilterMinMax(0, Integer.MAX_VALUE)});
+        maxValue = maxValue == -1 ? Integer.MAX_VALUE : maxValue;
+        minValue = Math.max(minValue, 0);
+        etInput.setFilters(new InputFilter[]{new InputFilterMinMax(minValue, maxValue)});
     }
 
     private void setInputDigits(String digits) {
@@ -170,13 +172,19 @@ public class WidgetInputItem extends RelativeLayout {
             etInput.setKeyListener(DigitsKeyListener.getInstance(digits));
     }
 
-    @BindingAdapter("inputMax")
-    public static void setInputMax(WidgetInputItem view, int maxValue) {
+    @BindingAdapter(value = {"inputMax", "inputMin"}, requireAll = false)
+    public static void setInputMax(WidgetInputItem view, int maxValue, int minValue) {
         view.setMaxValue(maxValue);
+        view.setMinValue(minValue);
     }
 
     public void setMaxValue(int maxValue) {
         this.maxValue = maxValue;
+        setInputLimit();
+    }
+
+    public void setMinValue(int minValue) {
+        this.minValue = minValue;
         setInputLimit();
     }
 
@@ -195,11 +203,9 @@ public class WidgetInputItem extends RelativeLayout {
     }
 
     public void setInputText(String text) {
-        if (null != text && text.equals(etInput.getText().toString()))
-            return;
+        if (null != text && text.equals(etInput.getText().toString())) return;
         etInput.setText(text);
-        if (!TextUtils.isEmpty(text))
-            etInput.setSelection(text.length());
+        etInput.setSelection(etInput.getText().length());
     }
 
     @InverseBindingAdapter(attribute = "inputValue")
@@ -239,6 +245,44 @@ public class WidgetInputItem extends RelativeLayout {
         } else {
             etInput.setFocusable(false);
             etInput.clearFocus();
+        }
+    }
+
+    private void setInputImeOptions(int imeOption) {
+        etInput.setImeOptions(imeOption);
+        etInput.setOnEditorActionListener((v, actionId, event) -> {
+            if (actionId == EditorInfo.IME_ACTION_SEARCH || (event != null && event.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                doSearch(v);
+            }
+            return false;
+        });
+    }
+
+    private long lastTimestamp = -1;
+
+    private void doSearch(TextView v) {
+        if (null != onSearchClick) {
+            // FIX：时间戳流控，解决一下两个问题  @lyf 2021-07-08 10:39:02
+            //      1. 快速点击右侧搜索按钮时会请求多次，UI 上表现为加载多个页面
+            //      2. 点击软键盘搜索时，出于兼容对 enter、search 两种模式同步监听
+            //         有时就会出先 search 一次随后发出 enter，从而发起两次请求，
+            //         在 UI 上就表现为唤起多个页面的问题
+            long currentTimestamp = System.currentTimeMillis();
+            if (currentTimestamp - lastTimestamp >= 1000) {
+                lastTimestamp = System.currentTimeMillis();
+                onSearchClick.transfer(etInput.getText().toString().trim());
+            }
+        }
+    }
+
+    public void setOnSearchClick(DataTransCallback<String> onSearchClick) {
+        this.onSearchClick = onSearchClick;
+    }
+
+    @BindingAdapter(value = "inputAction")
+    public static void setOnSearch(WidgetInputItem view, DataTransCallback<Object> callback) {
+        if (callback != null) {
+            view.setOnSearchClick(callback::transfer);
         }
     }
 

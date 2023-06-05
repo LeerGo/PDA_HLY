@@ -4,8 +4,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.arpa.wms.hly.bean.entity.SNCodeEntity;
-import com.arpa.wms.hly.bean.entity.SplitRuleEntity;
+import com.arpa.wms.hly.bean.entity.SNCode;
 import com.arpa.wms.hly.bean.entity.TaskItemEntity;
 
 /**
@@ -18,8 +17,8 @@ import com.arpa.wms.hly.bean.entity.TaskItemEntity;
  * </p>
  */
 @Database(
-        entities = {SNCodeEntity.class, TaskItemEntity.class, SplitRuleEntity.class},
-        version = 3, exportSchema = false
+        entities = {TaskItemEntity.class, SNCode.class},
+        version = 8, exportSchema = false
 )
 @TypeConverters(value = {DateConverter.class, BigDecimalConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
@@ -28,5 +27,4 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TaskItemDao taskItemDao();
 
-    public abstract SplitRuleDao splitRuleDao();
 }

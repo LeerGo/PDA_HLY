@@ -2,6 +2,8 @@ package com.arpa.wms.hly.net;
 
 import com.arpa.wms.hly.bean.GoodsInfo;
 import com.arpa.wms.hly.bean.GoodsItemVO;
+import com.arpa.wms.hly.bean.RecheckItemVO;
+import com.arpa.wms.hly.bean.SNCutRule;
 import com.arpa.wms.hly.bean.base.Result;
 import com.arpa.wms.hly.bean.base.ResultPage;
 import com.arpa.wms.hly.bean.req.ReqGoodTakeConfirm;
@@ -30,7 +32,6 @@ import com.king.retrofit.retrofithelper.annotation.DomainName;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.FieldMap;
@@ -190,7 +191,7 @@ public interface ApiService {
      */
     @DomainName(API.KEY_WMS)
     @GET("/wms/pda/outbound/recheckItemListBelow")
-    Call<Result<List<GoodsItemVO>>> recheckItemListBelow(@QueryMap Map<String, Object> data);
+    Call<Result<List<RecheckItemVO>>> recheckItemListBelow(@QueryMap Map<String, Object> data);
 
     /**
      * 查询单个商品复核详情
@@ -205,6 +206,13 @@ public interface ApiService {
     @DomainName(API.KEY_WMS)
     @POST("/wms/pda/outbound/singleRecheck")
     Call<Result<Object>> recheckConfirm(@Body ReqRecheckConfirm data);
+
+    /**
+     * 复核确认
+     */
+    @DomainName(API.KEY_WMS)
+    @POST("/wms/pda/outbound/batchRecheck")
+    Call<Result<Object>> recheckBatchConfirm(@Body List<ReqRecheckConfirm> data);
 
     /**
      * 库存查询
@@ -294,29 +302,16 @@ public interface ApiService {
      * 收货确认-模糊搜索库位
      */
     @DomainName(API.KEY_WMS)
-    @GET("/wms//pda/location/findBySerialNumber")
+    @GET("/wms/pda/location/findBySerialNumber")
     Call<ResultPage<String>> findLocation(@QueryMap Map<String, Object> data);
 
-    /**
-     * 更新 App
-     */
-    @DomainName(API.KEY_WMS)
-    @GET("/wms/pda/pdaVersion")
-    Observable<Result<ResVersion>> rxCheckVersion();
 
     /**
-     * 更新 App
+     * 收货确认-模糊搜索库位
      */
     @DomainName(API.KEY_WMS)
-    @GET("/wms/pda/pdaVersion")
-    Observable<Result<ResVersion>> rxCheckVersion2(@Query("time") Long timestamp);
-
-    /**
-     * 获取首页的任务任务列表
-     */
-    @DomainName(API.KEY_WMS)
-    @GET("/wms/pda/tasks")
-    Observable<ResultPage<ResTaskAssign>> rxPdaTasks(@QueryMap Map<String, Object> data);
+    @GET("/wms/cutSn/refreshCutSnRule")
+    Call<Result<Map<Integer, List<SNCutRule>>>> cutSnRule(@QueryMap Map<String, Object> data);
 
     /**
      * API 请求地址、一些参数
@@ -331,7 +326,7 @@ public interface ApiService {
         // String URL_WMS = "http://121.36.27.6:83";
         String URL_WMS = "http://121.36.109.152";
         // String URL_WMS = "http://192.168.30.90";
-        // String URL_WMS = "http://192.168.30.236";
+        // String URL_WMS = "http://192.168.30.88";
 
         /**
          * 单点登录

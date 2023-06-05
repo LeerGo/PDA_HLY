@@ -45,6 +45,7 @@ public interface Const {
     interface IntentKey {
         String LOT = "lot";
         String DATA = "data";
+        String RECORD = "record";
         String CODE = "code";
         String INDEX = "index";
         String STATUS = "status";
@@ -63,6 +64,8 @@ public interface Const {
         String SUPPLIER = "supplier";
         String DATE_MANUFACTURE = "date_manufacture";
         String PLACE_ORIGIN = "place_origin";
+        String TYPE = "type";
+        String GOODS_CODE = "goodsCode";
     }
 
     /**
@@ -198,10 +201,6 @@ public interface Const {
         int MSG_BATCH_VERIFY = 0x3;
         int MSG_BATCH_CONFIRM = 0x4;
         int MSG_BATCH_REPEAT = 0x5;
-        int MSG_BATCH_SAVE = 0x6;
-    }
-
-    interface Worker {
-        String syncData = "syncData";
+        int MSG_MULTI_RULE = 0x6;
     }
 }

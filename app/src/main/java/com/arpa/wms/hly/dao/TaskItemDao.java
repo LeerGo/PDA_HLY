@@ -7,10 +7,10 @@ import androidx.room.Query;
 
 import com.arpa.wms.hly.bean.entity.TaskItemEntity;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
-import io.reactivex.rxjava3.core.Flowable;
 import io.reactivex.rxjava3.core.Single;
 
 /**
@@ -21,13 +21,19 @@ import io.reactivex.rxjava3.core.Single;
 @Dao
 public interface TaskItemDao {
     /**
-     * 删除一批任务明细记录
+     * 插入一批任务明细记录
      */
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     Completable insert(TaskItemEntity taskItem);
 
+    /**
+     * 删除一批任务明细记录
+     */
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    void save(TaskItemEntity taskItem);
+
     @Query("select * from taskitementity where taskCode= :taskCode and itemCode= :itemCode")
-    Flowable<TaskItemEntity> exists(String taskCode, String itemCode);
+    TaskItemEntity exists(String taskCode, String itemCode);
 
     /**
      * 获取所有明细详情
@@ -40,4 +46,34 @@ public interface TaskItemDao {
      */
     @Query("delete from TaskItemEntity where taskCode= :taskCode")
     Completable deleteByTask(String taskCode);
+
+    /**
+     * 删除一批任务明细记录
+     */
+    @Query("delete from TaskItemEntity where taskCode= :taskCode and itemCode= :itemCode")
+    void deleteByTaskItem(String taskCode, String itemCode);
+
+    /**
+     * 更新扫码率
+     */
+    @Query("update TaskItemEntity set ratio=:ratio where taskCode= :taskCode and itemCode=:itemCode")
+    void updateTaskRatio(String taskCode, String itemCode, BigDecimal ratio);
+
+    /**
+     * 获取扫码率
+     */
+    @Query("select ratio from taskitementity where taskCode= :taskCode and itemCode=:itemCode")
+    BigDecimal getTaskRatio(String taskCode, String itemCode);
+
+    /**
+     * 更新换箱比
+     */
+    @Query("update TaskItemEntity set scanRatio=:ratio where taskCode= :taskCode and itemCode=:itemCode")
+    void updateScanRatio(String taskCode, String itemCode, Integer ratio);
+
+    /**
+     * 获取换箱比
+     */
+    @Query("select scanRatio from taskitementity where taskCode= :taskCode and itemCode=:itemCode")
+    Integer queryTaskRatio(String taskCode, String itemCode);
 }

@@ -1,6 +1,9 @@
 package com.arpa.wms.hly.logic.home.goods.recheck.vm;
 
 import android.app.Application;
+import android.content.Intent;
+import android.os.Bundle;
+import android.os.Message;
 import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
@@ -10,16 +13,21 @@ import com.arpa.and.arch.base.BaseModel;
 import com.arpa.and.arch.base.livedata.StatusEvent.Status;
 import com.arpa.wms.hly.base.viewmodel.WrapDataViewModel;
 import com.arpa.wms.hly.bean.GoodsItemVO;
-import com.arpa.wms.hly.bean.entity.SNCodeEntity;
+import com.arpa.wms.hly.bean.entity.SNCode;
 import com.arpa.wms.hly.bean.req.ReqGoodRecheckDetail;
 import com.arpa.wms.hly.bean.req.ReqRecheckConfirm;
+import com.arpa.wms.hly.dao.AppDatabase;
+import com.arpa.wms.hly.dao.SNCodeDao;
+import com.arpa.wms.hly.dao.TaskItemDao;
+import com.arpa.wms.hly.logic.home.goods.recheck.GoodsRecheckBatchActivity;
 import com.arpa.wms.hly.net.callback.ResultCallback;
 import com.arpa.wms.hly.net.exception.ResultError;
 import com.arpa.wms.hly.utils.Const;
-import com.arpa.wms.hly.utils.ToastUtils;
+import com.arpa.wms.hly.utils.NumberUtils;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import javax.inject.Inject;
 
@@ -39,17 +47,22 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     public ReqRecheckConfirm confirm = new ReqRecheckConfirm();
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
     public ObservableField<GoodsItemVO> detail = new ObservableField<>();
-    public String obvBatchCode;
-    public ArrayList<SNCodeEntity> batchCodeList = new ArrayList<>();
     public ObservableField<String> recheckQuantity = new ObservableField<>();
     // 最新批次号
     public ObservableField<String> latestBatchNo = new ObservableField<>();
     // 最旧批次号
     public ObservableField<String> oldestBatchNo = new ObservableField<>();
+    private final SNCodeDao snDao;
+    private final TaskItemDao taskDao;
+    public String obvBatchCode;
+    private String taskCode;
+    private String itemCode;
 
     @Inject
     public VMGoodsRecheckConfirm(@NonNull Application application, BaseModel model) {
         super(application, model);
+        snDao = getRoomDatabase(AppDatabase.class).snCodeDao();
+        taskDao = getRoomDatabase(AppDatabase.class).taskItemDao();
     }
 
     @Override
@@ -81,26 +94,52 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     }
 
     public void confirm() {
-        sendSingleLiveEvent(Const.Message.MSG_DIALOG);
+        var ratio = taskDao.getTaskRatio(taskCode, itemCode);
+        if (NumberUtils.isLarger(detail.get().getScanningRatio(), ratio)) {
+            Message msg = new Message();
+            msg.what = Const.Message.MSG_DIALOG;
+            msg.obj = "扫码比例低于仓库规定比例 " + NumberUtils.parseDecimal(detail.get().getScanningRatio()) + "%\n确认提交？";
+            sendSingleLiveEvent(msg);
+        } else {
+            submit();
+        }
     }
 
-    public void submit(){
+    public void record() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Const.IntentKey.CODE, taskCode);
+        bundle.putString(Const.IntentKey.OUTBOUND_ITEM_CODE, itemCode);
+        bundle.putString(Const.IntentKey.GOODS_NAME, detail.get().getGoodsName());
+        bundle.putString(Const.IntentKey.GOODS_CODE, detail.get().getGoodCode());
+        bundle.putString(Const.IntentKey.GOODS_UNIT_NAME, detail.get().getGoodsUnitName());
+        bundle.putInt(Const.IntentKey.GOODS_COUNT, detail.get().getWaitRecheckQuantity());
+        bundle.putString(Const.IntentKey.DATE_MANUFACTURE, detail.get().getGmtManufacture());
+        bundle.putString(Const.IntentKey.PLACE_ORIGIN, detail.get().getExtendOne());
+        startActivity(GoodsRecheckBatchActivity.class, bundle);
+    }
+
+    public void submit() {
         if (TextUtils.isEmpty(recheckQuantity.get())) {
-            ToastUtils.showShortSafe("请输入复核数量");
+            sendMessage("请输入复核数量");
             return;
         }
 
         updateStatus(Status.LOADING);
-        confirm.setBeachNumber(obvBatchCode);
+        var tmp = snDao.getByTask(taskCode, itemCode);
+        confirm.setBeachNumber(tmp.stream().map(SNCode::getSnCode).collect(Collectors.joining("\n")));
+        confirm.setProductionDate(tmp.stream().map(SNCode::getProductionDate).collect(Collectors.joining("\n")));
+        confirm.setRatio(tmp.stream().map(it -> String.valueOf(it.getScanRatio())).collect(Collectors.joining("\n")));
+        tmp = null;
         confirm.setRecheckQuantity(recheckQuantity.get());
-        confirm.setOutboundCode(request.getOutboundCode());
-        confirm.setOutboundItemCode(request.getOutboundItemCode());
+        confirm.setOutboundCode(taskCode);
+        confirm.setOutboundItemCode(itemCode);
         apiService.recheckConfirm(confirm).enqueue(new ResultCallback<>() {
             @Override
             public void onSuccess(Object data) {
+                snDao.deleteByTaskItem(taskCode, itemCode);
+                taskDao.deleteByTaskItem(taskCode, itemCode);
                 finish();
             }
-
 
             @Override
             public void onFinish() {
@@ -115,15 +154,16 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         });
     }
 
-    public void setBatchCode(ArrayList<SNCodeEntity> result) {
-        batchCodeList = result;
-        StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < batchCodeList.size(); i++) {
-            sb.append(batchCodeList.get(i).getSnCode());
-            if (i < batchCodeList.size() - 1) sb.append("\n");
-        }
-        obvBatchCode = sb.toString();
-        oldestBatchNo.set(result.isEmpty() ? null : Collections.max(result).getSnCode());
-        latestBatchNo.set(result.isEmpty() ? null : Collections.min(result).getSnCode());
+    public void loadHistory() {
+        List<SNCode> snCodes = snDao.getByTask(taskCode, itemCode);
+        obvBatchCode = snCodes.stream().map(SNCode::getSnCode).collect(Collectors.joining("\n"));
+        oldestBatchNo.set(snCodes.isEmpty() ? null : Collections.max(snCodes).getSnCode());
+        latestBatchNo.set(snCodes.isEmpty() ? null : Collections.min(snCodes).getSnCode());
+    }
+
+    public void initParams(Intent intent) {
+        taskCode = intent.getStringExtra(Const.IntentKey.OUTBOUND_CODE);
+        itemCode = intent.getStringExtra(Const.IntentKey.OUTBOUND_ITEM_CODE);
+        request.setParams(taskCode, itemCode);
     }
 }

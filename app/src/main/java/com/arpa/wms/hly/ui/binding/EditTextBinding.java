@@ -1,6 +1,9 @@
 package com.arpa.wms.hly.ui.binding;
 
+import android.text.InputFilter;
+import android.text.InputType;
 import android.text.TextUtils;
+import android.view.View;
 
 import androidx.appcompat.widget.AppCompatEditText;
 import androidx.databinding.BindingAdapter;
@@ -9,6 +12,7 @@ import androidx.databinding.InverseBindingListener;
 import androidx.databinding.adapters.ListenerUtil;
 
 import com.arpa.wms.hly.R;
+import com.arpa.wms.hly.ui.filter.InputFilterMinMax;
 import com.arpa.wms.hly.ui.listener.SimpleTextWatcher;
 
 import java.math.BigDecimal;
@@ -30,6 +34,29 @@ public class EditTextBinding {
         }
     }
 
+    @BindingAdapter(value = "textIntVal")
+    public static void setTextIntVal(AppCompatEditText widget, Integer value) {
+        if (null != value) {
+            String sValue = String.valueOf(value);
+            if (!sValue.equals(String.valueOf(widget.getText()))) {
+                widget.setText(sValue);
+            }
+        }
+    }
+
+    @BindingAdapter(value = {"maxValue", "minValue"}, requireAll = false)
+    public static void setLimitValue(AppCompatEditText view, Integer maxValue, Integer minValue) {
+        var min = null == minValue ? 0 : minValue;
+        var max = null == maxValue ? Integer.MAX_VALUE : maxValue;
+        view.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        view.setFilters(new InputFilter[]{new InputFilterMinMax(min, max)});
+    }
+
+    @BindingAdapter("onFocusChanged")
+    public static void bindFocusEvent(AppCompatEditText view, View.OnFocusChangeListener listener) {
+        view.setOnFocusChangeListener(listener);
+    }
+
     @InverseBindingAdapter(attribute = "textValue", event = "textValueAttrChanged")
     public static BigDecimal getTextValue(AppCompatEditText widget) {
         if (null != widget && !TextUtils.isEmpty(widget.getText()))
@@ -37,19 +64,25 @@ public class EditTextBinding {
         return null;
     }
 
-    @BindingAdapter(value = "textValueAttrChanged")
-    public static void setListener(AppCompatEditText widget, InverseBindingListener listener) {
-        if (null != listener) {
-            SimpleTextWatcher watcher = new SimpleTextWatcher() {
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    super.onTextChanged(s, start, before, count);
-                    listener.onChange();
-                }
-            };
-            SimpleTextWatcher old = ListenerUtil.trackListener(widget, watcher, R.id.textWatcher);
-            if (null != old) widget.removeTextChangedListener(old);
-            widget.addTextChangedListener(watcher);
-        }
+    @InverseBindingAdapter(attribute = "textIntVal", event = "textIntValAttrChanged")
+    public static Integer getTextIntVal(AppCompatEditText widget) {
+        if (null != widget && !TextUtils.isEmpty(widget.getText()))
+            return Integer.parseInt(widget.getText().toString());
+        return null;
+    }
+
+    @BindingAdapter(value = {"textValueAttrChanged", "textIntValAttrChanged"}, requireAll = false)
+    public static void setListener(AppCompatEditText widget, InverseBindingListener textValueListener, InverseBindingListener textIntValListener) {
+        SimpleTextWatcher watcher = new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                super.onTextChanged(s, start, before, count);
+                if (null != textValueListener) textValueListener.onChange();
+                if (null != textIntValListener) textIntValListener.onChange();
+            }
+        };
+        SimpleTextWatcher old = ListenerUtil.trackListener(widget, watcher, R.id.textWatcher);
+        if (null != old) widget.removeTextChangedListener(old);
+        widget.addTextChangedListener(watcher);
     }
 }

@@ -75,15 +75,7 @@
                         app:wmmIcon="@mipmap/ic_mine_warehouse"
                         app:wmmTitle="@string/name_warehouse"
                         tools:wmmDesc="测试账号" />
-
-                    <com.arpa.wms.hly.ui.widget.WidgetMineMenu
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:wmmDesc="立刻同步"
-                        android:onClick="@{() ->vmMine.sync()}"
-                        app:wmmIcon="@drawable/ic_mine_sync"
-                        app:wmmTitle="@string/name_sync" />
-
+                    
                     <com.arpa.wms.hly.ui.widget.WidgetMineMenu
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

@@ -88,12 +88,5 @@
                 app:tab="@{tablayout}"
                 app:titles="@{viewModel.titles}" />
         </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-        <androidx.appcompat.widget.AppCompatButton
-            style="@style/MineButtonBaseStyle"
-            app:visible="@{viewModel.isWait}"
-            android:background="@drawable/shape_rrect_blue_gradient_r5"
-            android:onClick="@{()->viewModel.finishWork()}"
-            android:text="@string/upload_order" />
     </androidx.appcompat.widget.LinearLayoutCompat>
 </layout>

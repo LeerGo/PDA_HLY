@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="data"
+            type="com.arpa.wms.hly.bean.SNCutRule" />
+
+        <variable
+            name="listener"
+            type="com.arpa.wms.hly.ui.listener.ViewListener.DataTransCallback" />
+    </data>
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:onClick="@{() ->listener.transfer(data)}"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:paddingHorizontal="10dp">
+
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:propsKey="规则名称："
+                app:propsValue='@{data.ruleName}'
+                tools:propsValue="规则 123" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="已使用"
+                android:textColor="@color/colorPrimary"
+                app:visible="@{data.select}" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp">
+
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:propsKey="生产日期："
+                app:propsValue='@{0==data.productionDateFlag ? "不存在" : data.productionDateStart + " - " +data.productionDateEnd}'
+                tools:propsValue="1 - 18" />
+
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:propsKey="生产时间："
+                app:propsValue='@{0==data.productionTimeFlag ? "不存在" : data.productionTimeStart + " - " +data.productionTimeEnd}'
+                tools:propsValue="19 - 20" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            app:propsKey="过期日期："
+            app:propsValue='@{0==data.expirationDateFlag ? "不存在" : data.expirationDateStart + " - " +data.expirationDateEnd}'
+            tools:propsValue="不存在" />
+
+        <androidx.appcompat.widget.LinearLayoutCompat
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:paddingBottom="8dp">
+
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:propsKey="产地标志："
+                app:propsValue='@{0==data.productionLocationFlag ? "不存在" : data.productionLocationStart + " - " +data.productionLocationEnd}'
+                tools:propsValue="21 - 22" />
+
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                app:propsKey="机台号："
+                app:propsValue='@{0==data.machineNumFlag ? "不存在" : data.machineNumStart + " - " +data.machineNumEnd}'
+                tools:propsValue="23 - 24" />
+        </androidx.appcompat.widget.LinearLayoutCompat>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/color_f3f8ff" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</layout>

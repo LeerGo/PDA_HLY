@@ -20,8 +20,8 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
             def createTime = new Date().format("MMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
             def name = output.outputFile.name, ext = ""
             def dotIndex = name.indexOf(".")
@@ -93,25 +93,21 @@ dependencies {
     // SQLite
     annotationProcessor 'androidx.room:room-compiler:2.3.0'
     implementation 'androidx.room:room-rxjava3:2.3.0'
-    // Work Manager
-    implementation "androidx.work:work-runtime:2.6.0"
-    implementation "androidx.work:work-rxjava3:2.6.0"
     // Retrofit 适配器
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
     implementation 'com.squareup.retrofit2:adapter-rxjava3:2.9.0'
+    implementation 'com.uber.autodispose2:autodispose-androidx-lifecycle:2.1.1'
 
     // hilt
     api "com.google.dagger:hilt-android:2.41"
-    implementation 'androidx.hilt:hilt-work:1.0.0'
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0'
     annotationProcessor "com.google.dagger:hilt-android-compiler:2.41"
 
     // 功能
     implementation "com.orhanobut:logger:2.2.0"
 
     // 性能
-    debugImplementation "com.squareup.leakcanary:leakcanary-android:2.9.1"
-    implementation 'com.tencent.bugly:crashreport:4.0.4'
+    // debugImplementation "com.squareup.leakcanary:leakcanary-android:2.9.1"
+    // implementation 'com.tencent.bugly:crashreport:4.0.4'
 
     // UI
     implementation 'com.github.ybq:Android-SpinKit:1.4.0'

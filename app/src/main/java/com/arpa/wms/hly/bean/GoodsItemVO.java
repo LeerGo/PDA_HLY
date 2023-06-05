@@ -1,22 +1,21 @@
 package com.arpa.wms.hly.bean;
 
+import androidx.databinding.Bindable;
+
 import com.arpa.wms.hly.BR;
 import com.arpa.wms.hly.bean.res.ResGoodTakeConfirm;
 
-import androidx.databinding.Bindable;
+import java.math.BigDecimal;
 
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
  * since: 2021-05-18 10:52
- *
- * <p>
- * 内容描述区域
- * </p>
  */
 public class GoodsItemVO extends SelectItem {
     private String code;
     private String goodCode; // 商品编码
+    private String goodsCode; // 商品编码
     private String goodsName; // 商品名称
     private String goodsUnitName; // 单位
     private String gmtManufacture; // 生产日期
@@ -54,6 +53,15 @@ public class GoodsItemVO extends SelectItem {
     private Integer smallBoxQuantity; // 小箱数量
     private Integer bigBoxQuantity; // 大箱数量
     private int isChangeBox;
+    private BigDecimal scanningRatio;
+
+    public BigDecimal getScanningRatio() {
+        return scanningRatio;
+    }
+
+    public void setScanningRatio(BigDecimal scanningRatio) {
+        this.scanningRatio = scanningRatio;
+    }
 
     public int getPickingTraysNum() {
         return pickingTraysNum;
@@ -157,6 +165,14 @@ public class GoodsItemVO extends SelectItem {
 
     public void setGoodCode(String goodCode) {
         this.goodCode = goodCode;
+    }
+
+    public String getGoodsCode() {
+        return goodsCode;
+    }
+
+    public void setGoodsCode(String goodsCode) {
+        this.goodsCode = goodsCode;
     }
 
     public String getLoadQuantity() {
