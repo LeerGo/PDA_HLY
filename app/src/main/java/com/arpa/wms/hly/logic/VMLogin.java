@@ -42,11 +42,11 @@ public class VMLogin extends VMWarehouse {
             // userName.set("test02");
             // userPass.set("test02");
 
-            userName.set("super_admin");
-            userPass.set("abcd1234");
-
-            // userName.set("yangguihua");
+            // userName.set("super_admin");
             // userPass.set("abcd1234");
+
+            userName.set("yangguihua");
+            userPass.set("abcd1234");
 
             // userName.set("yangguihua");
             // userPass.set("abcd1234  ");

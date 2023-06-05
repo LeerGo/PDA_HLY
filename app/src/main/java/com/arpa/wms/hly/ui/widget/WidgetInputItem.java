@@ -205,7 +205,7 @@ public class WidgetInputItem extends RelativeLayout {
     public void setInputText(String text) {
         if (null != text && text.equals(etInput.getText().toString())) return;
         etInput.setText(text);
-        if (!TextUtils.isEmpty(text)) etInput.setSelection(text.length());
+        etInput.setSelection(etInput.getText().length());
     }
 
     @InverseBindingAdapter(attribute = "inputValue")

@@ -20,8 +20,8 @@ android {
         vectorDrawables.useSupportLibrary = true
     }
 
-    applicationVariants.all { variant ->
-        variant.outputs.all { output ->
+    applicationVariants.configureEach { variant ->
+        variant.outputs.configureEach { output ->
             def createTime = new Date().format("MMddHHmm", TimeZone.getTimeZone("GMT+08:00"))
             def name = output.outputFile.name, ext = ""
             def dotIndex = name.indexOf(".")
