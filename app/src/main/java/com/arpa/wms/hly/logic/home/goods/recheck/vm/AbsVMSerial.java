@@ -41,7 +41,6 @@ import java.util.stream.Collectors;
  * </p>
  */
 public abstract class AbsVMSerial extends WrapDataViewModel {
-    private static final String TAG = "@@@@ AbsVMSerial";
     // 五分钟时间标记
     private final long diffTime = 5 * 60 * 1000;
     // 本地规则缓存

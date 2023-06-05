@@ -51,7 +51,7 @@ public class VMSerialBatch extends AbsVMSerial {
     public ObservableArrayList<SNCode> items = new ObservableArrayList<>();
     public ObservableField<String> ratio = new ObservableField<>();
     public ObservableInt scanCount = new ObservableInt();
-    public ObservableInt scanRatio = new ObservableInt();
+    public ObservableField<Integer> scanRatio = new ObservableField<>();
     private String goodsCode;
     private String itemCode;
     public int goodsCount; // 商品数，用以计算扫码比例

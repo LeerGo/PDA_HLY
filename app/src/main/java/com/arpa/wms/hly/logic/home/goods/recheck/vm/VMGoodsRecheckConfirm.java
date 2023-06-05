@@ -54,6 +54,7 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     public ObservableField<String> oldestBatchNo = new ObservableField<>();
     private final SNCodeDao snDao;
     private final TaskItemDao taskDao;
+    private GoodsItemVO rawData;
     public String obvBatchCode;
     private String taskCode;
     private String itemCode;
@@ -66,9 +67,25 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-        requestData();
+    public void onResume() {
+        super.onResume();
+
+        if (null == rawData) {
+            requestData();
+        } else {
+            fixRecheckQuantity();
+        }
+    }
+
+    private void fixRecheckQuantity() {
+        var result = snDao.countRadio(taskCode, itemCode);
+
+        if (result == 0) {
+            recheckQuantity.set(String.valueOf(rawData.getWaitRecheckQuantity()));
+        } else {
+            recheckQuantity.set(String.valueOf(result));
+
+        }
     }
 
     private void requestData() {
@@ -76,18 +93,15 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         apiService.recheckRegisterDetail(request.toParams()).enqueue(new ResultCallback<>() {
             @Override
             public void onSuccess(GoodsItemVO data) {
+                updateStatus(Status.SUCCESS);
                 detail.set(data);
-                recheckQuantity.set(String.valueOf(detail.get().getWaitRecheckQuantity()));
-            }
-
-            @Override
-            public void onFinish() {
-                super.onFinish();
-                hideLoading();
+                rawData = data;
+                fixRecheckQuantity();
             }
 
             @Override
             public void onFailed(ResultError error) {
+                updateStatus(Status.ERROR);
                 sendMessage(error.getMessage());
             }
         });
@@ -95,10 +109,10 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
 
     public void confirm() {
         var ratio = taskDao.getTaskRatio(taskCode, itemCode);
-        if (NumberUtils.isLarger(detail.get().getScanningRatio(), ratio)) {
+        if (NumberUtils.isLarger(rawData.getScanningRatio(), ratio)) {
             Message msg = new Message();
             msg.what = Const.Message.MSG_DIALOG;
-            msg.obj = "扫码比例低于仓库规定比例 " + NumberUtils.parseDecimal(detail.get().getScanningRatio()) + "%\n确认提交？";
+            msg.obj = "扫码比例低于仓库规定比例 " + NumberUtils.parseDecimal(rawData.getScanningRatio()) + "%\n确认提交？";
             sendSingleLiveEvent(msg);
         } else {
             submit();
@@ -109,12 +123,12 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         Bundle bundle = new Bundle();
         bundle.putString(Const.IntentKey.CODE, taskCode);
         bundle.putString(Const.IntentKey.OUTBOUND_ITEM_CODE, itemCode);
-        bundle.putString(Const.IntentKey.GOODS_NAME, detail.get().getGoodsName());
-        bundle.putString(Const.IntentKey.GOODS_CODE, detail.get().getGoodCode());
-        bundle.putString(Const.IntentKey.GOODS_UNIT_NAME, detail.get().getGoodsUnitName());
-        bundle.putInt(Const.IntentKey.GOODS_COUNT, detail.get().getWaitRecheckQuantity());
-        bundle.putString(Const.IntentKey.DATE_MANUFACTURE, detail.get().getGmtManufacture());
-        bundle.putString(Const.IntentKey.PLACE_ORIGIN, detail.get().getExtendOne());
+        bundle.putString(Const.IntentKey.GOODS_NAME, rawData.getGoodsName());
+        bundle.putString(Const.IntentKey.GOODS_CODE, rawData.getGoodCode());
+        bundle.putString(Const.IntentKey.GOODS_UNIT_NAME, rawData.getGoodsUnitName());
+        bundle.putInt(Const.IntentKey.GOODS_COUNT, rawData.getWaitRecheckQuantity());
+        bundle.putString(Const.IntentKey.DATE_MANUFACTURE, rawData.getGmtManufacture());
+        bundle.putString(Const.IntentKey.PLACE_ORIGIN, rawData.getExtendOne());
         startActivity(GoodsRecheckBatchActivity.class, bundle);
     }
 
@@ -129,7 +143,6 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         confirm.setBeachNumber(tmp.stream().map(SNCode::getSnCode).collect(Collectors.joining("\n")));
         confirm.setProductionDate(tmp.stream().map(SNCode::getProductionDate).collect(Collectors.joining("\n")));
         confirm.setRatio(tmp.stream().map(it -> String.valueOf(it.getScanRatio())).collect(Collectors.joining("\n")));
-        tmp = null;
         confirm.setRecheckQuantity(recheckQuantity.get());
         confirm.setOutboundCode(taskCode);
         confirm.setOutboundItemCode(itemCode);
