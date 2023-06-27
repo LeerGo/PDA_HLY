@@ -31,7 +31,6 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMSerialDetail extends AbsVMSerial {
-    private static final String TAG = "@@@@ VMSerialDetail";
     protected List<RecheckItemVO> items;
 
     @Inject

@@ -202,5 +202,6 @@ public interface Const {
         int MSG_BATCH_CONFIRM = 0x4;
         int MSG_BATCH_REPEAT = 0x5;
         int MSG_MULTI_RULE = 0x6;
+        int MSG_ADD_TAG = 0x7;
     }
 }

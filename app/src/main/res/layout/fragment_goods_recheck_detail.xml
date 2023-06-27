@@ -28,7 +28,6 @@
             android:layout_height="wrap_content"
             android:layout_marginVertical="4dp"
             android:paddingHorizontal="12dp"
-            app:keyWord="@={vmSerial.keyWord}"
             app:visible="@{TASK_STATUS.RECHECK_WAIT==viewModel.status}"
             app:wsbHint="请扫描序列号" />
 

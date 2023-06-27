@@ -7,6 +7,7 @@ import android.text.TextUtils;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.ObservableArrayList;
+import androidx.databinding.ObservableBoolean;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 
@@ -56,9 +57,18 @@ public class VMSerialBatch extends AbsVMSerial {
     private String itemCode;
     public int goodsCount; // 商品数，用以计算扫码比例
 
+    public ObservableBoolean isManually = new ObservableBoolean();
+
     @Inject
     public VMSerialBatch(@NonNull Application application, BaseModel model) {
         super(application, model);
+    }
+
+    /**
+     * 开启手动模式
+     */
+    public void manuallyMode(boolean isManually) {
+        this.isManually.set(isManually);
     }
 
     @Override

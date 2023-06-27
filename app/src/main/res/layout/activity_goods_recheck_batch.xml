@@ -175,18 +175,55 @@
             android:paddingHorizontal="12dp"
             android:paddingBottom="12dp">
 
-            <com.arpa.wms.hly.ui.widget.WidgetInputItem
-                android:id="@+id/wiiInput"
+            <androidx.appcompat.widget.LinearLayoutCompat
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:gravity="center_vertical"
-                app:inputAction="@{v->viewModel.onScan((String)v)}"
-                app:inputFocus="@{viewModel.isFocus}"
-                app:inputHint="请扫描/输入批次号"
-                app:inputIcon="@mipmap/ic_scan"
-                app:inputImeOptions="actionSearch"
-                app:inputText="@={viewModel.keyWord}"
-                app:inputTitle="批次号" />
+                android:gravity="center_vertical">
+
+                <androidx.appcompat.widget.AppCompatTextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="手动录入"
+                    android:textColor="@color/color_434c67" />
+
+                <com.google.android.material.checkbox.MaterialCheckBox
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:onCheckedChanged="@{(v, isChecked) ->viewModel.manuallyMode(isChecked)}"
+                    android:text="开启"
+                    android:textColor="@color/color_434c67" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:gravity="center_vertical">
+
+                <com.arpa.wms.hly.ui.widget.WidgetInputItem
+                    android:id="@+id/wiiInput"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    app:inputFocus="@{viewModel.isFocus}"
+                    app:inputHint="请扫描/输入批次号"
+                    app:inputIcon="@mipmap/ic_scan"
+                    app:inputImeOptions="actionSearch"
+                    app:inputTitle="批次号" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/btnManually"
+                    android:layout_width="48dp"
+                    android:layout_height="28dp"
+                    android:layout_marginStart="8dp"
+                    android:background="@drawable/shape_rrect_blue_gradient_r5"
+                    android:text="录入"
+                    android:textColor="@color/white"
+                    android:textSize="13sp"
+                    app:visible="@{viewModel.isManually}" />
+            </androidx.appcompat.widget.LinearLayoutCompat>
 
             <View
                 android:id="@+id/view2"

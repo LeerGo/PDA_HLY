@@ -14,6 +14,7 @@ import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialBatch;
 import com.arpa.wms.hly.ui.dialog.DialogMultiRule;
 import com.arpa.wms.hly.ui.dialog.DialogTips;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.WeakHandler;
 
 import java.util.HashMap;
 import java.util.List;
@@ -30,7 +31,9 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckBatchActivity extends WrapBaseActivity<VMSerialBatch, ActivityGoodsRecheckBatchBinding> {
+public class GoodsRecheckBatchActivity extends WrapBaseActivity<VMSerialBatch, ActivityGoodsRecheckBatchBinding>
+        implements WeakHandler.MessageListener {
+    private static WeakHandler<GoodsRecheckBatchActivity> sHandler;
 
     @Override
     public int getLayoutId() {
@@ -41,9 +44,18 @@ public class GoodsRecheckBatchActivity extends WrapBaseActivity<VMSerialBatch, A
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
 
+        sHandler = new WeakHandler<>(this);
         viewBind.setViewModel(viewModel);
         viewModel.initParams(getIntent());
         viewModel.getSingleLiveEvent().observeForever(this::processEvent);
+        viewBind.wiiInput.setOnTextChanged(data -> {
+            if (!viewModel.isManually.get()) {
+                postMsgDelayed(data);
+            }
+        });
+        viewBind.btnManually.setOnClickListener(v ->
+                postMsgDelayed(viewBind.wiiInput.getInputText())
+        );
     }
 
 
@@ -77,5 +89,32 @@ public class GoodsRecheckBatchActivity extends WrapBaseActivity<VMSerialBatch, A
             default:
                 break;
         }
+    }
+
+    /**
+     * 延迟发送消息，通知添加批次号 chip-view
+     */
+    private void postMsgDelayed(String msg) {
+        Message message = new Message();
+        message.what = Const.Message.MSG_ADD_TAG;
+        message.obj = msg;
+        if (sHandler.hasMessages(Const.Message.MSG_ADD_TAG)) {
+            sHandler.removeMessages(Const.Message.MSG_ADD_TAG);
+        }
+        sHandler.sendMessageDelayed(message, 500);
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        if (msg.what == Const.Message.MSG_ADD_TAG) {
+            viewModel.onScan((String) msg.obj);
+            viewBind.wiiInput.setInputText("");
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        sHandler.clear();
+        super.onDestroy();
     }
 }

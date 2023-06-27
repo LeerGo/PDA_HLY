@@ -4,17 +4,14 @@ import android.os.Bundle;
 import android.os.Message;
 
 import androidx.annotation.Nullable;
-import androidx.lifecycle.ViewModelProvider;
 
 import com.arpa.wms.hly.R;
-import com.arpa.wms.hly.base.WrapBaseLazyFragment;
 import com.arpa.wms.hly.bean.SNCodeTip;
-import com.arpa.wms.hly.databinding.FragmentGoodsRecheckDetailBinding;
-import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetail;
-import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMGoodsRecheckDetailList;
 import com.arpa.wms.hly.logic.home.goods.recheck.vm.VMSerialDetail;
 import com.arpa.wms.hly.ui.dialog.DialogTips;
+import com.arpa.wms.hly.ui.listener.SimpleTextWatcher;
 import com.arpa.wms.hly.utils.Const;
+import com.arpa.wms.hly.utils.WeakHandler;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -28,11 +25,13 @@ import dagger.hilt.android.AndroidEntryPoint;
  * </p>
  */
 @AndroidEntryPoint
-public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRecheckDetailList, FragmentGoodsRecheckDetailBinding> {
+public class GoodsRecheckDetailFragment1 extends GoodsRecheckDetailFragment2
+        implements WeakHandler.MessageListener {
+    private static WeakHandler<GoodsRecheckDetailFragment1> sHandler;
     private VMSerialDetail vmSerial;
 
-    public static GoodsRecheckDetailFragment newInstance(int outboundStatus, String outboundCode) {
-        GoodsRecheckDetailFragment fragment = new GoodsRecheckDetailFragment();
+    public static GoodsRecheckDetailFragment1 newInstance(int outboundStatus, String outboundCode) {
+        GoodsRecheckDetailFragment1 fragment = new GoodsRecheckDetailFragment1();
         Bundle args = new Bundle();
         args.putInt(Const.IntentKey.STATUS, outboundStatus);
         args.putString(Const.IntentKey.CODE, outboundCode);
@@ -47,28 +46,38 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
 
     @Override
     public void onDestroy() {
-        if (null!=vmSerial) {
+        if (null != vmSerial) {
             vmSerial.release();
         }
+        sHandler.clear();
         super.onDestroy();
-    }
-
-    @Override
-    public void onLazyLoad() {
-        viewModel.requestData();
     }
 
     @Override
     public void initData(@Nullable Bundle savedInstanceState) {
         super.initData(savedInstanceState);
 
-        viewBind.setViewModel(viewModel);
-        viewModel.initParams(requireArguments());
-        int recheckStatus = requireArguments().getInt(Const.IntentKey.STATUS);
-        String code = requireArguments().getString(Const.IntentKey.CODE);
-        observeSerial(recheckStatus, code);
-        observeParent(recheckStatus);
+        sHandler = new WeakHandler<>(this);
         viewModel.getSingleLiveEvent().observeForever(this::processEvent);
+        combineVM();
+        setViews();
+    }
+
+    @Override
+    protected void combineVM() {
+        super.combineVM();
+        String code = requireArguments().getString(Const.IntentKey.CODE);
+        observeSerial(code);
+    }
+
+    private void setViews() {
+        viewBind.wsbSearch.setWatcher(new SimpleTextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                super.onTextChanged(s, start, before, count);
+                postMsgDelayed(s.toString());
+            }
+        });
     }
 
     private void processEvent(Message message) {
@@ -88,28 +97,34 @@ public class GoodsRecheckDetailFragment extends WrapBaseLazyFragment<VMGoodsRech
         }
     }
 
-    private void observeSerial(int recheckStatus, String code) {
+    private void observeSerial(String code) {
         if (Const.TASK_STATUS.RECHECK_WAIT == recheckStatus) {
             vmSerial = obtainViewModel(VMSerialDetail.class);
             vmSerial.register(this, viewModel);
             vmSerial.setTaskCode(code);
             vmSerial.setItems(viewModel.items);
             viewBind.setVmSerial(vmSerial);
-            viewBind.wsbSearch.setOnSearchClick(vmSerial::onScan);
         }
     }
 
-    private void observeParent(int recheckStatus) {
-        VMGoodsRecheckDetail parentModel = new ViewModelProvider(requireActivity()).get(VMGoodsRecheckDetail.class);
-        viewModel.refresh.observe(this, it -> parentModel.refreshHeader());
-        parentModel.headerData.observe(requireActivity(), headerData -> viewModel.supplierName = headerData.getSupplierName());
-        parentModel.searchLiveData.observe(requireActivity(),
-                searchInfo -> {
-                    if (recheckStatus == searchInfo.getStatus()) {
-                        viewModel.request.setGoodsBarCode(searchInfo.getKeyWord());
-                        viewModel.requestData();
-                    }
-                }
-        );
+    /**
+     * 延迟发送消息，通知添加批次号 chip-view
+     */
+    private void postMsgDelayed(String msg) {
+        Message message = new Message();
+        message.what = Const.Message.MSG_ADD_TAG;
+        message.obj = msg;
+        if (sHandler.hasMessages(Const.Message.MSG_ADD_TAG)) {
+            sHandler.removeMessages(Const.Message.MSG_ADD_TAG);
+        }
+        sHandler.sendMessageDelayed(message, 500);
+    }
+
+    @Override
+    public void handleMessage(Message msg) {
+        if (Const.TASK_STATUS.RECHECK_WAIT == recheckStatus && msg.what == Const.Message.MSG_ADD_TAG) {
+            viewBind.getVmSerial().onScan((String) msg.obj);
+            viewBind.wsbSearch.setWsbText(null);
+        }
     }
 }

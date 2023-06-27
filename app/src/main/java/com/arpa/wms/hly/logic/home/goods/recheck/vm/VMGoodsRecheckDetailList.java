@@ -71,7 +71,6 @@ public class VMGoodsRecheckDetailList extends WrapDataViewModel {
     public void onResume() {
         super.onResume();
 
-        // adjustRadio(items);
         requestData();
     }
 
