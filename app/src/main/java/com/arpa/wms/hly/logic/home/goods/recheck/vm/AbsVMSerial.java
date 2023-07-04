@@ -175,7 +175,7 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             sendMessage("过期日期早于生产日期");
             return false;
         }
-        if (1 == rule.getProductionLocationFlag() && !RexUtils.isAddress(code.getProductionLocation())) {
+        if (1 == rule.getProductionLocationFlag() && !RexUtils.isAddress(obtainItemProdAddress(rule), code.getProductionLocation())) {
             player.play(R.raw.scan_failed);
             sendMessage("产地格式错误");
             return false;

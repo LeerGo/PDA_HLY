@@ -1,5 +1,8 @@
 package com.arpa.wms.hly.utils;
 
+import java.util.Arrays;
+import java.util.List;
+
 /**
  * author: 李一方(<a href="mailto:leergo@dingtalk.com">leergo@dingtalk.com</a>)<br/>
  * version: 1.0.0<br/>
@@ -19,8 +22,9 @@ public class RexUtils {
      */
     private static final String REX_24_HOUR = "(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d";
     // private static final String REX_YYYYMMDD= "((\\d{3}[1-9]|\\d{2}[1-9]\\d|\\d[1-9]\\d{2}|[1-9]\\d{3})(((0[13578]|1[02])(0[1-9]|[12]\\d|3[01]))|((0[469]|11)(0[1-9]|[12]\\d|30))|(02(0[1-9]|[1]\\d|2[0-8]))))|(((\\d{2})(0[48]|[2468][048]|[13579][26])|((0[48]|[2468][048]|[3579][26])00))0229)";
-    private static final String REX_YYYYMMDD= "^\\d{4}-\\d{2}-\\d{2}$";
-    private static final String REX_ADDRESS= "[A-Z]|[A-Z]\\d{1,2}";
+    private static final String REX_YYYYMMDD = "^\\d{4}-\\d{2}-\\d{2}$";
+    private static final String REX_ADDRESS = "[A-Z]|[A-Z]\\d{1,2}";
+    private static final List<String> ADDRESS_SPECIAL = Arrays.asList("M1", "M2", "M3");
 
     public static boolean isBatchNo(String data) {
         return data.matches(REX_BATCH_NO);
@@ -30,11 +34,15 @@ public class RexUtils {
         return data.matches(REX_24_HOUR);
     }
 
-    public static boolean isYYMMDD(String data){
+    public static boolean isYYMMDD(String data) {
         return data.matches(REX_YYYYMMDD);
     }
 
-    public static boolean isAddress(String data){
-        return data.matches(REX_ADDRESS);
+    public static boolean isAddress(String origin, String data) {
+        if ("A".equals(origin) && ADDRESS_SPECIAL.contains(data)) {
+            return true;
+        } else {
+            return data.matches(REX_ADDRESS);
+        }
     }
 }
