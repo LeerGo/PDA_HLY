@@ -39,10 +39,10 @@ public class RexUtils {
     }
 
     public static boolean isAddress(String origin, String data) {
-        if ("A".equals(origin) && ADDRESS_SPECIAL.contains(data)) {
-            return true;
-        } else {
-            return data.matches(REX_ADDRESS);
-        }
+        return data.matches(REX_ADDRESS);
+    }
+
+    public static boolean isAddressM(String origin, String data) {
+        return "A".equals(data) && ADDRESS_SPECIAL.contains(origin);
     }
 }

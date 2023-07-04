@@ -189,7 +189,8 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             if (!TextUtils.isEmpty(tips)) tips.append("\n");
             tips.append("生产日期校验错误");
         }
-        if (!code.getProductionLocation().equals(obtainItemProdAddress(rule))) {
+        if (!RexUtils.isAddressM(obtainItemProdAddress(rule), code.getProductionLocation())
+                && !code.getProductionLocation().equals(obtainItemProdAddress(rule))) {
             if (!TextUtils.isEmpty(tips)) tips.append("\n");
             tips.append("产地校验错误");
         }
