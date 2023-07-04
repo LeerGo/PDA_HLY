@@ -1,7 +1,7 @@
 //App
 def app_version = [:]
-app_version.versionCode = 157
-app_version.versionName = "1.5.7"
+app_version.versionCode = 158
+app_version.versionName = "1.5.8"
 ext.app_version = app_version
 
 //build version
