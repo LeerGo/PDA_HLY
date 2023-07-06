@@ -198,6 +198,9 @@ public class VMSerialBatch extends AbsVMSerial {
 
     public void onScanRatioChange(boolean isFocus) {
         if (!isFocus) {
+            if (null == scanRatio.get()) {
+                scanRatio.set(1);
+            }
             taskDao.updateScanRatio(taskCode, itemCode, scanRatio.get());
         }
     }
