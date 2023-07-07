@@ -82,22 +82,6 @@ public class SNCode implements Comparable<SNCode> {
         return sb;
     }
 
-    /**
-     * 校验序列号有效性，如：保质期必须晚于生产日期、日期必须是八位
-     */
-    public boolean valid() {
-        // TODO: 待实现 add by 李一方 2023-04-26 16:15:12
-        return true;
-    }
-
-    /**
-     * 校验序列号之后，返回校验提示
-     */
-    public String tips() {
-        // TODO: 待实现 add by 李一方 2023-04-26 16:16:02
-        return null;
-    }
-
     public long getId() {
         return id;
     }

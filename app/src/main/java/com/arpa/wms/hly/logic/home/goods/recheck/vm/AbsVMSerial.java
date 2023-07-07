@@ -155,9 +155,24 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             sendMessage("批次号已录入最大数量");
             return false;
         }
+        if (1 == rule.getProductionLocationFlag() && TextUtils.isEmpty(code.getProductionLocation())) {
+            player.play(R.raw.scan_failed);
+            sendMessage("产地不可为空");
+            return false;
+        }
+        if (1 == rule.getProductionLocationFlag() && !RexUtils.isAddress(obtainItemProdAddress(rule), code.getProductionLocation())) {
+            player.play(R.raw.scan_failed);
+            sendMessage("产地格式错误");
+            return false;
+        }
         if (1 == rule.getProductionDateFlag() && !RexUtils.isYYMMDD(code.getProductionDate())) {
             player.play(R.raw.scan_failed);
             sendMessage("生产日期格式错误");
+            return false;
+        }
+        if (1 == rule.getProductionTimeFlag() && !RexUtils.is24Hour(code.getProductionTime())) {
+            player.play(R.raw.scan_failed);
+            sendMessage("生产时间格式错误");
             return false;
         }
         if (1 == rule.getExpirationDateFlag() && !RexUtils.isYYMMDD(code.getExpirationDate())) {
@@ -165,6 +180,12 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             sendMessage("过期日期格式错误");
             return false;
         }
+        if (1 == rule.getMachineNumFlag() && TextUtils.isEmpty(code.getMachineNum())) {
+            player.play(R.raw.scan_failed);
+            sendMessage("机台号格式错误");
+            return false;
+        }
+
         if (1 == rule.getProductionDateFlag() && DateUtils.isMoreToday(code.getFullProdDate())) {
             player.play(R.raw.scan_failed);
             sendMessage("批次号日期超出当天");
@@ -175,21 +196,17 @@ public abstract class AbsVMSerial extends WrapDataViewModel {
             sendMessage("过期日期早于生产日期");
             return false;
         }
-        if (1 == rule.getProductionLocationFlag() && !RexUtils.isAddress(obtainItemProdAddress(rule), code.getProductionLocation())) {
-            player.play(R.raw.scan_failed);
-            sendMessage("产地格式错误");
-            return false;
-        }
 
         StringBuilder tips = new StringBuilder();
-        if (!RexUtils.is24Hour(code.getProductionTime())) {
+        if (1 == rule.getProductionTimeFlag() && !RexUtils.is24Hour(code.getProductionTime())) {
             tips.append("时分秒校验错误");
         }
-        if (!code.getProductionDate().equals(obtainItemProdDate(rule))) {
+        if (1 == rule.getProductionDateFlag() && !code.getProductionDate().equals(obtainItemProdDate(rule))) {
             if (!TextUtils.isEmpty(tips)) tips.append("\n");
             tips.append("生产日期校验错误");
         }
-        if (!RexUtils.isAddressM(obtainItemProdAddress(rule), code.getProductionLocation())
+        if (1 == rule.getProductionLocationFlag()
+                && !RexUtils.isAddressM(obtainItemProdAddress(rule), code.getProductionLocation())
                 && !code.getProductionLocation().equals(obtainItemProdAddress(rule))) {
             if (!TextUtils.isEmpty(tips)) tips.append("\n");
             tips.append("产地校验错误");
