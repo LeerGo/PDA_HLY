@@ -66,6 +66,13 @@
                 app:propsValue="@{data.gmtManufacture}"
                 app:propsValueGravity="end"
                 tools:propsValue="测试商品" />
+
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                style="@style/ScanGoodSureStyle"
+                app:propsKey="来源车牌号"
+                app:propsValue="@{data.licensePlateNumber}"
+                app:propsValueGravity="end"
+                tools:propsValue="鲁Q 12345" />
         </androidx.appcompat.widget.LinearLayoutCompat>
     </com.google.android.material.card.MaterialCardView>
 </layout>

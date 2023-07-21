@@ -15,6 +15,15 @@ public class GoodsInfo extends SelectItem {
     private Integer quantity;
     private String extendOne;
     private String gmtManufacture;
+    private String licensePlateNumber;
+
+    public String getLicensePlateNumber() {
+        return licensePlateNumber;
+    }
+
+    public void setLicensePlateNumber(String licensePlateNumber) {
+        this.licensePlateNumber = licensePlateNumber;
+    }
 
     public String getGoodsCode() {
         return goodsCode;
