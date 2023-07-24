@@ -43,6 +43,7 @@ public class VMScanGoodsSure extends WrapDataViewModel {
     public ObservableArrayList<GoodsInfo> items = new ObservableArrayList<>();
     private Integer maxMoveQuantity = 0;
     private int selectIndex = -1;
+    private GoodsInfo dataSel;
 
     @Inject
     public VMScanGoodsSure(@NonNull Application application, BaseModel model) {
@@ -53,7 +54,7 @@ public class VMScanGoodsSure extends WrapDataViewModel {
      * 移位确认
      */
     public void moveConfirm() {
-        if (-1 == selectIndex) {
+        if (null == dataSel) {
             sendMessage("请选中移位商品");
             return;
         }
@@ -71,15 +72,14 @@ public class VMScanGoodsSure extends WrapDataViewModel {
         }
 
         updateStatus(StatusEvent.Status.LOADING);
-        GoodsInfo data = items.get(selectIndex);
         ReqMoveSure reqMoveSure = new ReqMoveSure();
-        reqMoveSure.setGoodsCode(data.getGoodsCode());
+        reqMoveSure.setGoodsCode(dataSel.getGoodsCode());
         reqMoveSure.setLocation(outLocation.get());
         reqMoveSure.setMoveLocation(moveLocation.get());
         reqMoveSure.setMoveQuantity(moveQuantity.get());
-        reqMoveSure.setExtendOne(data.getExtendOne());
-        reqMoveSure.setGmtManufacture(data.getGmtManufacture());
-        reqMoveSure.setGoodsStatus(data.getGoodsStatus());
+        reqMoveSure.setExtendOne(dataSel.getExtendOne());
+        reqMoveSure.setGmtManufacture(dataSel.getGmtManufacture());
+        reqMoveSure.setGoodsStatus(dataSel.getGoodsStatus());
         apiService.scanGoodsSure(reqMoveSure).enqueue(new ResultCallback<>() {
 
             @Override
@@ -134,14 +134,18 @@ public class VMScanGoodsSure extends WrapDataViewModel {
             if (currentIndex == selectIndex) {
                 data.setSelect(false);
                 selectIndex = -1;
+                dataSel = null;
             } else {
+                dataSel = data;
                 if (selectIndex != -1) {
                     items.get(selectIndex).setSelect(false);
                 }
                 data.setSelect(true);
                 selectIndex = currentIndex;
             }
-            if (data.isSelect()) maxMoveQuantity = data.getQuantity();
+            if (data.isSelect()) {
+                maxMoveQuantity = data.getQuantity();
+            }
         });
         return itemBinding;
     }
