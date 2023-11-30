@@ -109,9 +109,18 @@
             </androidx.appcompat.widget.LinearLayoutCompat>
 
             <com.arpa.wms.hly.ui.widget.WidgetPropsItem
-                android:id="@+id/wpi_yards"
+                android:id="@+id/wpi_erp"
                 style="@style/TaskPropsStyle"
                 android:layout_below="@id/ll2"
+                app:propsKey="ERP发运号："
+                app:propsValue="@{data.erpCode}"
+                app:visible="@{!TextUtils.isEmpty(data.erpCode)}"
+                tools:propsValue="1001" />
+
+            <com.arpa.wms.hly.ui.widget.WidgetPropsItem
+                android:id="@+id/wpi_yards"
+                style="@style/TaskPropsStyle"
+                android:layout_below="@id/wpi_erp"
                 app:propsKey="码托数量："
                 app:propsValue="@{data.supportNum}"
                 tools:propsValue="100" />

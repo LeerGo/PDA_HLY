@@ -54,6 +54,15 @@ public class GoodsItemVO extends SelectItem {
     private Integer bigBoxQuantity; // 大箱数量
     private int isChangeBox;
     private BigDecimal scanningRatio;
+    private String erpCode;
+
+    public String getErpCode() {
+        return erpCode;
+    }
+
+    public void setErpCode(String erpCode) {
+        this.erpCode = erpCode;
+    }
 
     public BigDecimal getScanningRatio() {
         return scanningRatio;
