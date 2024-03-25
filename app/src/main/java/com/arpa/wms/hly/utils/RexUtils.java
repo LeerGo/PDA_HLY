@@ -25,6 +25,7 @@ public class RexUtils {
     private static final String REX_YYYYMMDD = "^\\d{4}-\\d{2}-\\d{2}$";
     private static final String REX_ADDRESS = "[A-Z]{1,2}|[A-Z]\\d{1,2}";
     private static final List<String> ADDRESS_SPECIAL = Arrays.asList("M1", "M2", "M3");
+    public static final String REX_CLEAN = "[^A-Za-z0-9:]";
 
     public static boolean isBatchNo(String data) {
         return data.matches(REX_BATCH_NO);

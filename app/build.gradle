@@ -82,8 +82,8 @@ dependencies {
     androidTestImplementation "androidx.test.espresso:espresso-core:3.4.0"
 
     // 自有封装框架
-    implementation 'com.arpa.and:arpa-arch:1.0.3'
-    implementation 'com.arpa.and:app-update:1.0.6'
+    implementation 'com.github.58Arpa:arpa-arch:v1.0.7'
+    implementation 'com.github.58Arpa:app-update:1.0.6'
 
     // 官方
     implementation "androidx.multidex:multidex:2.0.1"

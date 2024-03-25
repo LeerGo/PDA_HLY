@@ -44,6 +44,8 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
  */
 @HiltViewModel
 public class VMGoodsRecheckConfirm extends WrapDataViewModel {
+    private final SNCodeDao snDao;
+    private final TaskItemDao taskDao;
     public ReqRecheckConfirm confirm = new ReqRecheckConfirm();
     public ReqGoodRecheckDetail request = new ReqGoodRecheckDetail();
     public ObservableField<GoodsItemVO> detail = new ObservableField<>();
@@ -52,10 +54,8 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
     public ObservableField<String> latestBatchNo = new ObservableField<>();
     // 最旧批次号
     public ObservableField<String> oldestBatchNo = new ObservableField<>();
-    private final SNCodeDao snDao;
-    private final TaskItemDao taskDao;
-    private GoodsItemVO rawData;
     public String obvBatchCode;
+    private GoodsItemVO rawData;
     private String taskCode;
     private String itemCode;
 
@@ -74,17 +74,6 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
             requestData();
         } else {
             fixRecheckQuantity();
-        }
-    }
-
-    private void fixRecheckQuantity() {
-        var result = snDao.countRadio(taskCode, itemCode);
-
-        if (result == 0) {
-            recheckQuantity.set(String.valueOf(rawData.getWaitRecheckQuantity()));
-        } else {
-            recheckQuantity.set(String.valueOf(result));
-
         }
     }
 
@@ -107,9 +96,20 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         });
     }
 
+    private void fixRecheckQuantity() {
+        var result = snDao.countRadio(taskCode, itemCode);
+
+        if (result == 0) {
+            recheckQuantity.set(String.valueOf(rawData.getWaitRecheckQuantity()));
+        } else {
+            recheckQuantity.set(String.valueOf(result));
+
+        }
+    }
+
     public void confirm() {
         var ratio = taskDao.getTaskRatio(taskCode, itemCode);
-        if (NumberUtils.isLarger(rawData.getScanningRatio(), ratio)) {
+        if (null != rawData && NumberUtils.isLarger(rawData.getScanningRatio(), ratio)) {
             Message msg = new Message();
             msg.what = Const.Message.MSG_DIALOG;
             msg.obj = "扫码比例低于仓库规定比例 " + NumberUtils.parseDecimal(rawData.getScanningRatio()) + "%\n确认提交？";
@@ -117,19 +117,6 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
         } else {
             submit();
         }
-    }
-
-    public void record() {
-        Bundle bundle = new Bundle();
-        bundle.putString(Const.IntentKey.CODE, taskCode);
-        bundle.putString(Const.IntentKey.OUTBOUND_ITEM_CODE, itemCode);
-        bundle.putString(Const.IntentKey.GOODS_NAME, rawData.getGoodsName());
-        bundle.putString(Const.IntentKey.GOODS_CODE, rawData.getGoodCode());
-        bundle.putString(Const.IntentKey.GOODS_UNIT_NAME, rawData.getGoodsUnitName());
-        bundle.putInt(Const.IntentKey.GOODS_COUNT, rawData.getWaitRecheckQuantity());
-        bundle.putString(Const.IntentKey.DATE_MANUFACTURE, rawData.getGmtManufacture());
-        bundle.putString(Const.IntentKey.PLACE_ORIGIN, rawData.getExtendOne());
-        startActivity(GoodsRecheckBatchActivity.class, bundle);
     }
 
     public void submit() {
@@ -165,6 +152,19 @@ public class VMGoodsRecheckConfirm extends WrapDataViewModel {
                 sendMessage(error.getMessage());
             }
         });
+    }
+
+    public void record() {
+        Bundle bundle = new Bundle();
+        bundle.putString(Const.IntentKey.CODE, taskCode);
+        bundle.putString(Const.IntentKey.OUTBOUND_ITEM_CODE, itemCode);
+        bundle.putString(Const.IntentKey.GOODS_NAME, rawData.getGoodsName());
+        bundle.putString(Const.IntentKey.GOODS_CODE, rawData.getGoodCode());
+        bundle.putString(Const.IntentKey.GOODS_UNIT_NAME, rawData.getGoodsUnitName());
+        bundle.putInt(Const.IntentKey.GOODS_COUNT, rawData.getWaitRecheckQuantity());
+        bundle.putString(Const.IntentKey.DATE_MANUFACTURE, rawData.getGmtManufacture());
+        bundle.putString(Const.IntentKey.PLACE_ORIGIN, rawData.getExtendOne());
+        startActivity(GoodsRecheckBatchActivity.class, bundle);
     }
 
     public void loadHistory() {
